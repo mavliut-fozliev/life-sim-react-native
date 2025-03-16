@@ -1,62 +1,85 @@
 import {Dispatch, SetStateAction} from 'react';
 import {
+  DataTypes,
   loadData,
   LoadDataReturnType,
   saveData,
   SaveDataReturnType,
+  StorageTypes,
   updateData,
   UpdateDataReturnType,
 } from './MMKV';
 
-type PlayerStore = {
-  getName: () => LoadDataReturnType<string>;
-  setName: (name: string) => SaveDataReturnType;
-  getSurname: () => LoadDataReturnType<string>;
-  setSurname: (surname: string) => SaveDataReturnType;
+type DispatchString = Dispatch<SetStateAction<string>>;
+type DispatchNumber = Dispatch<SetStateAction<number>>;
 
-  getMoney: () => LoadDataReturnType<number>;
-  setMoney: (amount: number) => SaveDataReturnType;
-  increaseMoney: (
-    amount: number,
-    dispatch: Dispatch<SetStateAction<number>>,
-  ) => UpdateDataReturnType<number>;
-  decreaseMoney: (
-    amount: number,
-    dispatch: Dispatch<SetStateAction<number>>,
-  ) => UpdateDataReturnType<number>;
+type LoadedString = LoadDataReturnType<string>;
+type LoadedNumber = LoadDataReturnType<number>;
+
+type UpdatedNumber = UpdateDataReturnType<number>;
+
+type PlayerStore = {
+  getName: () => LoadedString;
+  setName: (name: string, dispatch: DispatchString) => SaveDataReturnType;
+  getSurname: () => LoadedString;
+  setSurname: (surname: string, dispatch: DispatchString) => SaveDataReturnType;
+
+  getMoney: () => LoadedNumber;
+  setMoney: (amount: number, dispatch: DispatchNumber) => SaveDataReturnType;
+  increaseMoney: (amount: number, dispatch: DispatchNumber) => UpdatedNumber;
+  decreaseMoney: (amount: number, dispatch: DispatchNumber) => UpdatedNumber;
+
+  getEnergy: () => LoadedNumber;
+  setEnergy: (amount: number, dispatch: DispatchNumber) => SaveDataReturnType;
+};
+
+const keys = {
+  name: 'playerName',
+  surname: 'playerSurname',
+  money: 'playerMoney',
+  energy: 'playerEnergy',
+};
+
+const setData = <T extends StorageTypes>(
+  key: string,
+  value: T,
+  dispatch: Dispatch<SetStateAction<T>>,
+): SaveDataReturnType => {
+  const saved = saveData(key, value);
+  if (saved !== undefined) {
+    dispatch(value);
+  }
+  return saved;
+};
+
+const updateNumericData = (
+  key: string,
+  modifier: (oldValue: number) => number,
+  dispatch: DispatchNumber,
+): UpdatedNumber => {
+  const updatedValue = updateData<number>(key, modifier, DataTypes.NUMBER);
+  if (updatedValue !== undefined) {
+    dispatch(updatedValue);
+  }
+  return updatedValue;
 };
 
 export const playerStore: PlayerStore = {
-  getName: () => loadData<string>('playerName'),
-  setName: name => saveData('playerName', name),
-  getSurname: () => loadData<string>('playerSurname'),
-  setSurname: surname => saveData('playerSurname', surname),
+  getName: () => loadData<string>(keys.name),
+  setName: (name, dispatch) => setData(keys.name, name, dispatch),
 
-  getMoney: () => loadData<number>('playerMoney', 'number'),
-  setMoney: amount => saveData('playerMoney', amount),
-  increaseMoney: (amount, dispatch) => {
-    const updatedMoney = updateData<number>(
-      'playerMoney',
-      oldMoney => oldMoney + amount,
-      'number',
-    );
+  getSurname: () => loadData<string>(keys.surname),
+  setSurname: (surname, dispatch) => setData(keys.surname, surname, dispatch),
 
-    if (updatedMoney) {
-      dispatch(updatedMoney);
-    }
-    return updatedMoney;
-  },
-  decreaseMoney: (amount, dispatch) => {
-    const updatedMoney = updateData<number>(
-      'playerMoney',
-      oldMoney => oldMoney - amount,
-      'number',
-    );
+  getMoney: () => loadData<number>(keys.money, DataTypes.NUMBER),
+  setMoney: (amount, dispatch) => setData(keys.money, amount, dispatch),
 
-    if (updatedMoney) {
-      dispatch(updatedMoney);
-    }
+  increaseMoney: (amount, dispatch) =>
+    updateNumericData(keys.money, oldMoney => oldMoney + amount, dispatch),
 
-    return updatedMoney;
-  },
+  decreaseMoney: (amount, dispatch) =>
+    updateNumericData(keys.money, oldMoney => oldMoney - amount, dispatch),
+
+  getEnergy: () => loadData<number>(keys.energy, DataTypes.NUMBER),
+  setEnergy: (amount, dispatch) => setData(keys.energy, amount, dispatch),
 };

@@ -2,8 +2,16 @@ import {MMKV} from 'react-native-mmkv';
 
 export const storage = new MMKV();
 
-type StorageTypes = string | object | number | boolean;
-type TransformTypes = 'string' | 'object' | 'number' | 'boolean';
+export type StorageTypes = string | object | number | boolean;
+
+export enum DataTypes {
+  STRING = 'string',
+  OBJECT = 'object',
+  NUMBER = 'number',
+  BOOLEAN = 'boolean',
+}
+
+type TransformTypes = `${DataTypes}`;
 
 export type SaveDataReturnType = true | undefined;
 export type LoadDataReturnType<T> = T | undefined;
@@ -24,7 +32,7 @@ export const saveData = (
     storage.set(key, transformedData);
     return true;
   } catch (error) {
-    console.error('Ошибка при сохранении. ', error);
+    console.error('Error while saving. ', error);
   }
 };
 
@@ -35,21 +43,21 @@ export const loadData = <T extends StorageTypes>(
   try {
     let data: any;
 
-    if (type === 'number') {
+    if (type === DataTypes.NUMBER) {
       data = storage.getNumber(key);
-    } else if (type === 'boolean') {
+    } else if (type === DataTypes.BOOLEAN) {
       data = storage.getBoolean(key);
     } else {
       data = storage.getString(key);
     }
 
-    if (type === 'object' && typeof data === 'string') {
+    if (type === DataTypes.OBJECT && typeof data === DataTypes.STRING) {
       data = JSON.parse(data);
     }
 
     return data;
   } catch (error) {
-    console.error('Ошибка при загрузке.', error);
+    console.error('Error loading.', error);
   }
 };
 
@@ -58,7 +66,7 @@ export const removeData = (key: string): RemoveDataReturnType => {
     storage.delete(key);
     return true;
   } catch (error) {
-    console.error('Ошибка при удалении.', error);
+    console.error('Error while deleting.', error);
   }
 };
 
@@ -70,7 +78,7 @@ export const updateData = <T extends StorageTypes>(
   try {
     const oldData = loadData<T>(key, type);
     if (oldData === undefined) {
-      throw new Error('Данные не найдены.');
+      throw new Error('No data found.');
     }
 
     const newValue = transform(oldData);
@@ -78,6 +86,6 @@ export const updateData = <T extends StorageTypes>(
 
     return newValue;
   } catch (error) {
-    console.error('Ошибка при изменении.', error);
+    console.error('Error while changing.', error);
   }
 };
