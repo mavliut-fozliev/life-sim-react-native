@@ -29,11 +29,12 @@ function TopBar() {
     setUserData();
 
     setTimeout(() => {
-      const newMoney = playerStore.increaseMoney(4);
-      if (newMoney) {
-        setMoney(newMoney);
-      }
+      playerStore.increaseMoney(123, setMoney);
     }, 3000);
+
+    setTimeout(() => {
+      playerStore.decreaseMoney(23, setMoney);
+    }, 4000);
   }, []);
 
   return (

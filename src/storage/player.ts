@@ -1,3 +1,4 @@
+import {Dispatch, SetStateAction} from 'react';
 import {
   loadData,
   LoadDataReturnType,
@@ -15,7 +16,14 @@ type PlayerStore = {
 
   getMoney: () => LoadDataReturnType<number>;
   setMoney: (amount: number) => SaveDataReturnType;
-  increaseMoney: (amount: number) => UpdateDataReturnType<number>;
+  increaseMoney: (
+    amount: number,
+    dispatch: Dispatch<SetStateAction<number>>,
+  ) => UpdateDataReturnType<number>;
+  decreaseMoney: (
+    amount: number,
+    dispatch: Dispatch<SetStateAction<number>>,
+  ) => UpdateDataReturnType<number>;
 };
 
 export const playerStore: PlayerStore = {
@@ -26,6 +34,29 @@ export const playerStore: PlayerStore = {
 
   getMoney: () => loadData<number>('playerMoney', 'number'),
   setMoney: amount => saveData('playerMoney', amount),
-  increaseMoney: amount =>
-    updateData<number>('playerMoney', oldMoney => oldMoney + amount, 'number'),
+  increaseMoney: (amount, dispatch) => {
+    const updatedMoney = updateData<number>(
+      'playerMoney',
+      oldMoney => oldMoney + amount,
+      'number',
+    );
+
+    if (updatedMoney) {
+      dispatch(updatedMoney);
+    }
+    return updatedMoney;
+  },
+  decreaseMoney: (amount, dispatch) => {
+    const updatedMoney = updateData<number>(
+      'playerMoney',
+      oldMoney => oldMoney - amount,
+      'number',
+    );
+
+    if (updatedMoney) {
+      dispatch(updatedMoney);
+    }
+
+    return updatedMoney;
+  },
 };
