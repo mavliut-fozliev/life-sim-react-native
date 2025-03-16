@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {playerStore} from '../../../storage/player';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 function TopBar() {
   const [name, setName] = useState('');
@@ -22,7 +21,7 @@ function TopBar() {
         {name} {surname}
       </Text>
       <TouchableOpacity onPress={() => console.log('some')}>
-        <Icon name="history" size={30} color="#A1DC33" />
+        <Text>history</Text>
       </TouchableOpacity>
     </View>
   );

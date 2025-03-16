@@ -24,6 +24,10 @@ type PlayerStore = {
   getSurname: () => LoadedString;
   setSurname: (surname: string, dispatch: DispatchString) => SaveDataReturnType;
 
+  getAge: () => LoadedNumber;
+  setAge: (value: number, dispatch: DispatchNumber) => SaveDataReturnType;
+  increaseAge: (dispatch: DispatchNumber) => UpdatedNumber;
+
   getMoney: () => LoadedNumber;
   setMoney: (amount: number, dispatch: DispatchNumber) => SaveDataReturnType;
   increaseMoney: (amount: number, dispatch: DispatchNumber) => UpdatedNumber;
@@ -36,6 +40,7 @@ type PlayerStore = {
 const keys = {
   name: 'playerName',
   surname: 'playerSurname',
+  age: 'playerAge',
   money: 'playerMoney',
   energy: 'playerEnergy',
 };
@@ -70,6 +75,11 @@ export const playerStore: PlayerStore = {
 
   getSurname: () => loadData<string>(keys.surname),
   setSurname: (surname, dispatch) => setData(keys.surname, surname, dispatch),
+
+  getAge: () => loadData<number>(keys.age),
+  setAge: (value, dispatch) => setData(keys.age, value, dispatch),
+  increaseAge: dispatch =>
+    updateNumericData(keys.age, oldAge => oldAge + 1, dispatch),
 
   getMoney: () => loadData<number>(keys.money, DataTypes.NUMBER),
   setMoney: (amount, dispatch) => setData(keys.money, amount, dispatch),

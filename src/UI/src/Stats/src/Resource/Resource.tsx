@@ -1,44 +1,48 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/Octicons';
+import Bills from '../../../../../icons/Bills';
+import StatTemplate from '../StatTemplate/StatTemplate';
+import Energy from '../../../../../icons/Energy';
 
-type ResourceProps = {name: string; value: number};
+type VariantType = 'money' | 'energy';
+
+type ResourceProps = {name: VariantType; value: number};
+
+const icons: {[K in VariantType]: React.JSX.Element} = {
+  money: <Bills size={26} />,
+  energy: <Energy size={26} />,
+};
+
+const variantStyles: {[K in VariantType]: string} = {
+  money: 'green',
+  energy: '#0033FF',
+};
+
+function formatNumber(num: number): string {
+  const units = ['K', 'M', 'B', 'T'];
+  let i = 0;
+  let formattedNum = num;
+
+  if (num < 1000) {
+    return num.toString();
+  }
+
+  for (; formattedNum >= 1000 && i < units.length - 1; i++) {
+    formattedNum /= 1000;
+  }
+
+  const rounded = Math.floor(formattedNum * 100) / 100;
+
+  return `${rounded}${units[i]}`;
+}
 
 function Resource({name, value}: ResourceProps) {
   return (
-    <View style={styles.box}>
-      <View style={styles.scale}>
-        <Text style={styles.text}>{value}</Text>
-      </View>
-      <Icon name="heart-fill" size={26} color="#FF0909" style={styles.icon} />
-    </View>
+    <StatTemplate
+      color={variantStyles[name]}
+      value={formatNumber(value)}
+      icon={icons[name]}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  box: {
-    height: 30,
-    width: 90,
-    justifyContent: 'center',
-  },
-  scale: {
-    width: 80,
-    height: 20,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: '#606060',
-    borderRadius: 10,
-    backgroundColor: '#FF3D3D',
-    alignItems: 'center',
-    left: 8,
-  },
-  text: {
-    color: 'white',
-    bottom: 1,
-  },
-  icon: {
-    position: 'absolute',
-  },
-});
 
 export default Resource;

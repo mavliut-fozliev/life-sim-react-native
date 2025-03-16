@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {playerStore} from '../../../storage/player';
+import Stat from './src/Stat/Stat';
 import Resource from './src/Resource/Resource';
 
 function Stats() {
@@ -19,12 +20,12 @@ function Stats() {
   return (
     <View style={styles.box}>
       <View>
-        <Text>
-          {energy}* {money}$
-        </Text>
+        <Resource name="money" value={money} />
+        <Resource name="energy" value={energy} />
       </View>
       <View>
-        <Resource name="health" value={21} />
+        <Stat name="health" value={71} />
+        <Stat name="power" value={45} />
       </View>
     </View>
   );
