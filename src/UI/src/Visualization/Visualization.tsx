@@ -11,7 +11,7 @@ function Visualization() {
 
 const styles = StyleSheet.create({
   box: {
-    backgroundColor: 'cyan',
+    backgroundColor: 'yellow',
     height: 300,
   },
 });
