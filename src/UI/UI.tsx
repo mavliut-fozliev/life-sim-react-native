@@ -1,25 +1,23 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+import Home from './src/pages/Home/Home';
 import TopBar from './src/TopBar/TopBar';
-import Stats from './src/Stats/Stats';
-import Visualization from './src/Visualization/Visualization';
-import Actions from './src/Actions/Actions';
+import Menu from './src/pages/Menu/Menu';
 
 type UIProps = {};
 
 function UI({}: UIProps): React.JSX.Element {
   return (
-    <View style={styles.ui}>
+    <View style={styles.box}>
       <TopBar />
-      <Stats />
-      <Visualization />
-      <Actions />
+      {/* <Home /> */}
+      <Menu />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  ui: {
+  box: {
     backgroundColor: 'white',
     height: 700,
   },

@@ -6,6 +6,7 @@ import {
   saveData,
   SaveDataReturnType,
   StorageTypes,
+  TransformTypes,
   updateData,
   UpdateDataReturnType,
 } from './MMKV';
@@ -18,31 +19,15 @@ type LoadedNumber = LoadDataReturnType<number>;
 
 type UpdatedNumber = UpdateDataReturnType<number>;
 
-type PlayerStore = {
-  getName: () => LoadedString;
-  setName: (name: string, dispatch: DispatchString) => SaveDataReturnType;
-  getSurname: () => LoadedString;
-  setSurname: (surname: string, dispatch: DispatchString) => SaveDataReturnType;
-
-  getAge: () => LoadedNumber;
-  setAge: (value: number, dispatch: DispatchNumber) => SaveDataReturnType;
-  increaseAge: (dispatch: DispatchNumber) => UpdatedNumber;
-
-  getMoney: () => LoadedNumber;
-  setMoney: (amount: number, dispatch: DispatchNumber) => SaveDataReturnType;
-  increaseMoney: (amount: number, dispatch: DispatchNumber) => UpdatedNumber;
-  decreaseMoney: (amount: number, dispatch: DispatchNumber) => UpdatedNumber;
-
-  getEnergy: () => LoadedNumber;
-  setEnergy: (amount: number, dispatch: DispatchNumber) => SaveDataReturnType;
+type StringStoreEntry = {
+  get: () => LoadedString;
+  set: (value: string, dispatch: DispatchString) => SaveDataReturnType;
 };
-
-const keys = {
-  name: 'playerName',
-  surname: 'playerSurname',
-  age: 'playerAge',
-  money: 'playerMoney',
-  energy: 'playerEnergy',
+type NumberStoreEntry = {
+  get: () => LoadedNumber;
+  set: (value: number, dispatch: DispatchNumber) => SaveDataReturnType;
+  increase: (amount: number, dispatch: DispatchNumber) => UpdatedNumber;
+  decrease: (amount: number, dispatch: DispatchNumber) => UpdatedNumber;
 };
 
 const setData = <T extends StorageTypes>(
@@ -51,7 +36,7 @@ const setData = <T extends StorageTypes>(
   dispatch: Dispatch<SetStateAction<T>>,
 ): SaveDataReturnType => {
   const saved = saveData(key, value);
-  if (saved !== undefined) {
+  if (saved) {
     dispatch(value);
   }
   return saved;
@@ -69,27 +54,32 @@ const updateNumericData = (
   return updatedValue;
 };
 
-export const playerStore: PlayerStore = {
-  getName: () => loadData<string>(keys.name),
-  setName: (name, dispatch) => setData(keys.name, name, dispatch),
+function createStoreEntry(key: string, type: TransformTypes) {
+  switch (type) {
+    case DataTypes.NUMBER:
+      return {
+        get: () => loadData<number>(key),
+        set: (value, dispatch) => setData(key, value, dispatch),
+        increase: (amount, dispatch) => updateNumericData(key, oldValue => oldValue + amount, dispatch),
+        decrease: (amount, dispatch) => updateNumericData(key, oldValue => oldValue - amount, dispatch),
+      } as NumberStoreEntry;
+    case DataTypes.BOOLEAN:
+      return {};
+    case DataTypes.OBJECT:
+      return {};
+    default:
+      return {
+        get: () => loadData<string>(key),
+        set: (value, dispatch) => setData(key, value, dispatch),
+      } as StringStoreEntry;
+  }
+}
 
-  getSurname: () => loadData<string>(keys.surname),
-  setSurname: (surname, dispatch) => setData(keys.surname, surname, dispatch),
-
-  getAge: () => loadData<number>(keys.age),
-  setAge: (value, dispatch) => setData(keys.age, value, dispatch),
-  increaseAge: dispatch =>
-    updateNumericData(keys.age, oldAge => oldAge + 1, dispatch),
-
-  getMoney: () => loadData<number>(keys.money, DataTypes.NUMBER),
-  setMoney: (amount, dispatch) => setData(keys.money, amount, dispatch),
-
-  increaseMoney: (amount, dispatch) =>
-    updateNumericData(keys.money, oldMoney => oldMoney + amount, dispatch),
-
-  decreaseMoney: (amount, dispatch) =>
-    updateNumericData(keys.money, oldMoney => oldMoney - amount, dispatch),
-
-  getEnergy: () => loadData<number>(keys.energy, DataTypes.NUMBER),
-  setEnergy: (amount, dispatch) => setData(keys.energy, amount, dispatch),
+export const playerStore = {
+  name: createStoreEntry('playerName', DataTypes.STRING) as StringStoreEntry,
+  surname: createStoreEntry('playerSurname', DataTypes.STRING) as StringStoreEntry,
+  money: createStoreEntry('playerMoney', DataTypes.NUMBER) as NumberStoreEntry,
+  energy: createStoreEntry('playerEnergy', DataTypes.NUMBER) as NumberStoreEntry,
+  health: createStoreEntry('playerHealth', DataTypes.NUMBER) as NumberStoreEntry,
+  power: createStoreEntry('playerPower', DataTypes.NUMBER) as NumberStoreEntry,
 };

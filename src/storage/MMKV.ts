@@ -11,17 +11,14 @@ export enum DataTypes {
   BOOLEAN = 'boolean',
 }
 
-type TransformTypes = `${DataTypes}`;
+export type TransformTypes = `${DataTypes}`;
 
 export type SaveDataReturnType = true | undefined;
 export type LoadDataReturnType<T> = T | undefined;
 export type RemoveDataReturnType = true | undefined;
 export type UpdateDataReturnType<T> = T | undefined;
 
-export const saveData = (
-  key: string,
-  data: StorageTypes,
-): SaveDataReturnType => {
+export const saveData = (key: string, data: StorageTypes): SaveDataReturnType => {
   try {
     let transformedData = data;
 
@@ -36,10 +33,7 @@ export const saveData = (
   }
 };
 
-export const loadData = <T extends StorageTypes>(
-  key: string,
-  type?: TransformTypes,
-): LoadDataReturnType<T> => {
+export const loadData = <T extends StorageTypes>(key: string, type?: TransformTypes): LoadDataReturnType<T> => {
   try {
     let data: any;
 

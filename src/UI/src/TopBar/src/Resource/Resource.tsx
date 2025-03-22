@@ -1,7 +1,7 @@
 import React from 'react';
 import Bills from '../../../../../icons/Bills';
-import StatTemplate from '../StatTemplate/StatTemplate';
 import Energy from '../../../../../icons/Energy';
+import StatTemplate from '../../../components/StatTemplate/StatTemplate';
 
 type VariantType = 'money' | 'energy';
 
@@ -14,7 +14,7 @@ const icons: {[K in VariantType]: React.JSX.Element} = {
 
 const variantStyles: {[K in VariantType]: string} = {
   money: 'green',
-  energy: '#0033FF',
+  energy: '#0600B2',
 };
 
 function formatNumber(num: number): string {
@@ -36,13 +36,7 @@ function formatNumber(num: number): string {
 }
 
 function Resource({name, value}: ResourceProps) {
-  return (
-    <StatTemplate
-      color={variantStyles[name]}
-      value={formatNumber(value)}
-      icon={icons[name]}
-    />
-  );
+  return <StatTemplate color={variantStyles[name]} value={formatNumber(value)} icon={icons[name]} />;
 }
 
 export default Resource;

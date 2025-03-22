@@ -1,7 +1,7 @@
 import React from 'react';
-import Heart from '../../../../../icons/Heart';
-import Strength from '../../../../../icons/Strength';
-import StatTemplate from '../StatTemplate/StatTemplate';
+import Heart from '../../../../../../../../icons/Heart';
+import Strength from '../../../../../../../../icons/Strength';
+import StatTemplate from '../../../../../../components/StatTemplate/StatTemplate';
 
 type VariantType = 'health' | 'power';
 
@@ -18,13 +18,7 @@ const variantStyles: {[K in VariantType]: string} = {
 };
 
 function Stat({name, value}: StatProps) {
-  return (
-    <StatTemplate
-      color={variantStyles[name]}
-      value={value}
-      icon={icons[name]}
-    />
-  );
+  return <StatTemplate color={variantStyles[name]} value={value} icon={icons[name]} />;
 }
 
 export default Stat;
