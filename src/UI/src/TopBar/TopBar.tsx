@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {playerStore} from '../../../storage/player';
+import {playerStore} from '../../../storage/store';
 import Resource from './src/Resource/Resource';
 
 function TopBar() {
