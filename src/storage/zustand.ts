@@ -1,18 +1,34 @@
 import {create} from 'zustand';
+import {Page, pageStructure} from '../consts/pages';
+
+type NewLifeProps = {
+  name: string;
+  surname: string;
+  gender: string;
+  country: string;
+  city: string;
+};
 
 interface Store {
-  currentPage: string;
-  setCurrentPage: (page: string) => void;
+  currentPage: Page;
+  setCurrentPage: (page: Page) => void;
+  newLifeProps: NewLifeProps;
+  setNewLifeProps: (newLifeProps: NewLifeProps) => void;
 }
 
-export enum Pages {
-  MENU = 'MENU',
-  HOME = 'home',
-}
+const defaultNewLifeProps = {
+  name: '',
+  surname: '',
+  gender: '',
+  country: '',
+  city: '',
+};
 
 const useZustand = create<Store>(set => ({
-  currentPage: Pages.HOME,
+  currentPage: pageStructure.menu,
   setCurrentPage: page => set(() => ({currentPage: page})),
+  newLifeProps: defaultNewLifeProps,
+  setNewLifeProps: newLifeProps => set(() => ({newLifeProps})),
 }));
 
 export default useZustand;

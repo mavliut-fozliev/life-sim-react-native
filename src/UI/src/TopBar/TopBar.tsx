@@ -1,13 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {playerStore} from '../../../storage/store';
 import Resource from './src/Resource/Resource';
+import IconButton from '../components/IconButton/IconButton';
+import ArrowLeft from '../../../icons/ArrowLeft';
+import Menu from '../../../icons/Menu';
+import useZustand from '../../../storage/zustand';
+import {findParentPage, pageStructure} from '../../../consts/pages';
 
 function TopBar() {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [energy, setEnergy] = useState(0);
   const [money, setMoney] = useState(0);
+  const {currentPage, setCurrentPage} = useZustand();
 
   useEffect(() => {
     const setUserData = async () => {
@@ -20,16 +26,28 @@ function TopBar() {
     setUserData();
   }, []);
 
+  const goBack = () => {
+    const parentPage = findParentPage(currentPage.title);
+    if (parentPage) {
+      setCurrentPage(parentPage);
+    }
+  };
+
+  const returnToMenu = () => {
+    setCurrentPage(pageStructure.menu);
+  };
+
   return (
     <View style={styles.box}>
+      {currentPage.parentTitle && <IconButton icon={<ArrowLeft size={30} />} onPress={goBack} />}
+      {currentPage.title === pageStructure.home.title && (
+        <IconButton icon={<Menu size={24} />} onPress={returnToMenu} />
+      )}
       <Text style={styles.name}>
         {name} {surname}
       </Text>
-      <Resource name="money" value={money} />
       <Resource name="energy" value={energy} />
-      <TouchableOpacity onPress={() => console.log('some')}>
-        <Text>history</Text>
-      </TouchableOpacity>
+      <Resource name="money" value={money} />
     </View>
   );
 }

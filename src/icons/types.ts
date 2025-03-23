@@ -1,3 +1,3 @@
 export type SvgProps = {
-  size: number;
+  size?: number;
 };
