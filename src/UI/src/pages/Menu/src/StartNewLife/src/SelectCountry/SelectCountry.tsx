@@ -31,7 +31,7 @@ const countries: SelectItem[] = [
 ];
 
 function SelectCountry() {
-  const localizedCountries = countries.map(c => {
+  const localizedCountries: SelectItem[] = countries.map(c => {
     const countyLabels = getLocalizedText().menu.countries;
     return {
       ...c,
@@ -41,10 +41,15 @@ function SelectCountry() {
     };
   });
 
-  const [country, setCountry] = useState('');
+  const randomCountryIndex = Math.floor(Math.random() * 4);
+  const [country, setCountry] = useState(localizedCountries[randomCountryIndex].value);
 
   const [items, setItems] = useState<SelectItem[]>(localizedCountries);
-  const [selectedItem, setSelectedItem] = useState<SelectedItem>({labelStyle: {}, containerStyle: {}});
+
+  const [selectedItem, setSelectedItem] = useState<SelectedItem>({
+    labelStyle: localizedCountries[randomCountryIndex].labelStyle,
+    containerStyle: localizedCountries[randomCountryIndex].containerStyle,
+  });
 
   return (
     <Select

@@ -15,6 +15,5 @@ const locales: Record<string, Locale> = {
 
 export function getLocalizedText() {
   const language = settingsStore.language.get() || 'en';
-  console.log(language);
   return locales[language];
 }
