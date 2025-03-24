@@ -13,35 +13,46 @@ export type SelectItem = {
 export type SelectedItem = ItemType<string>;
 
 type SelectProps = {
-  onChange: (value: string) => void;
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
+  onChange?: (value: string) => void;
   items: SelectItem[];
   setItems: Dispatch<SetStateAction<SelectItem[]>>;
   onSelectItem?: (item: SelectedItem) => void;
+  placeholder?: string;
   labelStyle?: StyleProp<TextStyle>;
   style?: StyleProp<ViewStyle>;
 };
 
-function Select({onChange, items, setItems, onSelectItem, labelStyle, style}: SelectProps) {
+function Select({
+  value,
+  setValue,
+  onChange,
+  items,
+  setItems,
+  onSelectItem,
+  placeholder,
+  labelStyle,
+  style,
+}: SelectProps) {
   const [open, setOpen] = useState(false);
-  const [internalValue, setInternalValue] = useState('');
 
   return (
     <View>
       <DropDownPicker
         open={open}
-        value={internalValue}
+        value={value}
+        setValue={setValue}
         items={items}
         setOpen={setOpen}
-        setValue={setInternalValue}
         onChangeValue={newValue => {
           if (newValue) {
-            setInternalValue(newValue);
-            onChange(newValue);
+            onChange?.(newValue);
           }
         }}
         onSelectItem={onSelectItem}
         setItems={setItems}
-        placeholder="Choose language"
+        placeholder={placeholder}
         labelStyle={labelStyle}
         listItemLabelStyle={labelStyle}
         style={style}
