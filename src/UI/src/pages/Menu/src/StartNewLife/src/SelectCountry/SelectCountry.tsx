@@ -1,51 +1,55 @@
 import React, {useState} from 'react';
 import Select, {SelectedItem, SelectItem} from '../../../../../../components/Select/Select';
-import useZustand from '../../../../../../../../storage/zustand';
 import {StyleSheet} from 'react-native';
+import {getLocalizedText} from '../../../../../../../../locales/getLocalizedText ';
 
 const countries: SelectItem[] = [
   {
-    label: ' 🇦🇱  Albania',
+    label: ' 🇦🇱  ',
     value: 'ALB',
     containerStyle: {backgroundColor: '#A90B0B'},
-    labelStyle: {
-      color: 'white',
-    },
+    labelStyle: {color: 'white'},
   },
   {
-    label: ' 🇷🇺  Russia',
+    label: ' 🇷🇺  ',
     value: 'RUS',
     containerStyle: {backgroundColor: '#5F7E94'},
-    labelStyle: {
-      color: 'black',
-    },
+    labelStyle: {color: 'black'},
   },
   {
-    label: ' 🇹🇷  Turkey',
+    label: ' 🇹🇷  ',
     value: 'TUR',
-    containerStyle: {backgroundColor: '#A02A2A', height: 100},
-    labelStyle: {
-      color: 'white',
-    },
+    containerStyle: {backgroundColor: '#A02A2A'},
+    labelStyle: {color: 'white'},
   },
   {
-    label: ' 🇺🇸  United States of America',
+    label: ' 🇺🇸  ',
     value: 'USA',
     containerStyle: {backgroundColor: '#2A4D7B'},
-    labelStyle: {
-      color: 'white',
-    },
+    labelStyle: {color: 'white'},
   },
 ];
 
 function SelectCountry() {
-  const {newLifeProps, setNewLifeProps} = useZustand();
-  const [items, setItems] = useState<SelectItem[]>(countries);
+  const localizedCountries = countries.map(c => {
+    const countyLabels = getLocalizedText().menu.countries;
+    return {
+      ...c,
+      label: c.label + countyLabels[c.value],
+      //@ts-ignore
+      containerStyle: {...c.containerStyle, height: 50},
+    };
+  });
+
+  const [country, setCountry] = useState('');
+
+  const [items, setItems] = useState<SelectItem[]>(localizedCountries);
   const [selectedItem, setSelectedItem] = useState<SelectedItem>({labelStyle: {}, containerStyle: {}});
 
   return (
     <Select
-      onChange={value => setNewLifeProps({...newLifeProps, country: value})}
+      value={country}
+      setValue={setCountry}
       items={items}
       setItems={setItems}
       onSelectItem={item => setSelectedItem(item)}

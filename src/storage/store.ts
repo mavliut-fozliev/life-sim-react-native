@@ -83,3 +83,7 @@ export const playerStore = {
   health: createStoreEntry('playerHealth', DataTypes.NUMBER) as NumberStoreEntry,
   power: createStoreEntry('playerPower', DataTypes.NUMBER) as NumberStoreEntry,
 };
+
+export const settingsStore = {
+  language: createStoreEntry('settingsLanguage', DataTypes.STRING) as StringStoreEntry,
+};
