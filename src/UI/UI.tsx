@@ -5,6 +5,7 @@ import useZustand from '../storage/zustand';
 import Menu from './src/pages/Menu/Menu';
 import Home from './src/pages/Home/Home';
 import StartNewLife from './src/pages/Menu/src/StartNewLife/StartNewLife';
+import Settings from './src/pages/Menu/src/Settings/Settings';
 
 type UIProps = {};
 
@@ -12,6 +13,7 @@ const pageComponents: Record<string, React.JSX.Element> = {
   menu: <Menu />,
   home: <Home />,
   menu_startNewLife: <StartNewLife />,
+  menu_settings: <Settings />,
 };
 
 function UI({}: UIProps): React.JSX.Element {

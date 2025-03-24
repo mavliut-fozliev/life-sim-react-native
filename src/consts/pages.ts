@@ -15,6 +15,10 @@ export const pageStructure = createPageStructure({
         title: 'menu_startNewLife',
         parentTitle: 'menu',
       },
+      menu_settings: {
+        title: 'menu_settings',
+        parentTitle: 'menu',
+      },
     },
   },
   home: {

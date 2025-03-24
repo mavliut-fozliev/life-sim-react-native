@@ -10,7 +10,7 @@ function Menu() {
   return (
     <View style={styles.box}>
       <Button label="Start new life!" onPress={() => setCurrentPage(pageStructure.menu.pages.menu_startNewLife)} />
-      <Button label="Settings" onPress={() => setCurrentPage(pageStructure.menu.pages.menu_startNewLife)} />
+      <Button label="Settings" onPress={() => setCurrentPage(pageStructure.menu.pages.menu_settings)} />
     </View>
   );
 }
