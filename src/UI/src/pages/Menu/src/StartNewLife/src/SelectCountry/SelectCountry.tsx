@@ -5,22 +5,36 @@ import {StyleSheet} from 'react-native';
 
 const countries: SelectItem[] = [
   {
+    label: ' 🇦🇱  Albania',
+    value: 'ALB',
+    containerStyle: {backgroundColor: '#A90B0B'},
+    labelStyle: {
+      color: 'white',
+    },
+  },
+  {
     label: ' 🇷🇺  Russia',
     value: 'RUS',
     containerStyle: {backgroundColor: '#5F7E94'},
-    labelStyle: {color: 'black'},
+    labelStyle: {
+      color: 'black',
+    },
   },
   {
     label: ' 🇹🇷  Turkey',
     value: 'TUR',
-    containerStyle: {backgroundColor: '#A02A2A'},
-    labelStyle: {color: 'white'},
+    containerStyle: {backgroundColor: '#A02A2A', height: 100},
+    labelStyle: {
+      color: 'white',
+    },
   },
   {
     label: ' 🇺🇸  United States of America',
     value: 'USA',
     containerStyle: {backgroundColor: '#2A4D7B'},
-    labelStyle: {color: 'white'},
+    labelStyle: {
+      color: 'white',
+    },
   },
 ];
 
