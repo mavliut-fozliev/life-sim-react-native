@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
-import {StyleSheet} from 'react-native';
 import {getLocalizedText} from '../../../../../../../../locales/getLocalizedText ';
 import {newLifeStore} from '../../../../../../../../storage/store';
 import {DispatchString} from '../../../../../../../../types/common';
@@ -40,16 +39,8 @@ function SelectGender({gender, setGender}: SelectGenderProps) {
       onChange={v => newLifeStore.gender.set(v, setGender)}
       items={items}
       setItems={setItems}
-      labelStyle={styles.label}
     />
   );
 }
-
-const styles = StyleSheet.create({
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});
 
 export default SelectGender;

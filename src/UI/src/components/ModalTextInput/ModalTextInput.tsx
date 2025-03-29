@@ -10,8 +10,18 @@ import {
   Platform,
   Pressable,
 } from 'react-native';
+import {getLocalizedText} from '../../../../locales/getLocalizedText ';
+import {DispatchString} from '../../../../types/common';
 
-const ModalTextInput = () => {
+type ModalTextInputProps = {
+  value: string;
+  setValue: DispatchString;
+  onSave: (value: string, dispatch: DispatchString) => void;
+};
+
+const ModalTextInput = ({value, setValue, onSave}: ModalTextInputProps) => {
+  const localizedText = getLocalizedText().common.buttons;
+
   const [modalVisible, setModalVisible] = useState(false);
   const [inputText, setInputText] = useState('');
   const inputRef = useRef<TextInput>(null);
@@ -22,12 +32,26 @@ const ModalTextInput = () => {
     }
   }, [modalVisible]);
 
+  function handlePress() {
+    setModalVisible(true);
+    setInputText(value);
+  }
+
+  function handleSave() {
+    onSave(inputText, setValue);
+    setModalVisible(false);
+  }
+
+  function handleCancel() {
+    setModalVisible(false);
+  }
+
   return (
     <View>
-      <Pressable onPress={() => setModalVisible(true)}>
+      <Pressable onPress={handlePress}>
         <View style={styles.textContainer}>
           <Text numberOfLines={1} style={styles.text}>
-            {inputText || 'Нажми, чтобы ввести текст'}
+            {value}
           </Text>
         </View>
       </Pressable>
@@ -40,12 +64,11 @@ const ModalTextInput = () => {
               style={styles.input}
               value={inputText}
               onChangeText={setInputText}
-              placeholder="Введите текст..."
               autoFocus={true}
             />
             <View style={styles.buttonContainer}>
-              <Button title="Cancel" onPress={() => setModalVisible(false)} color={'red'} />
-              <Button title="Save" onPress={() => setModalVisible(false)} />
+              <Button title={localizedText.cancel} onPress={handleCancel} color={'red'} />
+              <Button title={localizedText.save} onPress={handleSave} />
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -63,7 +86,7 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 12,
   },
-  text: {fontSize: 18, fontWeight: 600},
+  text: {fontSize: 16, fontWeight: 600},
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -82,7 +105,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     marginBottom: 10,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 600,
   },
   buttonContainer: {

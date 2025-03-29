@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
-import {StyleSheet} from 'react-native';
 import {getLocalizedText} from '../../../../../../../../locales/getLocalizedText ';
 import {newLifeStore} from '../../../../../../../../storage/store';
 import {DispatchString} from '../../../../../../../../types/common';
@@ -41,16 +40,8 @@ function SelectCity({city, setCity, country}: SelectCityProps) {
       items={items}
       setItems={setItems}
       placeholder={localizedText.cityPlaceholder}
-      labelStyle={styles.label}
     />
   );
 }
-
-const styles = StyleSheet.create({
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});
 
 export default SelectCity;

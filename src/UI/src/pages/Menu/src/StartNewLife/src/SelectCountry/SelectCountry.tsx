@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
-import {StyleSheet} from 'react-native';
 import {getLocalizedText} from '../../../../../../../../locales/getLocalizedText ';
 import {countries} from './consts';
 import {newLifeStore} from '../../../../../../../../storage/store';
@@ -40,23 +39,7 @@ function SelectCountry({country, setCountry, clearCity}: SelectCountryProps) {
     clearCity();
   }
 
-  return (
-    <Select
-      value={country}
-      setValue={setCountry}
-      onChange={onChange}
-      items={items}
-      setItems={setItems}
-      labelStyle={styles.label}
-    />
-  );
+  return <Select value={country} setValue={setCountry} onChange={onChange} items={items} setItems={setItems} />;
 }
-
-const styles = StyleSheet.create({
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});
 
 export default SelectCountry;

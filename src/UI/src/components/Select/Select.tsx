@@ -1,6 +1,7 @@
 import React, {Dispatch, SetStateAction, useState} from 'react';
 import DropDownPicker, {ItemType} from 'react-native-dropdown-picker';
-import {ViewStyle, StyleProp, TextStyle} from 'react-native';
+import {ViewStyle, StyleProp, TextStyle, StyleSheet} from 'react-native';
+import {DispatchString} from '../../../../types/common';
 
 export type SelectItem = {
   label: string;
@@ -14,27 +15,16 @@ export type SelectedItem = ItemType<string>;
 
 type SelectProps = {
   value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  setValue: DispatchString;
   onChange?: (value: string) => void;
   items: SelectItem[];
   setItems: Dispatch<SetStateAction<SelectItem[]>>;
   onSelectItem?: (item: SelectedItem) => void;
   placeholder?: string;
-  labelStyle?: StyleProp<TextStyle>;
   style?: StyleProp<ViewStyle>;
 };
 
-function Select({
-  value,
-  setValue,
-  onChange,
-  items,
-  setItems,
-  onSelectItem,
-  placeholder,
-  labelStyle,
-  style,
-}: SelectProps) {
+function Select({value, setValue, onChange, items, setItems, onSelectItem, placeholder, style}: SelectProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -52,11 +42,18 @@ function Select({
       onSelectItem={onSelectItem}
       setItems={setItems}
       placeholder={placeholder}
-      labelStyle={labelStyle}
-      listItemLabelStyle={labelStyle}
+      labelStyle={styles.label}
+      listItemLabelStyle={styles.label}
       style={style}
     />
   );
 }
+
+const styles = StyleSheet.create({
+  label: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
 
 export default Select;

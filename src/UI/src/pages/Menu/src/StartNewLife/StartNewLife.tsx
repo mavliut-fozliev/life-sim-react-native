@@ -4,12 +4,15 @@ import SelectCountry from './src/SelectCountry/SelectCountry';
 import SelectCity from './src/SelectCity/SelectCity';
 import {newLifeStore} from '../../../../../../storage/store';
 import SelectGender from './src/SelectGender/SelectGender';
-import ModalTextInput from '../../../../components/ModalTextInput/ModalTextInput';
+import NameInput from './src/NameInput/NameInput';
+import SurnameInput from './src/SurnameInput/NameInput';
 
 function StartNewLife() {
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
   const [gender, setGender] = useState('');
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
 
   function clearCity() {
     newLifeStore.city.set('', setCity);
@@ -27,7 +30,10 @@ function StartNewLife() {
         <SelectGender gender={gender} setGender={setGender} />
       </View>
       <View style={styles.name}>
-        <ModalTextInput />
+        <NameInput name={name} setName={setName} />
+      </View>
+      <View style={styles.surname}>
+        <SurnameInput surname={surname} setSurname={setSurname} />
       </View>
     </View>
   );
@@ -36,19 +42,23 @@ function StartNewLife() {
 const styles = StyleSheet.create({
   country: {
     padding: 10,
-    zIndex: 5,
+    zIndex: 4,
   },
   city: {
     padding: 10,
-    zIndex: 4,
+    zIndex: 3,
   },
   gender: {
     padding: 10,
-    zIndex: 3,
+    zIndex: 2,
   },
   name: {
     padding: 10,
-    zIndex: 2,
+    zIndex: 1,
+  },
+  surname: {
+    padding: 10,
+    zIndex: 1,
   },
 });
 
