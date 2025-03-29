@@ -10,9 +10,7 @@ import {
   updateData,
   UpdateDataReturnType,
 } from './MMKV';
-
-type DispatchString = Dispatch<SetStateAction<string>>;
-type DispatchNumber = Dispatch<SetStateAction<number>>;
+import {DispatchNumber, DispatchString} from '../types/common';
 
 type LoadedString = LoadDataReturnType<string>;
 type LoadedNumber = LoadDataReturnType<number>;
@@ -91,4 +89,7 @@ export const settingsStore = {
 export const newLifeStore = {
   country: createStoreEntry('newLifeCountry', DataTypes.STRING) as StringStoreEntry,
   city: createStoreEntry('newLifeCity', DataTypes.STRING) as StringStoreEntry,
+  gender: createStoreEntry('newLifeGender', DataTypes.STRING) as StringStoreEntry,
+  name: createStoreEntry('newLifeName', DataTypes.STRING) as StringStoreEntry,
+  surname: createStoreEntry('newLifeSurname', DataTypes.STRING) as StringStoreEntry,
 };
