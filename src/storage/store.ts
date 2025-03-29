@@ -87,3 +87,8 @@ export const playerStore = {
 export const settingsStore = {
   language: createStoreEntry('settingsLanguage', DataTypes.STRING) as StringStoreEntry,
 };
+
+export const newLifeStore = {
+  country: createStoreEntry('newLifeCountry', DataTypes.STRING) as StringStoreEntry,
+  city: createStoreEntry('newLifeCity', DataTypes.STRING) as StringStoreEntry,
+};

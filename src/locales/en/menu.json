@@ -4,5 +4,15 @@
     "RUS": "Russia",
     "TUR": "Turkey",
     "USA": "United States of America"
-  }
+  },
+  "cities": {
+    "ALB": {
+      "Tirana": "Tirana"
+    },
+    "RUS": {
+      "Moscow": "Moscow",
+      "Rostov-on-Don": "Rostov-on-Don"
+    }
+  },
+  "cityPlaceholder": "Select Сity"
 }

@@ -15,16 +15,14 @@ const languages: SelectItem[] = [
 ];
 
 function SelectLanguage() {
-  const savedLanguage = settingsStore.language.get();
-  const [language, setLanguage] = useState(savedLanguage || languages[0].value);
+  const savedLanguage = settingsStore.language.get() || languages[0].value;
+  const [language, setLanguage] = useState(savedLanguage);
 
   const [items, setItems] = useState<SelectItem[]>(languages);
 
   useEffect(() => {
-    if (!settingsStore.language.get()) {
-      settingsStore.language.set(languages[0].value, setLanguage);
-    }
-  }, []);
+    settingsStore.language.set(savedLanguage, setLanguage);
+  }, [savedLanguage]);
 
   return (
     <Select

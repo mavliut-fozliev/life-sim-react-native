@@ -1,10 +1,13 @@
 import {settingsStore} from '../storage/store';
+import {ObjectRecord} from '../types/common';
 import en_menu from './en/menu.json';
 import ru_menu from './ru/menu.json';
 
 type Locale = {
   menu: {
-    countries: Record<string, string>;
+    countries: ObjectRecord<string>;
+    cities: ObjectRecord<ObjectRecord<string>>;
+    cityPlaceholder: string;
   };
 };
 

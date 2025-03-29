@@ -1,66 +1,51 @@
-import React, {useState} from 'react';
-import Select, {SelectedItem, SelectItem} from '../../../../../../components/Select/Select';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import Select, {SelectItem} from '../../../../../../components/Select/Select';
 import {StyleSheet} from 'react-native';
 import {getLocalizedText} from '../../../../../../../../locales/getLocalizedText ';
+import {countries} from './consts';
+import {newLifeStore} from '../../../../../../../../storage/store';
+import {ObjectRecord} from '../../../../../../../../types/common';
 
-const countries: SelectItem[] = [
-  {
-    label: ' 🇦🇱  ',
-    value: 'ALB',
-    containerStyle: {backgroundColor: '#A90B0B'},
-    labelStyle: {color: 'white'},
-  },
-  {
-    label: ' 🇷🇺  ',
-    value: 'RUS',
-    containerStyle: {backgroundColor: '#5F7E94'},
-    labelStyle: {color: 'black'},
-  },
-  {
-    label: ' 🇹🇷  ',
-    value: 'TUR',
-    containerStyle: {backgroundColor: '#A02A2A'},
-    labelStyle: {color: 'white'},
-  },
-  {
-    label: ' 🇺🇸  ',
-    value: 'USA',
-    containerStyle: {backgroundColor: '#2A4D7B'},
-    labelStyle: {color: 'white'},
-  },
-];
+type SelectCountryProps = {
+  setAvailableCities: Dispatch<SetStateAction<ObjectRecord<string>>>;
+};
 
-function SelectCountry() {
-  const localizedCountries: SelectItem[] = countries.map(c => {
-    const countyLabels = getLocalizedText().menu.countries;
+function SelectCountry({setAvailableCities}: SelectCountryProps) {
+  const localizedText = getLocalizedText().menu;
+  const countryLabels = localizedText.countries;
+
+  const localizedCountries: SelectItem[] = countries.map(country => {
     return {
-      ...c,
-      label: c.label + countyLabels[c.value],
-      //@ts-ignore
-      containerStyle: {...c.containerStyle, height: 50},
+      ...country,
+      label: country.label + countryLabels[country.value],
+      containerStyle: Object.assign(country.containerStyle!, {height: 50}),
     };
   });
 
-  const randomCountryIndex = Math.floor(Math.random() * 4);
-  const [country, setCountry] = useState(localizedCountries[randomCountryIndex].value);
+  const savedCountry = newLifeStore.country.get() || getRandomCountry(countryLabels, localizedCountries);
+  const [country, setCountry] = useState(savedCountry);
 
   const [items, setItems] = useState<SelectItem[]>(localizedCountries);
 
-  const [selectedItem, setSelectedItem] = useState<SelectedItem>({
-    labelStyle: localizedCountries[randomCountryIndex].labelStyle,
-    containerStyle: localizedCountries[randomCountryIndex].containerStyle,
-  });
+  useEffect(() => {
+    newLifeStore.country.set(savedCountry, setCountry);
+  }, [savedCountry]);
+
+  function onChange(value: string) {
+    newLifeStore.country.set(value, setCountry);
+
+    const allCountryCities = localizedText.cities;
+    setAvailableCities(allCountryCities[value] || {});
+  }
 
   return (
     <Select
       value={country}
       setValue={setCountry}
+      onChange={onChange}
       items={items}
       setItems={setItems}
-      onSelectItem={item => setSelectedItem(item)}
-      //@ts-ignore
-      labelStyle={{...styles.label, ...selectedItem.labelStyle}}
-      style={selectedItem.containerStyle}
+      labelStyle={styles.label}
     />
   );
 }
@@ -73,3 +58,8 @@ const styles = StyleSheet.create({
 });
 
 export default SelectCountry;
+
+const getRandomCountry = (countryLabels: ObjectRecord<string>, localizedCountries: SelectItem[]) => {
+  const randomCountryIndex = Math.floor(Math.random() * Object.values(countryLabels).length);
+  return localizedCountries[randomCountryIndex].value;
+};
