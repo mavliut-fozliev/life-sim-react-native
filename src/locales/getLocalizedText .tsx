@@ -8,6 +8,7 @@ type Locale = {
     countries: ObjectRecord<string>;
     cities: ObjectRecord<ObjectRecord<string>>;
     cityPlaceholder: string;
+    genders: ObjectRecord<string>;
   };
 };
 

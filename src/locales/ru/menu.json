@@ -14,5 +14,9 @@
       "Rostov-on-Don": "Ростов-на-Дону"
     }
   },
-  "cityPlaceholder": "Выберите Город"
+  "cityPlaceholder": "Выберите Город",
+  "genders": {
+    "male": "Мужской",
+    "female": "Женский"
+  }
 }

@@ -1,6 +1,6 @@
 import React, {Dispatch, SetStateAction, useState} from 'react';
 import DropDownPicker, {ItemType} from 'react-native-dropdown-picker';
-import {View, ViewStyle, StyleProp, TextStyle} from 'react-native';
+import {ViewStyle, StyleProp, TextStyle} from 'react-native';
 
 export type SelectItem = {
   label: string;
@@ -38,26 +38,24 @@ function Select({
   const [open, setOpen] = useState(false);
 
   return (
-    <View>
-      <DropDownPicker
-        open={open}
-        value={value}
-        setValue={setValue}
-        items={items}
-        setOpen={setOpen}
-        onChangeValue={newValue => {
-          if (newValue) {
-            onChange?.(newValue);
-          }
-        }}
-        onSelectItem={onSelectItem}
-        setItems={setItems}
-        placeholder={placeholder}
-        labelStyle={labelStyle}
-        listItemLabelStyle={labelStyle}
-        style={style}
-      />
-    </View>
+    <DropDownPicker
+      open={open}
+      value={value}
+      setValue={setValue}
+      items={items}
+      setOpen={setOpen}
+      onChangeValue={newValue => {
+        if (newValue) {
+          onChange?.(newValue);
+        }
+      }}
+      onSelectItem={onSelectItem}
+      setItems={setItems}
+      placeholder={placeholder}
+      labelStyle={labelStyle}
+      listItemLabelStyle={labelStyle}
+      style={style}
+    />
   );
 }
 
