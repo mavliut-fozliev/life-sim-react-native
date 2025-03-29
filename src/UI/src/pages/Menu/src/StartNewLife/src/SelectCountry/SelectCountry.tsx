@@ -1,41 +1,43 @@
-import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
 import {StyleSheet} from 'react-native';
 import {getLocalizedText} from '../../../../../../../../locales/getLocalizedText ';
 import {countries} from './consts';
 import {newLifeStore} from '../../../../../../../../storage/store';
-import {ObjectRecord} from '../../../../../../../../types/common';
+import {DispatchString} from '../../../../../../../../types/common';
+import {getRandomArrayItem} from '../../../../../../../../utils/common';
 
 type SelectCountryProps = {
-  setAvailableCities: Dispatch<SetStateAction<ObjectRecord<string>>>;
+  country: string;
+  setCountry: DispatchString;
+  clearCity: () => void;
 };
 
-function SelectCountry({setAvailableCities}: SelectCountryProps) {
-  const localizedText = getLocalizedText().menu;
-  const countryLabels = localizedText.countries;
+function SelectCountry({country, setCountry, clearCity}: SelectCountryProps) {
+  const countryLabels = getLocalizedText().menu.countries;
 
-  const localizedCountries: SelectItem[] = countries.map(country => {
-    return {
-      ...country,
-      label: country.label + countryLabels[country.value],
-      containerStyle: Object.assign(country.containerStyle!, {height: 50}),
-    };
-  });
-
-  const savedCountry = newLifeStore.country.get() || getRandomCountry(countryLabels, localizedCountries);
-  const [country, setCountry] = useState(savedCountry);
+  const localizedCountries: SelectItem[] = countries.map(c => ({
+    ...c,
+    label: c.label + countryLabels[c.value],
+    containerStyle: Object.assign(c.containerStyle!, {height: 50}),
+  }));
 
   const [items, setItems] = useState<SelectItem[]>(localizedCountries);
 
+  const randomCountry = getRandomArrayItem(localizedCountries).value;
+
   useEffect(() => {
-    newLifeStore.country.set(savedCountry, setCountry);
-  }, [savedCountry]);
+    const savedCountry = newLifeStore.country.get();
+    if (savedCountry) {
+      setCountry(savedCountry);
+    } else {
+      setCountry(randomCountry);
+    }
+  }, [randomCountry, setCountry]);
 
   function onChange(value: string) {
     newLifeStore.country.set(value, setCountry);
-
-    const allCountryCities = localizedText.cities;
-    setAvailableCities(allCountryCities[value] || {});
+    clearCity();
   }
 
   return (
@@ -58,8 +60,3 @@ const styles = StyleSheet.create({
 });
 
 export default SelectCountry;
-
-const getRandomCountry = (countryLabels: ObjectRecord<string>, localizedCountries: SelectItem[]) => {
-  const randomCountryIndex = Math.floor(Math.random() * Object.values(countryLabels).length);
-  return localizedCountries[randomCountryIndex].value;
-};

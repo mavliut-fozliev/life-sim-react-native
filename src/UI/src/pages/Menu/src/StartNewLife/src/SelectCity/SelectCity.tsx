@@ -1,41 +1,37 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
 import {StyleSheet} from 'react-native';
 import {getLocalizedText} from '../../../../../../../../locales/getLocalizedText ';
 import {newLifeStore} from '../../../../../../../../storage/store';
-import {ObjectRecord} from '../../../../../../../../types/common';
+import {DispatchString} from '../../../../../../../../types/common';
 
 type SelectCityProps = {
-  availableCities: ObjectRecord<string>;
+  city: string;
+  setCity: DispatchString;
+  country: string;
 };
 
-function SelectCity({availableCities}: SelectCityProps) {
+function SelectCity({city, setCity, country}: SelectCityProps) {
   const localizedText = getLocalizedText().menu;
 
-  const localizedCities: SelectItem[] = useMemo(
-    () =>
-      Object.entries(availableCities).map(([key, value]) => {
-        return {
-          label: value,
-          value: key,
-          containerStyle: {height: 50},
-        };
-      }),
-    [availableCities],
-  );
+  const [items, setItems] = useState<SelectItem[]>([]);
 
-  const savedCity = newLifeStore.city.get() || '';
-  const [city, setCity] = useState(savedCity);
-
-  const [items, setItems] = useState<SelectItem[]>(localizedCities);
   useEffect(() => {
-    newLifeStore.city.set('', setCity);
+    const savedCity = newLifeStore.city.get();
+    if (savedCity) {
+      setCity(savedCity);
+    }
+  }, [setCity]);
+
+  useEffect(() => {
+    const localizedCities: SelectItem[] = Object.entries(localizedText.cities[country] || {}).map(([key, value]) => ({
+      label: value,
+      value: key,
+      containerStyle: {height: 50},
+    }));
+
     setItems(localizedCities);
-  }, [localizedCities]);
-
-  useEffect(() => {
-    newLifeStore.city.set(savedCity, setCity);
-  }, [savedCity]);
+  }, [country, localizedText]);
 
   return (
     <Select
