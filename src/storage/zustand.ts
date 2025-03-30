@@ -1,13 +1,5 @@
 import {create} from 'zustand';
-import {Page, pageStructure} from '../consts/pages';
-
-// type NewLifeProps = {
-//   name: string;
-//   surname: string;
-//   gender: string;
-//   country: string;
-//   city: string;
-// };
+import {Page, pageStructure} from '@consts/pages';
 
 interface Store {
   currentPage: Page;

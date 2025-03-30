@@ -1,17 +1,8 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {
-  Modal,
-  View,
-  Text,
-  TextInput,
-  Button,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-} from 'react-native';
+import {Modal, View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform, Pressable} from 'react-native';
 import {getLocalizedText} from '../../../../locales/getLocalizedText ';
 import {DispatchString} from '../../../../types/common';
+import Button from '../Button/Button';
 
 type ModalTextInputProps = {
   value: string;
@@ -67,8 +58,8 @@ const ModalTextInput = ({value, setValue, onSave}: ModalTextInputProps) => {
               autoFocus={true}
             />
             <View style={styles.buttonContainer}>
-              <Button title={localizedText.cancel} onPress={handleCancel} color={'red'} />
-              <Button title={localizedText.save} onPress={handleSave} />
+              <Button label={localizedText.cancel} onPress={handleCancel} />
+              <Button label={localizedText.save} onPress={handleSave} />
             </View>
           </View>
         </KeyboardAvoidingView>
