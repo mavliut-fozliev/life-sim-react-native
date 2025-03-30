@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {Page, pageStructure} from '@consts/pages';
+import {Page, pageStructure} from '../consts/pages';
 
 interface Store {
   currentPage: Page;
