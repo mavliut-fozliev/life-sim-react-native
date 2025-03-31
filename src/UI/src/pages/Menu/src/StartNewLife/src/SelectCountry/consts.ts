@@ -4,25 +4,25 @@ export const countries: SelectItem[] = [
   {
     label: ' 🇦🇱  ',
     value: 'ALB',
-    containerStyle: {backgroundColor: '#A90B0B'},
-    labelStyle: {color: 'white'},
+    backgroundColor: '#A90B0B',
+    color: 'white',
   },
   {
     label: ' 🇷🇺  ',
     value: 'RUS',
-    containerStyle: {backgroundColor: '#0337B0'},
-    labelStyle: {color: 'white'},
+    backgroundColor: '#0337B0',
+    color: 'white',
   },
   {
     label: ' 🇹🇷  ',
     value: 'TUR',
-    containerStyle: {backgroundColor: '#A02A2A'},
-    labelStyle: {color: 'white'},
+    backgroundColor: '#A02A2A',
+    color: 'white',
   },
   {
     label: ' 🇺🇸  ',
     value: 'USA',
-    containerStyle: {backgroundColor: '#2A4D7B'},
-    labelStyle: {color: 'white'},
+    backgroundColor: '#2A4D7B',
+    color: 'white',
   },
 ];

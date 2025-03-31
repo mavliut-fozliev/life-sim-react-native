@@ -11,36 +11,32 @@ type SelectGenderProps = {
 };
 
 function SelectGender({gender, setGender}: SelectGenderProps) {
-  const genderLabels = getLocalizedText().menu.genders;
-
-  const localizedGenders: SelectItem[] = Object.entries(genderLabels).map(([key, value]) => ({
-    label: value,
-    value: key,
-    containerStyle: {height: 50},
-  }));
-
-  const [items, setItems] = useState<SelectItem[]>(localizedGenders);
-
-  const randomGender = getRandomArrayItem(localizedGenders).value;
+  const [items, setItems] = useState<SelectItem[]>([]);
 
   useEffect(() => {
+    const genderLabels = getLocalizedText().menu.genders;
+
+    const localizedGenders: SelectItem[] = Object.entries(genderLabels).map(([key, value]) => ({
+      label: value,
+      value: key,
+    }));
+
+    setItems(localizedGenders);
+
     const savedGender = newLifeStore.gender.get();
     if (savedGender) {
       setGender(savedGender);
     } else {
-      setGender(randomGender);
+      const randomGender = getRandomArrayItem(localizedGenders).value;
+      newLifeStore.gender.set(randomGender, setGender);
     }
-  }, [randomGender, setGender]);
+  }, [setGender]);
 
-  return (
-    <Select
-      value={gender}
-      setValue={setGender}
-      onChange={v => newLifeStore.gender.set(v, setGender)}
-      items={items}
-      setItems={setItems}
-    />
-  );
+  function handleSelectItem(value: string) {
+    newLifeStore.gender.set(value, setGender);
+  }
+
+  return <Select value={gender} onSelectItem={handleSelectItem} items={items} />;
 }
 
 export default SelectGender;

@@ -13,33 +13,32 @@ type SelectCountryProps = {
 };
 
 function SelectCountry({country, setCountry, clearCity}: SelectCountryProps) {
-  const countryLabels = getLocalizedText().menu.countries;
-
-  const localizedCountries: SelectItem[] = countries.map(c => ({
-    ...c,
-    label: c.label + countryLabels[c.value],
-    containerStyle: Object.assign(c.containerStyle!, {height: 50}),
-  }));
-
-  const [items, setItems] = useState<SelectItem[]>(localizedCountries);
-
-  const randomCountry = getRandomArrayItem(localizedCountries).value;
+  const [items, setItems] = useState<SelectItem[]>([]);
 
   useEffect(() => {
+    const countryLabels = getLocalizedText().menu.countries;
+    const localizedCountries: SelectItem[] = countries.map(c => ({
+      ...c,
+      label: c.label + countryLabels[c.value],
+    }));
+
+    setItems(localizedCountries);
+
     const savedCountry = newLifeStore.country.get();
     if (savedCountry) {
       setCountry(savedCountry);
     } else {
-      setCountry(randomCountry);
+      const randomCountry = getRandomArrayItem(localizedCountries).value;
+      newLifeStore.country.set(randomCountry, setCountry);
     }
-  }, [randomCountry, setCountry]);
+  }, [setCountry]);
 
-  function onChange(value: string) {
+  function handleSelectItem(value: string) {
     newLifeStore.country.set(value, setCountry);
     clearCity();
   }
 
-  return <Select value={country} setValue={setCountry} onChange={onChange} items={items} setItems={setItems} />;
+  return <Select value={country} onSelectItem={handleSelectItem} items={items} />;
 }
 
 export default SelectCountry;
