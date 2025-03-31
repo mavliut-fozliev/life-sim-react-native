@@ -3,16 +3,17 @@ import {Modal, View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform
 import {getLocalizedText} from '../../../../locales/getLocalizedText ';
 import {DispatchString} from '../../../../types/common';
 import Button from '../Button/Button';
-import {fontSizes} from '../../../../consts/styles';
+import {colors, fontSizes} from '../../../../consts/styles';
 
 type ModalTextInputProps = {
   value: string;
   setValue: DispatchString;
   onSave: (value: string, dispatch: DispatchString) => void;
+  placeholder?: string;
 };
 
-const ModalTextInput = ({value, setValue, onSave}: ModalTextInputProps) => {
-  const localizedText = getLocalizedText().common.buttons;
+const ModalTextInput = ({value, setValue, onSave, placeholder}: ModalTextInputProps) => {
+  const localizedText = getLocalizedText().common;
 
   const [modalVisible, setModalVisible] = useState(false);
   const [inputText, setInputText] = useState('');
@@ -42,9 +43,15 @@ const ModalTextInput = ({value, setValue, onSave}: ModalTextInputProps) => {
     <View>
       <Pressable onPress={handlePress}>
         <View style={styles.textContainer}>
-          <Text numberOfLines={1} style={styles.text}>
-            {value}
-          </Text>
+          {value ? (
+            <Text numberOfLines={1} style={styles.text}>
+              {value}
+            </Text>
+          ) : (
+            <Text numberOfLines={1} style={styles.placeholder}>
+              {placeholder || localizedText.emptyTextInput}
+            </Text>
+          )}
         </View>
       </Pressable>
 
@@ -59,8 +66,12 @@ const ModalTextInput = ({value, setValue, onSave}: ModalTextInputProps) => {
               autoFocus={true}
             />
             <View style={styles.buttonContainer}>
-              <Button label={localizedText.cancel} onPress={handleCancel} />
-              <Button label={localizedText.save} onPress={handleSave} />
+              <View style={styles.button}>
+                <Button label={localizedText.buttons.cancel} onPress={handleCancel} />
+              </View>
+              <View style={styles.button}>
+                <Button label={localizedText.buttons.save} onPress={handleSave} />
+              </View>
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -71,14 +82,17 @@ const ModalTextInput = ({value, setValue, onSave}: ModalTextInputProps) => {
 
 const styles = StyleSheet.create({
   textContainer: {
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 12,
-    paddingBottom: 12,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 14,
+    paddingBottom: 14,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: colors.border.secondary,
+    backgroundColor: '#FFF',
   },
   text: {fontSize: fontSizes.medium, fontWeight: 600},
+  placeholder: {fontSize: fontSizes.medium, fontWeight: 600, opacity: 0.3},
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -86,7 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalContent: {
-    width: 300,
+    width: '90%',
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
@@ -105,6 +119,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
+    gap: 20,
+  },
+  button: {
+    flex: 1,
   },
 });
 

@@ -18,6 +18,9 @@ export const colors = {
     secondary: '#FFF7CC',
   },
   border: {
-    primary: '#FFEF99',
+    primary: '#CCC',
+    secondary: '#FFEF99',
   },
 };
+
+export const topBarColor = '#FFF7CC';

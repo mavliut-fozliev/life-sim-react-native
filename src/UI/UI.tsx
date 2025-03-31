@@ -31,7 +31,7 @@ function UI({}: UIProps): React.JSX.Element {
 const styles = StyleSheet.create({
   box: {
     backgroundColor: colors.background.primary,
-    height: 700,
+    height: '100%',
   },
 });
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {colors, fontSizes} from '../../../../consts/styles';
 
 type ButtonProps = {
   label: string;
@@ -8,21 +9,29 @@ type ButtonProps = {
 
 function Button({label, onPress}: ButtonProps) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.button}>
-      <Text>{label}</Text>
+    <TouchableOpacity activeOpacity={0.5} onPress={onPress} style={styles.button}>
+      <View style={styles.labelBox}>
+        <Text style={styles.label}>{label}</Text>
+      </View>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    width: 100,
     height: 50,
-    borderColor: 'black',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    backgroundColor: 'cyan',
-    color: 'red',
+    borderRadius: 25,
+    backgroundColor: colors.button.primary,
+  },
+  labelBox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 2,
+  },
+  label: {
+    fontSize: fontSizes.large,
+    color: colors.text.primary,
   },
 });
 

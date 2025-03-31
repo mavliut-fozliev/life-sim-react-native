@@ -24,7 +24,7 @@ function Menu() {
 const styles = StyleSheet.create({
   box: {
     backgroundColor: colors.background.secondary,
-    height: 660,
+    height: '100%',
     gap: 20,
     padding: 20,
   },

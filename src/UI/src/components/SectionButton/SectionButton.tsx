@@ -10,7 +10,7 @@ type SectionButtonProps = {
 
 function SectionButton({label, onPress}: SectionButtonProps) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.button}>
+    <TouchableOpacity activeOpacity={0.5} onPress={onPress} style={styles.button}>
       <View style={styles.labelBox}>
         <Text style={styles.label}>{label}</Text>
         <ArrowRight size={14} />
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: colors.border.primary,
+    borderColor: colors.border.secondary,
     backgroundColor: colors.button.secondary,
   },
   labelBox: {

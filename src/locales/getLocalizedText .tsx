@@ -8,6 +8,8 @@ import ru_menu from './ru/menu.json';
 type Locale = {
   common: {
     buttons: ObjectRecord<string>;
+    emptySelectItems: string;
+    emptyTextInput: string;
   };
   menu: {
     options: ObjectRecord<string>;

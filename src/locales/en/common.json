@@ -1,6 +1,8 @@
 {
   "buttons": {
-    "save": "save",
-    "cancel": "cancel"
-  }
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "emptySelectItems": "Nothing here yet",
+  "emptyTextInput": "Type something..."
 }

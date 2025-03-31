@@ -1,6 +1,8 @@
 {
   "buttons": {
-    "save": "сохранить",
-    "cancel": "отмена"
-  }
+    "save": "Сохранить",
+    "cancel": "Отмена"
+  },
+  "emptySelectItems": "Здесь пока пусто",
+  "emptyTextInput": "Напишите что-нибудь..."
 }

@@ -1,12 +1,14 @@
 import React from 'react';
 import {StatusBar, StyleSheet, View} from 'react-native';
 import UI from './src/UI/UI';
+import {topBarColor} from './src/consts/styles';
 
 function App(): React.JSX.Element {
   return (
     <View style={styles.app}>
       <StatusBar barStyle={'dark-content'} />
-      <View style={styles.uiBox}>
+      <View>
+        <View style={styles.topIndent} />
         <UI />
       </View>
     </View>
@@ -18,8 +20,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#333',
     height: '100%',
   },
-  uiBox: {
-    marginTop: 20,
+  topIndent: {
+    height: 20,
+    backgroundColor: topBarColor,
   },
 });
 
