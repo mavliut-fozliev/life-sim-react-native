@@ -15,7 +15,7 @@ function App(): React.JSX.Element {
 
 const styles = StyleSheet.create({
   app: {
-    backgroundColor: '#DCDCDB',
+    backgroundColor: '#333',
     height: '100%',
   },
   uiBox: {

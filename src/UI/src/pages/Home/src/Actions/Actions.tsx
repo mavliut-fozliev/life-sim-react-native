@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: 'green',
     height: 200,
+    padding: 20,
   },
   button: {
     width: 100,

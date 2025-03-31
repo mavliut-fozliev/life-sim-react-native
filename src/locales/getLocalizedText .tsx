@@ -10,6 +10,7 @@ type Locale = {
     buttons: ObjectRecord<string>;
   };
   menu: {
+    options: ObjectRecord<string>;
     countries: ObjectRecord<string>;
     cities: ObjectRecord<ObjectRecord<string>>;
     cityPlaceholder: string;

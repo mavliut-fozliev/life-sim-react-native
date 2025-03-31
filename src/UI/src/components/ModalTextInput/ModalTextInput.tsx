@@ -3,6 +3,7 @@ import {Modal, View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform
 import {getLocalizedText} from '../../../../locales/getLocalizedText ';
 import {DispatchString} from '../../../../types/common';
 import Button from '../Button/Button';
+import {fontSizes} from '../../../../consts/styles';
 
 type ModalTextInputProps = {
   value: string;
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 12,
   },
-  text: {fontSize: 16, fontWeight: 600},
+  text: {fontSize: fontSizes.medium, fontWeight: 600},
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     marginBottom: 10,
-    fontSize: 16,
+    fontSize: fontSizes.medium,
     fontWeight: 600,
   },
   buttonContainer: {

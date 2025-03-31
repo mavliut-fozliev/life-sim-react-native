@@ -7,6 +7,7 @@ import ArrowLeft from '../../../icons/ArrowLeft';
 import Menu from '../../../icons/Menu';
 import useZustand from '../../../storage/zustand';
 import {findParentPage, pageStructure} from '../../../consts/pages';
+import {fontSizes} from '../../../consts/styles';
 
 function TopBar() {
   const [name, setName] = useState('');
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   name: {
-    fontSize: 20,
+    fontSize: fontSizes.large,
   },
 });
 

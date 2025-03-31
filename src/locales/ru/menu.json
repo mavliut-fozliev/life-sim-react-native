@@ -1,4 +1,8 @@
 {
+  "options": {
+    "startNewLife": "Начать Новую Жизнь",
+    "settings": "Настройки"
+  },
   "countries": {
     "ALB": "Албания",
     "RUS": "Россия",

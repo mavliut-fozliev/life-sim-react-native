@@ -6,6 +6,7 @@ import Menu from './src/pages/Menu/Menu';
 import Home from './src/pages/Home/Home';
 import StartNewLife from './src/pages/Menu/src/StartNewLife/StartNewLife';
 import Settings from './src/pages/Menu/src/Settings/Settings';
+import {colors} from '../consts/styles';
 
 type UIProps = {};
 
@@ -29,7 +30,7 @@ function UI({}: UIProps): React.JSX.Element {
 
 const styles = StyleSheet.create({
   box: {
-    backgroundColor: 'white',
+    backgroundColor: colors.background.primary,
     height: 700,
   },
 });
