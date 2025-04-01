@@ -5,11 +5,16 @@ import {colors, fontSizes} from '../../../../consts/styles';
 type ButtonProps = {
   label: string;
   onPress: () => void;
+  disabled?: boolean;
 };
 
-function Button({label, onPress}: ButtonProps) {
+function Button({label, onPress, disabled}: ButtonProps) {
   return (
-    <TouchableOpacity activeOpacity={0.6} onPress={onPress} style={styles.button}>
+    <TouchableOpacity
+      activeOpacity={0.6}
+      onPress={onPress}
+      disabled={disabled}
+      style={disabled ? {...styles.button, ...styles.disabled} : styles.button}>
       <View style={styles.labelBox}>
         <Text style={styles.label}>{label}</Text>
       </View>
@@ -22,6 +27,9 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     backgroundColor: colors.button.primary,
+  },
+  disabled: {
+    opacity: 0.5,
   },
   labelBox: {
     flex: 1,

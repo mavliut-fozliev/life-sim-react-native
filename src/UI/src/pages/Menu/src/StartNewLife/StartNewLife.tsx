@@ -43,6 +43,8 @@ function StartNewLife() {
     setCurrentPage(pageStructure.home);
   }
 
+  const haveEmptyField = !country || !city || !gender || !name || !surname;
+
   return (
     <View style={styles.box}>
       <SelectCountry country={country} setCountry={setCountry} clearCity={clearCity} />
@@ -50,7 +52,7 @@ function StartNewLife() {
       <SelectGender gender={gender} setGender={setGender} />
       <NameInput name={name} setName={setName} />
       <SurnameInput surname={surname} setSurname={setSurname} />
-      <Button label={localizedText} onPress={handleStart} />
+      <Button label={localizedText} onPress={handleStart} disabled={haveEmptyField} />
     </View>
   );
 }
