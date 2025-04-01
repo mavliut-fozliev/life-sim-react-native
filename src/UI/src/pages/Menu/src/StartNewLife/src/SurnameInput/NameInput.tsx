@@ -9,6 +9,10 @@ type SurnameInputProps = {
 };
 
 function SurnameInput({surname, setSurname}: SurnameInputProps) {
+  function handleSave(v: string) {
+    newLifeStore.surname.set(v, setSurname);
+  }
+
   useEffect(() => {
     const savedSurname = newLifeStore.surname.get();
     if (savedSurname) {
@@ -18,7 +22,7 @@ function SurnameInput({surname, setSurname}: SurnameInputProps) {
     }
   }, [setSurname]);
 
-  return <ModalTextInput value={surname} setValue={setSurname} onSave={newLifeStore.surname.set} />;
+  return <ModalTextInput value={surname} onSave={handleSave} />;
 }
 
 export default SurnameInput;

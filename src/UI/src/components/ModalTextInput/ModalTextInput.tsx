@@ -11,18 +11,16 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {getLocalizedText} from '../../../../locales/getLocalizedText ';
-import {DispatchString} from '../../../../types/common';
 import Button from '../Button/Button';
 import {colors, fontSizes} from '../../../../consts/styles';
 
 type ModalTextInputProps = {
   value: string;
-  setValue: DispatchString;
-  onSave: (value: string, dispatch: DispatchString) => void;
+  onSave: (value: string) => void;
   placeholder?: string;
 };
 
-const ModalTextInput = ({value, setValue, onSave, placeholder}: ModalTextInputProps) => {
+const ModalTextInput = ({value, onSave, placeholder}: ModalTextInputProps) => {
   const localizedText = getLocalizedText().common;
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -41,7 +39,7 @@ const ModalTextInput = ({value, setValue, onSave, placeholder}: ModalTextInputPr
   }
 
   function handleSave() {
-    onSave(inputText, setValue);
+    onSave(inputText);
     setModalVisible(false);
   }
 

@@ -9,6 +9,10 @@ type NameInputProps = {
 };
 
 function NameInput({name, setName}: NameInputProps) {
+  function handleSave(v: string) {
+    newLifeStore.name.set(v, setName);
+  }
+
   useEffect(() => {
     const savedName = newLifeStore.name.get();
     if (savedName) {
@@ -18,7 +22,7 @@ function NameInput({name, setName}: NameInputProps) {
     }
   }, [setName]);
 
-  return <ModalTextInput value={name} setValue={setName} onSave={newLifeStore.name.set} />;
+  return <ModalTextInput value={name} onSave={handleSave} />;
 }
 
 export default NameInput;
