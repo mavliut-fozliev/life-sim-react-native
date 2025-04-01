@@ -1,5 +1,15 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {Modal, View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform, Pressable} from 'react-native';
+import {
+  Modal,
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  TouchableOpacity,
+} from 'react-native';
 import {getLocalizedText} from '../../../../locales/getLocalizedText ';
 import {DispatchString} from '../../../../types/common';
 import Button from '../Button/Button';
@@ -55,26 +65,25 @@ const ModalTextInput = ({value, setValue, onSave, placeholder}: ModalTextInputPr
         </View>
       </Pressable>
 
-      <Modal visible={modalVisible} animationType="slide" transparent>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <TextInput
-              ref={inputRef}
-              style={styles.input}
-              value={inputText}
-              onChangeText={setInputText}
-              autoFocus={true}
-            />
-            <View style={styles.buttonContainer}>
-              <View style={styles.button}>
-                <Button label={localizedText.buttons.cancel} onPress={handleCancel} />
-              </View>
+      <Modal visible={modalVisible} animationType="fade" transparent>
+        <TouchableOpacity activeOpacity={1} onPress={handleCancel} style={styles.modalContainer}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.keyboardAvoidingView}>
+            <TouchableOpacity activeOpacity={1} style={styles.modalContent}>
+              <TextInput
+                ref={inputRef}
+                style={styles.input}
+                value={inputText}
+                onChangeText={setInputText}
+                autoFocus={true}
+              />
               <View style={styles.button}>
                 <Button label={localizedText.buttons.save} onPress={handleSave} />
               </View>
-            </View>
-          </View>
-        </KeyboardAvoidingView>
+            </TouchableOpacity>
+          </KeyboardAvoidingView>
+        </TouchableOpacity>
       </Modal>
     </View>
   );
@@ -97,10 +106,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.2)',
+  },
+  keyboardAvoidingView: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    width: '100%',
   },
   modalContent: {
-    width: '90%',
+    width: '100%',
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
@@ -114,15 +128,9 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.medium,
     fontWeight: 600,
   },
-  buttonContainer: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    gap: 20,
-  },
   button: {
-    flex: 1,
+    display: 'flex',
+    width: '100%',
   },
 });
 

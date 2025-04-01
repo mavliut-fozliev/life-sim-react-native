@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ItemType} from 'react-native-dropdown-picker';
-import {StyleSheet, View, Text, Modal, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, Modal, TouchableOpacity, ScrollView} from 'react-native';
 import {colors, fontSizes} from '../../../../consts/styles';
 import Radio from '../../../../icons/Radio';
 import {getLocalizedText} from '../../../../locales/getLocalizedText ';
@@ -64,16 +64,18 @@ function Select({value, items, onSelectItem, placeholder = ''}: SelectProps) {
       <Modal visible={modalVisible} animationType="fade" transparent>
         <TouchableOpacity activeOpacity={1} onPress={handleCancel} style={styles.modalBox}>
           <View style={styles.modalContent}>
-            {items.map(item => (
-              <TouchableOpacity activeOpacity={0.2} onPress={() => handleSelect(item.value)} key={item.value}>
-                <View style={{...styles.itemBox, backgroundColor: item.backgroundColor}}>
-                  <Text numberOfLines={1} ellipsizeMode="tail" style={{...styles.item, color: item.color}}>
-                    {item.label}
-                  </Text>
-                  <Radio size={30} selected={item.value === value} />
-                </View>
-              </TouchableOpacity>
-            ))}
+            <ScrollView style={styles.scrollView}>
+              {items.map(item => (
+                <TouchableOpacity activeOpacity={0.2} onPress={() => handleSelect(item.value)} key={item.value}>
+                  <View style={{...styles.itemBox, backgroundColor: item.backgroundColor}}>
+                    <Text numberOfLines={1} ellipsizeMode="tail" style={{...styles.item, color: item.color}}>
+                      {item.label}
+                    </Text>
+                    <Radio size={30} selected={item.value === value} />
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
           </View>
         </TouchableOpacity>
       </Modal>
@@ -99,6 +101,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.2)',
+  },
+  scrollView: {
+    maxHeight: 600,
   },
   modalContent: {
     width: '90%',

@@ -17,6 +17,7 @@ type Locale = {
     cities: ObjectRecord<ObjectRecord<string>>;
     cityPlaceholder: string;
     genders: ObjectRecord<string>;
+    button: ObjectRecord<string>;
   };
 };
 

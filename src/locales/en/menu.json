@@ -16,11 +16,21 @@
     "RUS": {
       "Moscow": "Moscow",
       "Rostov-on-Don": "Rostov-on-Don"
+    },
+    "TUR": {
+      "Istanbul": "Istanbul",
+      "Ankara": "Ankara",
+      "Izmir": "Izmir",
+      "Bursa": "Bursa",
+      "Antalya": "Antalya"
     }
   },
   "cityPlaceholder": "Select Сity",
   "genders": {
     "male": "Male",
     "female": "Female"
+  },
+  "button": {
+    "startNewLife": "Start!"
   }
 }

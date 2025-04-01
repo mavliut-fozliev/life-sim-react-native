@@ -9,7 +9,7 @@ type ButtonProps = {
 
 function Button({label, onPress}: ButtonProps) {
   return (
-    <TouchableOpacity activeOpacity={0.5} onPress={onPress} style={styles.button}>
+    <TouchableOpacity activeOpacity={0.6} onPress={onPress} style={styles.button}>
       <View style={styles.labelBox}>
         <Text style={styles.label}>{label}</Text>
       </View>
