@@ -33,7 +33,7 @@ function TopBar() {
 const styles = StyleSheet.create({
   box: {
     backgroundColor: topBarColor,
-    height: 40,
+    height: 50,
     display: 'flex',
     justifyContent: 'center',
   },

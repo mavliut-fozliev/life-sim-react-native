@@ -1,9 +1,15 @@
-import React from 'react';
-import {StatusBar, StyleSheet, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {BackHandler, StatusBar, StyleSheet, View} from 'react-native';
 import UI from './src/UI/UI';
 import {topBarColor} from './src/consts/styles';
 
 function App(): React.JSX.Element {
+  useEffect(() => {
+    const disableBackButton = () => true;
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', disableBackButton);
+    return () => backHandler.remove();
+  }, []);
+
   return (
     <View style={styles.app}>
       <StatusBar barStyle={'dark-content'} />
