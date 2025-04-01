@@ -1,5 +1,6 @@
 {
   "options": {
+    "resume": "Resume",
     "startNewLife": "Start New Life",
     "settings": "Settings"
   },

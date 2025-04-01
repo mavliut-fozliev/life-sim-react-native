@@ -5,13 +5,17 @@ import {pageStructure} from '../../../../consts/pages';
 import {colors} from '../../../../consts/styles';
 import SectionButton from '../../components/SectionButton/SectionButton';
 import {getLocalizedText} from '../../../../locales/getLocalizedText ';
+import {playerStore} from '../../../../storage/store';
 
 function Menu() {
   const {setCurrentPage} = useZustand();
   const text = getLocalizedText().menu.options;
 
+  const gameInProgress = playerStore.name.get()!!;
+
   return (
     <View style={styles.box}>
+      {gameInProgress && <SectionButton label={text.resume} onPress={() => setCurrentPage(pageStructure.home)} />}
       <SectionButton
         label={text.startNewLife}
         onPress={() => setCurrentPage(pageStructure.menu.pages.menu_startNewLife)}
