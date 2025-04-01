@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import SelectCountry from './src/SelectCountry/SelectCountry';
 import SelectCity from './src/SelectCity/SelectCity';
-import {newLifeStore} from '../../../../../../storage/store';
+import {newLifeStore, playerStore} from '../../../../../../storage/store';
 import SelectGender from './src/SelectGender/SelectGender';
 import NameInput from './src/NameInput/NameInput';
 import SurnameInput from './src/SurnameInput/NameInput';
@@ -27,6 +27,22 @@ function StartNewLife() {
     newLifeStore.city.set('', setCity);
   }
 
+  function handleStart() {
+    playerStore.country.set(country, setCountry);
+    playerStore.city.set(city, setCity);
+    playerStore.gender.set(gender, setGender);
+    playerStore.name.set(name, setName);
+    playerStore.surname.set(surname, setSurname);
+
+    newLifeStore.country.set('', setCountry);
+    newLifeStore.city.set('', setCity);
+    newLifeStore.gender.set('', setGender);
+    newLifeStore.name.set('', setName);
+    newLifeStore.surname.set('', setSurname);
+
+    setCurrentPage(pageStructure.home);
+  }
+
   return (
     <View style={styles.box}>
       <SelectCountry country={country} setCountry={setCountry} clearCity={clearCity} />
@@ -34,7 +50,7 @@ function StartNewLife() {
       <SelectGender gender={gender} setGender={setGender} />
       <NameInput name={name} setName={setName} />
       <SurnameInput surname={surname} setSurname={setSurname} />
-      <Button label={localizedText} onPress={() => setCurrentPage(pageStructure.home)} />
+      <Button label={localizedText} onPress={handleStart} />
     </View>
   );
 }
