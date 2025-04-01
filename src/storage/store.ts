@@ -6,7 +6,6 @@ import {
   saveData,
   SaveDataReturnType,
   StorageTypes,
-  TransformTypes,
   updateData,
   UpdateDataReturnType,
 } from './MMKV';
@@ -52,44 +51,44 @@ const updateNumericData = (
   return updatedValue;
 };
 
-function createStoreEntry(key: string, type: TransformTypes) {
-  switch (type) {
-    case DataTypes.NUMBER:
-      return {
-        get: () => loadData<number>(key),
-        set: (value, dispatch) => setData(key, value, dispatch),
-        increase: (amount, dispatch) => updateNumericData(key, oldValue => oldValue + amount, dispatch),
-        decrease: (amount, dispatch) => updateNumericData(key, oldValue => oldValue - amount, dispatch),
-      } as NumberStoreEntry;
-    case DataTypes.BOOLEAN:
-      return {};
-    case DataTypes.OBJECT:
-      return {};
-    default:
-      return {
-        get: () => loadData<string>(key),
-        set: (value, dispatch) => setData(key, value, dispatch),
-      } as StringStoreEntry;
-  }
-}
+const str = (key: string) =>
+  ({
+    get: () => loadData<string>(key),
+    set: (value, dispatch) => setData(key, value, dispatch),
+  } as StringStoreEntry);
+
+const num = (key: string) =>
+  ({
+    get: () => loadData<number>(key),
+    set: (value, dispatch) => setData(key, value, dispatch),
+    increase: (amount, dispatch) => updateNumericData(key, oldValue => oldValue + amount, dispatch),
+    decrease: (amount, dispatch) => updateNumericData(key, oldValue => oldValue - amount, dispatch),
+  } as NumberStoreEntry);
+
+// const bool = (key: string) => ({});
+
+// const obj = (key: string) => ({});
 
 export const playerStore = {
-  name: createStoreEntry('playerName', DataTypes.STRING) as StringStoreEntry,
-  surname: createStoreEntry('playerSurname', DataTypes.STRING) as StringStoreEntry,
-  money: createStoreEntry('playerMoney', DataTypes.NUMBER) as NumberStoreEntry,
-  energy: createStoreEntry('playerEnergy', DataTypes.NUMBER) as NumberStoreEntry,
-  health: createStoreEntry('playerHealth', DataTypes.NUMBER) as NumberStoreEntry,
-  power: createStoreEntry('playerPower', DataTypes.NUMBER) as NumberStoreEntry,
+  name: str('playerName'),
+  surname: str('playerSurname'),
+  country: str('playerCountry'),
+  city: str('playerCity'),
+  gender: str('playerGender'),
+  money: num('playerMoney'),
+  energy: num('playerEnergy'),
+  health: num('playerHealth'),
+  power: num('playerPower'),
 };
 
 export const settingsStore = {
-  language: createStoreEntry('settingsLanguage', DataTypes.STRING) as StringStoreEntry,
+  language: str('settingsLanguage'),
 };
 
 export const newLifeStore = {
-  country: createStoreEntry('newLifeCountry', DataTypes.STRING) as StringStoreEntry,
-  city: createStoreEntry('newLifeCity', DataTypes.STRING) as StringStoreEntry,
-  gender: createStoreEntry('newLifeGender', DataTypes.STRING) as StringStoreEntry,
-  name: createStoreEntry('newLifeName', DataTypes.STRING) as StringStoreEntry,
-  surname: createStoreEntry('newLifeSurname', DataTypes.STRING) as StringStoreEntry,
+  country: str('newLifeCountry'),
+  city: str('newLifeCity'),
+  gender: str('newLifeGender'),
+  name: str('newLifeName'),
+  surname: str('newLifeSurname'),
 };
