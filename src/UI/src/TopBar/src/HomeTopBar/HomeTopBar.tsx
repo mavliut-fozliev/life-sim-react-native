@@ -23,7 +23,7 @@ function HomeTopBar({goBack}: HomeTopBarProps) {
     setCurrentPage(pageStructure.menu);
   };
 
-  const isHomePage = currentPage.title === pageStructure.home.title;
+  const isHomePage = currentPage.title === pageStructure.menu.pages.menu_home.title;
 
   return (
     <View style={styles.box}>

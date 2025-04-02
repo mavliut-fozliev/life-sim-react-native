@@ -40,7 +40,7 @@ function StartNewLife() {
     newLifeStore.name.set('', setName);
     newLifeStore.surname.set('', setSurname);
 
-    setCurrentPage(pageStructure.home);
+    setCurrentPage(pageStructure.menu.pages.menu_home);
   }
 
   const haveEmptyField = !country || !city || !gender || !name || !surname;

@@ -21,10 +21,10 @@ function TopBar() {
     <View style={styles.box}>
       {currentPage.title === pageStructure.menu.title ? (
         <MenuTopBar />
-      ) : currentPage.parentTitle === pageStructure.menu.title ? (
-        <MenuSectionTopBar goBack={goBack} />
-      ) : (
+      ) : currentPage.title === pageStructure.menu.pages.menu_home.title ? (
         <HomeTopBar goBack={goBack} />
+      ) : (
+        <MenuSectionTopBar goBack={goBack} />
       )}
     </View>
   );

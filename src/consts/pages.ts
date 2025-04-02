@@ -11,6 +11,10 @@ export const pageStructure = createPageStructure({
   menu: {
     title: 'menu',
     pages: {
+      menu_home: {
+        title: 'menu_home',
+        parentTitle: 'menu',
+      },
       menu_startNewLife: {
         title: 'menu_startNewLife',
         parentTitle: 'menu',
@@ -21,8 +25,8 @@ export const pageStructure = createPageStructure({
       },
     },
   },
-  home: {
-    title: 'home',
+  skeleton: {
+    title: 'skeleton',
   },
 });
 

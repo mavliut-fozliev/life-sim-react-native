@@ -15,7 +15,9 @@ function Menu() {
 
   return (
     <View style={styles.box}>
-      {gameInProgress && <SectionButton label={text.resume} onPress={() => setCurrentPage(pageStructure.home)} />}
+      {gameInProgress && (
+        <SectionButton label={text.resume} onPress={() => setCurrentPage(pageStructure.menu.pages.menu_home)} />
+      )}
       <SectionButton
         label={text.startNewLife}
         onPress={() => setCurrentPage(pageStructure.menu.pages.menu_startNewLife)}

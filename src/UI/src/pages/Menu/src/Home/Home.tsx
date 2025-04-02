@@ -17,7 +17,9 @@ function Home({}: HomeProps): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  box: {},
+  box: {
+    height: '100%',
+  },
 });
 
 export default Home;

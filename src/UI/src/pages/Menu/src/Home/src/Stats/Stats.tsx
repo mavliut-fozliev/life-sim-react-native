@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Stat from './src/Stat/Stat';
-import {playerStore} from '../../../../../../storage/store';
+import {playerStore} from '../../../../../../../../storage/store';
 
 function Stats() {
   const [health, setHealth] = useState(0);
