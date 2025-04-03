@@ -1,14 +1,7 @@
 import {create} from 'zustand';
-import {Page, pageStructure} from '../consts/pages';
 
-interface Store {
-  currentPage: Page;
-  setCurrentPage: (page: Page) => void;
-}
+interface Store {}
 
-const useZustand = create<Store>(set => ({
-  currentPage: pageStructure.menu,
-  setCurrentPage: page => set({currentPage: page}),
-}));
+const useZustand = create<Store>(set => ({}));
 
 export default useZustand;
