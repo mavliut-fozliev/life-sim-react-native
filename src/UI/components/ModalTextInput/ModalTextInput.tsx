@@ -3,6 +3,7 @@ import {Modal, View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform
 import {getLocalizedText} from '../../../locales/getLocalizedText ';
 import Button from '../Button/Button';
 import {colors, fontSizes} from '../../../consts/styles';
+import useZustand from '../../../storage/zustand';
 
 type ModalTextInputProps = {
   value: string;
@@ -11,7 +12,8 @@ type ModalTextInputProps = {
 };
 
 const ModalTextInput = ({value, onSave, placeholder}: ModalTextInputProps) => {
-  const localizedText = getLocalizedText().common;
+  const {language} = useZustand();
+  const localizedText = getLocalizedText(language).common;
 
   const [modalVisible, setModalVisible] = useState(false);
   const [inputText, setInputText] = useState('');

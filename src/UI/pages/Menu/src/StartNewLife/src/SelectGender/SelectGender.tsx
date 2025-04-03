@@ -4,6 +4,7 @@ import {getLocalizedText} from '../../../../../../../locales/getLocalizedText ';
 import {newLifeStore} from '../../../../../../../storage/store';
 import {DispatchString} from '../../../../../../../types/common';
 import {getRandomArrayItem} from '../../../../../../../utils/common';
+import useZustand from '../../../../../../../storage/zustand';
 
 type SelectGenderProps = {
   gender: string;
@@ -11,10 +12,11 @@ type SelectGenderProps = {
 };
 
 function SelectGender({gender, setGender}: SelectGenderProps) {
+  const {language} = useZustand();
   const [items, setItems] = useState<SelectItem[]>([]);
 
   useEffect(() => {
-    const genderLabels = getLocalizedText().menu.genders;
+    const genderLabels = getLocalizedText(language).menu.genders;
 
     const localizedGenders: SelectItem[] = Object.entries(genderLabels).map(([key, value]) => ({
       label: value,
@@ -30,7 +32,7 @@ function SelectGender({gender, setGender}: SelectGenderProps) {
       const randomGender = getRandomArrayItem(localizedGenders).value;
       newLifeStore.gender.set(randomGender, setGender);
     }
-  }, [setGender]);
+  }, [setGender, language]);
 
   function handleSelectItem(value: string) {
     newLifeStore.gender.set(value, setGender);

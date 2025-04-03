@@ -1,4 +1,3 @@
-import {settingsStore} from '../storage/store';
 import {ObjectRecord} from '../types/common';
 import en_common from './en/common.json';
 import en_menu from './en/menu.json';
@@ -26,7 +25,6 @@ const locales: Record<string, Locale> = {
   ru: {common: ru_common, menu: ru_menu},
 };
 
-export function getLocalizedText() {
-  const language = settingsStore.language.get() || 'en';
+export function getLocalizedText(language: string) {
   return locales[language];
 }

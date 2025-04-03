@@ -3,6 +3,7 @@ import Select, {SelectItem} from '../../../../../../components/Select/Select';
 import {getLocalizedText} from '../../../../../../../locales/getLocalizedText ';
 import {newLifeStore} from '../../../../../../../storage/store';
 import {DispatchString} from '../../../../../../../types/common';
+import useZustand from '../../../../../../../storage/zustand';
 
 type SelectCityProps = {
   city: string;
@@ -11,7 +12,8 @@ type SelectCityProps = {
 };
 
 function SelectCity({city, setCity, country}: SelectCityProps) {
-  const localizedText = getLocalizedText().menu;
+  const {language} = useZustand();
+  const localizedText = getLocalizedText(language).menu;
 
   const [items, setItems] = useState<SelectItem[]>([]);
 

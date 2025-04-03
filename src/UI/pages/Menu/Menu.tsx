@@ -6,13 +6,15 @@ import SectionButton from '../../components/SectionButton/SectionButton';
 import {PageNames} from '../../../consts/pages';
 import {colors} from '../../../consts/styles';
 import {Navigation} from '../../../types/navigation';
+import useZustand from '../../../storage/zustand';
 
 type MenuProps = {
   navigation: Navigation;
 };
 
 function Menu({navigation}: MenuProps) {
-  const text = getLocalizedText().menu.options;
+  const {language} = useZustand();
+  const text = getLocalizedText(language).menu.options;
 
   const gameInProgress = playerStore.name.get()!!;
 

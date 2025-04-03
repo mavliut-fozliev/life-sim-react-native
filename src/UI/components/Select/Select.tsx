@@ -4,6 +4,7 @@ import {StyleSheet, View, Text, Modal, TouchableOpacity, ScrollView} from 'react
 import {colors, fontSizes} from '../../../consts/styles';
 import Radio from '../../../icons/Radio';
 import {getLocalizedText} from '../../../locales/getLocalizedText ';
+import useZustand from '../../../storage/zustand';
 
 export type SelectItem = {
   label: string;
@@ -23,7 +24,9 @@ type SelectProps = {
 };
 
 function Select({value, items, onSelectItem, placeholder = ''}: SelectProps) {
-  const localizedText = getLocalizedText().common.emptySelectItems;
+  const {language} = useZustand();
+  const localizedText = getLocalizedText(language).common.emptySelectItems;
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const noItems = items.length === 0;

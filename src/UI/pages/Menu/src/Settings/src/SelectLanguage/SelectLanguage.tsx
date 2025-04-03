@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
 import {settingsStore} from '../../../../../../../storage/store';
+import useZustand from '../../../../../../../storage/zustand';
 
 const languages: SelectItem[] = [
   {
@@ -14,7 +15,7 @@ const languages: SelectItem[] = [
 ];
 
 function SelectLanguage() {
-  const [language, setLanguage] = useState('');
+  const {language, setLanguage} = useZustand();
 
   function handleSelect(v: string) {
     settingsStore.language.set(v, setLanguage);
@@ -27,7 +28,7 @@ function SelectLanguage() {
     } else {
       settingsStore.language.set(languages[0].value, setLanguage);
     }
-  }, []);
+  }, [setLanguage]);
 
   return <Select value={language} items={languages} onSelectItem={handleSelect} />;
 }

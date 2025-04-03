@@ -11,11 +11,13 @@ import Settings from './src/UI/pages/Menu/src/Settings/Settings';
 import {getLocalizedText} from './src/locales/getLocalizedText ';
 import HomeTopBar from './src/UI/pages/Menu/src/Home/src/HomeTopBar/HomeTopBar';
 import MenuButton from './src/UI/pages/Menu/src/Home/src/MenuButton/MenuButton';
+import useZustand from './src/storage/zustand';
 
 const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
-  const localizedText = getLocalizedText().menu.options;
+  const {language} = useZustand();
+  const localizedText = getLocalizedText(language).menu.options;
 
   return (
     <NavigationContainer>

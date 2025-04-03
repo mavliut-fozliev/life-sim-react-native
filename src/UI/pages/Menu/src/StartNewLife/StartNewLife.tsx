@@ -11,13 +11,15 @@ import {newLifeStore, playerStore} from '../../../../../storage/store';
 import {PageNames} from '../../../../../consts/pages';
 import {colors} from '../../../../../consts/styles';
 import {Navigation} from '../../../../../types/navigation';
+import useZustand from '../../../../../storage/zustand';
 
 type StartNewLifeProps = {
   navigation: Navigation;
 };
 
 function StartNewLife({navigation}: StartNewLifeProps) {
-  const localizedText = getLocalizedText().menu.button.startNewLife;
+  const {language} = useZustand();
+  const localizedText = getLocalizedText(language).menu.button.startNewLife;
 
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');

@@ -5,6 +5,7 @@ import {getLocalizedText} from '../../../../../../../locales/getLocalizedText ';
 import {DispatchString} from '../../../../../../../types/common';
 import {newLifeStore} from '../../../../../../../storage/store';
 import {getRandomArrayItem} from '../../../../../../../utils/common';
+import useZustand from '../../../../../../../storage/zustand';
 
 type SelectCountryProps = {
   country: string;
@@ -13,10 +14,12 @@ type SelectCountryProps = {
 };
 
 function SelectCountry({country, setCountry, clearCity}: SelectCountryProps) {
+  const {language} = useZustand();
   const [items, setItems] = useState<SelectItem[]>([]);
 
   useEffect(() => {
-    const countryLabels = getLocalizedText().menu.countries;
+    const countryLabels = getLocalizedText(language).menu.countries;
+
     const localizedCountries: SelectItem[] = countries.map(c => ({
       ...c,
       label: c.label + countryLabels[c.value],
@@ -31,7 +34,7 @@ function SelectCountry({country, setCountry, clearCity}: SelectCountryProps) {
       const randomCountry = getRandomArrayItem(localizedCountries).value;
       newLifeStore.country.set(randomCountry, setCountry);
     }
-  }, [setCountry]);
+  }, [setCountry, language]);
 
   function handleSelectItem(value: string) {
     newLifeStore.country.set(value, setCountry);

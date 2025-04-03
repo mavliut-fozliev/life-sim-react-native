@@ -9,7 +9,7 @@ import {
   updateData,
   UpdateDataReturnType,
 } from './MMKV';
-import {DispatchNumber, DispatchString} from '../types/common';
+import {DispatchNumber, DispatchString, SetZustandNumber, SetZustandState, SetZustandString} from '../types/common';
 
 type LoadedString = LoadDataReturnType<string>;
 type LoadedNumber = LoadDataReturnType<number>;
@@ -18,19 +18,19 @@ type UpdatedNumber = UpdateDataReturnType<number>;
 
 type StringStoreEntry = {
   get: () => LoadedString;
-  set: (value: string, dispatch: DispatchString) => SaveDataReturnType;
+  set: (value: string, dispatch: DispatchString | SetZustandString) => SaveDataReturnType;
 };
 type NumberStoreEntry = {
   get: () => LoadedNumber;
-  set: (value: number, dispatch: DispatchNumber) => SaveDataReturnType;
-  increase: (amount: number, dispatch: DispatchNumber) => UpdatedNumber;
-  decrease: (amount: number, dispatch: DispatchNumber) => UpdatedNumber;
+  set: (value: number, dispatch: DispatchNumber | SetZustandNumber) => SaveDataReturnType;
+  increase: (amount: number, dispatch: DispatchNumber | SetZustandNumber) => UpdatedNumber;
+  decrease: (amount: number, dispatch: DispatchNumber | SetZustandNumber) => UpdatedNumber;
 };
 
 const setData = <T extends StorageTypes>(
   key: string,
   value: T,
-  dispatch: Dispatch<SetStateAction<T>>,
+  dispatch: Dispatch<SetStateAction<T>> | SetZustandState<T>,
 ): SaveDataReturnType => {
   const saved = saveData(key, value);
   if (saved) {
@@ -42,7 +42,7 @@ const setData = <T extends StorageTypes>(
 const updateNumericData = (
   key: string,
   modifier: (oldValue: number) => number,
-  dispatch: DispatchNumber,
+  dispatch: DispatchNumber | SetZustandNumber,
 ): UpdatedNumber => {
   const updatedValue = updateData<number>(key, modifier, DataTypes.NUMBER);
   if (updatedValue !== undefined) {
