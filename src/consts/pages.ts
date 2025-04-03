@@ -46,3 +46,10 @@ export const findParentPage = (childKey: string, structure: PageStructure = page
 
   return null;
 };
+
+export enum PageNames {
+  Menu = 'Menu',
+  Home = 'Home',
+  StartNewLife = 'StartNewLife',
+  Settings = 'Settings',
+}
