@@ -1,26 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Stat from './src/Stat/Stat';
-import {playerStore} from '../../../../../../../storage/store';
+import usePlayerStore from '../../../playerStore';
 
 function Stats() {
-  const [health, setHealth] = useState(0);
-  const [power, setPower] = useState(0);
-
-  useEffect(() => {
-    const setUserData = async () => {
-      playerStore.health.set(74, setHealth);
-      playerStore.power.set(43, setPower);
-    };
-
-    setUserData();
-  }, []);
+  const playerStore = usePlayerStore();
 
   return (
     <View style={styles.box}>
       <View>
-        <Stat name="health" value={health} />
-        <Stat name="power" value={power} />
+        <Stat name="health" value={playerStore.health} />
+        <Stat name="power" value={playerStore.power} />
       </View>
     </View>
   );

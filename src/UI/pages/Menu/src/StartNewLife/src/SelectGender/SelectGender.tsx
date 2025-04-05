@@ -1,41 +1,35 @@
 import React, {useEffect, useState} from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
-import {getLocalizedText} from '../../../../../../../locales/getLocalizedText ';
-import {newLifeStore} from '../../../../../../../storage/store';
-import {DispatchString} from '../../../../../../../types/common';
-import {getRandomArrayItem} from '../../../../../../../utils/common';
-import useZustand from '../../../../../../../storage/zustand';
+import useGlobalStore from '../../../../../../../storage/store';
+import {getRandomArrayItem, safestr} from '../../../../../../../utils/common';
+import useStore from '../store';
 
-type SelectGenderProps = {
-  gender: string;
-  setGender: DispatchString;
-};
+function SelectGender() {
+  const {gender, $gender} = useStore();
 
-function SelectGender({gender, setGender}: SelectGenderProps) {
-  const {language} = useZustand();
+  const {localizedText} = useGlobalStore();
   const [items, setItems] = useState<SelectItem[]>([]);
 
   useEffect(() => {
-    const genderLabels = getLocalizedText(language).menu.genders;
+    const genderLabels = localizedText?.menu?.genders || {};
 
     const localizedGenders: SelectItem[] = Object.entries(genderLabels).map(([key, value]) => ({
-      label: value,
+      label: safestr(value),
       value: key,
     }));
 
     setItems(localizedGenders);
 
-    const savedGender = newLifeStore.gender.get();
-    if (savedGender) {
-      setGender(savedGender);
-    } else {
-      const randomGender = getRandomArrayItem(localizedGenders).value;
-      newLifeStore.gender.set(randomGender, setGender);
+    if (!gender) {
+      const randomGender = getRandomArrayItem(localizedGenders)?.value;
+      if (randomGender) {
+        $gender.set(randomGender);
+      }
     }
-  }, [setGender, language]);
+  }, [gender, $gender, localizedText]);
 
   function handleSelectItem(value: string) {
-    newLifeStore.gender.set(value, setGender);
+    $gender.set(value);
   }
 
   return <Select value={gender} onSelectItem={handleSelectItem} items={items} />;

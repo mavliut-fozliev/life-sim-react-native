@@ -1,85 +1,89 @@
 import {MMKV} from 'react-native-mmkv';
 
-export const storage = new MMKV();
+const storage = new MMKV();
 
-export type StorageTypes = string | object | number | boolean;
+export namespace str {
+  export const save = (key: string, value: string) => {
+    try {
+      storage.set(key, value);
+    } catch (error) {
+      console.error(`Error while saving ${key}`, error);
+    }
+  };
 
-export enum DataTypes {
-  STRING = 'string',
-  OBJECT = 'object',
-  NUMBER = 'number',
-  BOOLEAN = 'boolean',
+  export const load = (key: string): string => {
+    let data = '';
+    try {
+      data = storage.getString(key) ?? '';
+    } catch (error) {
+      console.error(`Error while loading ${key}`, error);
+    } finally {
+      return data;
+    }
+  };
 }
 
-export type TransformTypes = `${DataTypes}`;
-
-export type SaveDataReturnType = true | undefined;
-export type LoadDataReturnType<T> = T | undefined;
-export type RemoveDataReturnType = true | undefined;
-export type UpdateDataReturnType<T> = T | undefined;
-
-export const saveData = (key: string, data: StorageTypes): SaveDataReturnType => {
-  try {
-    let transformedData = data;
-
-    if (typeof transformedData === 'object') {
-      transformedData = JSON.stringify(transformedData);
+export namespace num {
+  export const save = (key: string, value: number) => {
+    try {
+      storage.set(key, value);
+    } catch (error) {
+      console.error(`Error while saving ${key}`, error);
     }
+  };
 
-    storage.set(key, transformedData);
-    return true;
-  } catch (error) {
-    console.error('Error while saving. ', error);
-  }
-};
-
-export const loadData = <T extends StorageTypes>(key: string, type?: TransformTypes): LoadDataReturnType<T> => {
-  try {
-    let data: any;
-
-    if (type === DataTypes.NUMBER) {
-      data = storage.getNumber(key);
-    } else if (type === DataTypes.BOOLEAN) {
-      data = storage.getBoolean(key);
-    } else {
-      data = storage.getString(key);
+  export const load = (key: string): number => {
+    let data = 0;
+    try {
+      data = storage.getNumber(key) ?? 0;
+    } catch (error) {
+      console.error(`Error while loading ${key}`, error);
+    } finally {
+      return data;
     }
+  };
+}
 
-    if (type === DataTypes.OBJECT && typeof data === DataTypes.STRING) {
-      data = JSON.parse(data);
+export namespace bool {
+  export const save = (key: string, value: boolean) => {
+    try {
+      storage.set(key, value);
+    } catch (error) {
+      console.error(`Error while saving ${key}`, error);
     }
+  };
 
-    return data;
-  } catch (error) {
-    console.error('Error loading.', error);
-  }
-};
-
-export const removeData = (key: string): RemoveDataReturnType => {
-  try {
-    storage.delete(key);
-    return true;
-  } catch (error) {
-    console.error('Error while deleting.', error);
-  }
-};
-
-export const updateData = <T extends StorageTypes>(
-  key: string,
-  transform: (oldData: T) => T,
-  type?: TransformTypes,
-): UpdateDataReturnType<T> => {
-  try {
-    const oldData = loadData<T>(key, type);
-    if (oldData === undefined) {
-      throw new Error('No data found.');
+  export const load = (key: string): boolean => {
+    let data = false;
+    try {
+      data = storage.getBoolean(key) ?? false;
+    } catch (error) {
+      console.error(`Error while loading ${key}`, error);
+    } finally {
+      return data;
     }
+  };
+}
 
-    const newValue = transform(oldData);
-    saveData(key, newValue);
+export namespace obj {
+  export const save = <T extends object>(key: string, value: T) => {
+    try {
+      const stirngValue = JSON.stringify(value);
+      storage.set(key, stirngValue);
+    } catch (error) {
+      console.error(`Error while saving ${key}`, error);
+    }
+  };
 
-    return newValue;
-  } catch (error) {
-    console.error('Error while changing.', error);
-  }
-};
+  export const load = <T extends object>(key: string): Partial<T> => {
+    let data = {};
+    try {
+      const loaded = storage.getString(key) ?? '{}';
+      data = JSON.parse(loaded);
+    } catch (error) {
+      console.error(`Error while loading ${key}`, error);
+    } finally {
+      return data;
+    }
+  };
+}

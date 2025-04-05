@@ -8,16 +8,15 @@ import {PageNames} from './src/consts/pages';
 import Home from './src/UI/pages/Menu/src/Home/Home';
 import StartNewLife from './src/UI/pages/Menu/src/StartNewLife/StartNewLife';
 import Settings from './src/UI/pages/Menu/src/Settings/Settings';
-import {getLocalizedText} from './src/locales/getLocalizedText ';
 import HomeTopBar from './src/UI/pages/Menu/src/Home/src/HomeTopBar/HomeTopBar';
 import MenuButton from './src/UI/pages/Menu/src/Home/src/MenuButton/MenuButton';
-import useZustand from './src/storage/zustand';
+import useGlobalStore from './src/storage/store';
+import {safestr} from './src/utils/common';
 
 const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
-  const {language} = useZustand();
-  const localizedText = getLocalizedText(language).menu.options;
+  const {localizedText} = useGlobalStore();
 
   return (
     <NavigationContainer>
@@ -35,12 +34,12 @@ function App(): React.JSX.Element {
         <Stack.Screen
           name={PageNames.StartNewLife}
           component={StartNewLife}
-          options={getScreenOptions(localizedText.startNewLife)}
+          options={getScreenOptions(safestr(localizedText.menu?.options?.startNewLife))}
         />
         <Stack.Screen
           name={PageNames.Settings}
           component={Settings}
-          options={getScreenOptions(localizedText.settings)}
+          options={getScreenOptions(safestr(localizedText.menu?.options?.settings))}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,43 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
-import {getLocalizedText} from '../../../../../../../locales/getLocalizedText ';
-import {newLifeStore} from '../../../../../../../storage/store';
-import {DispatchString} from '../../../../../../../types/common';
-import useZustand from '../../../../../../../storage/zustand';
+import useStore from '../store';
+import useGlobalStore from '../../../../../../../storage/store';
+import {safestr} from '../../../../../../../utils/common';
 
-type SelectCityProps = {
-  city: string;
-  setCity: DispatchString;
-  country: string;
-};
+function SelectCity() {
+  const {city, $city, country} = useStore();
 
-function SelectCity({city, setCity, country}: SelectCityProps) {
-  const {language} = useZustand();
-  const localizedText = getLocalizedText(language).menu;
+  const {localizedText} = useGlobalStore();
+  const menuText = localizedText.menu;
 
   const [items, setItems] = useState<SelectItem[]>([]);
 
   function handleSelect(v: string) {
-    newLifeStore.city.set(v, setCity);
+    $city.set(v);
   }
 
   useEffect(() => {
-    const savedCity = newLifeStore.city.get();
-    if (savedCity) {
-      setCity(savedCity);
-    }
-  }, [setCity]);
-
-  useEffect(() => {
-    const localizedCities: SelectItem[] = Object.entries(localizedText.cities[country] || {}).map(([key, value]) => ({
-      label: value,
+    const localizedCities: SelectItem[] = Object.entries(menuText?.cities[country] || {}).map(([key, value]) => ({
+      label: safestr(value),
       value: key,
     }));
 
     setItems(localizedCities);
-  }, [country, localizedText]);
+  }, [country, menuText]);
 
-  return <Select value={city} onSelectItem={handleSelect} items={items} placeholder={localizedText.cityPlaceholder} />;
+  return <Select value={city} onSelectItem={handleSelect} items={items} placeholder={menuText?.cityPlaceholder} />;
 }
 
 export default SelectCity;

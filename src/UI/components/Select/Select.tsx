@@ -1,31 +1,28 @@
 import React, {useState} from 'react';
-import {ItemType} from 'react-native-dropdown-picker';
 import {StyleSheet, View, Text, Modal, TouchableOpacity, ScrollView} from 'react-native';
 import {colors, fontSizes} from '../../../consts/styles';
 import Radio from '../../../icons/Radio';
-import {getLocalizedText} from '../../../locales/getLocalizedText ';
-import useZustand from '../../../storage/zustand';
+import {safestr} from '../../../utils/common';
+import useGlobalStore from '../../../storage/store';
 
-export type SelectItem = {
+export type SelectItem<T extends string = string> = {
   label: string;
-  value: string;
+  value: T;
   icon?: () => React.JSX.Element;
   color?: string;
   backgroundColor?: string;
 };
 
-export type SelectedItem = ItemType<string>;
-
-type SelectProps = {
-  value: string;
-  items: SelectItem[];
-  onSelectItem: (item: string) => void;
+type SelectProps<T extends string = string> = {
+  value: T;
+  items: SelectItem<T>[];
+  onSelectItem: (value: T) => void;
   placeholder?: string;
 };
 
-function Select({value, items, onSelectItem, placeholder = ''}: SelectProps) {
-  const {language} = useZustand();
-  const localizedText = getLocalizedText(language).common.emptySelectItems;
+function Select<T extends string = string>({value, items, onSelectItem, placeholder = ''}: SelectProps<T>) {
+  const {localizedText} = useGlobalStore();
+  const text = safestr(localizedText.common?.emptySelectItems);
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -39,7 +36,7 @@ function Select({value, items, onSelectItem, placeholder = ''}: SelectProps) {
     setModalVisible(true);
   }
 
-  function handleSelect(selectedValue: string) {
+  function handleSelect(selectedValue: T) {
     onSelectItem(selectedValue);
     setModalVisible(false);
   }
@@ -58,7 +55,7 @@ function Select({value, items, onSelectItem, placeholder = ''}: SelectProps) {
             </Text>
           ) : (
             <Text numberOfLines={1} style={styles.placeholder}>
-              {noItems ? localizedText : placeholder}
+              {noItems ? text : placeholder}
             </Text>
           )}
         </View>

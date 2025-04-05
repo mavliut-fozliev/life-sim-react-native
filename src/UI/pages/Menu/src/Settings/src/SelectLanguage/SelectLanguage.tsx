@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useState} from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
-import {settingsStore} from '../../../../../../../storage/store';
-import useZustand from '../../../../../../../storage/zustand';
+import {Language} from '../../../../../../../types/localizedText';
+import {useLocalizeText} from '../../../../../../../locales/useLocalizeText';
 
-const languages: SelectItem[] = [
+const languages: SelectItem<Language>[] = [
   {
     label: 'English',
     value: 'en',
@@ -15,22 +15,15 @@ const languages: SelectItem[] = [
 ];
 
 function SelectLanguage() {
-  const {language, setLanguage} = useZustand();
+  const [language, setLanguage] = useState<Language>('en');
+  const localizeText = useLocalizeText();
 
-  function handleSelect(v: string) {
-    settingsStore.language.set(v, setLanguage);
+  function handleSelect(v: Language) {
+    setLanguage(v);
+    localizeText(v);
   }
 
-  useEffect(() => {
-    const savedLanguage = settingsStore.language.get();
-    if (savedLanguage) {
-      setLanguage(savedLanguage);
-    } else {
-      settingsStore.language.set(languages[0].value, setLanguage);
-    }
-  }, [setLanguage]);
-
-  return <Select value={language} items={languages} onSelectItem={handleSelect} />;
+  return <Select<Language> value={language} items={languages} onSelectItem={handleSelect} />;
 }
 
 export default SelectLanguage;

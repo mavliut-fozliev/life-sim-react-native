@@ -1,4 +1,4 @@
-import {SelectItem} from '../../../../../../components/Select/Select';
+import {SelectItem} from '../../../../../../../components/Select/Select';
 
 export const countries: SelectItem[] = [
   {

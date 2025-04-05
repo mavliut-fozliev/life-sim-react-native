@@ -1,44 +1,41 @@
 import React, {useEffect, useState} from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
-import {countries} from './consts';
-import {getLocalizedText} from '../../../../../../../locales/getLocalizedText ';
-import {DispatchString} from '../../../../../../../types/common';
-import {newLifeStore} from '../../../../../../../storage/store';
-import {getRandomArrayItem} from '../../../../../../../utils/common';
-import useZustand from '../../../../../../../storage/zustand';
+import {countries} from './src/consts';
+import {getRandomArrayItem, safestr} from '../../../../../../../utils/common';
+import useStore from '../store';
+import useGlobalStore from '../../../../../../../storage/store';
 
-type SelectCountryProps = {
-  country: string;
-  setCountry: DispatchString;
-  clearCity: () => void;
-};
+function SelectCountry() {
+  const {country, $country, $city} = useStore();
 
-function SelectCountry({country, setCountry, clearCity}: SelectCountryProps) {
-  const {language} = useZustand();
+  const {localizedText} = useGlobalStore();
   const [items, setItems] = useState<SelectItem[]>([]);
 
   useEffect(() => {
-    const countryLabels = getLocalizedText(language).menu.countries;
+    const countryLabels = localizedText?.menu?.countries;
 
     const localizedCountries: SelectItem[] = countries.map(c => ({
       ...c,
-      label: c.label + countryLabels[c.value],
+      label: c.label + safestr(countryLabels?.[c.value]),
     }));
 
     setItems(localizedCountries);
 
-    const savedCountry = newLifeStore.country.get();
-    if (savedCountry) {
-      setCountry(savedCountry);
-    } else {
-      const randomCountry = getRandomArrayItem(localizedCountries).value;
-      newLifeStore.country.set(randomCountry, setCountry);
+    if (!country) {
+      const randomCountry = getRandomArrayItem(localizedCountries)?.value;
+      if (randomCountry) {
+        $country.set(randomCountry);
+      }
     }
-  }, [setCountry, language]);
+  }, [country, $country, localizedText]);
 
   function handleSelectItem(value: string) {
-    newLifeStore.country.set(value, setCountry);
+    $country.set(value);
     clearCity();
+  }
+
+  function clearCity() {
+    $city.set('');
   }
 
   return <Select value={country} onSelectItem={handleSelectItem} items={items} />;

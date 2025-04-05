@@ -1,17 +1,16 @@
 import React from 'react';
-import {playerStore} from '../../../../../../../storage/store';
 import {StyleSheet, Text, View} from 'react-native';
 import Resource from '../Resource/Resource';
 import {fontSizes} from '../../../../../../../consts/styles';
+import usePlayerStore from '../../../playerStore';
 
 function HomeTopBar() {
-  const name = playerStore.name.get();
-  const surname = playerStore.surname.get();
+  const playerStore = usePlayerStore();
 
   return (
     <View style={styles.contentBox}>
       <Text numberOfLines={1} style={styles.name}>
-        {name} {surname}
+        {playerStore.name} {playerStore.surname}
       </Text>
       <Resource name="energy" value={12} />
       <Resource name="money" value={34} />
