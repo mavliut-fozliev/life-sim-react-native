@@ -1,5 +1,5 @@
-import React from 'react';
-import {StatusBar} from 'react-native';
+import React, {useEffect} from 'react';
+import {BackHandler, StatusBar} from 'react-native';
 import {colors} from './src/consts/styles';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator, NativeStackNavigationOptions} from '@react-navigation/native-stack';
@@ -22,10 +22,16 @@ function App(): React.JSX.Element {
   const setInitialStoreValues = useInitialStoreValues();
   setInitialStoreValues();
 
+  // disable back button
+  useEffect(() => {
+    const subscription = BackHandler.addEventListener('hardwareBackPress', () => true);
+    return () => subscription.remove();
+  }, []);
+
   return (
     <NavigationContainer>
       <StatusBar barStyle={'dark-content'} />
-      <Stack.Navigator initialRouteName={PageNames.Menu}>
+      <Stack.Navigator initialRouteName={PageNames.Menu} screenOptions={{gestureEnabled: false}}>
         <Stack.Screen name={PageNames.Menu} component={Menu} options={getScreenOptions('Life Simulator')} />
         <Stack.Screen
           name={PageNames.Home}
@@ -33,6 +39,7 @@ function App(): React.JSX.Element {
           options={({navigation}) => ({
             headerLeft: () => MenuButton({navigation}),
             headerTitle: HomeTopBar,
+            headerStyle: {backgroundColor: colors.background.secondary},
           })}
         />
         <Stack.Screen
