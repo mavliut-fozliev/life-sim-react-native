@@ -17,7 +17,7 @@ function Menu({navigation}: MenuProps) {
   const playerStore = usePlayerStore();
   const options = localizedText?.menu?.options;
 
-  const gameInProgress = playerStore.name!!;
+  const gameInProgress = !!playerStore.name;
 
   return (
     <View style={styles.box}>
