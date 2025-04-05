@@ -6,7 +6,10 @@ import {Navigation} from '../../../../../../../types/navigation';
 type MenuButtonProps = {navigation: Navigation};
 
 function MenuButton({navigation}: MenuButtonProps) {
-  return <IconButton icon={<MenuIcon size={35} />} onPress={() => navigation.goBack()} />;
+  function handlePress() {
+    navigation.popToTop();
+  }
+  return <IconButton icon={<MenuIcon size={35} />} onPress={handlePress} />;
 }
 
 export default MenuButton;

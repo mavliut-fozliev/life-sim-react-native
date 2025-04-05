@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-// import {playerStore} from '../../../storage/store';
 import SectionButton from '../../components/SectionButton/SectionButton';
 import {PageNames} from '../../../consts/pages';
 import {colors} from '../../../consts/styles';
