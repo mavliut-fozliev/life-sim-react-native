@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
-import {Language} from '../../../../../../../types/localizedText';
 import {useLocalizeText} from '../../../../../../../locales/useLocalizeText';
+import useGlobalStore from '../../../../../../../storage/store';
 
-const languages: SelectItem<Language>[] = [
+const languages: SelectItem[] = [
   {
     label: 'English',
     value: 'en',
@@ -15,15 +15,16 @@ const languages: SelectItem<Language>[] = [
 ];
 
 function SelectLanguage() {
-  const [language, setLanguage] = useState<Language>('en');
+  const {language, $language} = useGlobalStore();
+
   const localizeText = useLocalizeText();
 
-  function handleSelect(v: Language) {
-    setLanguage(v);
+  function handleSelect(v: string) {
+    $language.set(v);
     localizeText(v);
   }
 
-  return <Select<Language> value={language} items={languages} onSelectItem={handleSelect} />;
+  return <Select value={language} items={languages} onSelectItem={handleSelect} />;
 }
 
 export default SelectLanguage;

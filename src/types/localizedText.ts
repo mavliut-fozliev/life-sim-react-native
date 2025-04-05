@@ -17,5 +17,3 @@ export type Locale = {
     button: obj;
   };
 };
-
-export type Language = 'en' | 'ru';

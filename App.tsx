@@ -12,11 +12,15 @@ import HomeTopBar from './src/UI/pages/Menu/src/Home/src/HomeTopBar/HomeTopBar';
 import MenuButton from './src/UI/pages/Menu/src/Home/src/MenuButton/MenuButton';
 import useGlobalStore from './src/storage/store';
 import {safestr} from './src/utils/common';
+import {useInitialStoreValues} from './src/hooks/useInitialStoreValues';
 
 const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
   const {localizedText} = useGlobalStore();
+
+  const setInitialStoreValues = useInitialStoreValues();
+  setInitialStoreValues();
 
   return (
     <NavigationContainer>

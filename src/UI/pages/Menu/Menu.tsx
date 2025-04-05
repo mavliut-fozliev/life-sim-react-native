@@ -7,6 +7,7 @@ import {colors} from '../../../consts/styles';
 import {Navigation} from '../../../types/navigation';
 import useGlobalStore from '../../../storage/store';
 import {safestr} from '../../../utils/common';
+import usePlayerStore from './src/playerStore';
 
 type MenuProps = {
   navigation: Navigation;
@@ -14,13 +15,16 @@ type MenuProps = {
 
 function Menu({navigation}: MenuProps) {
   const {localizedText} = useGlobalStore();
+  const playerStore = usePlayerStore();
   const options = localizedText?.menu?.options;
 
-  // const gameInProgress = playerStore.name.get()!!;
+  const gameInProgress = playerStore.name!!;
 
   return (
     <View style={styles.box}>
-      {/* {gameInProgress && <SectionButton label={safestr(options.resume)} onPress={() => navigation.navigate(PageNames.Home)} />} */}
+      {gameInProgress && (
+        <SectionButton label={safestr(options.resume)} onPress={() => navigation.navigate(PageNames.Home)} />
+      )}
       <SectionButton
         label={safestr(options?.startNewLife)}
         onPress={() => navigation.navigate(PageNames.StartNewLife)}

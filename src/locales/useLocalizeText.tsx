@@ -1,6 +1,6 @@
 import useGlobalStore from '../storage/store';
 import {ObjectRecord} from '../types/common';
-import {Language, Locale} from '../types/localizedText';
+import {Locale} from '../types/localizedText';
 import en_common from './en/common.json';
 import en_menu from './en/menu.json';
 import ru_common from './ru/common.json';
@@ -14,7 +14,7 @@ const locales: ObjectRecord<Locale> = {
 export function useLocalizeText() {
   const {$localizedText} = useGlobalStore();
 
-  return (language: Language) => {
+  return (language: string) => {
     $localizedText.set(locales[language]);
   };
 }
