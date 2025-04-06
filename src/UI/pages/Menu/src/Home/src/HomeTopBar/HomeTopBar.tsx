@@ -12,8 +12,8 @@ function HomeTopBar() {
       <Text numberOfLines={1} style={styles.name}>
         {playerStore.name} {playerStore.surname}
       </Text>
-      <Resource name="energy" value={12} />
-      <Resource name="money" value={34} />
+      <Resource name="energy" value={playerStore.energy} />
+      <Resource name="money" value={playerStore.money} />
     </View>
   );
 }

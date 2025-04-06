@@ -30,6 +30,7 @@ function StartNewLife({navigation}: StartNewLifeProps) {
     playerStore.$gender.set(gender);
     playerStore.$name.set(name);
     playerStore.$surname.set(surname);
+    playerStore.$age.set(0);
 
     $country.set('');
     $city.set('');

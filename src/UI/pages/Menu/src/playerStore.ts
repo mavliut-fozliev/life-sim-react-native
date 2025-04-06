@@ -3,7 +3,7 @@ import {NumberField, StoreFields, StringField} from '../../../../types/store';
 import {getInitializer} from '../../../../utils/storeHelpers';
 
 type StoreState = StringField<'country' | 'city' | 'gender' | 'name' | 'surname'> &
-  NumberField<'money' | 'energy' | 'health' | 'power'>;
+  NumberField<'age' | 'money' | 'energy' | 'health' | 'power'>;
 
 const fields: StoreFields = {
   country: 'str',
@@ -11,6 +11,7 @@ const fields: StoreFields = {
   gender: 'str',
   name: 'str',
   surname: 'str',
+  age: 'num',
   money: 'num',
   energy: 'num',
   health: 'num',

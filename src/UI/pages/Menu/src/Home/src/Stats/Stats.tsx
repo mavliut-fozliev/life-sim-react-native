@@ -11,6 +11,7 @@ function Stats() {
       <View>
         <Stat name="health" value={playerStore.health} />
         <Stat name="power" value={playerStore.power} />
+        <Stat name="age" value={playerStore.age} />
       </View>
     </View>
   );

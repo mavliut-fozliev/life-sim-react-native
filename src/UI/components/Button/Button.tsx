@@ -14,7 +14,7 @@ function Button({label, onPress, disabled}: ButtonProps) {
       activeOpacity={0.6}
       onPress={onPress}
       disabled={disabled}
-      style={disabled ? {...styles.button, ...styles.disabled} : styles.button}>
+      style={disabled ? [styles.button, styles.disabled] : styles.button}>
       <View style={styles.labelBox}>
         <Text style={styles.label}>{label}</Text>
       </View>
