@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {NumberField, StoreFields, StringField} from '../../../../types/store';
+import {FieldLimits, NumberField, StoreFields, StringField} from '../../../../types/store';
 import {getInitializer} from '../../../../utils/storeHelpers';
 
 type StoreState = StringField<'country' | 'city' | 'gender' | 'name' | 'surname'> &
@@ -18,6 +18,21 @@ const fields: StoreFields = {
   power: 'num',
 };
 
-const initializer = getInitializer<StoreState>('player', fields);
+const limits: FieldLimits = {
+  min: {
+    age: 0,
+    money: 0,
+    energy: 0,
+    health: 0,
+    power: 0,
+  },
+  max: {
+    money: 10e12 - 1,
+    health: 100,
+    power: 100,
+  },
+};
+
+const initializer = getInitializer<StoreState>('player', fields, limits);
 const usePlayerStore = create(initializer);
 export default usePlayerStore;

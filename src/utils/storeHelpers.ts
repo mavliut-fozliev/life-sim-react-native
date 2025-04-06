@@ -1,10 +1,10 @@
 import {bool, num, obj, str} from '../storage/MMKV';
-import {StoreFields} from '../types/store';
+import {FieldLimits, StoreFields} from '../types/store';
 
 export const mmkvKeyMethod = (mmkvKey: string) => (key: string) => mmkvKey + key;
 export const getMethodsKey = (key: string) => '$' + key;
 
-export const getInitializer = <T>(mmkvKey: string, fields: StoreFields) => {
+export const getInitializer = <T>(mmkvKey: string, fields: StoreFields, limits?: FieldLimits) => {
   const getMMKVKey = mmkvKeyMethod(mmkvKey);
 
   const addStr = (key: string, set: any) => ({
@@ -24,6 +24,16 @@ export const getInitializer = <T>(mmkvKey: string, fields: StoreFields) => {
     [getMethodsKey(key)]: {
       set: (value: number) => {
         set(() => {
+          const max = limits?.max[key];
+          if (max !== undefined && value > max) {
+            num.save(getMMKVKey(key), max);
+            return {[key]: max};
+          }
+          const min = limits?.min[key];
+          if (min !== undefined && value < min) {
+            num.save(getMMKVKey(key), min);
+            return {[key]: min};
+          }
           num.save(getMMKVKey(key), value);
           return {[key]: value};
         });
@@ -31,6 +41,11 @@ export const getInitializer = <T>(mmkvKey: string, fields: StoreFields) => {
       increase: (value: number) => {
         set((state: any) => {
           const newValue = state[key] + value;
+          const max = limits?.max[key];
+          if (max !== undefined && newValue > max) {
+            num.save(getMMKVKey(key), max);
+            return {[key]: max};
+          }
           num.save(getMMKVKey(key), newValue);
           return {[key]: newValue};
         });
@@ -38,6 +53,11 @@ export const getInitializer = <T>(mmkvKey: string, fields: StoreFields) => {
       decrease: (value: number) => {
         set((state: any) => {
           const newValue = state[key] - value;
+          const min = limits?.min[key];
+          if (min !== undefined && newValue < min) {
+            num.save(getMMKVKey(key), min);
+            return {[key]: min};
+          }
           num.save(getMMKVKey(key), newValue);
           return {[key]: newValue};
         });

@@ -35,3 +35,5 @@ export type ObjectField<T extends string, V extends object> = {
 };
 
 export type StoreFields = ObjectRecord<'str' | 'num' | 'bool' | 'obj'>;
+
+export type FieldLimits = {min: ObjectRecord<number>; max: ObjectRecord<number>};
