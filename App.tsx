@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {BackHandler, StatusBar} from 'react-native';
+import {BackHandler, Platform, StatusBar} from 'react-native';
 import {colors} from './src/consts/styles';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator, NativeStackNavigationOptions} from '@react-navigation/native-stack';
@@ -33,7 +33,9 @@ function App(): React.JSX.Element {
   return (
     <NavigationContainer>
       <StatusBar barStyle={'dark-content'} />
-      <Stack.Navigator initialRouteName={PageNames.Menu} screenOptions={{gestureEnabled: false}}>
+      <Stack.Navigator
+        initialRouteName={PageNames.Menu}
+        screenOptions={{gestureEnabled: Platform.OS === 'android', animation: 'flip'}}>
         <Stack.Screen
           name={PageNames.Menu}
           component={Menu}
