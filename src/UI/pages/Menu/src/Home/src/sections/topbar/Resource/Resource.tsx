@@ -1,7 +1,7 @@
 import React from 'react';
-import Bills from '../../../../../../../icons/Bills';
-import Energy from '../../../../../../../icons/Energy';
-import StatTemplate from '../../../../../../components/StatTemplate/StatTemplate';
+import Bills from '../../../../../../../../../icons/Bills';
+import Energy from '../../../../../../../../../icons/Energy';
+import StatTemplate from '../../../../../../../../components/StatTemplate/StatTemplate';
 
 type VariantType = 'money' | 'energy';
 

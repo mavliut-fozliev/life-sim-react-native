@@ -25,7 +25,15 @@ function SelectCity() {
     setItems(localizedCities);
   }, [country, menuText]);
 
-  return <Select value={city} onSelectItem={handleSelect} items={items} placeholder={menuText?.cityPlaceholder} />;
+  return (
+    <Select
+      value={city}
+      onSelectItem={handleSelect}
+      items={items}
+      placeholder={menuText?.cityPlaceholder}
+      label={safestr(localizedText?.menu?.newLifeInputs?.city)}
+    />
+  );
 }
 
 export default SelectCity;

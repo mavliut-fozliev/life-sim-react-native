@@ -1,7 +1,7 @@
 import React from 'react';
-import Heart from '../../../../../../../../../icons/Heart';
-import Strength from '../../../../../../../../../icons/Strength';
-import StatTemplate from '../../../../../../../../components/StatTemplate/StatTemplate';
+import Heart from '../../../../../../../../../../../icons/Heart';
+import Strength from '../../../../../../../../../../../icons/Strength';
+import StatTemplate from '../../../../../../../../../../components/StatTemplate/StatTemplate';
 
 type VariantType = 'health' | 'power' | 'age';
 

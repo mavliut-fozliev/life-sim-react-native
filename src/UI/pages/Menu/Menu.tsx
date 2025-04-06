@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import SectionButton from '../../components/SectionButton/SectionButton';
 import {PageNames} from '../../../consts/pages';
@@ -6,18 +6,20 @@ import {colors} from '../../../consts/styles';
 import {Navigation} from '../../../types/navigation';
 import useGlobalStore from '../../../storage/store';
 import {safestr} from '../../../utils/common';
-import usePlayerStore from './src/playerStore';
 
 type MenuProps = {
   navigation: Navigation;
 };
 
 function Menu({navigation}: MenuProps) {
-  const {localizedText} = useGlobalStore();
-  const playerStore = usePlayerStore();
+  const {localizedText, gameInProgress} = useGlobalStore();
   const options = localizedText?.menu?.options;
 
-  const gameInProgress = !!playerStore.name;
+  useEffect(() => {
+    if (gameInProgress) {
+      navigation.navigate(PageNames.Home);
+    }
+  }, [gameInProgress, navigation]);
 
   return (
     <View style={styles.box}>
@@ -37,8 +39,8 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: colors.background.secondary,
     height: '100%',
-    gap: 20,
-    padding: 20,
+    // gap: 20,
+    // padding: 20,
   },
 });
 

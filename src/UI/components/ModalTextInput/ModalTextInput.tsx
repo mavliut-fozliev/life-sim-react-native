@@ -8,10 +8,11 @@ import useGlobalStore from '../../../storage/store';
 type ModalTextInputProps = {
   value: string;
   onSave: (value: string) => void;
+  label: string;
   placeholder?: string;
 };
 
-const ModalTextInput = ({value, onSave, placeholder}: ModalTextInputProps) => {
+const ModalTextInput = ({value, onSave, label, placeholder}: ModalTextInputProps) => {
   const {localizedText} = useGlobalStore();
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -40,6 +41,9 @@ const ModalTextInput = ({value, onSave, placeholder}: ModalTextInputProps) => {
 
   return (
     <View>
+      <Text numberOfLines={1} style={styles.label}>
+        {label}
+      </Text>
       <TouchableOpacity activeOpacity={0.6} onPress={handlePress} delayPressIn={0}>
         <View style={styles.textContainer}>
           {value ? (
@@ -79,6 +83,12 @@ const ModalTextInput = ({value, onSave, placeholder}: ModalTextInputProps) => {
 };
 
 const styles = StyleSheet.create({
+  label: {
+    fontSize: fontSizes.medium,
+    fontWeight: 600,
+    color: colors.text.secondary,
+    paddingBottom: 6,
+  },
   textContainer: {
     paddingLeft: 20,
     paddingRight: 20,

@@ -10,6 +10,8 @@ export type Locale = {
   };
   menu: {
     options: obj;
+    newLifeInputs: obj;
+    settings: obj;
     countries: obj;
     cities: ObjectRecord<obj>;
     cityPlaceholder: string;

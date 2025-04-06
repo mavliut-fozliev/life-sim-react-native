@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import SelectCountry from './src/SelectCountry/SelectCountry';
 import SelectCity from './src/SelectCity/SelectCity';
 import SelectGender from './src/SelectGender/SelectGender';
@@ -21,7 +21,7 @@ type StartNewLifeProps = {
 function StartNewLife({navigation}: StartNewLifeProps) {
   const {country, city, gender, name, surname, $country, $city, $gender, $name, $surname} = useStore();
   const playerStore = usePlayerStore();
-  const {localizedText} = useGlobalStore();
+  const {localizedText, $gameInProgress} = useGlobalStore();
   const text = localizedText?.menu?.button?.startNewLife;
 
   function handleStart() {
@@ -30,13 +30,21 @@ function StartNewLife({navigation}: StartNewLifeProps) {
     playerStore.$gender.set(gender);
     playerStore.$name.set(name);
     playerStore.$surname.set(surname);
+
+    playerStore.$money.set(0);
+    playerStore.$energy.set(10);
+
     playerStore.$age.set(0);
+    playerStore.$health.set(60);
+    playerStore.$power.set(10);
 
     $country.set('');
     $city.set('');
     $gender.set('');
     $name.set('');
     $surname.set('');
+
+    $gameInProgress.set(true);
 
     navigation.navigate(PageNames.Home);
   }
@@ -45,20 +53,24 @@ function StartNewLife({navigation}: StartNewLifeProps) {
 
   return (
     <View style={styles.box}>
-      <SelectCountry />
-      <SelectCity />
-      <SelectGender />
-      <NameInput />
-      <SurnameInput />
-      <Button label={safestr(text)} onPress={handleStart} disabled={haveEmptyField} />
+      <ScrollView contentContainerStyle={styles.scrollBox}>
+        <SelectCountry />
+        <SelectCity />
+        <SelectGender />
+        <NameInput />
+        <SurnameInput />
+        <Button label={safestr(text)} onPress={handleStart} disabled={haveEmptyField} />
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   box: {
+    flex: 1,
     backgroundColor: colors.background.secondary,
-    height: '100%',
+  },
+  scrollBox: {
     padding: 20,
     gap: 20,
   },

@@ -1,9 +1,15 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import Button from '../../../../../../components/Button/Button';
-import usePlayerStore from '../../../playerStore';
+import Button from '../../../../../../../../components/Button/Button';
+import usePlayerStore from '../../../../../playerStore';
+import {Navigation} from '../../../../../../../../../types/navigation';
+import {PageNames} from '../../../../../../../../../consts/pages';
 
-function Actions() {
+type ActionsProps = {
+  navigation: Navigation;
+};
+
+function Actions({navigation}: ActionsProps) {
   const playerStore = usePlayerStore();
 
   const growUp = () => {
@@ -14,7 +20,7 @@ function Actions() {
   return (
     <View style={styles.box}>
       <Button label="grow up" onPress={growUp} />
-      <Button label="actions" onPress={growUp} />
+      <Button label="Activities" onPress={() => navigation.navigate(PageNames.Activities)} />
     </View>
   );
 }

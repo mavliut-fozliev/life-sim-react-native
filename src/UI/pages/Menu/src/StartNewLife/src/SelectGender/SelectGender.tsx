@@ -32,7 +32,14 @@ function SelectGender() {
     $gender.set(value);
   }
 
-  return <Select value={gender} onSelectItem={handleSelectItem} items={items} />;
+  return (
+    <Select
+      value={gender}
+      onSelectItem={handleSelectItem}
+      items={items}
+      label={safestr(localizedText?.menu?.newLifeInputs?.gender)}
+    />
+  );
 }
 
 export default SelectGender;

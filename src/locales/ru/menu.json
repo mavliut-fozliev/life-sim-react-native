@@ -1,8 +1,19 @@
 {
   "options": {
+    "menu": "Меню",
     "resume": "Продолжить",
     "startNewLife": "Начать Новую Жизнь",
     "settings": "Настройки"
+  },
+  "newLifeInputs": {
+    "country": "Страна",
+    "city": "Город",
+    "gender": "Пол",
+    "name": "Имя",
+    "surname": "Фамилия"
+  },
+  "settings": {
+    "language": "Язык"
   },
   "countries": {
     "ALB": "Албания",

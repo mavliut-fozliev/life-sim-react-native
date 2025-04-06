@@ -38,7 +38,14 @@ function SelectCountry() {
     $city.set('');
   }
 
-  return <Select value={country} onSelectItem={handleSelectItem} items={items} />;
+  return (
+    <Select
+      value={country}
+      onSelectItem={handleSelectItem}
+      items={items}
+      label={safestr(localizedText?.menu?.newLifeInputs?.country)}
+    />
+  );
 }
 
 export default SelectCountry;

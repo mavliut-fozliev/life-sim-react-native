@@ -8,11 +8,13 @@ import {PageNames} from './src/consts/pages';
 import Home from './src/UI/pages/Menu/src/Home/Home';
 import StartNewLife from './src/UI/pages/Menu/src/StartNewLife/StartNewLife';
 import Settings from './src/UI/pages/Menu/src/Settings/Settings';
-import HomeTopBar from './src/UI/pages/Menu/src/Home/src/HomeTopBar/HomeTopBar';
-import MenuButton from './src/UI/pages/Menu/src/Home/src/MenuButton/MenuButton';
 import useGlobalStore from './src/storage/store';
 import {safestr} from './src/utils/common';
 import {useInitialStoreValues} from './src/hooks/useInitialStoreValues';
+import Activities from './src/UI/pages/Menu/src/Home/src/pages/Activities/Activities';
+import MenuButton from './src/UI/pages/Menu/src/Home/src/sections/topbar/MenuButton/MenuButton';
+import HomeTopBar from './src/UI/pages/Menu/src/Home/src/sections/topbar/HomeTopBar/HomeTopBar';
+import {Navigation} from './src/types/navigation';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,16 +34,17 @@ function App(): React.JSX.Element {
     <NavigationContainer>
       <StatusBar barStyle={'dark-content'} />
       <Stack.Navigator initialRouteName={PageNames.Menu} screenOptions={{gestureEnabled: false}}>
-        <Stack.Screen name={PageNames.Menu} component={Menu} options={getScreenOptions('Life Simulator')} />
+        <Stack.Screen
+          name={PageNames.Menu}
+          component={Menu}
+          options={getScreenOptions(safestr(localizedText?.menu?.options?.menu))}
+        />
         <Stack.Screen
           name={PageNames.Home}
           component={Home}
-          options={({navigation}) => ({
-            headerLeft: () => MenuButton({navigation}),
-            headerTitle: HomeTopBar,
-            headerStyle: {backgroundColor: colors.background.secondary},
-          })}
+          options={({navigation}) => getPlayScreenOptions(navigation)}
         />
+        <Stack.Screen name={PageNames.Activities} component={Activities} options={() => getPlayScreenOptions()} />
         <Stack.Screen
           name={PageNames.StartNewLife}
           component={StartNewLife}
@@ -64,5 +67,17 @@ const getScreenOptions = (title: string) =>
     title,
     headerStyle: {backgroundColor: colors.background.primary},
     headerTintColor: colors.text.secondary,
-    headerTitleStyle: {fontWeight: 'bold'},
   } as NativeStackNavigationOptions);
+
+const getPlayScreenOptions = (navigation?: Navigation) => {
+  const options: NativeStackNavigationOptions = {
+    headerTitle: HomeTopBar,
+    headerStyle: {backgroundColor: colors.background.secondary},
+  };
+
+  if (navigation) {
+    options.headerLeft = () => MenuButton({navigation});
+  }
+
+  return options;
+};

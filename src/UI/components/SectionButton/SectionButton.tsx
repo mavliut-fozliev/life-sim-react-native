@@ -21,9 +21,8 @@ function SectionButton({label, onPress}: SectionButtonProps) {
 
 const styles = StyleSheet.create({
   button: {
-    height: 50,
-    borderRadius: 8,
-    borderWidth: 2,
+    height: 80,
+    borderWidth: 1,
     borderColor: colors.border.secondary,
     backgroundColor: colors.button.secondary,
   },

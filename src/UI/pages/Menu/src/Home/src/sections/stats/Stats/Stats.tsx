@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Stat from './src/Stat/Stat';
-import usePlayerStore from '../../../playerStore';
+import usePlayerStore from '../../../../../playerStore';
 
 function Stats() {
   const playerStore = usePlayerStore();
@@ -9,9 +9,11 @@ function Stats() {
   return (
     <View style={styles.box}>
       <View>
+        <Stat name="age" value={playerStore.age} />
+      </View>
+      <View>
         <Stat name="health" value={playerStore.health} />
         <Stat name="power" value={playerStore.power} />
-        <Stat name="age" value={playerStore.age} />
       </View>
     </View>
   );
@@ -19,6 +21,7 @@ function Stats() {
 
 const styles = StyleSheet.create({
   box: {
+    flexDirection: 'row',
     backgroundColor: '#33FFFF',
     height: 160,
   },

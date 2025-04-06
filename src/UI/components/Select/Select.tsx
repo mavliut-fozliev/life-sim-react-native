@@ -17,10 +17,11 @@ type SelectProps<T extends string = string> = {
   value: T;
   items: SelectItem<T>[];
   onSelectItem: (value: T) => void;
+  label: string;
   placeholder?: string;
 };
 
-function Select<T extends string = string>({value, items, onSelectItem, placeholder = ''}: SelectProps<T>) {
+function Select<T extends string = string>({value, items, onSelectItem, label, placeholder = ''}: SelectProps<T>) {
   const {localizedText} = useGlobalStore();
   const text = safestr(localizedText.common?.emptySelectItems);
 
@@ -47,6 +48,9 @@ function Select<T extends string = string>({value, items, onSelectItem, placehol
 
   return (
     <View>
+      <Text numberOfLines={1} style={styles.label}>
+        {label}
+      </Text>
       <TouchableOpacity activeOpacity={0.6} onPress={handlePress} delayPressIn={0}>
         <View style={styles.textContainer}>
           {selectedLabel ? (
@@ -84,6 +88,12 @@ function Select<T extends string = string>({value, items, onSelectItem, placehol
 }
 
 const styles = StyleSheet.create({
+  label: {
+    fontSize: fontSizes.medium,
+    fontWeight: 600,
+    color: colors.text.secondary,
+    paddingBottom: 6,
+  },
   textContainer: {
     paddingLeft: 20,
     paddingRight: 20,

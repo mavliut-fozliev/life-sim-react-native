@@ -1,17 +1,20 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import Stats from './src/Stats/Stats';
-import Visualization from './src/Visualization/Visualization';
-import Actions from './src/Actions/Actions';
+import Visualization from './src/sections/visualization/Visualization/Visualization';
+import {Navigation} from '../../../../../types/navigation';
+import Actions from './src/sections/actions/Actions/Actions';
+import Stats from './src/sections/stats/Stats/Stats';
 
-type HomeProps = {};
+type HomeProps = {
+  navigation: Navigation;
+};
 
-function Home({}: HomeProps): React.JSX.Element {
+function Home({navigation}: HomeProps): React.JSX.Element {
   return (
     <View style={styles.box}>
       <Stats />
       <Visualization />
-      <Actions />
+      <Actions navigation={navigation} />
     </View>
   );
 }

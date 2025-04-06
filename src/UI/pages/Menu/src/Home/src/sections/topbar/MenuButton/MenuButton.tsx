@@ -1,8 +1,8 @@
 import React from 'react';
-import IconButton from '../../../../../../components/IconButton/IconButton';
-import MenuIcon from '../../../../../../../icons/MenuIcon';
-import {Navigation} from '../../../../../../../types/navigation';
 import {StyleSheet, View} from 'react-native';
+import MenuIcon from '../../../../../../../../../icons/MenuIcon';
+import {Navigation} from '../../../../../../../../../types/navigation';
+import IconButton from '../../../../../../../../components/IconButton/IconButton';
 
 type MenuButtonProps = {navigation: Navigation};
 
