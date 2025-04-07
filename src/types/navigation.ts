@@ -3,4 +3,5 @@ export type Navigation = {
   goBack: () => void;
   getState: () => {routes: {name: string}[]};
   popToTop: () => void;
+  pop: (pages: number) => void;
 };

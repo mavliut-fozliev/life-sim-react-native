@@ -2,11 +2,31 @@ import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {colors} from '../../../../../../../../consts/styles';
 import SectionButton from '../../../../../../../components/SectionButton/SectionButton';
+import usePlayerStore from '../../../../playerStore';
+import {biasedRandom} from '../../../../../../../../utils/common';
+import {Navigation} from '../../../../../../../../types/navigation';
 
-function Activities() {
+type ActivitiesProps = {
+  navigation: Navigation;
+};
+
+function Activities({navigation}: ActivitiesProps) {
+  const playerStore = usePlayerStore();
+
   return (
     <ScrollView style={styles.box}>
-      <SectionButton label="qwrqg" onPress={() => {}} />
+      <SectionButton
+        label="качаться"
+        onPress={() => {
+          if (playerStore.energy < 3) {
+            return;
+          }
+          playerStore.$power.increase(biasedRandom(1, 4));
+          playerStore.$energy.decrease(3);
+          navigation.pop(2);
+        }}
+        disabled={playerStore.energy < 3}
+      />
       <SectionButton label="efwew" onPress={() => {}} />
       <SectionButton label="rwewfe" onPress={() => {}} />
       <SectionButton label="fwe wfew ef wf" onPress={() => {}} />

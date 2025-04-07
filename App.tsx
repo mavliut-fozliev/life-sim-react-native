@@ -15,6 +15,7 @@ import Activities from './src/UI/pages/Menu/src/Home/src/pages/Activities/Activi
 import MenuButton from './src/UI/pages/Menu/src/Home/src/sections/topbar/MenuButton/MenuButton';
 import HomeTopBar from './src/UI/pages/Menu/src/Home/src/sections/topbar/HomeTopBar/HomeTopBar';
 import {Navigation} from './src/types/navigation';
+import Places from './src/UI/pages/Menu/src/Home/src/pages/Places/Places';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,7 @@ function App(): React.JSX.Element {
           component={Home}
           options={({navigation}) => getPlayScreenOptions(navigation)}
         />
+        <Stack.Screen name={PageNames.Places} component={Places} options={() => getPlayScreenOptions()} />
         <Stack.Screen name={PageNames.Activities} component={Activities} options={() => getPlayScreenOptions()} />
         <Stack.Screen
           name={PageNames.StartNewLife}

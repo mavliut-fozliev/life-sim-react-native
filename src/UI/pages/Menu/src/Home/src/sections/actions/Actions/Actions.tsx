@@ -20,7 +20,7 @@ function Actions({navigation}: ActionsProps) {
   return (
     <View style={styles.box}>
       <Button label="grow up" onPress={growUp} />
-      <Button label="Activities" onPress={() => navigation.navigate(PageNames.Activities)} />
+      <Button label="Places" onPress={() => navigation.navigate(PageNames.Places)} />
     </View>
   );
 }
