@@ -40,7 +40,6 @@ function Activities({navigation}: ActivitiesProps) {
 const styles = StyleSheet.create({
   box: {
     backgroundColor: colors.background.secondary,
-    height: '100%',
   },
 });
 

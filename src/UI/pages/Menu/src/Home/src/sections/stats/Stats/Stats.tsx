@@ -22,7 +22,7 @@ function Stats() {
 const styles = StyleSheet.create({
   box: {
     flexDirection: 'row',
-    backgroundColor: '#33FFFF',
+    backgroundColor: 'rgba(255,0,0,0.2)',
     height: 160,
   },
 });

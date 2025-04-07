@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ImageBackground, StyleSheet, View} from 'react-native';
 import Visualization from './src/sections/visualization/Visualization/Visualization';
 import {Navigation} from '../../../../../types/navigation';
 import Actions from './src/sections/actions/Actions/Actions';
@@ -11,18 +11,21 @@ type HomeProps = {
 
 function Home({navigation}: HomeProps): React.JSX.Element {
   return (
-    <View style={styles.box}>
-      <Stats />
-      <Visualization />
-      <Actions navigation={navigation} />
-    </View>
+    <ImageBackground source={require('../../../../../assets/images/background.jpg')} style={styles.background}>
+      <View style={styles.box}>
+        <Stats />
+        <Visualization />
+        <Actions navigation={navigation} />
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  box: {
-    height: '100%',
+  background: {
+    flex: 1,
   },
+  box: {},
 });
 
 export default Home;

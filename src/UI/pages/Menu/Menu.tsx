@@ -38,9 +38,7 @@ function Menu({navigation}: MenuProps) {
 const styles = StyleSheet.create({
   box: {
     backgroundColor: colors.background.secondary,
-    height: '100%',
-    // gap: 20,
-    // padding: 20,
+    flex: 1,
   },
 });
 

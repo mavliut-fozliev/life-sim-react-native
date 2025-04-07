@@ -27,7 +27,7 @@ function Actions({navigation}: ActionsProps) {
 
 const styles = StyleSheet.create({
   box: {
-    backgroundColor: 'green',
+    backgroundColor: 'rgba(0,255,0,0.2)',
     height: 200,
     paddingLeft: 80,
     paddingRight: 80,

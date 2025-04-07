@@ -20,7 +20,6 @@ function Places({navigation}: PlacesProps) {
 const styles = StyleSheet.create({
   box: {
     backgroundColor: colors.background.secondary,
-    height: '100%',
   },
 });
 

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: colors.background.secondary,
     padding: 20,
-    height: '100%',
+    flex: 1,
   },
 });
 
