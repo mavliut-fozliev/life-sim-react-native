@@ -3,12 +3,15 @@ import {Locale} from '../types/localizedText';
 import {BooleanField, ObjectField, StoreFields, StringField} from '../types/store';
 import {getInitializer} from '../utils/storeHelpers';
 
-type StoreState = StringField<'language'> & ObjectField<'localizedText', Locale> & BooleanField<'gameInProgress'>;
+type StoreState = StringField<'language' | 'currentPage'> &
+  ObjectField<'localizedText', Locale> &
+  BooleanField<'gameInProgress'>;
 
 const fields: StoreFields = {
   language: 'str',
   localizedText: 'obj',
   gameInProgress: 'bool',
+  currentPage: 'str',
 };
 
 const initializer = getInitializer<StoreState>('settings', fields);

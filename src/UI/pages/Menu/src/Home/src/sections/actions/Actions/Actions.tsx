@@ -4,6 +4,7 @@ import Button from '../../../../../../../../components/Button/Button';
 import usePlayerStore from '../../../../../playerStore';
 import {Navigation} from '../../../../../../../../../types/navigation';
 import {PageNames} from '../../../../../../../../../consts/pages';
+import {useNavigate} from '../../../../../../../../../hooks/useNavigate';
 
 type ActionsProps = {
   navigation: Navigation;
@@ -11,6 +12,7 @@ type ActionsProps = {
 
 function Actions({navigation}: ActionsProps) {
   const playerStore = usePlayerStore();
+  const navigate = useNavigate(navigation);
 
   const growUp = () => {
     playerStore.$age.increase(1);
@@ -20,7 +22,7 @@ function Actions({navigation}: ActionsProps) {
   return (
     <View style={styles.box}>
       <Button label="grow up" onPress={growUp} />
-      <Button label="Places" onPress={() => navigation.navigate(PageNames.Places)} />
+      <Button label="Places" onPress={() => navigate.stepForward(PageNames.Places)} />
     </View>
   );
 }

@@ -6,6 +6,7 @@ import {colors} from '../../../consts/styles';
 import {Navigation} from '../../../types/navigation';
 import useGlobalStore from '../../../storage/store';
 import {safestr} from '../../../utils/common';
+import {useNavigate} from '../../../hooks/useNavigate';
 
 type MenuProps = {
   navigation: Navigation;
@@ -15,22 +16,24 @@ function Menu({navigation}: MenuProps) {
   const {localizedText, gameInProgress} = useGlobalStore();
   const options = localizedText?.menu?.options;
 
+  const navigate = useNavigate(navigation);
+
   useEffect(() => {
     if (gameInProgress) {
-      navigation.navigate(PageNames.Home);
+      navigate.stepForward(PageNames.Home);
     }
-  }, [gameInProgress, navigation]);
+  }, []);
 
   return (
     <View style={styles.box}>
       {gameInProgress && (
-        <SectionButton label={safestr(options.resume)} onPress={() => navigation.navigate(PageNames.Home)} />
+        <SectionButton label={safestr(options.resume)} onPress={() => navigate.stepForward(PageNames.Home)} />
       )}
       <SectionButton
         label={safestr(options?.startNewLife)}
-        onPress={() => navigation.navigate(PageNames.StartNewLife)}
+        onPress={() => navigate.stepForward(PageNames.StartNewLife)}
       />
-      <SectionButton label={safestr(options?.settings)} onPress={() => navigation.navigate(PageNames.Settings)} />
+      <SectionButton label={safestr(options?.settings)} onPress={() => navigate.stepForward(PageNames.Settings)} />
     </View>
   );
 }

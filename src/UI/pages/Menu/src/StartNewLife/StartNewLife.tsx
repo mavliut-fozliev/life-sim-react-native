@@ -13,6 +13,7 @@ import useGlobalStore from '../../../../../storage/store';
 import {safestr} from '../../../../../utils/common';
 import useStore from './src/store';
 import usePlayerStore from '../playerStore';
+import {useNavigate} from '../../../../../hooks/useNavigate';
 
 type StartNewLifeProps = {
   navigation: Navigation;
@@ -23,6 +24,7 @@ function StartNewLife({navigation}: StartNewLifeProps) {
   const playerStore = usePlayerStore();
   const {localizedText, $gameInProgress} = useGlobalStore();
   const text = localizedText?.menu?.button?.startNewLife;
+  const navigate = useNavigate(navigation);
 
   function handleStart() {
     playerStore.$country.set(country);
@@ -46,7 +48,8 @@ function StartNewLife({navigation}: StartNewLifeProps) {
 
     $gameInProgress.set(true);
 
-    navigation.navigate(PageNames.Home);
+    navigate.stepForward(PageNames.Menu);
+    navigate.stepForward(PageNames.Home);
   }
 
   const haveEmptyField = !country || !city || !gender || !name || !surname;
