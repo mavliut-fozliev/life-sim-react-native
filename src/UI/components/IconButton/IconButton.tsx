@@ -7,11 +7,7 @@ type IconButtonProps = {
 };
 
 function IconButton({icon, onPress}: IconButtonProps) {
-  return (
-    <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
-      {icon}
-    </TouchableOpacity>
-  );
+  return <TouchableOpacity onPress={onPress}>{icon}</TouchableOpacity>;
 }
 
 export default IconButton;

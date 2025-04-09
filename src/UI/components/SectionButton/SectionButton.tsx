@@ -12,7 +12,6 @@ type SectionButtonProps = {
 function SectionButton({label, onPress, disabled}: SectionButtonProps) {
   return (
     <TouchableOpacity
-      activeOpacity={0.5}
       onPress={onPress}
       disabled={disabled}
       style={disabled ? [styles.button, styles.disabled] : styles.button}>

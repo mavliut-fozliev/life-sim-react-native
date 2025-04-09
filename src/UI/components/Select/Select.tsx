@@ -51,7 +51,7 @@ function Select<T extends string = string>({value, items, onSelectItem, label, p
       <Text numberOfLines={1} style={styles.label}>
         {label}
       </Text>
-      <TouchableOpacity activeOpacity={0.6} onPress={handlePress} delayPressIn={0}>
+      <TouchableOpacity activeOpacity={0.4} onPress={handlePress} delayPressIn={0}>
         <View style={styles.textContainer}>
           {selectedLabel ? (
             <Text numberOfLines={1} style={styles.text}>

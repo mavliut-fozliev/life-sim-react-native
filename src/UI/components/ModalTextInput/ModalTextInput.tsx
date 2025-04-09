@@ -44,7 +44,7 @@ const ModalTextInput = ({value, onSave, label, placeholder}: ModalTextInputProps
       <Text numberOfLines={1} style={styles.label}>
         {label}
       </Text>
-      <TouchableOpacity activeOpacity={0.6} onPress={handlePress} delayPressIn={0}>
+      <TouchableOpacity activeOpacity={0.4} onPress={handlePress} delayPressIn={0}>
         <View style={styles.textContainer}>
           {value ? (
             <Text numberOfLines={1} style={styles.text}>
