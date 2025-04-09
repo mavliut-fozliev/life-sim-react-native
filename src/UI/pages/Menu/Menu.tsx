@@ -27,7 +27,7 @@ function Menu({navigation}: MenuProps) {
   return (
     <View style={styles.box}>
       {gameInProgress && (
-        <SectionButton label={safestr(options.resume)} onPress={() => navigate.stepForward(PageNames.Home)} />
+        <SectionButton label={safestr(options?.resume)} onPress={() => navigate.stepForward(PageNames.Home)} />
       )}
       <SectionButton
         label={safestr(options?.startNewLife)}

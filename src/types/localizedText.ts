@@ -1,6 +1,6 @@
 import {ObjectRecord} from './common';
 
-type obj = ObjectRecord<string | undefined>;
+type obj = ObjectRecord<string | undefined> | undefined;
 
 export type Locale = {
   common: {

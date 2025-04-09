@@ -28,9 +28,9 @@ function Topbar() {
   };
 
   const title: ObjectRecord<string> = {
-    [PageNames.Menu]: safestr(localizedText.menu?.options.menu),
-    [PageNames.StartNewLife]: safestr(localizedText.menu?.options.startNewLife),
-    [PageNames.Settings]: safestr(localizedText.menu?.options.settings),
+    [PageNames.Menu]: safestr(localizedText.menu?.options?.menu),
+    [PageNames.StartNewLife]: safestr(localizedText.menu?.options?.startNewLife),
+    [PageNames.Settings]: safestr(localizedText.menu?.options?.settings),
   };
 
   return (
@@ -41,7 +41,7 @@ function Topbar() {
         </View>
         <View style={styles.name}>
           <Text numberOfLines={1} style={styles.nameText}>
-            {title[currentPage] || `${playerStore.name} ${playerStore.surname}`}
+            {title[currentPage] ?? `${playerStore.name} ${playerStore.surname}`}
           </Text>
         </View>
         <View style={styles.resources}>

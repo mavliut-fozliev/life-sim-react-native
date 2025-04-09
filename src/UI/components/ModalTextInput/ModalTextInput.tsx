@@ -72,7 +72,7 @@ const ModalTextInput = ({value, onSave, label, placeholder}: ModalTextInputProps
                 autoFocus={true}
               />
               <View style={styles.button}>
-                <Button label={safestr(localizedText.common?.buttons.save)} onPress={handleSave} />
+                <Button label={safestr(localizedText.common?.buttons?.save)} onPress={handleSave} />
               </View>
             </TouchableOpacity>
           </KeyboardAvoidingView>
