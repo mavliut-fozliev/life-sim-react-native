@@ -1,14 +1,12 @@
 import React, {useEffect} from 'react';
-import {BackHandler, Platform, StatusBar} from 'react-native';
+import {BackHandler, Platform, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator, NativeStackNavigationOptions} from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Menu from './src/UI/pages/Menu/Menu';
 import {PageNames} from './src/consts/pages';
 import Home from './src/UI/pages/Menu/src/Home/Home';
 import StartNewLife from './src/UI/pages/Menu/src/StartNewLife/StartNewLife';
 import Settings from './src/UI/pages/Menu/src/Settings/Settings';
-import useGlobalStore from './src/storage/store';
-import {safestr} from './src/utils/common';
 import {useInitialStoreValues} from './src/hooks/useInitialStoreValues';
 import Activities from './src/UI/pages/Menu/src/Home/src/pages/Activities/Activities';
 import Places from './src/UI/pages/Menu/src/Home/src/pages/Places/Places';
@@ -17,8 +15,6 @@ import Topbar from './src/UI/pages/Menu/src/Topbar/Topbar';
 const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
-  const {localizedText} = useGlobalStore();
-
   const setInitialStoreValues = useInitialStoreValues();
   setInitialStoreValues();
 
@@ -30,38 +26,26 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <StatusBar barStyle={'dark-content'} />
-      <Topbar />
-      <Stack.Navigator
-        initialRouteName={PageNames.Menu}
-        screenOptions={{gestureEnabled: Platform.OS === 'android', animation: 'flip'}}>
-        <Stack.Screen
-          name={PageNames.Menu}
-          component={Menu}
-          options={getScreenOptions(safestr(localizedText?.menu?.options?.menu))}
-        />
-        <Stack.Screen name={PageNames.Home} component={Home} options={getScreenOptions('test')} />
-        <Stack.Screen name={PageNames.Places} component={Places} options={getScreenOptions('test')} />
-        <Stack.Screen name={PageNames.Activities} component={Activities} options={getScreenOptions('test')} />
-        <Stack.Screen
-          name={PageNames.StartNewLife}
-          component={StartNewLife}
-          options={getScreenOptions(safestr(localizedText.menu?.options?.startNewLife))}
-        />
-        <Stack.Screen
-          name={PageNames.Settings}
-          component={Settings}
-          options={getScreenOptions(safestr(localizedText.menu?.options?.settings))}
-        />
-      </Stack.Navigator>
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar barStyle={'dark-content'} />
+        <Topbar />
+        <Stack.Navigator
+          initialRouteName={PageNames.Menu}
+          screenOptions={{gestureEnabled: Platform.OS === 'android', animation: 'flip', headerShown: false}}>
+          <Stack.Screen name={PageNames.Menu} component={Menu} />
+          <Stack.Screen name={PageNames.Home} component={Home} />
+          <Stack.Screen name={PageNames.Places} component={Places} />
+          <Stack.Screen name={PageNames.Activities} component={Activities} />
+          <Stack.Screen name={PageNames.StartNewLife} component={StartNewLife} />
+          <Stack.Screen name={PageNames.Settings} component={Settings} />
+        </Stack.Navigator>
+      </SafeAreaView>
     </NavigationContainer>
   );
 }
 
-export default App;
+const styles = StyleSheet.create({
+  safeArea: {height: '100%'},
+});
 
-const getScreenOptions = (title: string) =>
-  ({
-    title,
-    headerShown: false,
-  } as NativeStackNavigationOptions);
+export default App;

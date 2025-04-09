@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   scale: {
-    width: 80,
+    width: 70,
     height: 20,
     borderStyle: 'solid',
     borderWidth: 1,
