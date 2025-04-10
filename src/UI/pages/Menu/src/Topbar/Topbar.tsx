@@ -22,27 +22,35 @@ function Topbar() {
     navigate.stepBack();
   }
 
-  const button: ObjectRecord<React.JSX.Element> = {
+  const buttons: ObjectRecord<React.JSX.Element> = {
     [PageNames.Menu]: <></>,
-    [PageNames.Home]: <IconButton icon={<MenuIcon size={26} />} onPress={handlePress} />,
+    [PageNames.Home]: <IconButton icon={<MenuIcon size={30} />} onPress={handlePress} />,
   };
 
-  const title: ObjectRecord<string> = {
+  const titles: ObjectRecord<string> = {
     [PageNames.Menu]: safestr(localizedText.menu?.options?.menu),
     [PageNames.StartNewLife]: safestr(localizedText.menu?.options?.startNewLife),
     [PageNames.Settings]: safestr(localizedText.menu?.options?.settings),
   };
+  const title = titles[currentPage];
+  const haveTitle = title !== undefined;
 
   return (
     <View style={styles.box}>
       <View style={styles.content}>
         <View style={styles.button}>
-          {button[currentPage] || <IconButton icon={<ArrowLeft size={26} />} onPress={handlePress} />}
+          {buttons[currentPage] || <IconButton icon={<ArrowLeft size={30} />} onPress={handlePress} />}
         </View>
         <View style={styles.name}>
-          <Text numberOfLines={1} style={styles.nameText}>
-            {title[currentPage] ?? `${playerStore.name} ${playerStore.surname}`}
-          </Text>
+          {haveTitle ? (
+            <Text numberOfLines={1} style={styles.titleText}>
+              {title}
+            </Text>
+          ) : (
+            <Text numberOfLines={1} style={styles.nameText}>
+              {playerStore.name} {playerStore.surname}
+            </Text>
+          )}
         </View>
         <View style={styles.resources}>
           <Resource name="energy" value={playerStore.energy} />
@@ -64,14 +72,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    width: '10%',
+    width: '20%',
     alignItems: 'center',
   },
   name: {
-    width: '50%',
+    width: '40%',
+  },
+  titleText: {
+    fontSize: fontSizes.large,
   },
   nameText: {
-    fontSize: fontSizes.large,
+    fontSize: fontSizes.small,
   },
   resources: {
     width: '40%',
