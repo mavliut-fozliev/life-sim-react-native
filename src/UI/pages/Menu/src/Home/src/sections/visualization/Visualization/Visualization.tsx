@@ -2,11 +2,14 @@ import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 
 function Visualization() {
+  const assetPath = '../../../../../../../../../assets/images/';
+  const characterPath = assetPath + 'character/';
+
   return (
     <View style={styles.box}>
       <View style={styles.row}>
         <View style={styles.cell}>
-          <Image source={require('../../../../../../../../../assets/images/cars/car.png')} style={styles.image} />
+          <Image source={require(assetPath + 'cars/car.png')} style={styles.image} />
         </View>
         <View style={styles.cell}></View>
         <View style={styles.cell}></View>
@@ -15,30 +18,12 @@ function Visualization() {
         <View style={styles.cell}></View>
         <View style={styles.cell}>
           <View style={styles.character}>
-            <Image
-              source={require('../../../../../../../../../assets/images/character/body/body_1.png')}
-              style={styles.image}
-            />
-            <Image
-              source={require('../../../../../../../../../assets/images/character/legs/legs.png')}
-              style={styles.image}
-            />
-            <Image
-              source={require('../../../../../../../../../assets/images/character/head/head_1.png')}
-              style={styles.image}
-            />
-            <Image
-              source={require('../../../../../../../../../assets/images/character/hair/hair_1.png')}
-              style={styles.image}
-            />
-            <Image
-              source={require('../../../../../../../../../assets/images/character/eyes/eyes.png')}
-              style={styles.image}
-            />
-            <Image
-              source={require('../../../../../../../../../assets/images/character/mouth/mouth.png')}
-              style={styles.image}
-            />
+            <Image source={require(characterPath + 'body/body_1.png')} style={styles.image} />
+            <Image source={require(characterPath + 'legs/legs.png')} style={styles.image} />
+            <Image source={require(characterPath + 'head/head_1.png')} style={styles.image} />
+            <Image source={require(characterPath + 'hair/hair_1.png')} style={styles.image} />
+            <Image source={require(characterPath + 'eyes/eyes.png')} style={styles.image} />
+            <Image source={require(characterPath + 'mouth/mouth.png')} style={styles.image} />
           </View>
         </View>
         <View style={styles.cell}></View>
