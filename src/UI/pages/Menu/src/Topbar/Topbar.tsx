@@ -41,21 +41,25 @@ function Topbar() {
         <View style={styles.button}>
           {buttons[currentPage] || <IconButton icon={<ArrowLeft size={30} />} onPress={handlePress} />}
         </View>
-        <View style={styles.name}>
-          {haveTitle ? (
+        {haveTitle ? (
+          <View style={styles.title}>
             <Text numberOfLines={1} style={styles.titleText}>
               {title}
             </Text>
-          ) : (
+          </View>
+        ) : (
+          <View style={styles.name}>
             <Text numberOfLines={1} style={styles.nameText}>
               {playerStore.name} {playerStore.surname}
             </Text>
-          )}
-        </View>
-        <View style={styles.resources}>
-          <Resource name="energy" value={playerStore.energy} />
-          <Resource name="money" value={playerStore.money} />
-        </View>
+          </View>
+        )}
+        {!haveTitle && (
+          <View style={styles.resources}>
+            <Resource name="energy" value={playerStore.energy} />
+            <Resource name="money" value={playerStore.money} />
+          </View>
+        )}
       </View>
     </View>
   );
@@ -75,11 +79,14 @@ const styles = StyleSheet.create({
     width: '20%',
     alignItems: 'center',
   },
-  name: {
-    width: '40%',
+  title: {
+    width: '80%',
   },
   titleText: {
     fontSize: fontSizes.large,
+  },
+  name: {
+    width: '40%',
   },
   nameText: {
     fontSize: fontSizes.small,
