@@ -1,13 +1,16 @@
 {
   "names": {
     "MasterSten": "Мастер Стэн",
-    "StatePolyclinic": "Гос. Поликлиника"
+    "StatePolyclinic": "Гос. Поликлиника",
+    "FitnessPalace": "Фитнес-дворец",
+    "StrongAlbania": "Сильная Албания"
   },
   "types": {
     "gym": {
       "title": "Спортзал",
       "activities": {
-        "run": "Пробежать на беговой дорожке"
+        "run": "Пробежать на беговой дорожке",
+        "yoga": "Йога"
       }
     },
     "hospital": {

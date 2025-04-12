@@ -4,7 +4,14 @@ export const places: Places = {
   ALB: {
     code: 'ALB',
     cities: {
-      Tirana: {},
+      Tirana: {
+        FitnessPalace: {
+          type: 'gym_2',
+        },
+        StrongAlbania: {
+          type: 'gym_3',
+        },
+      },
     },
   },
   RUS: {

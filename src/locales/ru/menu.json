@@ -35,6 +35,9 @@
       "Izmir": "Измир",
       "Bursa": "Бурса",
       "Antalya": "Анталья"
+    },
+    "USA": {
+      "NewYork": "Нью-Йорк"
     }
   },
   "cityPlaceholder": "Выберите Город",

@@ -1,13 +1,16 @@
 {
   "names": {
     "MasterSten": "Master Sten",
-    "StatePolyclinic": "State Polyclinic"
+    "StatePolyclinic": "State Polyclinic",
+    "FitnessPalace": "Fitness Palace",
+    "StrongAlbania": "Strong Albania"
   },
   "types": {
     "gym": {
       "title": "Gym",
       "activities": {
-        "run": "Run on a treadmill"
+        "run": "Run on a treadmill",
+        "yoga": "Yoga"
       }
     },
     "hospital": {
