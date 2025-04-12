@@ -6,17 +6,21 @@ import ArrowRight from '../../../icons/ArrowRight';
 type SectionButtonProps = {
   label: string;
   onPress: () => void;
+  description?: string;
   disabled?: boolean;
 };
 
-function SectionButton({label, onPress, disabled}: SectionButtonProps) {
+function SectionButton({label, onPress, description, disabled}: SectionButtonProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled}
       style={disabled ? [styles.button, styles.disabled] : styles.button}>
       <View style={styles.labelBox}>
-        <Text style={styles.label}>{label}</Text>
+        <View>
+          <Text style={styles.label}>{label}</Text>
+          {description && <Text style={styles.description}>{description}</Text>}
+        </View>
         <ArrowRight size={14} />
       </View>
     </TouchableOpacity>
@@ -45,6 +49,10 @@ const styles = StyleSheet.create({
   label: {
     fontSize: fontSizes.large,
     fontWeight: 500,
+    color: colors.text.secondary,
+  },
+  description: {
+    fontSize: fontSizes.medium,
     color: colors.text.secondary,
   },
 });
