@@ -3,6 +3,7 @@ import Select, {SelectItem} from '../../../../../../components/Select/Select';
 import useStore from '../store';
 import useGlobalStore from '../../../../../../../storage/store';
 import {safestr} from '../../../../../../../utils/common';
+import {places} from '../../../../../../../consts/places';
 
 function SelectCity() {
   const {city, $city, country} = useStore();
@@ -17,10 +18,12 @@ function SelectCity() {
   }
 
   useEffect(() => {
-    const localizedCities: SelectItem[] = Object.entries(menuText?.cities[country] || {}).map(([key, value]) => ({
-      label: safestr(value),
-      value: key,
-    }));
+    const localizedCities: SelectItem[] = Object.keys(places[country]?.cities || {}).map(key => {
+      return {
+        label: safestr(menuText?.cities[country]?.[key]),
+        value: key,
+      };
+    });
 
     setItems(localizedCities);
   }, [country, menuText]);

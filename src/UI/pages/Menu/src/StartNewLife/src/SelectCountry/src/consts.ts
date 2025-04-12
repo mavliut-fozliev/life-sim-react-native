@@ -1,28 +1,28 @@
-import {Countries} from '../../../../../../../../consts/countries';
+import {places} from '../../../../../../../../consts/places';
 import {SelectItem} from '../../../../../../../components/Select/Select';
 
 export const countries: SelectItem[] = [
   {
     label: ' 🇦🇱  ',
-    value: Countries.ALB,
+    value: places.ALB.code,
     backgroundColor: '#A90B0B',
     color: 'white',
   },
   {
     label: ' 🇷🇺  ',
-    value: Countries.RUS,
+    value: places.RUS.code,
     backgroundColor: '#0337B0',
     color: 'white',
   },
   {
     label: ' 🇹🇷  ',
-    value: Countries.TUR,
+    value: places.TUR.code,
     backgroundColor: '#A02A2A',
     color: 'white',
   },
   {
     label: ' 🇺🇸  ',
-    value: Countries.USA,
+    value: places.USA.code,
     backgroundColor: '#2A4D7B',
     color: 'white',
   },

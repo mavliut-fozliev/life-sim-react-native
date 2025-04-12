@@ -1,12 +1,12 @@
 import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {colors} from '../../../../../../../../consts/styles';
-import SectionButton from '../../../../../../../components/SectionButton/SectionButton';
 import usePlayerStore from '../../../../playerStore';
 import {biasedRandom, safestr} from '../../../../../../../../utils/common';
 import {Navigation, Route} from '../../../../../../../../types/navigation';
 import {ObjectRecord} from '../../../../../../../../types/common';
 import useGlobalStore from '../../../../../../../../storage/store';
+import Activity from './src/Activity/Activity';
 
 type ActivitiesProps = {
   navigation: Navigation;
@@ -18,35 +18,25 @@ function Activities({navigation, route}: ActivitiesProps) {
   const {localizedText} = useGlobalStore();
 
   const content: ObjectRecord<React.JSX.Element> = {
-    gym: (
+    gym_2: (
       <>
-        <SectionButton
-          label={safestr(localizedText.places?.gym?.activities?.run)}
-          onPress={() => {
-            if (playerStore.energy < 3) {
-              return;
-            }
-            playerStore.$power.increase(biasedRandom(1, 4));
-            playerStore.$energy.decrease(3);
-            navigation.pop(2);
-          }}
-          disabled={playerStore.energy < 3}
+        <Activity
+          label={safestr(localizedText.places?.types?.gym?.activities?.run)}
+          navigation={navigation}
+          price={3}
+          resource={'energy'}
+          action={() => playerStore.$power.increase(biasedRandom(1, 4))}
         />
       </>
     ),
-    hospital: (
+    hospital_2: (
       <>
-        <SectionButton
-          label={safestr(localizedText.places?.hospital?.activities?.check)}
-          onPress={() => {
-            if (playerStore.money < 500) {
-              return;
-            }
-            console.log('check up!');
-            playerStore.$money.decrease(500);
-            navigation.pop(2);
-          }}
-          disabled={playerStore.money < 500}
+        <Activity
+          label={safestr(localizedText.places?.types?.hospital?.activities?.check)}
+          navigation={navigation}
+          price={500}
+          resource={'money'}
+          action={() => console.log('check up!')}
         />
       </>
     ),

@@ -6,7 +6,7 @@ export type Navigation = {
   goBack: () => void;
   getState: () => {routes: {name: string}[]};
   popToTop: () => void;
-  pop: (pages: number) => void;
+  popTo: (pageName: string) => void;
 };
 
 export type Route<T extends object> = RouteProp<ObjectRecord<T>>;

@@ -7,6 +7,8 @@ import {PageNames} from '../../../../../../../../consts/pages';
 import {useNavigate} from '../../../../../../../../hooks/useNavigate';
 import useGlobalStore from '../../../../../../../../storage/store';
 import {safestr} from '../../../../../../../../utils/common';
+import usePlayerStore from '../../../../playerStore';
+import {places} from '../../../../../../../../consts/places';
 
 type PlacesProps = {
   navigation: Navigation;
@@ -15,19 +17,20 @@ type PlacesProps = {
 function Places({navigation}: PlacesProps) {
   const navigate = useNavigate(navigation);
   const {localizedText} = useGlobalStore();
+  const playerStore = usePlayerStore();
+
+  const existingPlaces = places[playerStore.country]?.cities?.[playerStore.city];
 
   return (
     <ScrollView style={styles.box}>
-      <SectionButton
-        label="Мастер Стэн"
-        description={safestr(localizedText.places?.gym?.title)}
-        onPress={() => navigate.stepForward(PageNames.Activities, {prev: 'gym'})}
-      />
-      <SectionButton
-        label="Гос. Поликлиника"
-        description={safestr(localizedText.places?.hospital?.title)}
-        onPress={() => navigate.stepForward(PageNames.Activities, {prev: 'hospital'})}
-      />
+      {Object.entries(existingPlaces).map(([name, props]) => (
+        <SectionButton
+          key={name}
+          label={safestr(localizedText.places?.names?.[name])}
+          description={safestr(localizedText.places?.types?.[props.type.slice(0, -2)]?.title)}
+          onPress={() => navigate.stepForward(PageNames.Activities, {prev: props.type})}
+        />
+      ))}
     </ScrollView>
   );
 }

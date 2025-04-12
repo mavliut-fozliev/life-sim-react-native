@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {colors, fontSizes} from '../../../consts/styles';
 import ArrowRight from '../../../icons/ArrowRight';
@@ -8,20 +8,27 @@ type SectionButtonProps = {
   onPress: () => void;
   description?: string;
   disabled?: boolean;
+  icon?: ReactNode;
+  iconText?: string;
 };
 
-function SectionButton({label, onPress, description, disabled}: SectionButtonProps) {
+function SectionButton({label, onPress, description, disabled, icon, iconText}: SectionButtonProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled}
       style={disabled ? [styles.button, styles.disabled] : styles.button}>
       <View style={styles.labelBox}>
-        <View>
-          <Text style={styles.label}>{label}</Text>
+        <View style={styles.labelContent}>
+          <Text numberOfLines={1} style={styles.label}>
+            {label}
+          </Text>
           {description && <Text style={styles.description}>{description}</Text>}
         </View>
-        <ArrowRight size={14} />
+        <View style={styles.icon}>
+          <Text style={styles.iconText}>{iconText}</Text>
+          {icon ?? <ArrowRight size={14} />}
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -46,6 +53,9 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
   },
+  labelContent: {
+    width: '90%',
+  },
   label: {
     fontSize: fontSizes.large,
     fontWeight: 500,
@@ -55,6 +65,16 @@ const styles = StyleSheet.create({
   description: {
     fontSize: fontSizes.medium,
     color: colors.text.secondary,
+  },
+  icon: {
+    width: '10%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconText: {
+    fontSize: fontSizes.large,
+    paddingRight: 2,
   },
 });
 

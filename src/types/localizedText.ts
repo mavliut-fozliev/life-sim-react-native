@@ -18,11 +18,14 @@ export type Locale = {
     genders: obj;
     button: obj;
   };
-  places: ObjectRecord<
-    | {
-        title: string;
-        activities: obj;
-      }
-    | undefined
-  >;
+  places: {
+    names: obj;
+    types: ObjectRecord<
+      | {
+          title: string;
+          activities: obj;
+        }
+      | undefined
+    >;
+  };
 };

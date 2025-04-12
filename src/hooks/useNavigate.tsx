@@ -12,10 +12,20 @@ export function useNavigate(navigation: Navigation) {
     $currentPage.set(page);
   };
 
+  const backTo = (page: PageNames) => {
+    navigation.popTo(page);
+    $currentPage.set(page);
+  };
+
+  const backToHome = () => {
+    navigation.popTo(PageNames.Home);
+    $currentPage.set(PageNames.Home);
+  };
+
   const stepForward = (page: PageNames, props?: object) => {
     navigation.navigate(page, props);
     $currentPage.set(page);
   };
 
-  return {stepBack, stepForward};
+  return {stepBack, backTo, backToHome, stepForward};
 }

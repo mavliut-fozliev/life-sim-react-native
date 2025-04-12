@@ -1,14 +1,20 @@
 {
-  "gym": {
-    "title": "Gym",
-    "activities": {
-      "run": "Run on a treadmill"
-    }
+  "names": {
+    "MasterSten": "Master Sten",
+    "StatePolyclinic": "State Polyclinic"
   },
-  "hospital": {
-    "title": "Hospital",
-    "activities": {
-      "check": "Take a check-up"
+  "types": {
+    "gym": {
+      "title": "Gym",
+      "activities": {
+        "run": "Run on a treadmill"
+      }
+    },
+    "hospital": {
+      "title": "Hospital",
+      "activities": {
+        "check": "Take a check-up"
+      }
     }
   }
 }

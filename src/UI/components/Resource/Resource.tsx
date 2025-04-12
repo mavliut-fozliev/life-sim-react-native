@@ -2,17 +2,16 @@ import React from 'react';
 import Bills from '../../../icons/Bills';
 import Energy from '../../../icons/Energy';
 import StatTemplate from '../StatTemplate/StatTemplate';
+import {ResourceVariant} from '../../../types/resources';
 
-type VariantType = 'money' | 'energy';
+type ResourceProps = {name: ResourceVariant; value: number};
 
-type ResourceProps = {name: VariantType; value: number};
-
-const icons: {[K in VariantType]: React.JSX.Element} = {
+const icons: {[K in ResourceVariant]: React.JSX.Element} = {
   money: <Bills size={26} />,
   energy: <Energy size={26} />,
 };
 
-const variantStyles: {[K in VariantType]: string} = {
+const variantStyles: {[K in ResourceVariant]: string} = {
   money: 'green',
   energy: '#0600B2',
 };
