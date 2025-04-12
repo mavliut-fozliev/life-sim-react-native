@@ -1,0 +1,14 @@
+{
+  "gym": {
+    "title": "Gym",
+    "activities": {
+      "run": "Run on a treadmill"
+    }
+  },
+  "hospital": {
+    "title": "Hospital",
+    "activities": {
+      "check": "Take a check-up"
+    }
+  }
+}

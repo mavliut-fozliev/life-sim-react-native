@@ -13,9 +13,16 @@ export type Locale = {
     newLifeInputs: obj;
     settings: obj;
     countries: obj;
-    cities: ObjectRecord<obj>;
+    cities: ObjectRecord<obj | undefined>;
     cityPlaceholder: string;
     genders: obj;
     button: obj;
   };
+  places: ObjectRecord<
+    | {
+        title: string;
+        activities: obj;
+      }
+    | undefined
+  >;
 };

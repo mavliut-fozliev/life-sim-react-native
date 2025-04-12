@@ -5,6 +5,8 @@ import SectionButton from '../../../../../../../components/SectionButton/Section
 import {Navigation} from '../../../../../../../../types/navigation';
 import {PageNames} from '../../../../../../../../consts/pages';
 import {useNavigate} from '../../../../../../../../hooks/useNavigate';
+import useGlobalStore from '../../../../../../../../storage/store';
+import {safestr} from '../../../../../../../../utils/common';
 
 type PlacesProps = {
   navigation: Navigation;
@@ -12,14 +14,20 @@ type PlacesProps = {
 
 function Places({navigation}: PlacesProps) {
   const navigate = useNavigate(navigation);
+  const {localizedText} = useGlobalStore();
+
   return (
     <ScrollView style={styles.box}>
       <SectionButton
         label="Мастер Стэн"
-        description="спорт зал"
-        onPress={() => navigate.stepForward(PageNames.Activities, {prev: 'spor'})}
+        description={safestr(localizedText.places?.gym?.title)}
+        onPress={() => navigate.stepForward(PageNames.Activities, {prev: 'gym'})}
       />
-      <SectionButton label="больница" onPress={() => navigate.stepForward(PageNames.Activities, {hel: 'som'})} />
+      <SectionButton
+        label="Гос. Поликлиника"
+        description={safestr(localizedText.places?.hospital?.title)}
+        onPress={() => navigate.stepForward(PageNames.Activities, {prev: 'hospital'})}
+      />
     </ScrollView>
   );
 }

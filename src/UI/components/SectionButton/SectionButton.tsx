@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.large,
     fontWeight: 500,
     color: colors.text.secondary,
+    marginBottom: 4,
   },
   description: {
     fontSize: fontSizes.medium,
