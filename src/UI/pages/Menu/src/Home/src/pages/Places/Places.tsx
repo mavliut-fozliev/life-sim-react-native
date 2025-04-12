@@ -14,7 +14,12 @@ function Places({navigation}: PlacesProps) {
   const navigate = useNavigate(navigation);
   return (
     <ScrollView style={styles.box}>
-      <SectionButton label="спорт зал" onPress={() => navigate.stepForward(PageNames.Activities)} />
+      <SectionButton
+        label="Мастер Стэн"
+        description="спорт зал"
+        onPress={() => navigate.stepForward(PageNames.Activities, {prev: 'spor'})}
+      />
+      <SectionButton label="больница" onPress={() => navigate.stepForward(PageNames.Activities, {hel: 'som'})} />
     </ScrollView>
   );
 }

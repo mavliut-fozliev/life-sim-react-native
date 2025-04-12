@@ -4,14 +4,17 @@ import {colors} from '../../../../../../../../consts/styles';
 import SectionButton from '../../../../../../../components/SectionButton/SectionButton';
 import usePlayerStore from '../../../../playerStore';
 import {biasedRandom} from '../../../../../../../../utils/common';
-import {Navigation} from '../../../../../../../../types/navigation';
+import {Navigation, Route} from '../../../../../../../../types/navigation';
 
 type ActivitiesProps = {
   navigation: Navigation;
+  route: Route<{hel: string}>;
 };
 
-function Activities({navigation}: ActivitiesProps) {
+function Activities({navigation, route}: ActivitiesProps) {
   const playerStore = usePlayerStore();
+
+  console.log(route.params);
 
   return (
     <ScrollView style={styles.box}>

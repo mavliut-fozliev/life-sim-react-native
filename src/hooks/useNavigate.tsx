@@ -12,8 +12,8 @@ export function useNavigate(navigation: Navigation) {
     $currentPage.set(page);
   };
 
-  const stepForward = (page: PageNames) => {
-    navigation.navigate(page);
+  const stepForward = (page: PageNames, props?: object) => {
+    navigation.navigate(page, props);
     $currentPage.set(page);
   };
 
