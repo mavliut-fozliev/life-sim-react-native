@@ -1,14 +1,14 @@
-import {countries} from './countries';
+import {Countries} from './countries';
 
 export const characterNames = {
-  [countries.ALB]: {
-    male: ['Erion', 'Ardit', 'Besnik', 'Dritan', 'Altin', 'Valon', 'Ilir', 'Arben', 'Florian', 'Gentian'],
-    female: ['Elira', 'Alketa', 'Arta', 'Erisa', 'Blerta', 'Vjosa', 'Jonida', 'Drita', 'Elda', 'Teuta'],
+  [Countries.ALB]: {
+    Male: ['Erion', 'Ardit', 'Besnik', 'Dritan', 'Altin', 'Valon', 'Ilir', 'Arben', 'Florian', 'Gentian'],
+    Female: ['Elira', 'Alketa', 'Arta', 'Erisa', 'Blerta', 'Vjosa', 'Jonida', 'Drita', 'Elda', 'Teuta'],
   },
-  [countries.RUS]: {
-    male: [],
-    female: [],
+  [Countries.RUS]: {
+    Male: ['def'],
+    Female: ['def'],
   },
-  [countries.TUR]: {male: [], female: []},
-  [countries.USA]: {male: [], female: []},
+  [Countries.TUR]: {Male: ['def'], Female: ['def']},
+  [Countries.USA]: {Male: ['def'], Female: ['def']},
 };

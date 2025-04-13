@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Text, Modal, TouchableOpacity, ScrollView} from 'react-native';
 import {colors, fontSizes} from '../../../consts/styles';
 import Radio from '../../../icons/Radio';
-import {safestr} from '../../../utils/common';
 import useGlobalStore from '../../../storage/store';
 
 export type SelectItem<T extends string = string> = {
@@ -23,7 +22,7 @@ type SelectProps<T extends string = string> = {
 
 function Select<T extends string = string>({value, items, onSelectItem, label, placeholder = ''}: SelectProps<T>) {
   const {localizedText} = useGlobalStore();
-  const text = safestr(localizedText.common?.emptySelectItems);
+  const text = localizedText.common['Nothing here yet'];
 
   const [modalVisible, setModalVisible] = useState(false);
 

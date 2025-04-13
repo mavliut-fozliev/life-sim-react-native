@@ -10,7 +10,6 @@ import {PageNames} from '../../../../../consts/pages';
 import {colors} from '../../../../../consts/styles';
 import {Navigation} from '../../../../../types/navigation';
 import useGlobalStore from '../../../../../storage/store';
-import {safestr} from '../../../../../utils/common';
 import useStore from './src/store';
 import usePlayerStore from '../playerStore';
 import {useNavigate} from '../../../../../hooks/useNavigate';
@@ -23,7 +22,6 @@ function StartNewLife({navigation}: StartNewLifeProps) {
   const {country, city, gender, name, surname, $country, $city, $gender, $name, $surname} = useStore();
   const playerStore = usePlayerStore();
   const {localizedText, $gameInProgress} = useGlobalStore();
-  const text = localizedText?.menu?.button?.startNewLife;
   const navigate = useNavigate(navigation);
 
   function handleStart() {
@@ -62,7 +60,7 @@ function StartNewLife({navigation}: StartNewLifeProps) {
         <SelectGender />
         <NameInput />
         <SurnameInput />
-        <Button label={safestr(text)} onPress={handleStart} disabled={haveEmptyField} />
+        <Button label={localizedText.menu.button['Start!']} onPress={handleStart} disabled={haveEmptyField} />
       </ScrollView>
     </View>
   );

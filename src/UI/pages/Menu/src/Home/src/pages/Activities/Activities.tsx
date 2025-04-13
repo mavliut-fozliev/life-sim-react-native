@@ -2,7 +2,7 @@ import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {colors} from '../../../../../../../../consts/styles';
 import usePlayerStore from '../../../../playerStore';
-import {getRandomValue, safestr} from '../../../../../../../../utils/common';
+import {getRandomValue} from '../../../../../../../../utils/common';
 import {Navigation, Route} from '../../../../../../../../types/navigation';
 import useGlobalStore from '../../../../../../../../storage/store';
 import Activity from './src/Activity/Activity';
@@ -21,7 +21,7 @@ function Activities({navigation, route}: ActivitiesProps) {
     gym_1: <></>,
     gym_2: (
       <Activity
-        label={safestr(localizedText.places?.types?.gym?.activities?.run)}
+        label={localizedText.places.types.gym.activities['Run on a treadmill']}
         navigation={navigation}
         price={3}
         resource={'energy'}
@@ -38,7 +38,7 @@ function Activities({navigation, route}: ActivitiesProps) {
     ),
     gym_3: (
       <Activity
-        label={safestr(localizedText.places?.types?.gym?.activities?.yoga)}
+        label={localizedText.places.types.gym.activities.Yoga}
         navigation={navigation}
         price={2}
         resource={'energy'}
@@ -61,7 +61,7 @@ function Activities({navigation, route}: ActivitiesProps) {
     hospital_1: <></>,
     hospital_2: (
       <Activity
-        label={safestr(localizedText.places?.types?.hospital?.activities?.check)}
+        label={localizedText.places.types.hospital.activities['Take a check-up']}
         navigation={navigation}
         price={500}
         resource={'money'}

@@ -5,7 +5,6 @@ import {PageNames} from '../../../consts/pages';
 import {colors} from '../../../consts/styles';
 import {Navigation} from '../../../types/navigation';
 import useGlobalStore from '../../../storage/store';
-import {safestr} from '../../../utils/common';
 import {useNavigate} from '../../../hooks/useNavigate';
 
 type MenuProps = {
@@ -26,14 +25,9 @@ function Menu({navigation}: MenuProps) {
 
   return (
     <View style={styles.box}>
-      {gameInProgress && (
-        <SectionButton label={safestr(options?.resume)} onPress={() => navigate.stepForward(PageNames.Home)} />
-      )}
-      <SectionButton
-        label={safestr(options?.startNewLife)}
-        onPress={() => navigate.stepForward(PageNames.StartNewLife)}
-      />
-      <SectionButton label={safestr(options?.settings)} onPress={() => navigate.stepForward(PageNames.Settings)} />
+      {gameInProgress && <SectionButton label={options.Resume} onPress={() => navigate.stepForward(PageNames.Home)} />}
+      <SectionButton label={options['Start New Life']} onPress={() => navigate.stepForward(PageNames.StartNewLife)} />
+      <SectionButton label={options.Settings} onPress={() => navigate.stepForward(PageNames.Settings)} />
     </View>
   );
 }

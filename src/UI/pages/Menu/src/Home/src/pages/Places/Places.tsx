@@ -6,7 +6,6 @@ import {Navigation} from '../../../../../../../../types/navigation';
 import {PageNames} from '../../../../../../../../consts/pages';
 import {useNavigate} from '../../../../../../../../hooks/useNavigate';
 import useGlobalStore from '../../../../../../../../storage/store';
-import {safestr} from '../../../../../../../../utils/common';
 import usePlayerStore from '../../../../playerStore';
 import {places} from '../../../../../../../../consts/places';
 
@@ -19,15 +18,15 @@ function Places({navigation}: PlacesProps) {
   const {localizedText} = useGlobalStore();
   const playerStore = usePlayerStore();
 
-  const existingPlaces = places[playerStore.country]?.cities?.[playerStore.city];
+  const existingPlaces = places[playerStore.city];
 
   return (
     <ScrollView style={styles.box}>
       {Object.entries(existingPlaces).map(([name, props]) => (
         <SectionButton
           key={name}
-          label={safestr(localizedText.places?.names?.[name])}
-          description={safestr(localizedText.places?.types?.[props.type.slice(0, -2)]?.title)}
+          label={localizedText.places.names[name]}
+          description={localizedText.places.types[props.type.slice(0, -2)]?.title}
           onPress={() => navigate.stepForward(PageNames.Activities, {prev: props.type})}
         />
       ))}

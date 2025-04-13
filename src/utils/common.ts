@@ -3,8 +3,6 @@ export const getRandomArrayItem = <T>(array: T[]): T | undefined => {
   return array[randomIndex];
 };
 
-export const safestr = (value: string | undefined) => value ?? '';
-
 /**
  * @returns {number} biased number from min (inclusive) to max (inclusive).
  */

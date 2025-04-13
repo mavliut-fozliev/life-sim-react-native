@@ -2,7 +2,6 @@ import React from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
 import {useLocalizeText} from '../../../../../../../locales/useLocalizeText';
 import useGlobalStore from '../../../../../../../storage/store';
-import {safestr} from '../../../../../../../utils/common';
 
 const languages: SelectItem[] = [
   {
@@ -31,7 +30,7 @@ function SelectLanguage() {
       value={language}
       items={languages}
       onSelectItem={handleSelect}
-      label={safestr(localizedText?.menu?.settings?.language)}
+      label={localizedText.menu.settings.Language}
     />
   );
 }

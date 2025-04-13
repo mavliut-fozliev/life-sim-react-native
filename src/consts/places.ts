@@ -1,51 +1,36 @@
 import {Places} from '../types/places';
-import {countries} from './countries';
+import {cities} from './citites';
+import {Countries} from './countries';
 
 export const places: Places = {
-  [countries.ALB]: {
-    cities: {
-      Tirana: {
-        FitnessPalace: {
-          type: 'gym_2',
-        },
-        StrongAlbania: {
-          type: 'gym_3',
-        },
-      },
+  [cities[Countries.ALB].Tirana]: {
+    FitnessPalace: {
+      type: 'gym_2',
+    },
+    StrongAlbania: {
+      type: 'gym_3',
     },
   },
-  [countries.RUS]: {
-    cities: {
-      Moscow: {
-        StrengthHouse: {
-          type: 'gym_2',
-        },
-        FitLab: {
-          type: 'gym_3',
-        },
-      },
-      RostovOnDon: {
-        IronCity: {
-          type: 'gym_2',
-        },
-        StatePolyclinic: {
-          type: 'hospital_2',
-        },
-      },
+  [cities[Countries.RUS].Moscow]: {
+    StrengthHouse: {
+      type: 'gym_2',
+    },
+    FitLab: {
+      type: 'gym_3',
     },
   },
-  [countries.TUR]: {
-    cities: {
-      Istanbul: {},
-      Ankara: {},
-      Izmir: {},
-      Bursa: {},
-      Antalya: {},
+  [cities[Countries.RUS].RostovOnDon]: {
+    IronCity: {
+      type: 'gym_2',
+    },
+    StatePolyclinic: {
+      type: 'hospital_2',
     },
   },
-  [countries.USA]: {
-    cities: {
-      NewYork: {},
-    },
-  },
+  [cities[Countries.TUR].Istanbul]: {},
+  [cities[Countries.TUR].Ankara]: {},
+  [cities[Countries.TUR].Izmir]: {},
+  [cities[Countries.TUR].Bursa]: {},
+  [cities[Countries.TUR].Antalya]: {},
+  [cities[Countries.USA].NewYork]: {},
 };

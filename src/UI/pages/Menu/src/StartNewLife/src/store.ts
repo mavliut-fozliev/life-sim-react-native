@@ -1,8 +1,11 @@
 import {create} from 'zustand';
 import {getInitializer} from '../../../../../../utils/storeHelpers';
-import {StoreFields, StringField} from '../../../../../../types/store';
+import {EnumField, StoreFields, StringField} from '../../../../../../types/store';
+import {Countries} from '../../../../../../consts/countries';
 
-type StoreState = StringField<'country' | 'city' | 'gender' | 'name' | 'surname'>;
+type StoreState = StringField<'city' | 'name' | 'surname'> &
+  EnumField<'country', Countries> &
+  EnumField<'gender', 'Male' | 'Female'>;
 
 const fields: StoreFields = {
   country: 'str',

@@ -8,6 +8,14 @@ export type StringField<T extends string> = {
   };
 };
 
+export type EnumField<T extends string, V extends string> = {
+  [K in T]: V;
+} & {
+  [K in `$${T}`]: {
+    set: (value: string) => void;
+  };
+};
+
 export type NumberField<T extends string> = {
   [K in T]: number;
 } & {

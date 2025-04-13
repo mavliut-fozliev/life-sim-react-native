@@ -1,24 +1,41 @@
 import useGlobalStore from '../storage/store';
-import {ObjectRecord} from '../types/common';
-import {Locale} from '../types/localizedText';
-import en_common from './en/common.json';
-import en_menu from './en/menu.json';
-import en_places from './en/places.json';
-import en_characterNames from './en/characterNames.json';
-import ru_common from './ru/common.json';
-import ru_menu from './ru/menu.json';
-import ru_places from './ru/places.json';
-import ru_characterNames from './ru/characterNames.json';
+import ru from './ru/index';
 
-const locales: ObjectRecord<Locale> = {
-  en: {common: en_common, menu: en_menu, places: en_places, characterNames: en_characterNames},
-  ru: {common: ru_common, menu: ru_menu, places: ru_places, characterNames: ru_characterNames},
+// 'ru' is the main language that contains the main structure, other languages ​​should be guided by it
+const localizedTexts = {
+  ru,
 };
+
+function mirrorKeys<T extends Record<string, any>>(obj: T): T {
+  const result: any = {};
+
+  for (const key in obj) {
+    const value = obj[key];
+    if (typeof value === 'object') {
+      result[key] = mirrorKeys(value);
+    } else {
+      result[key] = key;
+    }
+  }
+
+  return result;
+}
 
 export function useLocalizeText() {
   const {$localizedText} = useGlobalStore();
 
   return (language: string) => {
-    $localizedText.set(locales[language]);
+    let localizedText;
+
+    switch (language) {
+      case 'ru':
+        localizedText = localizedTexts.ru;
+        break;
+      default:
+        localizedText = mirrorKeys(localizedTexts.ru);
+        break;
+    }
+
+    $localizedText.set(localizedText);
   };
 }

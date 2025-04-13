@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
 import useGlobalStore from '../../../../../../../storage/store';
-import {getRandomArrayItem, safestr} from '../../../../../../../utils/common';
+import {getRandomArrayItem} from '../../../../../../../utils/common';
 import useStore from '../store';
 
 function SelectGender() {
@@ -11,10 +11,10 @@ function SelectGender() {
   const [items, setItems] = useState<SelectItem[]>([]);
 
   useEffect(() => {
-    const genderLabels = localizedText?.menu?.genders || {};
+    const genderLabels = localizedText.menu.genders;
 
     const localizedGenders: SelectItem[] = Object.entries(genderLabels).map(([key, value]) => ({
-      label: safestr(value),
+      label: value,
       value: key,
     }));
 
@@ -37,7 +37,7 @@ function SelectGender() {
       value={gender}
       onSelectItem={handleSelectItem}
       items={items}
-      label={safestr(localizedText?.menu?.newLifeInputs?.gender)}
+      label={localizedText.menu.newLifeInputs.Gender}
     />
   );
 }

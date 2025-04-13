@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import ModalTextInput from '../../../../../../components/ModalTextInput/ModalTextInput';
 import useStore from '../store';
 import useGlobalStore from '../../../../../../../storage/store';
-import {getRandomArrayItem, safestr} from '../../../../../../../utils/common';
+import {getRandomArrayItem} from '../../../../../../../utils/common';
 import {characterNames} from '../../../../../../../consts/characterNames';
 
 function NameInput() {
@@ -15,14 +15,14 @@ function NameInput() {
 
   useEffect(() => {
     if (!name) {
-      const names = characterNames[country][gender as 'male' | 'female'];
+      const names = characterNames[country][gender];
       const randomName = getRandomArrayItem(names) || names[0];
-      const localizedName = safestr(localizedText.characterNames?.[randomName]);
+      const localizedName = localizedText.characterNames[randomName];
       $name.set(localizedName);
     }
   }, [name, $name, country, gender, localizedText]);
 
-  return <ModalTextInput value={name} onSave={handleSave} label={safestr(localizedText?.menu?.newLifeInputs?.name)} />;
+  return <ModalTextInput value={name} onSave={handleSave} label={localizedText.menu.newLifeInputs.Name} />;
 }
 
 export default NameInput;

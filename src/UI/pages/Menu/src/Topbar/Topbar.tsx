@@ -11,7 +11,6 @@ import useGlobalStore from '../../../../../storage/store';
 import {PageNames} from '../../../../../consts/pages';
 import {ObjectRecord} from '../../../../../types/common';
 import ArrowLeft from '../../../../../icons/ArrowLeft';
-import {safestr} from '../../../../../utils/common';
 
 function Topbar() {
   const playerStore = usePlayerStore();
@@ -28,9 +27,9 @@ function Topbar() {
   };
 
   const titles: ObjectRecord<string> = {
-    [PageNames.Menu]: safestr(localizedText.menu?.options?.menu),
-    [PageNames.StartNewLife]: safestr(localizedText.menu?.options?.startNewLife),
-    [PageNames.Settings]: safestr(localizedText.menu?.options?.settings),
+    [PageNames.Menu]: localizedText.menu.options.Menu,
+    [PageNames.StartNewLife]: localizedText.menu.options['Start New Life'],
+    [PageNames.Settings]: localizedText.menu.options.Settings,
   };
   const title = titles[currentPage];
   const haveTitle = title !== undefined;

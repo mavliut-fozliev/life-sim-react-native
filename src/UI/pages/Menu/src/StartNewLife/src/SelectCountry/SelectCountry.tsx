@@ -1,33 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import Select, {SelectItem} from '../../../../../../components/Select/Select';
-import {countryItems} from './src/consts';
-import {getRandomArrayItem, safestr} from '../../../../../../../utils/common';
+import React, {useEffect} from 'react';
+import Select from '../../../../../../components/Select/Select';
+import {getRandomArrayItem} from '../../../../../../../utils/common';
 import useStore from '../store';
 import useGlobalStore from '../../../../../../../storage/store';
+import {useCountryItems} from './src/useCountryItems';
 
 function SelectCountry() {
   const {country, $country, $city} = useStore();
+  const countryItems = useCountryItems();
 
   const {localizedText} = useGlobalStore();
-  const [items, setItems] = useState<SelectItem[]>([]);
 
   useEffect(() => {
-    const countryLabels = localizedText?.menu?.countries;
-
-    const localizedCountries: SelectItem[] = countryItems.map(c => ({
-      ...c,
-      label: c.label + safestr(countryLabels?.[c.value]),
-    }));
-
-    setItems(localizedCountries);
-
     if (!country) {
-      const randomCountry = getRandomArrayItem(localizedCountries)?.value;
+      const randomCountry = getRandomArrayItem(countryItems)?.value;
       if (randomCountry) {
         $country.set(randomCountry);
       }
     }
-  }, [country, $country, localizedText]);
+  }, [country, $country, countryItems]);
 
   function handleSelectItem(value: string) {
     $country.set(value);
@@ -42,8 +33,8 @@ function SelectCountry() {
     <Select
       value={country}
       onSelectItem={handleSelectItem}
-      items={items}
-      label={safestr(localizedText?.menu?.newLifeInputs?.country)}
+      items={countryItems}
+      label={localizedText.menu.newLifeInputs.Country}
     />
   );
 }

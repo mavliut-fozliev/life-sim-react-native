@@ -1,6 +1,6 @@
-export const countries = {
-  ALB: 'ALB',
-  RUS: 'RUS',
-  TUR: 'TUR',
-  USA: 'USA',
-};
+export enum Countries {
+  ALB = 'ALB',
+  RUS = 'RUS',
+  TUR = 'TUR',
+  USA = 'USA',
+}
