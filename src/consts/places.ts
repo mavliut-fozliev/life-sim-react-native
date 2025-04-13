@@ -17,9 +17,16 @@ export const places: Places = {
   RUS: {
     code: 'RUS',
     cities: {
-      Moscow: {},
+      Moscow: {
+        StrengthHouse: {
+          type: 'gym_2',
+        },
+        FitLab: {
+          type: 'gym_3',
+        },
+      },
       RostovOnDon: {
-        MasterSten: {
+        IronCity: {
           type: 'gym_2',
         },
         StatePolyclinic: {

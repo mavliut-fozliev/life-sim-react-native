@@ -1,9 +1,11 @@
 {
   "names": {
-    "MasterSten": "Master Sten",
+    "IronCity": "Iron City",
     "StatePolyclinic": "State Polyclinic",
     "FitnessPalace": "Fitness Palace",
-    "StrongAlbania": "Strong Albania"
+    "StrongAlbania": "Strong Albania",
+    "StrengthHouse": "StrengthHouse",
+    "FitLab": "Fit Lab"
   },
   "types": {
     "gym": {

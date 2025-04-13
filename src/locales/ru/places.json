@@ -1,9 +1,11 @@
 {
   "names": {
-    "MasterSten": "Мастер Стэн",
+    "IronCity": "ЖелезоГрад",
     "StatePolyclinic": "Гос. Поликлиника",
     "FitnessPalace": "Фитнес-дворец",
-    "StrongAlbania": "Сильная Албания"
+    "StrongAlbania": "Сильная Албания",
+    "StrengthHouse": "СилаХаус",
+    "FitLab": "ФитЛаб"
   },
   "types": {
     "gym": {
