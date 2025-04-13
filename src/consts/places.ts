@@ -1,8 +1,8 @@
 import {Places} from '../types/places';
+import {countries} from './countries';
 
 export const places: Places = {
-  ALB: {
-    code: 'ALB',
+  [countries.ALB]: {
     cities: {
       Tirana: {
         FitnessPalace: {
@@ -14,8 +14,7 @@ export const places: Places = {
       },
     },
   },
-  RUS: {
-    code: 'RUS',
+  [countries.RUS]: {
     cities: {
       Moscow: {
         StrengthHouse: {
@@ -35,8 +34,7 @@ export const places: Places = {
       },
     },
   },
-  TUR: {
-    code: 'TUR',
+  [countries.TUR]: {
     cities: {
       Istanbul: {},
       Ankara: {},
@@ -45,8 +43,7 @@ export const places: Places = {
       Antalya: {},
     },
   },
-  USA: {
-    code: 'USA',
+  [countries.USA]: {
     cities: {
       NewYork: {},
     },

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
-import {countries} from './src/consts';
+import {countryItems} from './src/consts';
 import {getRandomArrayItem, safestr} from '../../../../../../../utils/common';
 import useStore from '../store';
 import useGlobalStore from '../../../../../../../storage/store';
@@ -14,7 +14,7 @@ function SelectCountry() {
   useEffect(() => {
     const countryLabels = localizedText?.menu?.countries;
 
-    const localizedCountries: SelectItem[] = countries.map(c => ({
+    const localizedCountries: SelectItem[] = countryItems.map(c => ({
       ...c,
       label: c.label + safestr(countryLabels?.[c.value]),
     }));

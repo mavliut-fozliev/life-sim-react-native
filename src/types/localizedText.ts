@@ -28,4 +28,5 @@ export type Locale = {
       | undefined
     >;
   };
+  characterNames: obj;
 };
