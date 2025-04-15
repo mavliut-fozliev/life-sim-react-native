@@ -13,6 +13,7 @@ import useGlobalStore from '../../../../../storage/store';
 import useStore from './src/store';
 import usePlayerStore from '../playerStore';
 import {useNavigate} from '../../../../../hooks/useNavigate';
+import {useLocalizeText} from '../../../../../locales/useLocalizeText';
 
 type StartNewLifeProps = {
   navigation: Navigation;
@@ -21,7 +22,9 @@ type StartNewLifeProps = {
 function StartNewLife({navigation}: StartNewLifeProps) {
   const {country, city, gender, name, surname, $country, $city, $gender, $name, $surname} = useStore();
   const playerStore = usePlayerStore();
-  const {localizedText, $gameInProgress} = useGlobalStore();
+  const {$gameInProgress} = useGlobalStore();
+
+  const {getText} = useLocalizeText();
   const navigate = useNavigate(navigation);
 
   function handleStart() {
@@ -60,7 +63,7 @@ function StartNewLife({navigation}: StartNewLifeProps) {
         <SelectGender />
         <NameInput />
         <SurnameInput />
-        <Button label={localizedText.menu.button['Start!']} onPress={handleStart} disabled={haveEmptyField} />
+        <Button label={getText(['menu', 'button', 'Start!'])} onPress={handleStart} disabled={haveEmptyField} />
       </ScrollView>
     </View>
   );

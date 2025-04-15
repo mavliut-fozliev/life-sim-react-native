@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import {Modal, View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform, TouchableOpacity} from 'react-native';
 import Button from '../Button/Button';
 import {colors, fontSizes} from '../../../consts/styles';
-import useGlobalStore from '../../../storage/store';
+import {useLocalizeText} from '../../../locales/useLocalizeText';
 
 type ModalTextInputProps = {
   value: string;
@@ -12,7 +12,7 @@ type ModalTextInputProps = {
 };
 
 const ModalTextInput = ({value, onSave, label, placeholder}: ModalTextInputProps) => {
-  const {localizedText} = useGlobalStore();
+  const {getText} = useLocalizeText();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [inputText, setInputText] = useState('');
@@ -51,7 +51,7 @@ const ModalTextInput = ({value, onSave, label, placeholder}: ModalTextInputProps
             </Text>
           ) : (
             <Text numberOfLines={1} style={styles.placeholder}>
-              {placeholder || localizedText.common['Type something...']}
+              {placeholder || getText(['common', 'Type', 'something'])}
             </Text>
           )}
         </View>
@@ -71,7 +71,7 @@ const ModalTextInput = ({value, onSave, label, placeholder}: ModalTextInputProps
                 autoFocus={true}
               />
               <View style={styles.button}>
-                <Button label={localizedText.common.buttons.Save} onPress={handleSave} />
+                <Button label={getText(['common', 'buttons', 'Save'])} onPress={handleSave} />
               </View>
             </TouchableOpacity>
           </KeyboardAvoidingView>

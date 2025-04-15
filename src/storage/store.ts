@@ -1,15 +1,14 @@
 import {create} from 'zustand';
-import {BooleanField, ObjectField, StoreFields, StringField} from '../types/store';
+import {BooleanField, EnumField, StoreFields, StringField} from '../types/store';
 import {getInitializer} from '../utils/storeHelpers';
-import ru from '../locales/ru';
+import {Language} from '../types/language';
 
 type StoreState = StringField<'language' | 'currentPage'> &
-  ObjectField<'localizedText', typeof ru> &
-  BooleanField<'gameInProgress'>;
+  BooleanField<'gameInProgress'> &
+  EnumField<'language', Language>;
 
 const fields: StoreFields = {
   language: 'str',
-  localizedText: 'obj',
   gameInProgress: 'bool',
   currentPage: 'str',
 };

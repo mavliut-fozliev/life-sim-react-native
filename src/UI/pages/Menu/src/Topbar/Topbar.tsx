@@ -11,11 +11,14 @@ import useGlobalStore from '../../../../../storage/store';
 import {PageNames} from '../../../../../consts/pages';
 import {ObjectRecord} from '../../../../../types/common';
 import ArrowLeft from '../../../../../icons/ArrowLeft';
+import {useLocalizeText} from '../../../../../locales/useLocalizeText';
 
 function Topbar() {
   const playerStore = usePlayerStore();
+  const {currentPage} = useGlobalStore();
+
   const navigate = useNavigate(useNavigation());
-  const {currentPage, localizedText} = useGlobalStore();
+  const {getText} = useLocalizeText();
 
   function handlePress() {
     navigate.stepBack();
@@ -27,9 +30,9 @@ function Topbar() {
   };
 
   const titles: ObjectRecord<string> = {
-    [PageNames.Menu]: localizedText.menu.options.Menu,
-    [PageNames.StartNewLife]: localizedText.menu.options['Start New Life'],
-    [PageNames.Settings]: localizedText.menu.options.Settings,
+    [PageNames.Menu]: getText(['menu', 'options', 'Menu']),
+    [PageNames.StartNewLife]: getText(['menu', 'options', 'Start New Life']),
+    [PageNames.Settings]: getText(['menu', 'options', 'Settings']),
   };
   const title = titles[currentPage];
   const haveTitle = title !== undefined;

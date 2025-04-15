@@ -1,32 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import Select, {SelectItem} from '../../../../../../components/Select/Select';
-import useGlobalStore from '../../../../../../../storage/store';
+import React, {useEffect} from 'react';
+import Select from '../../../../../../components/Select/Select';
 import {getRandomArrayItem} from '../../../../../../../utils/common';
 import useStore from '../store';
+import {useLocalizeText} from '../../../../../../../locales/useLocalizeText';
+import {useGenderItems} from './src/useGenderItems';
 
 function SelectGender() {
   const {gender, $gender} = useStore();
+  const {getText} = useLocalizeText();
 
-  const {localizedText} = useGlobalStore();
-  const [items, setItems] = useState<SelectItem[]>([]);
+  const genderItems = useGenderItems();
 
   useEffect(() => {
-    const genderLabels = localizedText.menu.genders;
-
-    const localizedGenders: SelectItem[] = Object.entries(genderLabels).map(([key, value]) => ({
-      label: value,
-      value: key,
-    }));
-
-    setItems(localizedGenders);
-
     if (!gender) {
-      const randomGender = getRandomArrayItem(localizedGenders)?.value;
+      const randomGender = getRandomArrayItem(genderItems)?.value;
       if (randomGender) {
         $gender.set(randomGender);
       }
     }
-  }, [gender, $gender, localizedText]);
+  }, [gender, $gender, genderItems]);
 
   function handleSelectItem(value: string) {
     $gender.set(value);
@@ -36,8 +28,8 @@ function SelectGender() {
     <Select
       value={gender}
       onSelectItem={handleSelectItem}
-      items={items}
-      label={localizedText.menu.newLifeInputs.Gender}
+      items={genderItems}
+      label={getText(['menu', 'newLifeInputs', 'Gender'])}
     />
   );
 }

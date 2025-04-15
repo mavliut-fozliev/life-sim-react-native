@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Text, Modal, TouchableOpacity, ScrollView} from 'react-native';
 import {colors, fontSizes} from '../../../consts/styles';
 import Radio from '../../../icons/Radio';
-import useGlobalStore from '../../../storage/store';
+import {useLocalizeText} from '../../../locales/useLocalizeText';
 
 export type SelectItem<T extends string = string> = {
   label: string;
@@ -21,8 +21,8 @@ type SelectProps<T extends string = string> = {
 };
 
 function Select<T extends string = string>({value, items, onSelectItem, label, placeholder = ''}: SelectProps<T>) {
-  const {localizedText} = useGlobalStore();
-  const text = localizedText.common['Nothing here yet'];
+  const {getText} = useLocalizeText();
+  const text = getText(['common', 'Nothing here yet']);
 
   const [modalVisible, setModalVisible] = useState(false);
 

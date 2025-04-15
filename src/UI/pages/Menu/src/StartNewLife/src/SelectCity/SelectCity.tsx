@@ -1,37 +1,26 @@
-import React, {useEffect, useState} from 'react';
-import Select, {SelectItem} from '../../../../../../components/Select/Select';
+import React from 'react';
+import Select from '../../../../../../components/Select/Select';
 import useStore from '../store';
-import useGlobalStore from '../../../../../../../storage/store';
-import {cities} from '../../../../../../../consts/citites';
+import {useLocalizeText} from '../../../../../../../locales/useLocalizeText';
+import {useCityItems} from './src/useCityItems';
 
 function SelectCity() {
-  const {city, $city, country} = useStore();
+  const {city, $city} = useStore();
+  const {getText} = useLocalizeText();
 
-  const {localizedText} = useGlobalStore();
-  const [items, setItems] = useState<SelectItem[]>([]);
+  const cityItems = useCityItems();
 
   function handleSelect(v: string) {
     $city.set(v);
   }
 
-  useEffect(() => {
-    const localizedCities: SelectItem[] = Object.entries(cities[country]).map(([cityKey, cityLabel]) => {
-      return {
-        label: localizedText.menu.cities[country][cityLabel],
-        value: cityKey,
-      };
-    });
-
-    setItems(localizedCities);
-  }, [country, localizedText]);
-
   return (
     <Select
       value={city}
       onSelectItem={handleSelect}
-      items={items}
-      placeholder={localizedText.menu['Select Сity']}
-      label={localizedText.menu.newLifeInputs.City}
+      items={cityItems}
+      placeholder={getText(['menu', 'input', 'Select Сity'])}
+      label={getText(['menu', 'newLifeInputs', 'City'])}
     />
   );
 }

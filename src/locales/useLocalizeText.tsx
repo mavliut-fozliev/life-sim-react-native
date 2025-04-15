@@ -1,41 +1,39 @@
 import useGlobalStore from '../storage/store';
-import ru from './ru/index';
+import {Language} from '../types/language';
+import ru from './ru';
 
-// 'ru' is the main language that contains the main structure, other languages ​​should be guided by it
-const localizedTexts = {
+const localizedTexts: {[key in Language]: object | undefined} = {
+  en: undefined,
   ru,
 };
 
-function mirrorKeys<T extends Record<string, any>>(obj: T): T {
-  const result: any = {};
-
-  for (const key in obj) {
-    const value = obj[key];
-    if (typeof value === 'object') {
-      result[key] = mirrorKeys(value);
-    } else {
-      result[key] = key;
+function getValueByPath(obj: Record<string, any>, parts: string[]): any {
+  return parts.reduce((acc, key) => {
+    if (acc && typeof acc === 'object') {
+      return acc[key];
     }
-  }
-
-  return result;
+    return undefined;
+  }, obj);
 }
 
 export function useLocalizeText() {
-  const {$localizedText} = useGlobalStore();
+  const {language} = useGlobalStore();
 
-  return (language: string) => {
-    let localizedText;
+  const localizedText = localizedTexts[language];
 
-    switch (language) {
-      case 'ru':
-        localizedText = localizedTexts.ru;
-        break;
-      default:
-        localizedText = mirrorKeys(localizedTexts.ru);
-        break;
+  const getText = (parts: string[]): string => {
+    if (!localizedText) {
+      return parts[parts.length - 1];
     }
 
-    $localizedText.set(localizedText);
+    const text = getValueByPath(localizedText, parts);
+
+    if (typeof text !== 'string') {
+      return 'NOT-STRING!';
+    }
+
+    return text;
   };
+
+  return {getText};
 }

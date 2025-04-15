@@ -1,7 +1,7 @@
 import React from 'react';
 import Select, {SelectItem} from '../../../../../../components/Select/Select';
-import {useLocalizeText} from '../../../../../../../locales/useLocalizeText';
 import useGlobalStore from '../../../../../../../storage/store';
+import {useLocalizeText} from '../../../../../../../locales/useLocalizeText';
 
 const languages: SelectItem[] = [
   {
@@ -15,14 +15,11 @@ const languages: SelectItem[] = [
 ];
 
 function SelectLanguage() {
-  const {localizedText} = useGlobalStore();
   const {language, $language} = useGlobalStore();
-
-  const localizeText = useLocalizeText();
+  const {getText} = useLocalizeText();
 
   function handleSelect(v: string) {
     $language.set(v);
-    localizeText(v);
   }
 
   return (
@@ -30,7 +27,7 @@ function SelectLanguage() {
       value={language}
       items={languages}
       onSelectItem={handleSelect}
-      label={localizedText.menu.settings.Language}
+      label={getText(['menu', 'settings', 'Language'])}
     />
   );
 }

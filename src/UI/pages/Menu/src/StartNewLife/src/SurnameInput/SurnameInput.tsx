@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import ModalTextInput from '../../../../../../components/ModalTextInput/ModalTextInput';
 import useStore from '../store';
-import useGlobalStore from '../../../../../../../storage/store';
+import {useLocalizeText} from '../../../../../../../locales/useLocalizeText';
 
 function SurnameInput() {
-  const {localizedText} = useGlobalStore();
   const {surname, $surname} = useStore();
+  const {getText} = useLocalizeText();
 
   function handleSave(v: string) {
     $surname.set(v);
@@ -17,7 +17,7 @@ function SurnameInput() {
     }
   }, [surname, $surname]);
 
-  return <ModalTextInput value={surname} onSave={handleSave} label={localizedText.menu.newLifeInputs.Surname} />;
+  return <ModalTextInput value={surname} onSave={handleSave} label={getText(['menu', 'newLifeInputs', 'Surname'])} />;
 }
 
 export default SurnameInput;

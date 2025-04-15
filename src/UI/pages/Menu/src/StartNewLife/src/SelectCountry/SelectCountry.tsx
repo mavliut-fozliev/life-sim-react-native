@@ -2,14 +2,14 @@ import React, {useEffect} from 'react';
 import Select from '../../../../../../components/Select/Select';
 import {getRandomArrayItem} from '../../../../../../../utils/common';
 import useStore from '../store';
-import useGlobalStore from '../../../../../../../storage/store';
 import {useCountryItems} from './src/useCountryItems';
+import {useLocalizeText} from '../../../../../../../locales/useLocalizeText';
 
 function SelectCountry() {
   const {country, $country, $city} = useStore();
-  const countryItems = useCountryItems();
 
-  const {localizedText} = useGlobalStore();
+  const countryItems = useCountryItems();
+  const {getText} = useLocalizeText();
 
   useEffect(() => {
     if (!country) {
@@ -34,7 +34,7 @@ function SelectCountry() {
       value={country}
       onSelectItem={handleSelectItem}
       items={countryItems}
-      label={localizedText.menu.newLifeInputs.Country}
+      label={getText(['menu', 'newLifeInputs', 'Country'])}
     />
   );
 }

@@ -5,31 +5,34 @@ import SectionButton from '../../../../../../../components/SectionButton/Section
 import {Navigation} from '../../../../../../../../types/navigation';
 import {PageNames} from '../../../../../../../../consts/pages';
 import {useNavigate} from '../../../../../../../../hooks/useNavigate';
-import useGlobalStore from '../../../../../../../../storage/store';
 import usePlayerStore from '../../../../playerStore';
 import {places} from '../../../../../../../../consts/places';
+import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
 
 type PlacesProps = {
   navigation: Navigation;
 };
 
 function Places({navigation}: PlacesProps) {
-  const navigate = useNavigate(navigation);
-  const {localizedText} = useGlobalStore();
   const playerStore = usePlayerStore();
 
-  const existingPlaces = places[playerStore.city];
+  const navigate = useNavigate(navigation);
+  const {getText} = useLocalizeText();
+
+  const existingPlaces = places[playerStore.country][playerStore.city] || {};
 
   return (
     <ScrollView style={styles.box}>
-      {Object.entries(existingPlaces).map(([name, props]) => (
-        <SectionButton
-          key={name}
-          label={localizedText.places.names[name]}
-          description={localizedText.places.types[props.type.slice(0, -2)]?.title}
-          onPress={() => navigate.stepForward(PageNames.Activities, {prev: props.type})}
-        />
-      ))}
+      {Object.entries(existingPlaces).map(([name, props]) => {
+        return (
+          <SectionButton
+            key={name}
+            label={getText(['places', 'names', name])}
+            description={getText(['places', 'types', props.type])}
+            onPress={() => navigate.stepForward(PageNames.Activities, {prev: props.type})}
+          />
+        );
+      })}
     </ScrollView>
   );
 }
