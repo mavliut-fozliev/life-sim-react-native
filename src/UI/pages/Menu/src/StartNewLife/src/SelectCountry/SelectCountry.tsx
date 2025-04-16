@@ -14,6 +14,7 @@ function SelectCountry() {
   useEffect(() => {
     if (!country) {
       const randomCountry = getRandomArrayItem(countryItems)?.value;
+
       if (randomCountry) {
         $country.set(randomCountry);
       }

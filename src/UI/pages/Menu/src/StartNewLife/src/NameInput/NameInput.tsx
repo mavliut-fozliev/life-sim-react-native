@@ -14,7 +14,7 @@ function NameInput() {
   }
 
   useEffect(() => {
-    if (!name) {
+    if (!name && country && gender) {
       const names = characterNames[country][gender];
       const randomName = getRandomArrayItem(names) || names[0];
       const localizedName = getText(['characterNames', randomName]);
