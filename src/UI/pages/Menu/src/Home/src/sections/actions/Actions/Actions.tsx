@@ -22,13 +22,13 @@ function Actions({navigation}: ActionsProps) {
   return (
     <View style={styles.box}>
       <Button label="grow up" onPress={growUp} />
-      <Button label="Places" onPress={() => navigate.stepForward(PageNames.Places)} disabled={playerStore.age < 6} />
+      <Button label="Places" onPress={() => navigate.stepForward(PageNames.Places)} disabled={playerStore.age < 0} />
       <Button
         label="Education"
         onPress={() => navigate.stepForward(PageNames.Education)}
-        disabled={playerStore.age < 2}
+        disabled={playerStore.age < 0}
       />
-      <Button label="Сareer" onPress={() => navigate.stepForward(PageNames.Carrer)} disabled={playerStore.age < 16} />
+      <Button label="Сareer" onPress={() => navigate.stepForward(PageNames.Carrer)} disabled={playerStore.age < 0} />
       <Button label="People" onPress={() => navigate.stepForward(PageNames.People)} />
     </View>
   );

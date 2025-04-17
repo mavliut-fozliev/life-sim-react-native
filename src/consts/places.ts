@@ -1,24 +1,16 @@
-import {Cities} from './cities';
+import {Places} from '../types/places';
 import {Countries} from './countries';
-
-type Places = {
-  [country in Countries]: Partial<{
-    [city in Cities]: {
-      [place: string]: {
-        type: 'Gym' | 'Hospital';
-      };
-    };
-  }>;
-};
 
 export const places: Places = {
   [Countries.ALB]: {
     'Tirana': {
       'Fitness Palace': {
         type: 'Gym',
+        level: '3',
       },
       'Strong Albania': {
         type: 'Gym',
+        level: '2',
       },
     },
   },
@@ -26,17 +18,21 @@ export const places: Places = {
     'Moscow': {
       'StrengthHouse': {
         type: 'Gym',
+        level: '2',
       },
       'Fit Lab': {
         type: 'Gym',
+        level: '3',
       },
     },
     'Rostov-on-Don': {
       'Iron City': {
         type: 'Gym',
+        level: '2',
       },
       'State Polyclinic': {
         type: 'Hospital',
+        level: '2',
       },
     },
   },

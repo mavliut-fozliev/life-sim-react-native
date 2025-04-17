@@ -29,7 +29,7 @@ function Places({navigation}: PlacesProps) {
             key={name}
             label={getText(['places', 'names', name])}
             description={getText(['places', 'types', props.type])}
-            onPress={() => navigate.stepForward(PageNames.Activities, {prev: props.type})}
+            onPress={() => navigate.stepForward(PageNames.Activities, {prev: props})}
           />
         );
       })}
