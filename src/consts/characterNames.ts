@@ -6,8 +6,8 @@ export const characterNames = {
     Female: ['Elira', 'Alketa', 'Arta', 'Erisa', 'Blerta', 'Vjosa', 'Jonida', 'Drita', 'Elda', 'Teuta'],
   },
   [Countries.RUS]: {
-    Male: ['Erion'],
-    Female: ['Erion'],
+    Male: ['Alexander', 'Mikhail', 'Artyom', 'Maxim', 'Ivan', 'Daniil', 'Matvey', 'Egor', 'Roman', 'Alexey'],
+    Female: ['Sofia', 'Anna', 'Maria', 'Alisa', 'Victoria', 'Elizaveta', 'Polina', 'Varvara', 'Ksenia', 'Anastasia'],
   },
   [Countries.TUR]: {Male: ['Erion'], Female: ['Erion']},
   [Countries.USA]: {Male: ['Erion'], Female: ['Erion']},
