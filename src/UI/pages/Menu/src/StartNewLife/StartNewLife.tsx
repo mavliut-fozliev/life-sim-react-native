@@ -20,7 +20,20 @@ type StartNewLifeProps = {
 };
 
 function StartNewLife({navigation}: StartNewLifeProps) {
-  const {country, city, gender, name, surname, $country, $city, $gender, $name, $surname} = useStore();
+  const {
+    country,
+    city,
+    gender,
+    name,
+    surname,
+    $country,
+    $city,
+    $gender,
+    $name,
+    $surname,
+    $nameIsModified,
+    $surnameIsModified,
+  } = useStore();
   const playerStore = usePlayerStore();
   const {$gameInProgress} = useGlobalStore();
 
@@ -46,6 +59,8 @@ function StartNewLife({navigation}: StartNewLifeProps) {
     $gender.set('');
     $name.set('');
     $surname.set('');
+    $nameIsModified.set(false);
+    $surnameIsModified.set(false);
 
     $gameInProgress.set(true);
 

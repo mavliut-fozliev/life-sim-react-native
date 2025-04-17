@@ -7,20 +7,25 @@ import {useLocalizeText} from '../../../../../../../locales/useLocalizeText';
 
 function NameInput() {
   const {getText} = useLocalizeText();
-  const {name, $name, country, gender} = useStore();
+  const {name, $name, country, gender, nameIsModified, $nameIsModified} = useStore();
 
   function handleSave(v: string) {
+    $nameIsModified.set(true);
     $name.set(v);
   }
 
   useEffect(() => {
-    if (!name && country && gender) {
-      const names = characterNames[country][gender];
-      const randomName = getRandomArrayItem(names) || names[0];
-      const localizedName = getText(['characterNames', randomName]);
-      $name.set(localizedName);
+    if (nameIsModified || !country || !gender) {
+      return;
     }
-  }, [name, $name, country, gender, getText]);
+
+    const names = characterNames[country][gender];
+    const randomName = getRandomArrayItem(names) || names[0];
+    const localizedName = getText(['characterNames', randomName]);
+
+    $nameIsModified.set(false);
+    $name.set(localizedName);
+  }, [country, gender, getText, $name, $nameIsModified, nameIsModified]);
 
   return <ModalTextInput value={name} onSave={handleSave} label={getText(['menu', 'newLifeInputs', 'Name'])} />;
 }
