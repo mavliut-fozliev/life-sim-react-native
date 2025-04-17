@@ -1,9 +1,10 @@
 import {Places} from '../types/places';
+import {Cities} from './cities';
 import {Countries} from './countries';
 
 export const places: Places = {
   [Countries.ALB]: {
-    'Tirana': {
+    [Cities.Tirana]: {
       'Fitness Palace': {
         type: 'Gym',
         level: '3',
@@ -15,7 +16,7 @@ export const places: Places = {
     },
   },
   [Countries.RUS]: {
-    'Moscow': {
+    [Cities.Moscow]: {
       'StrengthHouse': {
         type: 'Gym',
         level: '2',
@@ -25,7 +26,7 @@ export const places: Places = {
         level: '3',
       },
     },
-    'Rostov-on-Don': {
+    [Cities.RostovOnDon]: {
       'Iron City': {
         type: 'Gym',
         level: '2',
@@ -37,13 +38,13 @@ export const places: Places = {
     },
   },
   [Countries.TUR]: {
-    'Istanbul': {},
-    'Ankara': {},
-    'Izmir': {},
-    'Bursa': {},
-    'Antalya': {},
+    [Cities.Istanbul]: {},
+    [Cities.Ankara]: {},
+    [Cities.Izmir]: {},
+    [Cities.Bursa]: {},
+    [Cities.Antalya]: {},
   },
   [Countries.USA]: {
-    'New York': {},
+    [Cities.NewYork]: {},
   },
 };
