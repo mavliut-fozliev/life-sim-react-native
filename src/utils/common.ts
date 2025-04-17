@@ -3,15 +3,20 @@ export const getRandomArrayItem = <T>(array: T[]): T | undefined => {
   return array[randomIndex];
 };
 
-/**
- * @returns {number} biased number from min (inclusive) to max (inclusive).
- */
-export const biasedRandom = (min: number, max: number) => {
-  const random = Math.random();
-  const biased = 1 - Math.sqrt(random);
+// the higher the bias, the less likely it is to get a large number
+// examples (from = 1, to = 10):
+// 0.05 ->  1:15%  2:12%  3:11%  4:10%  5:10%  6:10%  7:8%  8:8%  9:8%  10:8%
+// 0.1 ->  1:20%  2:13%  3:11%  4:10%  5:9%  6:8%  7:8%  8:7%  9:7%  10:7%
+// 0.2 ->  1:28%  2:13%  3:11%  4:9%  5:8%  6:7%  7:7%  8:6%  9:6%  10:5%
+// 0.5 ->  1:46%  2:12%  3:9%  4:7%  5:6%  6:5%  7:4%  8:4%  9:4%  10:3%
+// 1.0 ->  1:63%  2:9%  3:6%  4:5%  5:4%  6:3%  7:3%  8:3%  9:2%  10:2%
+export function getRandomInRange(from: number, to: number, bias: number = 0) {
+  const range = to - from + 1;
 
-  return Math.floor(min + (max - min + 1) * biased);
-};
+  const rnd = Math.random();
+  const skewed = Math.pow(rnd, 1 + bias * 4);
+  return Math.floor(skewed * range) + from;
+}
 
 export const getRandomValue = (array: {value: any; chance: number}[]) => {
   const random = Math.random() * 100;
