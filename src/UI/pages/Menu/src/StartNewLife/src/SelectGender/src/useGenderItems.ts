@@ -1,3 +1,4 @@
+import {Gender} from '../../../../../../../../consts/gender';
 import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
 import {SelectItem} from '../../../../../../../components/Select/Select';
 
@@ -7,12 +8,12 @@ export function useGenderItems() {
   const genderItems: SelectItem[] = [
     {
       label: getText(['menu', 'genders', 'Male']),
-      value: 'Male',
+      value: Gender.Male,
     },
 
     {
       label: getText(['menu', 'genders', 'Female']),
-      value: 'Female',
+      value: Gender.Female,
     },
   ];
 

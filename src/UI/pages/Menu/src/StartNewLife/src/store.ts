@@ -2,10 +2,13 @@ import {create} from 'zustand';
 import {getInitializer} from '../../../../../../utils/storeHelpers';
 import {BooleanField, EnumField, StoreFields, StringField} from '../../../../../../types/store';
 import {Countries} from '../../../../../../consts/countries';
+import {Cities} from '../../../../../../consts/cities';
+import {Gender} from '../../../../../../consts/gender';
 
-type StoreState = StringField<'city' | 'name' | 'surname'> &
+type StoreState = StringField<'name' | 'surname'> &
   EnumField<'country', Countries> &
-  EnumField<'gender', 'Male' | 'Female'> &
+  EnumField<'city', Cities> &
+  EnumField<'gender', Gender> &
   BooleanField<'nameIsModified' | 'surnameIsModified'>;
 
 const fields: StoreFields = {
