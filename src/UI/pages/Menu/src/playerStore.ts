@@ -1,14 +1,21 @@
 import {create} from 'zustand';
-import {EnumField, FieldLimits, NumberField, StoreFields, StringField} from '../../../../types/store';
+import {EnumField, FieldLimits, NumberField, ObjectField, StoreFields, StringField} from '../../../../types/store';
 import {getInitializer} from '../../../../utils/storeHelpers';
 import {Countries} from '../../../../consts/countries';
 import {Cities} from '../../../../consts/cities';
+import {Person} from '../../../../types/people';
+import {Gender} from '../../../../consts/gender';
 
 type StoreState = StringField<'name' | 'surname'> &
   NumberField<'age' | 'money' | 'energy' | 'health' | 'power'> &
   EnumField<'country', Countries> &
   EnumField<'city', Cities> &
-  EnumField<'gender', 'Male' | 'Female'>;
+  EnumField<'gender', Gender> &
+  ObjectField<'mother', Person>;
+
+const family: StoreFields = {
+  mother: 'obj',
+};
 
 const fields: StoreFields = {
   country: 'str',
@@ -38,6 +45,6 @@ const limits: FieldLimits = {
   },
 };
 
-const initializer = getInitializer<StoreState>('player', fields, limits);
+const initializer = getInitializer<StoreState>('player', {...fields, ...family}, limits);
 const usePlayerStore = create(initializer);
 export default usePlayerStore;

@@ -20,7 +20,11 @@ function NameInput() {
     }
 
     const names = characterNames[country][gender];
-    const randomName = getRandomArrayItem(names) || names[0];
+    const randomName = getRandomArrayItem(names);
+    if (!randomName) {
+      return;
+    }
+
     const localizedName = getText(['characterNames', randomName]);
 
     $nameIsModified.set(false);

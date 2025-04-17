@@ -19,12 +19,16 @@ function SurnameInput() {
       return;
     }
 
-    const names = characterSurnames[country][gender];
-    const randomName = getRandomArrayItem(names) || names[0];
-    const localizedName = getText(['characterSurnames', randomName]);
+    const surnames = characterSurnames[country][gender];
+    const randomSurname = getRandomArrayItem(surnames);
+    if (!randomSurname) {
+      return;
+    }
+
+    const localizedSurname = getText(['characterSurnames', randomSurname]);
 
     $surnameIsModified.set(false);
-    $surname.set(localizedName);
+    $surname.set(localizedSurname);
   }, [country, gender, getText, $surname, $surnameIsModified, surnameIsModified]);
 
   return <ModalTextInput value={surname} onSave={handleSave} label={getText(['menu', 'newLifeInputs', 'Surname'])} />;
