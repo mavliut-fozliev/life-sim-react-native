@@ -1,3 +1,4 @@
+import {useCallback} from 'react';
 import useGlobalStore from '../storage/store';
 import {Language} from '../types/language';
 import ru from './ru';
@@ -21,19 +22,22 @@ export function useLocalizeText() {
 
   const localizedText = localizedTexts[language];
 
-  const getText = (parts: string[]): string => {
-    if (!localizedText) {
-      return parts[parts.length - 1];
-    }
+  const getText = useCallback(
+    (parts: string[]): string => {
+      if (!localizedText) {
+        return parts[parts.length - 1];
+      }
 
-    const text = getValueByPath(localizedText, parts);
+      const text = getValueByPath(localizedText, parts);
 
-    if (typeof text !== 'string') {
-      return 'NOT-STRING!';
-    }
+      if (typeof text !== 'string') {
+        return 'NOT-STRING!';
+      }
 
-    return text;
-  };
+      return text;
+    },
+    [localizedText],
+  );
 
   return {getText};
 }
