@@ -11,10 +11,12 @@ type StoreState = StringField<'name' | 'surname'> &
   EnumField<'country', Countries> &
   EnumField<'city', Cities> &
   EnumField<'gender', Gender> &
-  ObjectField<'mother', Person>;
+  ObjectField<'mother', Person> &
+  ObjectField<'father', Person>;
 
 const family: StoreFields = {
   mother: 'obj',
+  father: 'obj',
 };
 
 const fields: StoreFields = {
