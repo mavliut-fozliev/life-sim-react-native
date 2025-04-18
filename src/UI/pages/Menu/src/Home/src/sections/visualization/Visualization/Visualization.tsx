@@ -1,9 +1,16 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
+import usePlayerStore from '../../../../../playerStore';
 
 function Visualization() {
+  const playerStore = usePlayerStore();
+
+  console.log(playerStore.mother, playerStore.father);
+
   const assetPath = '../../../../../../../../../assets/images/';
   const characterPath = assetPath + 'character/';
+  const adult = characterPath + 'adult/';
+  const infant = characterPath + 'infant/';
 
   return (
     <View style={styles.box}>
@@ -11,19 +18,35 @@ function Visualization() {
         <View style={styles.cell}>
           <Image source={require(assetPath + 'cars/car.png')} style={styles.image} />
         </View>
-        <View style={styles.cell}></View>
-        <View style={styles.cell}></View>
+        <View style={styles.cell}>
+          <View style={styles.character}>
+            <Image source={require(adult + 'body/body_1.png')} style={styles.image} />
+            <Image source={require(adult + 'legs/legs.png')} style={styles.image} />
+            <Image source={require(adult + 'head/head_1.png')} style={styles.image} />
+            <Image source={require(adult + 'hair/hair_1.png')} style={styles.image} />
+            <Image source={require(adult + 'eyes/eyes.png')} style={styles.image} />
+            <Image source={require(adult + 'mouth/mouth.png')} style={styles.image} />
+          </View>
+        </View>
+        <View style={styles.cell}>
+          <View style={styles.character}>
+            <Image source={require(adult + 'body/body_1.png')} style={styles.image} />
+            <Image source={require(adult + 'legs/legs.png')} style={styles.image} />
+            <Image source={require(adult + 'head/head_1.png')} style={styles.image} />
+            <Image source={require(adult + 'eyes/eyes.png')} style={styles.image} />
+            <Image source={require(adult + 'mouth/mouth.png')} style={styles.image} />
+          </View>
+        </View>
       </View>
       <View style={styles.row}>
         <View style={styles.cell}></View>
         <View style={styles.cell}>
           <View style={styles.character}>
-            <Image source={require(characterPath + 'body/body_1.png')} style={styles.image} />
-            <Image source={require(characterPath + 'legs/legs.png')} style={styles.image} />
-            <Image source={require(characterPath + 'head/head_1.png')} style={styles.image} />
-            <Image source={require(characterPath + 'hair/hair_1.png')} style={styles.image} />
-            <Image source={require(characterPath + 'eyes/eyes.png')} style={styles.image} />
-            <Image source={require(characterPath + 'mouth/mouth.png')} style={styles.image} />
+            <Image source={require(infant + 'body/body_1.png')} style={styles.image} />
+            <Image source={require(infant + 'legs/legs_1.png')} style={styles.image} />
+            <Image source={require(infant + 'head/head_1.png')} style={styles.image} />
+            <Image source={require(infant + 'eyes/eyes_1.png')} style={styles.image} />
+            <Image source={require(infant + 'mouth/mouth_1.png')} style={styles.image} />
           </View>
         </View>
         <View style={styles.cell}></View>

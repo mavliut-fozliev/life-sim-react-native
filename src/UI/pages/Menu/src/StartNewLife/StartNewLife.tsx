@@ -88,7 +88,7 @@ function StartNewLife({navigation}: StartNewLifeProps) {
         gender: Gender.Male,
         name: localizedName,
         surname: surname,
-        age: getRandomInRange(18, 40, 0.2),
+        age: getRandomInRange(18, 40, 0.1),
         money: 10000,
         health: 80,
       };
