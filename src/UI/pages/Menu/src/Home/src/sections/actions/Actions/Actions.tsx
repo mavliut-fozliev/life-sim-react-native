@@ -21,15 +21,21 @@ function Actions({navigation}: ActionsProps) {
 
   return (
     <View style={styles.box}>
-      <Button label="grow up" onPress={growUp} />
-      <Button label="Places" onPress={() => navigate.stepForward(PageNames.Places)} disabled={playerStore.age < 0} />
-      <Button
-        label="Education"
-        onPress={() => navigate.stepForward(PageNames.Education)}
-        disabled={playerStore.age < 0}
-      />
-      <Button label="Сareer" onPress={() => navigate.stepForward(PageNames.Carrer)} disabled={playerStore.age < 0} />
-      <Button label="People" onPress={() => navigate.stepForward(PageNames.People)} />
+      <View style={styles.column}>
+        <Button label="grow up" onPress={growUp} />
+        <Button label="Places" onPress={() => navigate.stepForward(PageNames.Places)} disabled={playerStore.age < 0} />
+        <Button
+          label="Education"
+          onPress={() => navigate.stepForward(PageNames.Education)}
+          disabled={playerStore.age < 0}
+        />
+        <Button label="Сareer" onPress={() => navigate.stepForward(PageNames.Carrer)} disabled={playerStore.age < 0} />
+      </View>
+      <View style={styles.column}>
+        <Button label="People" onPress={() => navigate.stepForward(PageNames.People)} />
+        <Button label="Change Clothes" onPress={() => {}} />
+        <Button label="Possessions" onPress={() => {}} />
+      </View>
     </View>
   );
 }
@@ -38,9 +44,13 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: 'rgba(0,255,0,0.2)',
     height: 200,
-    paddingLeft: 80,
-    paddingRight: 80,
     paddingTop: 10,
+    flexDirection: 'row',
+  },
+  column: {
+    width: '50%',
+    paddingLeft: 20,
+    paddingRight: 20,
     gap: 10,
   },
 });
