@@ -18,9 +18,9 @@ function Activities({navigation, route}: ActivitiesProps) {
   const {getText} = useLocalizeText();
 
   const activityMap: Record<PlaceType, Record<PlaceLevel, React.JSX.Element>> = {
-    'Gym': {
-      '1': <></>,
-      '2': (
+    [PlaceType.Gym]: {
+      [PlaceLevel.One]: <></>,
+      [PlaceLevel.Two]: (
         <>
           <Activity
             label={getText(['places', 'activities', 'Run on a treadmill'])}
@@ -39,7 +39,7 @@ function Activities({navigation, route}: ActivitiesProps) {
           />
         </>
       ),
-      '3': (
+      [PlaceLevel.Three]: (
         <>
           <Activity
             label={getText(['places', 'activities', 'Yoga'])}
@@ -64,9 +64,9 @@ function Activities({navigation, route}: ActivitiesProps) {
         </>
       ),
     },
-    'Hospital': {
-      '1': <></>,
-      '2': (
+    [PlaceType.Hospital]: {
+      [PlaceLevel.One]: <></>,
+      [PlaceLevel.Two]: (
         <>
           <Activity
             label={getText(['places', 'activities', 'Take a check-up'])}
@@ -77,7 +77,7 @@ function Activities({navigation, route}: ActivitiesProps) {
           />
         </>
       ),
-      '3': <></>,
+      [PlaceLevel.Three]: <></>,
     },
   };
 

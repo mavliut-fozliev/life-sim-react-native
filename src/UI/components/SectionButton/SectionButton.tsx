@@ -6,13 +6,14 @@ import ArrowRight from '../../../icons/ArrowRight';
 type SectionButtonProps = {
   label: string;
   onPress: () => void;
+  mainIcon?: ReactNode;
   description?: string;
   disabled?: boolean;
   icon?: ReactNode;
   iconText?: string;
 };
 
-function SectionButton({label, onPress, description, disabled, icon, iconText}: SectionButtonProps) {
+function SectionButton({label, onPress, mainIcon, description, disabled, icon, iconText}: SectionButtonProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -20,10 +21,13 @@ function SectionButton({label, onPress, description, disabled, icon, iconText}: 
       style={disabled ? [styles.button, styles.disabled] : styles.button}>
       <View style={styles.labelBox}>
         <View style={styles.labelContent}>
-          <Text numberOfLines={1} style={styles.label}>
-            {label}
-          </Text>
-          {description && <Text style={styles.description}>{description}</Text>}
+          {mainIcon && <View style={styles.left}>{mainIcon}</View>}
+          <View style={styles.right}>
+            <Text numberOfLines={1} style={styles.label}>
+              {label}
+            </Text>
+            {description && <Text style={styles.description}>{description}</Text>}
+          </View>
         </View>
         <View style={styles.icon}>
           <Text style={styles.iconText}>{iconText}</Text>
@@ -48,14 +52,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 2,
     flexDirection: 'row',
     paddingLeft: 20,
     paddingRight: 20,
   },
   labelContent: {
-    width: '90%',
+    flexDirection: 'row',
   },
+  left: {
+    paddingRight: 10,
+    justifyContent: 'center',
+  },
+  right: {},
   label: {
     fontSize: fontSizes.large,
     fontWeight: 500,

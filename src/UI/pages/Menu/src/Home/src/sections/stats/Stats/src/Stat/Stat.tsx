@@ -9,7 +9,7 @@ type StatProps = {name: VariantType; value: number};
 
 const icons: {[K in VariantType]: React.JSX.Element} = {
   health: <Heart size={26} borderColor="#000" filling="#FF0909" />,
-  power: <Strength size={26} color="#FFEF00" strokeWidth={2} />,
+  power: <Strength size={26} />,
   age: <Heart size={26} borderColor="#000" filling="#1B1B9C" />,
 };
 

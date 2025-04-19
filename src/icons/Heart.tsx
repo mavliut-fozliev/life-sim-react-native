@@ -2,14 +2,10 @@ import * as React from 'react';
 import Svg, {G, Path} from 'react-native-svg';
 import {SvgProps} from './types';
 
-type HeartProps = SvgProps & {borderColor: string; filling: string};
+type HeartProps = SvgProps & {borderColor?: string; filling?: string};
 
 const Heart = (props: HeartProps) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={props.size}
-    height={props.size}
-    viewBox="-5.79 0 138.71 138.71">
+  <Svg xmlns="http://www.w3.org/2000/svg" width={props.size} height={props.size} viewBox="-5.79 0 138.71 138.71">
     <G data-name="Layer 2">
       <G data-name="Layer 1">
         <Path

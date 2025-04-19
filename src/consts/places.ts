@@ -1,4 +1,4 @@
-import {Places} from '../types/places';
+import {PlaceLevel, Places, PlaceType} from '../types/places';
 import {Cities} from './cities';
 import {Countries} from './countries';
 
@@ -6,34 +6,34 @@ export const places: Places = {
   [Countries.ALB]: {
     [Cities.Tirana]: {
       'Fitness Palace': {
-        type: 'Gym',
-        level: '3',
+        type: PlaceType.Gym,
+        level: PlaceLevel.Three,
       },
       'Strong Albania': {
-        type: 'Gym',
-        level: '2',
+        type: PlaceType.Gym,
+        level: PlaceLevel.Two,
       },
     },
   },
   [Countries.RUS]: {
     [Cities.Moscow]: {
       'StrengthHouse': {
-        type: 'Gym',
-        level: '2',
+        type: PlaceType.Gym,
+        level: PlaceLevel.Two,
       },
       'Fit Lab': {
-        type: 'Gym',
-        level: '3',
+        type: PlaceType.Gym,
+        level: PlaceLevel.Three,
       },
     },
     [Cities.RostovOnDon]: {
       'Iron City': {
-        type: 'Gym',
-        level: '2',
+        type: PlaceType.Gym,
+        level: PlaceLevel.Two,
       },
       'State Polyclinic': {
-        type: 'Hospital',
-        level: '2',
+        type: PlaceType.Hospital,
+        level: PlaceLevel.Two,
       },
     },
   },

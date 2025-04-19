@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {colors} from '../../../../../../../../consts/styles';
 import SectionButton from '../../../../../../../components/SectionButton/SectionButton';
@@ -8,9 +8,17 @@ import {useNavigate} from '../../../../../../../../hooks/useNavigate';
 import usePlayerStore from '../../../../playerStore';
 import {places} from '../../../../../../../../consts/places';
 import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
+import Strength from '../../../../../../../../icons/Strength';
+import Heart from '../../../../../../../../icons/Heart';
+import {PlaceType} from '../../../../../../../../types/places';
 
 type PlacesProps = {
   navigation: Navigation;
+};
+
+const icons: {[type in PlaceType]: ReactNode} = {
+  [PlaceType.Gym]: <Strength size={26} />,
+  [PlaceType.Hospital]: <Heart size={26} />,
 };
 
 function Places({navigation}: PlacesProps) {
@@ -28,6 +36,7 @@ function Places({navigation}: PlacesProps) {
           <SectionButton
             key={name}
             label={getText(['places', 'names', name])}
+            mainIcon={icons[props.type]}
             description={getText(['places', 'types', props.type])}
             onPress={() => navigate.stepForward(PageNames.Activities, {prev: props})}
           />
