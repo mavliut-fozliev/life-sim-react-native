@@ -3,6 +3,7 @@ import {Navigation} from '../../../../../../../../../types/navigation';
 import {PlaceLevel, PlaceType} from '../../../../../../../../../types/places';
 import {ResourceVariant} from '../../../../../../../../../types/resources';
 import {getRandomValue} from '../../../../../../../../../utils/common';
+import SectionButton from '../../../../../../../../components/SectionButton/SectionButton';
 import usePlayerStore from '../../../../../playerStore';
 import Activity from './Activity/Activity';
 
@@ -90,6 +91,12 @@ export function useActivities(navigation: Navigation) {
                 ]),
               )
             }
+          />
+          <SectionButton
+            label={getText(['places', 'activities', "Go to the club's secret section"])}
+            onPress={() => {
+              console.log('Secret section');
+            }}
           />
         </>
       ),

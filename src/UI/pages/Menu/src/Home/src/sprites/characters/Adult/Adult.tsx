@@ -17,21 +17,22 @@ type AdultProps = {
   body?: BodyVariants;
   hair?: HairVariants;
   style?: ViewStyle;
+  relative?: boolean;
 };
 
 const assetPath = '../../../../../../../../../assets/images/character/adult/';
 
-function Adult({size, legs, body, head, eyes, mouth, hair, style}: AdultProps) {
+function Adult({size, legs, body, head, eyes, mouth, hair, style, relative}: AdultProps) {
   const dynamicStyles = useMemo(
     () =>
       StyleSheet.create({
         box: {
-          position: 'absolute',
+          position: relative ? 'relative' : 'absolute',
           width: size,
           height: size,
         },
       }),
-    [size],
+    [size, relative],
   );
 
   const legsVariants = {

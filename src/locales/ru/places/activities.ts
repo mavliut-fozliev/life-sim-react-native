@@ -3,4 +3,5 @@ export default {
   'Yoga': 'Йога',
   'Take a check-up': 'Пройти обследование',
   'Just dance': 'Просто потанцевать',
+  "Go to the club's secret section": 'Отправиться в закрытую часть клуба',
 };

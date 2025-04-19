@@ -22,24 +22,13 @@ function People({navigation}: PeopleProps) {
       <SectionButton
         label={`${playerStore.father.name} ${playerStore.father.surname}`}
         mainIcon={
-          <Adult
-            size={50}
-            legs="light"
-            body="light"
-            head="light"
-            eyes="black"
-            mouth="smile"
-            hair="average"
-            style={styles.head}
-          />
+          <Adult size={50} legs="light" body="light" head="light" eyes="black" mouth="smile" hair="average" relative />
         }
         onPress={() => navigate.stepForward(PageNames.Intercations, {prev: 'father'})}
       />
       <SectionButton
         label={`${playerStore.mother.name} ${playerStore.mother.surname}`}
-        mainIcon={
-          <Adult size={50} legs="light" body="light" head="light" eyes="black" mouth="smile" style={styles.head} />
-        }
+        mainIcon={<Adult size={50} legs="light" body="light" head="light" eyes="black" mouth="smile" relative />}
         onPress={() => navigate.stepForward(PageNames.Intercations, {prev: 'mother'})}
       />
     </ScrollView>
@@ -49,9 +38,6 @@ function People({navigation}: PeopleProps) {
 const styles = StyleSheet.create({
   box: {
     backgroundColor: colors.background.secondary,
-  },
-  head: {
-    position: 'relative',
   },
   image: {
     position: 'absolute',

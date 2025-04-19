@@ -33,7 +33,8 @@ export function useLocalizeText() {
       const text = getValueByPath(localizedText, parts);
 
       if (!text) {
-        return defaultText;
+        return 'NOT-FOUND!'; // should return defaultText in production
+        // return defaultText;
       }
 
       if (typeof text !== 'string') {
