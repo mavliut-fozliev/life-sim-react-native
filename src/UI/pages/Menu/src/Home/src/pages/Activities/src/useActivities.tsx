@@ -82,7 +82,14 @@ export function useActivities(navigation: Navigation) {
             navigation={navigation}
             price={1}
             resource={ResourceVariant.energy}
-            action={() => console.log('dance!')}
+            action={() =>
+              playerStore.$charm.increase(
+                getRandomValue([
+                  {value: 1, chance: 80},
+                  {value: 2, chance: 20},
+                ]),
+              )
+            }
           />
         </>
       ),

@@ -24,11 +24,17 @@ export function useLocalizeText() {
 
   const getText = useCallback(
     (parts: string[]): string => {
+      const defaultText = parts[parts.length - 1];
+
       if (!localizedText) {
-        return parts[parts.length - 1];
+        return defaultText;
       }
 
       const text = getValueByPath(localizedText, parts);
+
+      if (!text) {
+        return defaultText;
+      }
 
       if (typeof text !== 'string') {
         return 'NOT-STRING!';
