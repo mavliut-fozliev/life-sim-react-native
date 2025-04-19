@@ -1,4 +1,4 @@
-import {Countries} from './countries';
+import {Countries} from '../countries';
 
 export const characterNames = {
   [Countries.ALB]: {

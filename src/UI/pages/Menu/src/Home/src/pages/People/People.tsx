@@ -4,9 +4,18 @@ import {colors} from '../../../../../../../../consts/styles';
 import SectionButton from '../../../../../../../components/SectionButton/SectionButton';
 import usePlayerStore from '../../../../playerStore';
 import Adult from '../../sprites/characters/Adult/Adult';
+import {Navigation} from '../../../../../../../../types/navigation';
+import {useNavigate} from '../../../../../../../../hooks/useNavigate';
+import {PageNames} from '../../../../../../../../consts/pages';
 
-function People() {
+type PeopleProps = {
+  navigation: Navigation;
+};
+
+function People({navigation}: PeopleProps) {
   const playerStore = usePlayerStore();
+
+  const navigate = useNavigate(navigation);
 
   return (
     <ScrollView style={styles.box}>
@@ -24,14 +33,14 @@ function People() {
             style={styles.head}
           />
         }
-        onPress={() => {}}
+        onPress={() => navigate.stepForward(PageNames.Intercations, {prev: 'father'})}
       />
       <SectionButton
         label={`${playerStore.mother.name} ${playerStore.mother.surname}`}
         mainIcon={
           <Adult size={50} legs="light" body="light" head="light" eyes="black" mouth="smile" style={styles.head} />
         }
-        onPress={() => {}}
+        onPress={() => navigate.stepForward(PageNames.Intercations, {prev: 'mother'})}
       />
     </ScrollView>
   );

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import ModalTextInput from '../../../../../../components/ModalTextInput/ModalTextInput';
 import useStore from '../store';
 import {getRandomArrayItem} from '../../../../../../../utils/common';
-import {characterNames} from '../../../../../../../consts/characterNames';
+import {characterNames} from '../../../../../../../consts/character/characterNames';
 import {useLocalizeText} from '../../../../../../../locales/useLocalizeText';
 
 function NameInput() {

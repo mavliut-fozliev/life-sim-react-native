@@ -16,7 +16,7 @@ import {useNavigate} from '../../../../../hooks/useNavigate';
 import {useLocalizeText} from '../../../../../locales/useLocalizeText';
 import {Person} from '../../../../../types/people';
 import {Gender} from '../../../../../consts/gender';
-import {characterNames} from '../../../../../consts/characterNames';
+import {characterNames} from '../../../../../consts/character/characterNames';
 import {getRandomArrayItem, getRandomInRange} from '../../../../../utils/common';
 
 type StartNewLifeProps = {

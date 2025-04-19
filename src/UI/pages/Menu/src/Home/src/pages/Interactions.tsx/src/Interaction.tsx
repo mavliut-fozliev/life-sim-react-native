@@ -1,8 +1,8 @@
 import React from 'react';
-import {View} from 'react-native';
+import SectionButton from '../../../../../../../../components/SectionButton/SectionButton';
 
 function Interaction() {
-  return <View>Interaction</View>;
+  return <SectionButton label={'label'} onPress={() => {}} />;
 }
 
 export default Interaction;

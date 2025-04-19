@@ -3,7 +3,7 @@ import ModalTextInput from '../../../../../../components/ModalTextInput/ModalTex
 import useStore from '../store';
 import {useLocalizeText} from '../../../../../../../locales/useLocalizeText';
 import {getRandomArrayItem} from '../../../../../../../utils/common';
-import {characterSurnames} from '../../../../../../../consts/characterSurnames';
+import {characterSurnames} from '../../../../../../../consts/character/characterSurnames';
 
 function SurnameInput() {
   const {surname, $surname, country, gender, surnameIsModified, $surnameIsModified} = useStore();
