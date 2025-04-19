@@ -7,13 +7,13 @@ import {ResourceVariant} from '../../../types/resources';
 type ResourceProps = {name: ResourceVariant; value: number};
 
 const icons: {[K in ResourceVariant]: React.JSX.Element} = {
-  money: <Bills size={26} />,
-  energy: <Energy size={26} />,
+  [ResourceVariant.money]: <Bills size={26} />,
+  [ResourceVariant.energy]: <Energy size={26} />,
 };
 
 const variantStyles: {[K in ResourceVariant]: string} = {
-  money: 'green',
-  energy: '#0600B2',
+  [ResourceVariant.money]: 'green',
+  [ResourceVariant.energy]: '#0600B2',
 };
 
 function formatNumber(num: number): string {

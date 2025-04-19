@@ -1,1 +1,4 @@
-export type ResourceVariant = 'money' | 'energy';
+export enum ResourceVariant {
+  money = 'money',
+  energy = 'energy',
+}

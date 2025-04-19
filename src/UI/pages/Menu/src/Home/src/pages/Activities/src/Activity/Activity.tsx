@@ -28,12 +28,12 @@ function Activity({label, navigation, price, resource, action}: ActivityProps) {
   const navigate = useNavigate(navigation);
 
   const resourceMap: ResourceMap = {
-    money: {
+    [ResourceVariant.money]: {
       state: playerStore.money,
       decrease: playerStore.$money.decrease,
       icon: <Bills size={20} />,
     },
-    energy: {
+    [ResourceVariant.energy]: {
       state: playerStore.energy,
       decrease: playerStore.$energy.decrease,
       icon: <Energy size={20} />,

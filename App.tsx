@@ -13,6 +13,7 @@ import Places from './src/UI/pages/Menu/src/Home/src/pages/Places/Places';
 import Topbar from './src/UI/pages/Menu/src/Topbar/Topbar';
 import People from './src/UI/pages/Menu/src/Home/src/pages/People/People';
 import Intercations from './src/UI/pages/Menu/src/Home/src/pages/Interactions.tsx/Interactions';
+import City from './src/UI/pages/Menu/src/Home/src/pages/City/City';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,7 +37,8 @@ function App(): React.JSX.Element {
           screenOptions={{gestureEnabled: Platform.OS === 'android', animation: 'flip', headerShown: false}}>
           <Stack.Screen name={PageNames.Menu} component={Menu} />
           <Stack.Screen name={PageNames.Home} component={Home} />
-          <Stack.Screen name={PageNames.Places} component={Places} />
+          <Stack.Screen name={PageNames.City} component={City} />
+          <Stack.Screen name={PageNames.Places} component={Places as any} />
           <Stack.Screen name={PageNames.Activities} component={Activities as any} />
           <Stack.Screen name={PageNames.People} component={People} />
           <Stack.Screen name={PageNames.Intercations} component={Intercations as any} />

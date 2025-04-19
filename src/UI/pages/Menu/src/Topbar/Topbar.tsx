@@ -12,6 +12,7 @@ import {PageNames} from '../../../../../consts/pages';
 import {ObjectRecord} from '../../../../../types/common';
 import ArrowLeft from '../../../../../icons/ArrowLeft';
 import {useLocalizeText} from '../../../../../locales/useLocalizeText';
+import {ResourceVariant} from '../../../../../types/resources';
 
 function Topbar() {
   const playerStore = usePlayerStore();
@@ -58,8 +59,8 @@ function Topbar() {
         )}
         {!haveTitle && (
           <View style={styles.resources}>
-            <Resource name="energy" value={playerStore.energy} />
-            <Resource name="money" value={playerStore.money} />
+            <Resource name={ResourceVariant.energy} value={playerStore.energy} />
+            <Resource name={ResourceVariant.money} value={playerStore.money} />
           </View>
         )}
       </View>
