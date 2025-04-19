@@ -78,11 +78,11 @@ export function useActivities(navigation: Navigation) {
       [PlaceLevel.Three]: (
         <>
           <Activity
-            label={getText(['places', 'activities', 'Take a check-up'])}
+            label={getText(['places', 'activities', 'Just dance'])}
             navigation={navigation}
-            price={500}
-            resource={ResourceVariant.money}
-            action={() => console.log('check up!')}
+            price={1}
+            resource={ResourceVariant.energy}
+            action={() => console.log('dance!')}
           />
         </>
       ),

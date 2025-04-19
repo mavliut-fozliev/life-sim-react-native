@@ -2,12 +2,12 @@ import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {colors} from '../../../../../../../../consts/styles';
 import {Navigation, Route} from '../../../../../../../../types/navigation';
-import {PlaceLevel, PlaceType} from '../../../../../../../../types/places';
+import {PlaceProps} from '../../../../../../../../types/places';
 import {useActivities} from './src/useActivities';
 
 type ActivitiesProps = {
   navigation: Navigation;
-  route: Route<{prev: {type: PlaceType; level: PlaceLevel}}>;
+  route: Route<{prev: PlaceProps}>;
 };
 
 function Activities({navigation, route}: ActivitiesProps) {
