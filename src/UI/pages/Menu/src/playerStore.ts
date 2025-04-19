@@ -7,7 +7,7 @@ import {Person} from '../../../../types/people';
 import {Gender} from '../../../../consts/gender';
 
 type StoreState = StringField<'name' | 'surname'> &
-  NumberField<'age' | 'money' | 'energy' | 'health' | 'power'> &
+  NumberField<'age' | 'money' | 'energy' | 'health' | 'power' | 'charm'> &
   EnumField<'country', Countries> &
   EnumField<'city', Cities> &
   EnumField<'gender', Gender> &
@@ -30,6 +30,7 @@ const fields: StoreFields = {
   energy: 'num',
   health: 'num',
   power: 'num',
+  charm: 'num',
 };
 
 const limits: FieldLimits = {
@@ -39,11 +40,13 @@ const limits: FieldLimits = {
     energy: 0,
     health: 0,
     power: 0,
+    charm: 0,
   },
   max: {
     money: 10e12 - 1,
     health: 100,
     power: 100,
+    charm: 100,
   },
 };
 
