@@ -3,8 +3,6 @@ export enum PageNames {
   Home = 'Home',
   Places = 'Places',
   Activities = 'Activities',
-  Education = 'Education',
-  Carrer = 'Carrer',
   People = 'People',
   Intercations = 'Intercations',
   StartNewLife = 'StartNewLife',
