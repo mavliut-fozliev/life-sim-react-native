@@ -6,6 +6,7 @@ export enum PageNames {
   Education = 'Education',
   Carrer = 'Carrer',
   People = 'People',
+  Intercations = 'Intercations',
   StartNewLife = 'StartNewLife',
   Settings = 'Settings',
 }

@@ -63,7 +63,9 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     justifyContent: 'center',
   },
-  right: {},
+  right: {
+    justifyContent: 'center',
+  },
   label: {
     fontSize: fontSizes.large,
     fontWeight: 500,

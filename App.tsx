@@ -14,6 +14,7 @@ import Topbar from './src/UI/pages/Menu/src/Topbar/Topbar';
 import Carrer from './src/UI/pages/Menu/src/Home/src/pages/Carrer/Carrer';
 import Education from './src/UI/pages/Menu/src/Home/src/pages/Education/Education';
 import People from './src/UI/pages/Menu/src/Home/src/pages/People/People';
+import Intercations from './src/UI/pages/Menu/src/Home/src/pages/Interactions.tsx/Interactions';
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +43,7 @@ function App(): React.JSX.Element {
           <Stack.Screen name={PageNames.Carrer} component={Carrer} />
           <Stack.Screen name={PageNames.Education} component={Education} />
           <Stack.Screen name={PageNames.People} component={People} />
+          <Stack.Screen name={PageNames.Intercations} component={Intercations as any} />
           <Stack.Screen name={PageNames.StartNewLife} component={StartNewLife} />
           <Stack.Screen name={PageNames.Settings} component={Settings} />
         </Stack.Navigator>
