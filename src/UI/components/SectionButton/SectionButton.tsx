@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     color: colors.text.secondary,
   },
   icon: {
-    width: '10%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

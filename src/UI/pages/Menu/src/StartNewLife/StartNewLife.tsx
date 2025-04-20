@@ -11,13 +11,10 @@ import {colors} from '../../../../../consts/styles';
 import {Navigation} from '../../../../../types/navigation';
 import useGlobalStore from '../../../../../storage/store';
 import useStore from './src/store';
-import usePlayerStore from '../playerStore';
+import usePlayerStore from '../store/playerStore';
 import {useNavigate} from '../../../../../hooks/useNavigate';
 import {useLocalizeText} from '../../../../../locales/useLocalizeText';
-import {Person} from '../../../../../types/people';
-import {Gender} from '../../../../../consts/gender';
-import {characterNames} from '../../../../../consts/character/characterNames';
-import {getRandomArrayItem, getRandomInRange} from '../../../../../utils/common';
+import {useCreateCharacters} from './src/useCreateCharacters';
 
 type StartNewLifeProps = {
   navigation: Navigation;
@@ -38,11 +35,13 @@ function StartNewLife({navigation}: StartNewLifeProps) {
     $nameIsModified,
     $surnameIsModified,
   } = useStore();
+
   const playerStore = usePlayerStore();
   const {$gameInProgress} = useGlobalStore();
 
   const {getText} = useLocalizeText();
   const navigate = useNavigate(navigation);
+  const createCharacters = useCreateCharacters();
 
   function setInitialValues() {
     playerStore.$country.set(country);
@@ -58,45 +57,6 @@ function StartNewLife({navigation}: StartNewLifeProps) {
     playerStore.$health.set(60);
     playerStore.$power.set(10);
     playerStore.$charm.set(20);
-  }
-
-  function createFamily() {
-    const getMother = (): Person => {
-      const names = characterNames[country][Gender.Female];
-      const randomName = getRandomArrayItem(names) || 'MotherName';
-      const localizedName = getText(['characterNames', randomName]);
-
-      return {
-        country: country,
-        city: city,
-        gender: Gender.Female,
-        name: localizedName,
-        surname: surname,
-        age: getRandomInRange(18, 40, 0.2),
-        money: 10000,
-        health: 80,
-      };
-    };
-
-    const getFather = (): Person => {
-      const names = characterNames[country][Gender.Male];
-      const randomName = getRandomArrayItem(names) || 'FatherName';
-      const localizedName = getText(['characterNames', randomName]);
-
-      return {
-        country: country,
-        city: city,
-        gender: Gender.Male,
-        name: localizedName,
-        surname: surname,
-        age: getRandomInRange(18, 40, 0.1),
-        money: 10000,
-        health: 80,
-      };
-    };
-
-    playerStore.$mother.set(getMother());
-    playerStore.$father.set(getFather());
   }
 
   function resetNewLifeStore() {
@@ -117,7 +77,7 @@ function StartNewLife({navigation}: StartNewLifeProps) {
 
   function handleStart() {
     setInitialValues();
-    createFamily();
+    createCharacters();
     resetNewLifeStore();
     startGame();
   }

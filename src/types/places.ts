@@ -7,6 +7,7 @@ export enum PlaceType {
   Hospital = 'Hospital',
   Nightclub = 'Nightclub',
 }
+
 export enum PlaceLevel {
   One = 'One',
   Two = 'Two',

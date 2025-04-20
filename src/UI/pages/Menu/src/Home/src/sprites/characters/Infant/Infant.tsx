@@ -1,21 +1,11 @@
 import React, {useMemo} from 'react';
-import {Image, StyleSheet, View, ViewStyle} from 'react-native';
-
-type LegsVariants = 'light';
-type BodyVariants = 'light';
-type HeadVariants = 'light';
-type EyesVariants = 'black';
-type MouthVariants = 'smile';
+import {DimensionValue, Image, StyleSheet, View, ViewStyle} from 'react-native';
+import {SpriteVariants} from '../../../../../../../../../types/people';
 
 type InfantProps = {
-  size: number;
-  head: HeadVariants;
-  eyes: EyesVariants;
-  mouth: MouthVariants;
-  legs?: LegsVariants;
-  body?: BodyVariants;
+  size: DimensionValue;
   style?: ViewStyle;
-};
+} & SpriteVariants['infant'];
 
 const assetPath = '../../../../../../../../../assets/images/character/infant/';
 
@@ -37,9 +27,11 @@ function Infant({size, legs, body, head, eyes, mouth, style}: InfantProps) {
   };
   const bodyVariants = {
     light: require(assetPath + 'body/body_1.png'),
+    dark: require(assetPath + 'body/body_1.png'),
   };
   const headVariants = {
     light: require(assetPath + 'head/head_1.png'),
+    dark: require(assetPath + 'head/head_1.png'),
   };
   const eyesVariants = {
     black: require(assetPath + 'eyes/eyes_1.png'),

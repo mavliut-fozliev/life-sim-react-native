@@ -1,5 +1,3 @@
-import {PageNames} from '../../../../../../../../../consts/pages';
-import {useNavigate} from '../../../../../../../../../hooks/useNavigate';
 import {useLocalizeText} from '../../../../../../../../../locales/useLocalizeText';
 import {Navigation} from '../../../../../../../../../types/navigation';
 import {PlaceLevel, PlaceType} from '../../../../../../../../../types/places';
@@ -7,21 +5,21 @@ import {ResourceVariant} from '../../../../../../../../../types/resources';
 import {getRandomValue} from '../../../../../../../../../utils/common';
 import Divider from '../../../../../../../../components/Divider/Divider';
 import SectionButton from '../../../../../../../../components/SectionButton/SectionButton';
-import usePlayerStore from '../../../../../playerStore';
-import Adult from '../../../sprites/characters/Adult/Adult';
+import usePlayerStore from '../../../../../store/playerStore';
 import Activity from './Activity/Activity';
 
 export function useActivities(navigation: Navigation) {
   const playerStore = usePlayerStore();
-
-  const navigate = useNavigate(navigation);
   const {getText} = useLocalizeText();
+
+  const actionDivider = <Divider label={getText(['places', 'categories', 'Actions'])} />;
 
   const activityMap: Record<PlaceType, Record<PlaceLevel, React.JSX.Element>> = {
     [PlaceType.Gym]: {
       [PlaceLevel.One]: <></>,
       [PlaceLevel.Two]: (
         <>
+          {actionDivider}
           <Activity
             label={getText(['places', 'activities', 'Run on a treadmill'])}
             navigation={navigation}
@@ -41,6 +39,7 @@ export function useActivities(navigation: Navigation) {
       ),
       [PlaceLevel.Three]: (
         <>
+          {actionDivider}
           <Activity
             label={getText(['places', 'activities', 'Yoga'])}
             navigation={navigation}
@@ -68,6 +67,7 @@ export function useActivities(navigation: Navigation) {
       [PlaceLevel.One]: <></>,
       [PlaceLevel.Two]: (
         <>
+          {actionDivider}
           <Activity
             label={getText(['places', 'activities', 'Take a check-up'])}
             navigation={navigation}
@@ -84,6 +84,7 @@ export function useActivities(navigation: Navigation) {
       [PlaceLevel.Two]: <></>,
       [PlaceLevel.Three]: (
         <>
+          {actionDivider}
           <Activity
             label={getText(['places', 'activities', 'Just dance'])}
             navigation={navigation}
@@ -103,23 +104,6 @@ export function useActivities(navigation: Navigation) {
             onPress={() => {
               console.log('Secret section');
             }}
-          />
-          <Divider label={getText(['places', 'activities', 'People'])} />
-          <SectionButton
-            label={'Worker'}
-            mainIcon={
-              <Adult
-                size={50}
-                legs="light"
-                body="light"
-                head="light"
-                eyes="black"
-                mouth="smile"
-                hair="average"
-                relative
-              />
-            }
-            onPress={() => navigate.stepForward(PageNames.Intercations, {prev: 'worker'})}
           />
         </>
       ),

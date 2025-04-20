@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Resource from '../../../../components/Resource/Resource';
-import usePlayerStore from '../playerStore';
+import usePlayerStore from '../store/playerStore';
 import {colors, fontSizes} from '../../../../../consts/styles';
 import IconButton from '../../../../components/IconButton/IconButton';
 import MenuIcon from '../../../../../icons/MenuIcon';

@@ -1,30 +1,25 @@
 import React from 'react';
-import {Image, StyleSheet, View, ViewStyle} from 'react-native';
-import Adult from '../../../sprites/characters/Adult/Adult';
-import Infant from '../../../sprites/characters/Infant/Infant';
-
-const assetPath = '../../../../../../../../../assets/images/';
+import {StyleSheet, View, ViewStyle} from 'react-native';
+import {SpriteName, useSprite} from '../../../sprites/useSprite';
 
 function Visualization() {
+  const {getSprite} = useSprite();
+
+  const player = getSprite(SpriteName.player, 150);
+  const mother = getSprite(SpriteName.mother, 100, true);
+  const father = getSprite(SpriteName.father, 100, true);
+  const home = getSprite(SpriteName.home, '100%', true);
+  const car = getSprite(SpriteName.car, 200, true);
+
   return (
     <View style={styles.box}>
-      <View style={styles.homeShell}>
-        <View style={styles.home}>
-          <Image source={require(assetPath + 'homes/home.png')} style={styles.image} />
-        </View>
-      </View>
-      <View style={styles.carShell}>
-        <View style={styles.car}>
-          <Image source={require(assetPath + 'cars/car.png')} style={styles.image} />
-        </View>
-      </View>
+      <View style={styles.homeShell}>{home}</View>
+      <View style={styles.carShell}>{car}</View>
       <View style={styles.familyShell}>
-        <Adult size={100} legs="light" body="light" head="light" eyes="black" mouth="smile" hair="average" />
-        <Adult size={100} legs="light" body="light" head="light" eyes="black" mouth="smile" style={styles.mother} />
+        <View>{father}</View>
+        <View style={styles.mother}>{mother}</View>
       </View>
-      <View style={styles.mainShell}>
-        <Infant size={150} legs="light" body="light" head="light" eyes="black" mouth="smile" />
-      </View>
+      <View style={styles.mainShell}>{player}</View>
     </View>
   );
 }
@@ -43,18 +38,10 @@ const styles = StyleSheet.create({
   homeShell: {
     ...shellStyles,
   },
-  home: {
-    width: '100%',
-    height: '100%',
-  },
   carShell: {
     ...shellStyles,
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
-  },
-  car: {
-    height: 200,
-    width: 200,
   },
   familyShell: {
     ...shellStyles,
@@ -68,11 +55,6 @@ const styles = StyleSheet.create({
     ...shellStyles,
     alignItems: 'center',
     justifyContent: 'flex-end',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
   },
 });
 

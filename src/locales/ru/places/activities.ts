@@ -4,5 +4,4 @@ export default {
   'Take a check-up': 'Пройти обследование',
   'Just dance': 'Просто потанцевать',
   "Go to the club's secret section": 'Отправиться в закрытую часть клуба',
-  'People': 'Люди',
 };

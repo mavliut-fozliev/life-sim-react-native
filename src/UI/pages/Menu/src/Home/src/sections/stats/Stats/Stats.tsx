@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Stat from './src/Stat/Stat';
-import usePlayerStore from '../../../../../playerStore';
+import usePlayerStore from '../../../../../store/playerStore';
 
 function Stats() {
   const playerStore = usePlayerStore();

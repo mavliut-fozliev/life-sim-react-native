@@ -2,33 +2,35 @@ import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {colors} from '../../../../../../../../consts/styles';
 import SectionButton from '../../../../../../../components/SectionButton/SectionButton';
-import usePlayerStore from '../../../../playerStore';
-import Adult from '../../sprites/characters/Adult/Adult';
 import {Navigation} from '../../../../../../../../types/navigation';
 import {useNavigate} from '../../../../../../../../hooks/useNavigate';
 import {PageNames} from '../../../../../../../../consts/pages';
+import useCharacterStore from '../../../../store/characterStore';
+import {SpriteName, useSprite} from '../../sprites/useSprite';
 
 type PeopleProps = {
   navigation: Navigation;
 };
 
 function People({navigation}: PeopleProps) {
-  const playerStore = usePlayerStore();
+  const characterStore = useCharacterStore();
 
   const navigate = useNavigate(navigation);
+  const {getSprite} = useSprite();
+
+  const mother = getSprite(SpriteName.mother, 50);
+  const father = getSprite(SpriteName.father, 50);
 
   return (
     <ScrollView style={styles.box}>
       <SectionButton
-        label={`${playerStore.father.name} ${playerStore.father.surname}`}
-        mainIcon={
-          <Adult size={50} legs="light" body="light" head="light" eyes="black" mouth="smile" hair="average" relative />
-        }
+        label={`${characterStore.father.name} ${characterStore.father.surname}`}
+        mainIcon={father}
         onPress={() => navigate.stepForward(PageNames.Intercations, {prev: 'father'})}
       />
       <SectionButton
-        label={`${playerStore.mother.name} ${playerStore.mother.surname}`}
-        mainIcon={<Adult size={50} legs="light" body="light" head="light" eyes="black" mouth="smile" relative />}
+        label={`${characterStore.mother.name} ${characterStore.mother.surname}`}
+        mainIcon={mother}
         onPress={() => navigate.stepForward(PageNames.Intercations, {prev: 'mother'})}
       />
     </ScrollView>

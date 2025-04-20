@@ -1,23 +1,17 @@
 import {create} from 'zustand';
-import {EnumField, FieldLimits, NumberField, ObjectField, StoreFields, StringField} from '../../../../types/store';
-import {getInitializer} from '../../../../utils/storeHelpers';
-import {Countries} from '../../../../consts/countries';
-import {Cities} from '../../../../consts/cities';
-import {Person} from '../../../../types/people';
-import {Gender} from '../../../../consts/gender';
+import {EnumField, FieldLimits, NumberField, ObjectField, StoreFields, StringField} from '../../../../../types/store';
+import {getInitializer} from '../../../../../utils/storeHelpers';
+import {Countries} from '../../../../../consts/countries';
+import {Cities} from '../../../../../consts/cities';
+import {Gender} from '../../../../../consts/gender';
+import {CommonSpriteVariants} from '../../../../../types/people';
 
 type StoreState = StringField<'name' | 'surname'> &
   NumberField<'age' | 'money' | 'energy' | 'health' | 'power' | 'charm'> &
   EnumField<'country', Countries> &
   EnumField<'city', Cities> &
   EnumField<'gender', Gender> &
-  ObjectField<'mother', Person> &
-  ObjectField<'father', Person>;
-
-const family: StoreFields = {
-  mother: 'obj',
-  father: 'obj',
-};
+  ObjectField<'sprite', CommonSpriteVariants>;
 
 const fields: StoreFields = {
   country: 'str',
@@ -31,6 +25,7 @@ const fields: StoreFields = {
   health: 'num',
   power: 'num',
   charm: 'num',
+  sprite: 'obj',
 };
 
 const limits: FieldLimits = {
@@ -50,6 +45,6 @@ const limits: FieldLimits = {
   },
 };
 
-const initializer = getInitializer<StoreState>('player', {...fields, ...family}, limits);
+const initializer = getInitializer<StoreState>('player', fields, limits);
 const usePlayerStore = create(initializer);
 export default usePlayerStore;

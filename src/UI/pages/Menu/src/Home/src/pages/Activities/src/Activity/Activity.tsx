@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react';
 import SectionButton from '../../../../../../../../../components/SectionButton/SectionButton';
 import {Navigation} from '../../../../../../../../../../types/navigation';
-import usePlayerStore from '../../../../../../playerStore';
+import usePlayerStore from '../../../../../../store/playerStore';
 import {ResourceVariant} from '../../../../../../../../../../types/resources';
 import Bills from '../../../../../../../../../../icons/Bills';
 import Energy from '../../../../../../../../../../icons/Energy';

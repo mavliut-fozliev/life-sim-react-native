@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Button from '../../../../../../../../components/Button/Button';
-import usePlayerStore from '../../../../../playerStore';
+import usePlayerStore from '../../../../../store/playerStore';
 import {Navigation} from '../../../../../../../../../types/navigation';
 import {PageNames} from '../../../../../../../../../consts/pages';
 import {useNavigate} from '../../../../../../../../../hooks/useNavigate';
