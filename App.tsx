@@ -9,7 +9,6 @@ import StartNewLife from './src/UI/pages/Menu/src/StartNewLife/StartNewLife';
 import Settings from './src/UI/pages/Menu/src/Settings/Settings';
 import {useInitialStoreValues} from './src/hooks/useInitialStoreValues';
 import Activities from './src/UI/pages/Menu/src/Home/src/pages/Activities/Activities';
-import Places from './src/UI/pages/Menu/src/Home/src/pages/Places/Places';
 import Topbar from './src/UI/pages/Menu/src/Topbar/Topbar';
 import People from './src/UI/pages/Menu/src/Home/src/pages/People/People';
 import Intercations from './src/UI/pages/Menu/src/Home/src/pages/Interactions.tsx/Interactions';
@@ -38,7 +37,6 @@ function App(): React.JSX.Element {
           <Stack.Screen name={PageNames.Menu} component={Menu} />
           <Stack.Screen name={PageNames.Home} component={Home} />
           <Stack.Screen name={PageNames.City} component={City} />
-          <Stack.Screen name={PageNames.Places} component={Places as any} />
           <Stack.Screen name={PageNames.Activities} component={Activities as any} />
           <Stack.Screen name={PageNames.People} component={People} />
           <Stack.Screen name={PageNames.Intercations} component={Intercations as any} />
