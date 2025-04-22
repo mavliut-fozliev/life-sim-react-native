@@ -1,24 +1,24 @@
 import React, {useMemo} from 'react';
-import {DimensionValue, Image, StyleSheet, View} from 'react-native';
+import {DimensionValue, Image, StyleSheet, View, ViewStyle} from 'react-native';
 
 type TestHomeProps = {
   size: DimensionValue;
-  absolute?: boolean;
+  style?: ViewStyle;
 };
 
-const assetPath = '../../../../../../../../../assets/images/homes/home.png';
+const assetPath = '../../../../../../../../../assets/images/homes/home2.png';
 
-function TestHome({size, absolute}: TestHomeProps) {
+function TestHome({size, style}: TestHomeProps) {
   const dynamicStyles = useMemo(
     () =>
       StyleSheet.create({
         box: {
-          position: absolute ? 'absolute' : 'relative',
           width: size,
           height: size,
+          ...style,
         },
       }),
-    [size, absolute],
+    [size, style],
   );
 
   return (

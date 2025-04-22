@@ -1,24 +1,24 @@
 import React, {useMemo} from 'react';
-import {DimensionValue, Image, StyleSheet, View} from 'react-native';
+import {DimensionValue, Image, StyleSheet, View, ViewStyle} from 'react-native';
 
 type TestCarProps = {
   size: DimensionValue;
-  absolute?: boolean;
+  style?: ViewStyle;
 };
 
-const assetPath = '../../../../../../../../../assets/images/cars/car.png';
+const assetPath = '../../../../../../../../../assets/images/cars/car2.png';
 
-function TestCar({size, absolute}: TestCarProps) {
+function TestCar({size, style}: TestCarProps) {
   const dynamicStyles = useMemo(
     () =>
       StyleSheet.create({
         box: {
-          position: absolute ? 'absolute' : 'relative',
           width: size,
           height: size,
+          ...style,
         },
       }),
-    [size, absolute],
+    [size, style],
   );
 
   return (

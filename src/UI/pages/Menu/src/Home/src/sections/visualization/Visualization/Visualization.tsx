@@ -6,10 +6,10 @@ function Visualization() {
   const {getSprite} = useSprite();
 
   const player = getSprite(SpriteName.player, 150);
-  const mother = getSprite(SpriteName.mother, 100, true);
-  const father = getSprite(SpriteName.father, 100, true);
-  const home = getSprite(SpriteName.home, '70%', true);
-  const car = getSprite(SpriteName.car, 200, true);
+  const mother = getSprite(SpriteName.mother, 100, {position: 'absolute'});
+  const father = getSprite(SpriteName.father, 100, {position: 'absolute'});
+  const home = getSprite(SpriteName.home, '70%');
+  const car = getSprite(SpriteName.car, 260, {top: 40});
 
   const back = require('../../../../../../../../../assets/images/background/sun.jpg');
 

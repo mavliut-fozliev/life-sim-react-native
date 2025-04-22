@@ -1,25 +1,25 @@
 import React, {useMemo} from 'react';
-import {DimensionValue, Image, StyleSheet, View} from 'react-native';
+import {DimensionValue, Image, StyleSheet, View, ViewStyle} from 'react-native';
 import {SpriteVariants} from '../../../../../../../../../types/people';
 
 type AdultProps = {
   size: DimensionValue;
-  absolute?: boolean;
+  style?: ViewStyle;
 } & SpriteVariants['adult'];
 
 const assetPath = '../../../../../../../../../assets/images/character/adult/';
 
-function Adult({size, legs, body, head, eyes, mouth, hair, absolute}: AdultProps) {
+function Adult({size, legs, body, head, eyes, mouth, hair, style}: AdultProps) {
   const dynamicStyles = useMemo(
     () =>
       StyleSheet.create({
         box: {
-          position: absolute ? 'absolute' : 'relative',
           width: size,
           height: size,
+          ...style,
         },
       }),
-    [size, absolute],
+    [size, style],
   );
 
   const legsVariants = {

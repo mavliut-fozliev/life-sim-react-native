@@ -4,7 +4,7 @@ import Infant from './characters/Infant/Infant';
 import Adult from './characters/Adult/Adult';
 import usePlayerStore from '../../../store/playerStore';
 import TestHome from './realEstate/TestHome/TestHome';
-import {DimensionValue} from 'react-native';
+import {DimensionValue, ViewStyle} from 'react-native';
 import TestCar from './transport/TestCar/TestCar';
 import {Person} from '../../../../../../../types/people';
 
@@ -24,7 +24,7 @@ export function useSprite() {
   const playerStore = usePlayerStore();
   const characterStore = useCharacterStore();
 
-  const getSpriteNode = (size: DimensionValue, absolute?: boolean): Sprites => ({
+  const getSpriteNode = (size: DimensionValue, style?: ViewStyle): Sprites => ({
     [SpriteName.player]: (
       <Infant
         size={size}
@@ -43,7 +43,7 @@ export function useSprite() {
         head={characterStore.mother.sprite.head}
         eyes={characterStore.mother.sprite.eyes}
         mouth={characterStore.mother.sprite.mouth}
-        absolute={absolute}
+        style={style}
       />
     ),
     [SpriteName.father]: (
@@ -55,15 +55,15 @@ export function useSprite() {
         eyes={characterStore.father.sprite.eyes}
         mouth={characterStore.father.sprite.mouth}
         hair={characterStore.father.sprite.hair}
-        absolute={absolute}
+        style={style}
       />
     ),
-    [SpriteName.home]: <TestHome size={size} absolute={absolute} />,
-    [SpriteName.car]: <TestCar size={size} absolute={absolute} />,
+    [SpriteName.home]: <TestHome size={size} style={style} />,
+    [SpriteName.car]: <TestCar size={size} style={style} />,
   });
 
-  const getSprite = (spriteName: SpriteName, size: DimensionValue, absolute?: boolean) => {
-    return getSpriteNode(size, absolute)[spriteName];
+  const getSprite = (spriteName: SpriteName, size: DimensionValue, style?: ViewStyle) => {
+    return getSpriteNode(size, style)[spriteName];
   };
 
   const getPersonSprite = (person: Person, size: DimensionValue) => {
