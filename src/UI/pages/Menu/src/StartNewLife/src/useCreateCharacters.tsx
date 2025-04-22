@@ -3,12 +3,15 @@ import {characterSurnames} from '../../../../../../consts/character/characterSur
 import {Gender} from '../../../../../../consts/gender';
 import {places} from '../../../../../../consts/places';
 import {useLocalizeText} from '../../../../../../locales/useLocalizeText';
+import {ObjectRecord} from '../../../../../../types/common';
 import {FamilyPerson, Person, PlacePeople, PlacePeopleType} from '../../../../../../types/people';
 import {PlaceLevel, PlaceType} from '../../../../../../types/places';
 import {getRandomArrayItem, getRandomInRange} from '../../../../../../utils/common';
 import useCharacterStore from '../../store/characterStore';
 import usePlayerStore from '../../store/playerStore';
 import useStore from './store';
+import uuid from 'react-native-uuid';
+const uuidv4 = uuid.v4;
 
 export function useCreateCharacters() {
   const {country, city, surname} = useStore();
@@ -30,6 +33,7 @@ export function useCreateCharacters() {
     const localizedName = getText(['characterNames', randomName]);
 
     return {
+      id: uuidv4(),
       country: country,
       city: city,
       gender: Gender.Female,
@@ -56,6 +60,7 @@ export function useCreateCharacters() {
     const localizedName = getText(['characterNames', randomName]);
 
     return {
+      id: uuidv4(),
       country: country,
       city: city,
       gender: Gender.Male,
@@ -87,6 +92,7 @@ export function useCreateCharacters() {
     const localizedSurname = getText(['characterSurnames', randomSurname]);
 
     return {
+      id: uuidv4(),
       gender: Gender.Male,
       name: localizedName,
       surname: localizedSurname,
@@ -121,14 +127,20 @@ export function useCreateCharacters() {
     },
   };
 
+  const people: ObjectRecord<Person> = {}; // people contains all characters
+
+  const placePeople: PlacePeople = {};
   const districts = places[country]?.[city] || {};
-  const people: PlacePeople = {};
 
   Object.entries(districts).forEach(([districtName, districtPlaces]) => {
-    people[districtName] = {};
+    placePeople[districtName] = {};
     Object.entries(districtPlaces).forEach(([placeName, placeProps]) => {
-      const placePeople = characterMap[placeProps.type][placeProps.level];
-      people[districtName][placeName] = placePeople.map(placePeopleType => getPerson(placePeopleType));
+      const currentPlacePeople = characterMap[placeProps.type][placeProps.level];
+      placePeople[districtName][placeName] = currentPlacePeople.map(placePeopleType => {
+        const person = getPerson(placePeopleType);
+        people[person.id] = person;
+        return person.id;
+      });
     });
   });
 
@@ -137,5 +149,6 @@ export function useCreateCharacters() {
     characterStore.$mother.set(getMother());
     characterStore.$father.set(getFather());
     characterStore.$people.set(people);
+    characterStore.$placePeople.set(placePeople);
   };
 }

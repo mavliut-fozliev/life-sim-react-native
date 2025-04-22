@@ -22,6 +22,7 @@ export type SpriteVariants = {
 };
 
 export type Person = {
+  id: string;
   gender: Gender;
   name: string;
   surname: string;
@@ -45,4 +46,4 @@ export enum PlacePeopleType {
   SecurityGuard = 'SecurityGuard',
 }
 
-export type PlacePeople = ObjectRecord<ObjectRecord<Person[]>>;
+export type PlacePeople = ObjectRecord<ObjectRecord<string[]>>;

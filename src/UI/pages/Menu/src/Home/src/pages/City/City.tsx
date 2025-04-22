@@ -48,7 +48,8 @@ function City({navigation}: CityProps) {
       return;
     }
 
-    const placePeople = characterStore.people[districtName][placeName];
+    const placePeopleIds = characterStore.placePeople[districtName][placeName];
+    const placePeople = placePeopleIds.map(p => characterStore.people[p]);
 
     navigate.stepForward(PageNames.Activities, {placeProps, placePeople});
   }
