@@ -8,14 +8,14 @@ function Visualization() {
   const player = getSprite(SpriteName.player, 150);
   const mother = getSprite(SpriteName.mother, 100, true);
   const father = getSprite(SpriteName.father, 100, true);
-  const home = getSprite(SpriteName.home, '100%', true);
+  const home = getSprite(SpriteName.home, '70%', true);
   const car = getSprite(SpriteName.car, 200, true);
+
+  const back = require('../../../../../../../../../assets/images/background/sun.jpg');
 
   return (
     <View style={styles.box}>
-      <ImageBackground
-        source={require('../../../../../../../../../assets/images/background.jpg')}
-        style={styles.background}>
+      <ImageBackground source={back} style={styles.background}>
         <View style={styles.homeShell}>{home}</View>
         <View style={styles.carShell}>{car}</View>
         <View style={styles.familyShell}>
@@ -39,11 +39,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   box: {
-    backgroundColor: 'rgba(0,0,255,0.2)',
     height: 300,
   },
   homeShell: {
     ...shellStyles,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   carShell: {
     ...shellStyles,
