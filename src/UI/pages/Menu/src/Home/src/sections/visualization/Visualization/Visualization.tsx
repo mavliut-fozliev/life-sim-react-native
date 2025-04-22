@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, ViewStyle} from 'react-native';
+import {ImageBackground, StyleSheet, View, ViewStyle} from 'react-native';
 import {SpriteName, useSprite} from '../../../sprites/useSprite';
 
 function Visualization() {
@@ -13,13 +13,17 @@ function Visualization() {
 
   return (
     <View style={styles.box}>
-      <View style={styles.homeShell}>{home}</View>
-      <View style={styles.carShell}>{car}</View>
-      <View style={styles.familyShell}>
-        <View>{father}</View>
-        <View style={styles.mother}>{mother}</View>
-      </View>
-      <View style={styles.mainShell}>{player}</View>
+      <ImageBackground
+        source={require('../../../../../../../../../assets/images/background.jpg')}
+        style={styles.background}>
+        <View style={styles.homeShell}>{home}</View>
+        <View style={styles.carShell}>{car}</View>
+        <View style={styles.familyShell}>
+          <View>{father}</View>
+          <View style={styles.mother}>{mother}</View>
+        </View>
+        <View style={styles.mainShell}>{player}</View>
+      </ImageBackground>
     </View>
   );
 }
@@ -31,6 +35,9 @@ const shellStyles: ViewStyle = {
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+  },
   box: {
     backgroundColor: 'rgba(0,0,255,0.2)',
     height: 300,
