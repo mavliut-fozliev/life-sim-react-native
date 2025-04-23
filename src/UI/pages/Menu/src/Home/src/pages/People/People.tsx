@@ -6,7 +6,7 @@ import {Navigation} from '../../../../../../../../types/navigation';
 import {useNavigate} from '../../../../../../../../hooks/useNavigate';
 import {PageNames} from '../../../../../../../../consts/pages';
 import useCharacterStore from '../../../../store/characterStore';
-import {SpriteName, useSprite} from '../../sprites/useSprite';
+import {SpriteName, useSprite} from '../../sprites/hooks/useSprite';
 
 type PeopleProps = {
   navigation: Navigation;

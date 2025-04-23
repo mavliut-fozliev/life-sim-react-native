@@ -1,14 +1,14 @@
 import React, {useMemo} from 'react';
 import {DimensionValue, Image, StyleSheet, View, ViewStyle} from 'react-native';
 
-type TestCarProps = {
+type TestAircraftProps = {
   size: DimensionValue;
   style?: ViewStyle;
 };
 
-const assetPath = '../../../../../../../../../assets/images/cars/car3.png';
+const assetPath = '../../../../../../../../../assets/images/aircraft/aircraft1.png';
 
-function TestCar({size, style}: TestCarProps) {
+function TestAircraft({size, style}: TestAircraftProps) {
   const dynamicStyles = useMemo(
     () =>
       StyleSheet.create({
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TestCar;
+export default TestAircraft;

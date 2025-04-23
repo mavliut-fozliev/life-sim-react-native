@@ -1,12 +1,13 @@
 import {ReactNode} from 'react';
-import useCharacterStore from '../../../store/characterStore';
-import Infant from './characters/Infant/Infant';
-import Adult from './characters/Adult/Adult';
-import usePlayerStore from '../../../store/playerStore';
-import TestHome from './realEstate/TestHome/TestHome';
+import useCharacterStore from '../../../../store/characterStore';
+import Adult from '../characters/Adult/Adult';
+import usePlayerStore from '../../../../store/playerStore';
+import TestHome from '../realEstate/TestHome/TestHome';
 import {DimensionValue, ViewStyle} from 'react-native';
-import TestCar from './transport/TestCar/TestCar';
-import {Person} from '../../../../../../../types/people';
+import TestCar from '../transport/TestCar/TestCar';
+import {Person} from '../../../../../../../../types/people';
+import TestAircraft from '../aircraft/TestAircraft/TestAircraft';
+import {useGetSpriteByAge} from './useGetSpriteByAge';
 
 export enum SpriteName {
   player = 'player',
@@ -14,6 +15,7 @@ export enum SpriteName {
   father = 'father',
   home = 'home',
   car = 'car',
+  aircraft = 'aircraft',
 }
 
 type Sprites = {
@@ -24,16 +26,21 @@ export function useSprite() {
   const playerStore = usePlayerStore();
   const characterStore = useCharacterStore();
 
+  const getSpriteByAge = useGetSpriteByAge();
+
   const getSpriteNode = (size: DimensionValue, style?: ViewStyle): Sprites => ({
-    [SpriteName.player]: (
-      <Infant
-        size={size}
-        legs={playerStore.sprite.legs}
-        body={playerStore.sprite.body}
-        head={playerStore.sprite.head}
-        eyes={playerStore.sprite.eyes}
-        mouth={playerStore.sprite.mouth}
-      />
+    [SpriteName.player]: getSpriteByAge(
+      playerStore.age,
+      size,
+      {
+        legs: playerStore.sprite.legs,
+        body: playerStore.sprite.body,
+        head: playerStore.sprite.head,
+        eyes: playerStore.sprite.eyes,
+        mouth: playerStore.sprite.mouth,
+        hair: playerStore.sprite.hair,
+      },
+      style,
     ),
     [SpriteName.mother]: (
       <Adult
@@ -60,6 +67,7 @@ export function useSprite() {
     ),
     [SpriteName.home]: <TestHome size={size} style={style} />,
     [SpriteName.car]: <TestCar size={size} style={style} />,
+    [SpriteName.aircraft]: <TestAircraft size={size} style={style} />,
   });
 
   const getSprite = (spriteName: SpriteName, size: DimensionValue, style?: ViewStyle) => {

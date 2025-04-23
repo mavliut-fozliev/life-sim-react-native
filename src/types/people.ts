@@ -12,13 +12,22 @@ export type CommonSpriteVariants = {
   hair?: 'average';
 };
 
+export enum SpriteEras {
+  infant = 'infant',
+  child = 'child',
+  preTeen = 'preTeen',
+  teenager = 'teenager',
+  adult = 'adult',
+  elder = 'elder',
+}
+
 export type SpriteVariants = {
-  infant: {} & CommonSpriteVariants;
-  child: {};
-  preTeen: {};
-  teenager: {};
-  adult: {} & CommonSpriteVariants;
-  elder: {} & CommonSpriteVariants;
+  [SpriteEras.infant]: {} & CommonSpriteVariants;
+  [SpriteEras.child]: {};
+  [SpriteEras.preTeen]: {};
+  [SpriteEras.teenager]: {};
+  [SpriteEras.adult]: {} & CommonSpriteVariants;
+  [SpriteEras.elder]: {} & CommonSpriteVariants;
 };
 
 export type Person = {

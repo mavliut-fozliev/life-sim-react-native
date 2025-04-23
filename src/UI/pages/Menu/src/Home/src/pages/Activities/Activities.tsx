@@ -10,7 +10,7 @@ import {useNavigate} from '../../../../../../../../hooks/useNavigate';
 import {PageNames} from '../../../../../../../../consts/pages';
 import Divider from '../../../../../../../components/Divider/Divider';
 import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
-import {useSprite} from '../../sprites/useSprite';
+import {useSprite} from '../../sprites/hooks/useSprite';
 
 type ActivitiesProps = {
   navigation: Navigation;

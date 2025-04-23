@@ -1,11 +1,11 @@
 import React, {useMemo} from 'react';
 import {DimensionValue, Image, StyleSheet, View, ViewStyle} from 'react-native';
-import {SpriteVariants} from '../../../../../../../../../types/people';
+import {SpriteEras, SpriteVariants} from '../../../../../../../../../types/people';
 
 type AdultProps = {
   size: DimensionValue;
   style?: ViewStyle;
-} & SpriteVariants['adult'];
+} & SpriteVariants[SpriteEras.adult];
 
 const assetPath = '../../../../../../../../../assets/images/character/adult/';
 
