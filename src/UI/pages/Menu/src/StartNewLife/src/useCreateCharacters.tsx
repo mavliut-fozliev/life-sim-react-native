@@ -5,10 +5,10 @@ import {places} from '../../../../../../consts/places';
 import {useLocalizeText} from '../../../../../../locales/useLocalizeText';
 import {ObjectRecord} from '../../../../../../types/common';
 import {FamilyPerson, Person, PlacePeople, PlacePeopleType} from '../../../../../../types/people';
-import {PlaceLevel, PlaceType} from '../../../../../../types/places';
 import {getRandomArrayItem, getRandomInRange} from '../../../../../../utils/common';
 import useCharacterStore from '../../store/characterStore';
 import usePlayerStore from '../../store/playerStore';
+import {characterMap} from './consts';
 import useStore from './store';
 import uuid from 'react-native-uuid';
 const uuidv4 = uuid.v4;
@@ -109,36 +109,21 @@ export function useCreateCharacters() {
     };
   };
 
-  const characterMap: Record<PlaceType, Record<PlaceLevel, PlacePeopleType[]>> = {
-    [PlaceType.Gym]: {
-      [PlaceLevel.One]: [PlacePeopleType.Visitor],
-      [PlaceLevel.Two]: [PlacePeopleType.Visitor],
-      [PlaceLevel.Three]: [PlacePeopleType.Visitor],
-    },
-    [PlaceType.Hospital]: {
-      [PlaceLevel.One]: [PlacePeopleType.Visitor],
-      [PlaceLevel.Two]: [PlacePeopleType.Visitor],
-      [PlaceLevel.Three]: [PlacePeopleType.Visitor],
-    },
-    [PlaceType.Nightclub]: {
-      [PlaceLevel.One]: [PlacePeopleType.Visitor],
-      [PlaceLevel.Two]: [PlacePeopleType.Visitor],
-      [PlaceLevel.Three]: [PlacePeopleType.Bartender, PlacePeopleType.SecurityGuard, PlacePeopleType.Visitor],
-    },
-  };
-
   const people: ObjectRecord<Person> = {}; // people contains all characters
+  const addToPeople = (person: Person) => (people[person.id] = person);
 
   const placePeople: PlacePeople = {};
   const districts = places[country]?.[city] || {};
 
   Object.entries(districts).forEach(([districtName, districtPlaces]) => {
     placePeople[districtName] = {};
+
     Object.entries(districtPlaces).forEach(([placeName, placeProps]) => {
       const currentPlacePeople = characterMap[placeProps.type][placeProps.level];
+
       placePeople[districtName][placeName] = currentPlacePeople.map(placePeopleType => {
         const person = getPerson(placePeopleType);
-        people[person.id] = person;
+        addToPeople(person);
         return person.id;
       });
     });

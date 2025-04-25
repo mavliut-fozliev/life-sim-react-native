@@ -6,7 +6,7 @@ type TestHomeProps = {
   style?: ViewStyle;
 };
 
-const assetPath = '../../../../../../../../../assets/images/homes/home2.png';
+const assetPath = '../../../../../../../../../assets/images/homes/home3.png';
 
 function TestHome({size, style}: TestHomeProps) {
   const dynamicStyles = useMemo(

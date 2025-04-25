@@ -30,12 +30,33 @@ export type SpriteVariants = {
   [SpriteEras.elder]: {} & CommonSpriteVariants;
 };
 
+export enum PlacePeopleType {
+  Visitor = 'Visitor',
+  Bartender = 'Bartender',
+  SecurityGuard = 'SecurityGuard',
+}
+
+export enum PeopleRole {
+  Mother = 'Mother',
+  Father = 'Father',
+  Brother = 'Brother',
+  Friend = 'Friend',
+  Neighbour = 'Neighbour',
+}
+
+export enum PeopleRelationship {
+  Love = 'Love',
+  Trust = 'Trust',
+}
+
 export type Person = {
   id: string;
   gender: Gender;
   name: string;
   surname: string;
   age: number;
+  role: PeopleRole;
+  relationship: PeopleRelationship[];
   sprite: CommonSpriteVariants;
   placePeopleType?: PlacePeopleType;
 };
@@ -48,11 +69,5 @@ export type FamilyPerson = {
     health: number;
   };
 } & Person;
-
-export enum PlacePeopleType {
-  Visitor = 'Visitor',
-  Bartender = 'Bartender',
-  SecurityGuard = 'SecurityGuard',
-}
 
 export type PlacePeople = ObjectRecord<ObjectRecord<string[]>>;

@@ -2,8 +2,15 @@ import React from 'react';
 import Interaction from './src/Interaction';
 import {ScrollView, StyleSheet} from 'react-native';
 import {colors} from '../../../../../../../../consts/styles';
+import {Route} from '../../../../../../../../types/navigation';
+import {Person} from '../../../../../../../../types/people';
 
-function Intercations() {
+type InteractionsProps = {
+  route: Route<{person: Person[]}>;
+};
+
+function Intercations({route}: InteractionsProps) {
+  console.log(route.params.person);
   return (
     <ScrollView style={styles.box}>
       <Interaction />

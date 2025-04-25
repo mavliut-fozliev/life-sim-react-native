@@ -75,7 +75,7 @@ export function useSprite() {
   };
 
   const getPersonSprite = (person: Person, size: DimensionValue) => {
-    return <Adult size={size} {...person.sprite} />;
+    return getSpriteByAge(person.age, size, person.sprite);
   };
 
   return {getSprite, getPersonSprite};

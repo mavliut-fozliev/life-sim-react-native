@@ -39,7 +39,7 @@ function Activities({navigation, route}: ActivitiesProps) {
           label={`${p.name} ${p.surname}`}
           description={p.placePeopleType && getText(['places', 'peopleType', p.placePeopleType])}
           mainIcon={getPersonSprite(p, 50)}
-          onPress={() => navigate.stepForward(PageNames.Intercations, {prev: 'worker'})}
+          onPress={() => navigate.stepForward(PageNames.Intercations, {person: p})}
         />
       ))}
     </ScrollView>

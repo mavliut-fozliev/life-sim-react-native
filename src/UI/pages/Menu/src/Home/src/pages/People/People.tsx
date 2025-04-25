@@ -26,12 +26,12 @@ function People({navigation}: PeopleProps) {
       <SectionButton
         label={`${characterStore.father.name} ${characterStore.father.surname}`}
         mainIcon={father}
-        onPress={() => navigate.stepForward(PageNames.Intercations, {prev: 'father'})}
+        onPress={() => navigate.stepForward(PageNames.Intercations, {person: characterStore.father})}
       />
       <SectionButton
         label={`${characterStore.mother.name} ${characterStore.mother.surname}`}
         mainIcon={mother}
-        onPress={() => navigate.stepForward(PageNames.Intercations, {prev: 'mother'})}
+        onPress={() => navigate.stepForward(PageNames.Intercations, {person: characterStore.mother})}
       />
     </ScrollView>
   );
