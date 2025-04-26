@@ -15,7 +15,7 @@ import uuid from 'react-native-uuid';
 const uuidv4 = uuid.v4;
 
 export function useCreateCharacters() {
-  const {country, city, surname} = useStore();
+  const {country, city, surname, gender} = useStore();
   const characterStore = useCharacterStore();
   const playerStore = usePlayerStore();
   const {getText} = useLocalizeText();
@@ -28,18 +28,33 @@ export function useCreateCharacters() {
     mouth: 'smile',
   } as const;
 
-  const getMother = (): FamilyPerson => {
-    const names = characterNames[country][Gender.Female];
-    const randomName = getRandomArrayItem(names) || 'MotherName';
-    const localizedName = getText(['character', 'names', randomName]);
+  const getName = (type: 'name' | 'surname', characterGender: Gender) => {
+    let names = characterNames[country][characterGender];
+    if (type === 'surname') {
+      names = characterSurnames[country][characterGender];
+    }
 
+    let randomName = getRandomArrayItem(names) || 'Name';
+    if (type === 'surname') {
+      randomName = getRandomArrayItem(names) || 'Surname';
+    }
+
+    let localizedName = getText(['character', 'names', randomName]);
+    if (type === 'surname') {
+      localizedName = getText(['character', 'surnames', randomName]);
+    }
+
+    return localizedName;
+  };
+
+  const getMother = (): FamilyPerson => {
     return {
       id: uuidv4(),
       country: country,
       city: city,
       gender: Gender.Female,
-      name: localizedName,
-      surname: surname,
+      name: getName('name', Gender.Female),
+      surname: gender === Gender.Female ? surname : getName('surname', Gender.Female),
       age: getRandomInRange(18, 40, 0.2),
       role: PeopleRole.Mother,
       relationship: [PeopleRelationship.Love, PeopleRelationship.Strictness],
@@ -58,17 +73,13 @@ export function useCreateCharacters() {
   };
 
   const getFather = (): FamilyPerson => {
-    const names = characterNames[country][Gender.Male];
-    const randomName = getRandomArrayItem(names) || 'FatherName';
-    const localizedName = getText(['character', 'names', randomName]);
-
     return {
       id: uuidv4(),
       country: country,
       city: city,
       gender: Gender.Male,
-      name: localizedName,
-      surname: surname,
+      name: getName('name', Gender.Male),
+      surname: gender === Gender.Male ? surname : getName('surname', Gender.Male),
       age: getRandomInRange(18, 40, 0.1),
       role: PeopleRole.Father,
       relationship: [PeopleRelationship.Love, PeopleRelationship.Trust],
