@@ -2,9 +2,14 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Stat from './src/Stat/Stat';
 import usePlayerStore from '../../../../../store/playerStore';
+import Status from '../../../../../../../../components/Status/Status';
+import {PlayerStatus, playerStatusMap} from '../../../../../../../../../consts/character/player';
+import {findMatchingKeyByMaxNumber} from '../../../../../../../../../utils/common';
 
 function Stats() {
   const playerStore = usePlayerStore();
+
+  const status = findMatchingKeyByMaxNumber(playerStatusMap, playerStore.status) || PlayerStatus.Neutral;
 
   return (
     <View style={styles.box}>
@@ -15,6 +20,9 @@ function Stats() {
         <Stat name="health" value={playerStore.health} />
         <Stat name="power" value={playerStore.power} />
         <Stat name="charm" value={playerStore.charm} />
+      </View>
+      <View>
+        <Status playerStatus={status} />
       </View>
     </View>
   );

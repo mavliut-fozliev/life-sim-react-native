@@ -11,6 +11,7 @@ type InteractionsProps = {
 
 function Intercations({route}: InteractionsProps) {
   const person = route.params.person;
+
   return (
     <ScrollView style={styles.box}>
       <Interaction />

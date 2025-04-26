@@ -3,36 +3,36 @@ import {StyleSheet, Text, View} from 'react-native';
 import {PeopleRelationship, peopleRelationshipColors} from '../../../consts/character/characterProps';
 import {useLocalizeText} from '../../../locales/useLocalizeText';
 import {fontSizes} from '../../../consts/styles';
+import {PlayerStatus, playerStatusColors} from '../../../consts/character/player';
 
 type StatusProps = {
-  relationship: PeopleRelationship[];
+  peopleRelationship?: PeopleRelationship;
+  playerStatus?: PlayerStatus;
 };
 
-function Status({relationship}: StatusProps) {
+function Status({peopleRelationship, playerStatus}: StatusProps) {
   const {getText} = useLocalizeText();
 
+  const color = peopleRelationship
+    ? peopleRelationshipColors[peopleRelationship]
+    : playerStatus
+    ? playerStatusColors[playerStatus]
+    : 'black';
+
+  const label = peopleRelationship
+    ? getText(['character', 'relationships', peopleRelationship])
+    : playerStatus
+    ? getText(['character', 'statuses', playerStatus])
+    : '';
+
   return (
-    <View style={styles.relationships}>
-      {relationship.map((r, i) => (
-        <View key={i.toString()} style={[styles.status, {borderColor: peopleRelationshipColors[r]}]}>
-          <Text style={[styles.statusText, {color: peopleRelationshipColors[r]}]}>
-            {getText(['character', 'relationships', r])}
-          </Text>
-        </View>
-      ))}
+    <View style={[styles.status, {borderColor: color}]}>
+      <Text style={[styles.statusText, {color: color}]}>{label}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  relationships: {
-    width: 300,
-    overflow: 'hidden',
-    top: 2,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
   status: {
     borderWidth: 2,
     borderRadius: 4,

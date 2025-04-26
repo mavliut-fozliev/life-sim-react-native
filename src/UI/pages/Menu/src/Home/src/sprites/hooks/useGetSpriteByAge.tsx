@@ -4,6 +4,7 @@ import {ReactNode} from 'react';
 import Infant from '../characters/Infant/Infant';
 import Adult from '../characters/Adult/Adult';
 import {SpriteEras} from '../../../../../../../../consts/character/characterProps';
+import {findMatchingKeyByMaxNumber} from '../../../../../../../../utils/common';
 
 export function useGetSpriteByAge() {
   const spriteAges: {[key in SpriteEras]: number} = {
@@ -16,8 +17,7 @@ export function useGetSpriteByAge() {
   };
 
   return (age: number, size: DimensionValue, spriteVariants: CommonSpriteVariants, style?: ViewStyle) => {
-    const spriteAge =
-      (Object.entries(spriteAges).find(([_, value]) => value >= age)?.[0] as SpriteEras) || SpriteEras.elder;
+    const spriteAge = findMatchingKeyByMaxNumber(spriteAges, age) || SpriteEras.elder;
 
     const characterSprites: {[key in SpriteEras]: ReactNode} = {
       [SpriteEras.infant]: (

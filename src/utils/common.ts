@@ -32,3 +32,20 @@ export const getRandomValue = (array: {value: any; chance: number}[]) => {
 
   return found?.value || sorted[0].value;
 };
+
+export function findMatchingKeyByMaxNumber<T extends string>(
+  valueMap: {[key in T]: number},
+  value: number,
+): T | undefined {
+  const sortedEntries = Object.entries(valueMap) as [T, number][];
+
+  sortedEntries.sort(([, maxA], [, maxB]) => maxA - maxB);
+
+  for (const [status, max] of sortedEntries) {
+    if (value <= max) {
+      return status;
+    }
+  }
+
+  return undefined;
+}

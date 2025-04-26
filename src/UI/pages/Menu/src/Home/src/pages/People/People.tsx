@@ -8,7 +8,7 @@ import {PageNames} from '../../../../../../../../consts/pages';
 import useCharacterStore from '../../../../store/characterStore';
 import {SpriteName, useSprite} from '../../sprites/hooks/useSprite';
 import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
-import Status from '../../../../../../../components/Status/Status';
+import StatusGroup from '../../../../../../../components/StatusGroup/StatusGroup';
 
 type PeopleProps = {
   navigation: Navigation;
@@ -30,7 +30,7 @@ function People({navigation}: PeopleProps) {
         label={`${characterStore.father.name} ${characterStore.father.surname}`}
         description={getText(['character', 'roles', characterStore.father.role])}
         height={100}
-        extraLine={<Status relationship={characterStore.father.relationship} />}
+        extraLine={<StatusGroup relationship={characterStore.father.relationship} />}
         mainIcon={father}
         icon={<></>}
         onPress={() => navigate.stepForward(PageNames.Intercations, {person: characterStore.father})}
@@ -39,7 +39,7 @@ function People({navigation}: PeopleProps) {
         label={`${characterStore.mother.name} ${characterStore.mother.surname}`}
         description={getText(['character', 'roles', characterStore.mother.role])}
         height={100}
-        extraLine={<Status relationship={characterStore.mother.relationship} />}
+        extraLine={<StatusGroup relationship={characterStore.mother.relationship} />}
         mainIcon={mother}
         icon={<></>}
         onPress={() => navigate.stepForward(PageNames.Intercations, {person: characterStore.mother})}
