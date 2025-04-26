@@ -1,3 +1,4 @@
+import {PeopleRelationship, PeopleRole, PlacePeopleType, SpriteEras} from '../consts/character/characterProps';
 import {Cities} from '../consts/cities';
 import {Countries} from '../consts/countries';
 import {Gender} from '../consts/gender';
@@ -12,15 +13,6 @@ export type CommonSpriteVariants = {
   hair?: 'average';
 };
 
-export enum SpriteEras {
-  infant = 'infant',
-  child = 'child',
-  preTeen = 'preTeen',
-  teenager = 'teenager',
-  adult = 'adult',
-  elder = 'elder',
-}
-
 export type SpriteVariants = {
   [SpriteEras.infant]: {} & CommonSpriteVariants;
   [SpriteEras.child]: {};
@@ -29,25 +21,6 @@ export type SpriteVariants = {
   [SpriteEras.adult]: {} & CommonSpriteVariants;
   [SpriteEras.elder]: {} & CommonSpriteVariants;
 };
-
-export enum PlacePeopleType {
-  Visitor = 'Visitor',
-  Bartender = 'Bartender',
-  SecurityGuard = 'SecurityGuard',
-}
-
-export enum PeopleRole {
-  Mother = 'Mother',
-  Father = 'Father',
-  Brother = 'Brother',
-  Friend = 'Friend',
-  Neighbour = 'Neighbour',
-}
-
-export enum PeopleRelationship {
-  Love = 'Love',
-  Trust = 'Trust',
-}
 
 export type Person = {
   id: string;

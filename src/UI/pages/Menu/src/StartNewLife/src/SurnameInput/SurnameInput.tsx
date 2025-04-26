@@ -25,7 +25,7 @@ function SurnameInput() {
       return;
     }
 
-    const localizedSurname = getText(['characterSurnames', randomSurname]);
+    const localizedSurname = getText(['character', 'surnames', randomSurname]);
 
     $surnameIsModified.set(false);
     $surname.set(localizedSurname);

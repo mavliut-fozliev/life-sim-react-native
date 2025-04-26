@@ -1,4 +1,4 @@
-import {PlacePeopleType} from '../../../../../../types/people';
+import {PlacePeopleType} from '../../../../../../consts/character/characterProps';
 import {PlaceLevel, PlaceType} from '../../../../../../types/places';
 
 export const characterMap: Record<PlaceType, Record<PlaceLevel, PlacePeopleType[]>> = {

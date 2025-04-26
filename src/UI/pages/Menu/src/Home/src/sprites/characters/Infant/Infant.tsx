@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react';
 import {DimensionValue, Image, StyleSheet, View, ViewStyle} from 'react-native';
-import {SpriteEras, SpriteVariants} from '../../../../../../../../../types/people';
+import {SpriteVariants} from '../../../../../../../../../types/people';
+import {SpriteEras} from '../../../../../../../../../consts/character/characterProps';
 
 type InfantProps = {
   size: DimensionValue;

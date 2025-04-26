@@ -6,20 +6,20 @@ function Visualization() {
   const {getSprite} = useSprite();
 
   const player = getSprite(SpriteName.player, 150);
-  const mother = getSprite(SpriteName.mother, 90, {position: 'absolute', left: 40});
-  const father = getSprite(SpriteName.father, 90, {position: 'absolute'});
-  const home = getSprite(SpriteName.home, 240, {bottom: 20});
+  const mother = getSprite(SpriteName.mother, 90, {position: 'absolute', top: 20, left: 40});
+  const father = getSprite(SpriteName.father, 90, {position: 'absolute', top: 20});
+  const home = getSprite(SpriteName.home, 200, {bottom: 10});
   const car = getSprite(SpriteName.car, 180, {top: 5});
   const aircraft = getSprite(SpriteName.aircraft, 160, {bottom: 0, right: 10});
 
-  const back = require('../../../../../../../../../assets/images/background/sun.jpg');
+  const back = require('../../../../../../../../../assets/images/background/sun2.jpg');
 
   return (
     <View style={styles.box}>
       <ImageBackground source={back} style={styles.background}>
-        <View style={styles.homeShell}>{home}</View>
-        <View style={styles.carShell}>{car}</View>
-        <View style={styles.aircraftShell}>{aircraft}</View>
+        {/* <View style={styles.homeShell}>{home}</View> */}
+        {/* <View style={styles.carShell}>{car}</View> */}
+        {/* <View style={styles.aircraftShell}>{aircraft}</View> */}
         <View style={styles.familyShell}>
           <View>{mother}</View>
           <View>{father}</View>

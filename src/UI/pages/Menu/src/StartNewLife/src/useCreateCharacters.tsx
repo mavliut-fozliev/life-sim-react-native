@@ -1,10 +1,11 @@
 import {characterNames} from '../../../../../../consts/character/characterNames';
+import {PeopleRelationship, PeopleRole, PlacePeopleType} from '../../../../../../consts/character/characterProps';
 import {characterSurnames} from '../../../../../../consts/character/characterSurnames';
 import {Gender} from '../../../../../../consts/gender';
 import {places} from '../../../../../../consts/places';
 import {useLocalizeText} from '../../../../../../locales/useLocalizeText';
 import {ObjectRecord} from '../../../../../../types/common';
-import {FamilyPerson, Person, PlacePeople, PlacePeopleType} from '../../../../../../types/people';
+import {FamilyPerson, Person, PlacePeople} from '../../../../../../types/people';
 import {getRandomArrayItem, getRandomInRange} from '../../../../../../utils/common';
 import useCharacterStore from '../../store/characterStore';
 import usePlayerStore from '../../store/playerStore';
@@ -30,7 +31,7 @@ export function useCreateCharacters() {
   const getMother = (): FamilyPerson => {
     const names = characterNames[country][Gender.Female];
     const randomName = getRandomArrayItem(names) || 'MotherName';
-    const localizedName = getText(['characterNames', randomName]);
+    const localizedName = getText(['character', 'names', randomName]);
 
     return {
       id: uuidv4(),
@@ -40,6 +41,8 @@ export function useCreateCharacters() {
       name: localizedName,
       surname: surname,
       age: getRandomInRange(18, 40, 0.2),
+      role: PeopleRole.Mother,
+      relationship: [PeopleRelationship.Love, PeopleRelationship.Strictness],
       params: {
         money: 10000,
         health: 80,
@@ -57,7 +60,7 @@ export function useCreateCharacters() {
   const getFather = (): FamilyPerson => {
     const names = characterNames[country][Gender.Male];
     const randomName = getRandomArrayItem(names) || 'FatherName';
-    const localizedName = getText(['characterNames', randomName]);
+    const localizedName = getText(['character', 'names', randomName]);
 
     return {
       id: uuidv4(),
@@ -67,6 +70,8 @@ export function useCreateCharacters() {
       name: localizedName,
       surname: surname,
       age: getRandomInRange(18, 40, 0.1),
+      role: PeopleRole.Father,
+      relationship: [PeopleRelationship.Love, PeopleRelationship.Trust],
       params: {
         money: 10000,
         health: 80,
@@ -85,11 +90,11 @@ export function useCreateCharacters() {
   const getPerson = (placePeopleType: PlacePeopleType): Person => {
     const names = characterNames[country][Gender.Male];
     const randomName = getRandomArrayItem(names) || 'PersonName';
-    const localizedName = getText(['characterNames', randomName]);
+    const localizedName = getText(['character', 'names', randomName]);
 
     const surnames = characterSurnames[country][Gender.Male];
     const randomSurname = getRandomArrayItem(surnames) || 'PersonSurname';
-    const localizedSurname = getText(['characterSurnames', randomSurname]);
+    const localizedSurname = getText(['character', 'surnames', randomSurname]);
 
     return {
       id: uuidv4(),
@@ -97,6 +102,8 @@ export function useCreateCharacters() {
       name: localizedName,
       surname: localizedSurname,
       age: getRandomInRange(18, 60),
+      role: PeopleRole.Stranger,
+      relationship: [PeopleRelationship.Neutrality],
       sprite: {
         legs: 'light',
         body: 'light',

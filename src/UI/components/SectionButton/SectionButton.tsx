@@ -11,14 +11,25 @@ type SectionButtonProps = {
   disabled?: boolean;
   icon?: ReactNode;
   iconText?: string;
+  height?: number;
+  extraLine?: ReactNode;
 };
 
-function SectionButton({label, onPress, mainIcon, description, disabled, icon, iconText}: SectionButtonProps) {
+function SectionButton({
+  label,
+  onPress,
+  mainIcon,
+  description,
+  disabled,
+  icon,
+  iconText,
+  height,
+  extraLine,
+}: SectionButtonProps) {
+  const buttonStyles = [styles.button, disabled ? styles.disabled : {}, height ? {height} : {}];
+
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      disabled={disabled}
-      style={disabled ? [styles.button, styles.disabled] : styles.button}>
+    <TouchableOpacity onPress={onPress} disabled={disabled} style={buttonStyles}>
       <View style={styles.labelBox}>
         <View style={styles.labelContent}>
           {mainIcon && <View style={styles.left}>{mainIcon}</View>}
@@ -27,6 +38,7 @@ function SectionButton({label, onPress, mainIcon, description, disabled, icon, i
               {label}
             </Text>
             {description && <Text style={styles.description}>{description}</Text>}
+            {extraLine && <View>{extraLine}</View>}
           </View>
         </View>
         <View style={styles.icon}>

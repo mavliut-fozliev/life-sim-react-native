@@ -25,7 +25,7 @@ function NameInput() {
       return;
     }
 
-    const localizedName = getText(['characterNames', randomName]);
+    const localizedName = getText(['character', 'names', randomName]);
 
     $nameIsModified.set(false);
     $name.set(localizedName);
