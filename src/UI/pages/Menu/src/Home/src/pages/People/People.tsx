@@ -1,6 +1,6 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {colors, fontSizes} from '../../../../../../../../consts/styles';
+import {ScrollView, StyleSheet} from 'react-native';
+import {colors} from '../../../../../../../../consts/styles';
 import SectionButton from '../../../../../../../components/SectionButton/SectionButton';
 import {Navigation} from '../../../../../../../../types/navigation';
 import {useNavigate} from '../../../../../../../../hooks/useNavigate';
@@ -8,7 +8,7 @@ import {PageNames} from '../../../../../../../../consts/pages';
 import useCharacterStore from '../../../../store/characterStore';
 import {SpriteName, useSprite} from '../../sprites/hooks/useSprite';
 import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
-import {peopleRelationshipColors} from '../../../../../../../../consts/character/characterProps';
+import Status from '../../../../../../../components/Status/Status';
 
 type PeopleProps = {
   navigation: Navigation;
@@ -21,18 +21,8 @@ function People({navigation}: PeopleProps) {
   const {getSprite} = useSprite();
   const {getText} = useLocalizeText();
 
-  const mother = getSprite(SpriteName.mother, 50);
-  const father = getSprite(SpriteName.father, 50);
-
-  const relationships = (
-    <View style={styles.relationships}>
-      {characterStore.father.relationship.map((r, i) => (
-        <View key={i.toString()} style={[styles.status, {borderColor: peopleRelationshipColors[r]}]}>
-          <Text style={[styles.statusText, {color: peopleRelationshipColors[r]}]}>{r}</Text>
-        </View>
-      ))}
-    </View>
-  );
+  const mother = getSprite(SpriteName.mother, 60);
+  const father = getSprite(SpriteName.father, 60);
 
   return (
     <ScrollView style={styles.box}>
@@ -40,16 +30,18 @@ function People({navigation}: PeopleProps) {
         label={`${characterStore.father.name} ${characterStore.father.surname}`}
         description={getText(['character', 'roles', characterStore.father.role])}
         height={100}
-        extraLine={relationships}
+        extraLine={<Status relationship={characterStore.father.relationship} />}
         mainIcon={father}
+        icon={<></>}
         onPress={() => navigate.stepForward(PageNames.Intercations, {person: characterStore.father})}
       />
       <SectionButton
         label={`${characterStore.mother.name} ${characterStore.mother.surname}`}
         description={getText(['character', 'roles', characterStore.mother.role])}
         height={100}
-        extraLine={relationships}
+        extraLine={<Status relationship={characterStore.mother.relationship} />}
         mainIcon={mother}
+        icon={<></>}
         onPress={() => navigate.stepForward(PageNames.Intercations, {person: characterStore.mother})}
       />
     </ScrollView>
@@ -59,24 +51,6 @@ function People({navigation}: PeopleProps) {
 const styles = StyleSheet.create({
   box: {
     backgroundColor: colors.background.secondary,
-  },
-  relationships: {
-    top: 2,
-    height: 30,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  status: {
-    borderWidth: 2,
-    borderRadius: 4,
-  },
-  statusText: {
-    paddingTop: 2,
-    paddingBottom: 2,
-    paddingLeft: 6,
-    paddingRight: 6,
-    fontSize: fontSizes.small,
   },
 });
 
