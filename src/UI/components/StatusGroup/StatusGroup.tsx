@@ -1,17 +1,24 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {PeopleRelationship} from '../../../consts/character/characterProps';
-import Status from '../Status/Status';
+import {StyleSheet, Text, View} from 'react-native';
+import {PeopleRelationship, peopleRelationshipColors} from '../../../consts/character/characterProps';
+import {fontSizes} from '../../../consts/styles';
+import {useLocalizeText} from '../../../locales/useLocalizeText';
 
 type StatusGroupProps = {
   relationship: PeopleRelationship[];
 };
 
 function StatusGroup({relationship}: StatusGroupProps) {
+  const {getText} = useLocalizeText();
+
   return (
     <View style={styles.relationships}>
       {relationship.map((r, i) => (
-        <Status key={i.toString()} peopleRelationship={r} />
+        <View key={i.toString()} style={[styles.status, {borderColor: peopleRelationshipColors[r]}]}>
+          <Text style={[styles.statusText, {color: peopleRelationshipColors[r]}]}>
+            {getText(['character', 'relationships', r])}
+          </Text>
+        </View>
       ))}
     </View>
   );
@@ -25,6 +32,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
+  },
+  status: {
+    borderWidth: 2,
+    borderRadius: 4,
+  },
+  statusText: {
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 6,
+    paddingRight: 6,
+    fontSize: fontSizes.small,
+    fontWeight: 600,
   },
 });
 

@@ -1,13 +1,14 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import Stat from './src/Stat/Stat';
 import usePlayerStore from '../../../../../store/playerStore';
-import Status from '../../../../../../../../components/Status/Status';
 import {PlayerStatus, playerStatusMap} from '../../../../../../../../../consts/character/player';
 import {findMatchingKeyByMaxNumber} from '../../../../../../../../../utils/common';
+import {useLocalizeText} from '../../../../../../../../../locales/useLocalizeText';
 
 function Stats() {
   const playerStore = usePlayerStore();
+  const {getText} = useLocalizeText();
 
   const status = findMatchingKeyByMaxNumber(playerStatusMap, playerStore.status) || PlayerStatus.Neutral;
 
@@ -22,7 +23,7 @@ function Stats() {
         <Stat name="charm" value={playerStore.charm} />
       </View>
       <View>
-        <Status playerStatus={status} />
+        <Text>{getText(['character', 'statuses', status])}</Text>
       </View>
     </View>
   );
