@@ -1,5 +1,5 @@
 import {characterNames} from '../../../../../../consts/character/characterNames';
-import {PeopleRelationship, PeopleRole, PlacePeopleType} from '../../../../../../consts/character/characterProps';
+import {PeopleRole, PeopleSituation, PlacePeopleType} from '../../../../../../consts/character/characterProps';
 import {characterSurnames} from '../../../../../../consts/character/characterSurnames';
 import {Gender} from '../../../../../../consts/gender';
 import {places} from '../../../../../../consts/places';
@@ -57,7 +57,8 @@ export function useCreateCharacters() {
       surname: gender === Gender.Female ? surname : getName('surname', Gender.Female),
       age: getRandomInRange(18, 40, 0.2),
       role: PeopleRole.Mother,
-      relationship: [PeopleRelationship.Love, PeopleRelationship.Strictness],
+      relationship: 90,
+      situation: PeopleSituation.Admiration,
       params: {
         money: 10000,
         health: 80,
@@ -82,7 +83,8 @@ export function useCreateCharacters() {
       surname: gender === Gender.Male ? surname : getName('surname', Gender.Male),
       age: getRandomInRange(18, 40, 0.1),
       role: PeopleRole.Father,
-      relationship: [PeopleRelationship.Love, PeopleRelationship.Trust],
+      relationship: 90,
+      situation: PeopleSituation.Admiration,
       params: {
         money: 10000,
         health: 80,
@@ -114,7 +116,7 @@ export function useCreateCharacters() {
       surname: localizedSurname,
       age: getRandomInRange(18, 60),
       role: PeopleRole.Stranger,
-      relationship: [PeopleRelationship.Neutrality],
+      relationship: 50,
       sprite: {
         legs: 'light',
         body: 'light',

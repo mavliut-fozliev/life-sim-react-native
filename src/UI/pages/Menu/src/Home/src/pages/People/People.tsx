@@ -30,7 +30,13 @@ function People({navigation}: PeopleProps) {
         label={`${characterStore.father.name} ${characterStore.father.surname}`}
         description={getText(['character', 'roles', characterStore.father.role])}
         height={100}
-        extraLine={<StatusGroup relationship={characterStore.father.relationship} />}
+        extraLine={
+          <StatusGroup
+            role={characterStore.father.role}
+            relationship={characterStore.father.relationship}
+            situation={characterStore.father.situation}
+          />
+        }
         mainIcon={father}
         icon={<></>}
         onPress={() => navigate.stepForward(PageNames.Intercations, {person: characterStore.father})}
@@ -39,7 +45,13 @@ function People({navigation}: PeopleProps) {
         label={`${characterStore.mother.name} ${characterStore.mother.surname}`}
         description={getText(['character', 'roles', characterStore.mother.role])}
         height={100}
-        extraLine={<StatusGroup relationship={characterStore.mother.relationship} />}
+        extraLine={
+          <StatusGroup
+            role={characterStore.mother.role}
+            relationship={characterStore.mother.relationship}
+            situation={characterStore.mother.situation}
+          />
+        }
         mainIcon={mother}
         icon={<></>}
         onPress={() => navigate.stepForward(PageNames.Intercations, {person: characterStore.mother})}

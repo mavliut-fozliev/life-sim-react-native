@@ -1,4 +1,4 @@
-import {PeopleRelationship, PeopleRole, PlacePeopleType, SpriteEras} from '../consts/character/characterProps';
+import {PeopleRole, PeopleSituation, PlacePeopleType, SpriteEras} from '../consts/character/characterProps';
 import {Cities} from '../consts/cities';
 import {Countries} from '../consts/countries';
 import {Gender} from '../consts/gender';
@@ -29,7 +29,8 @@ export type Person = {
   surname: string;
   age: number;
   role: PeopleRole;
-  relationship: PeopleRelationship[];
+  relationship: number;
+  situation?: PeopleSituation;
   sprite: CommonSpriteVariants;
   placePeopleType?: PlacePeopleType;
 };

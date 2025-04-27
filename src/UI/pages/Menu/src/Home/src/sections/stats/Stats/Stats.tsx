@@ -23,7 +23,7 @@ function Stats() {
         <Stat name="charm" value={playerStore.charm} />
       </View>
       <View>
-        <Text>{getText(['character', 'statuses', status])}</Text>
+        <Text>Состояние: {getText(['character', 'statuses', status])}</Text>
       </View>
     </View>
   );

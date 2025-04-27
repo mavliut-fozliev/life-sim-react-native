@@ -17,29 +17,94 @@ export enum PeopleRole {
   Mother = 'Mother',
   Father = 'Father',
   Brother = 'Brother',
+  Sister = 'Sister',
+  Spouse = 'Spouse',
   Friend = 'Friend',
-  Neighbour = 'Neighbour',
+  Familiar = 'Familiar',
   Stranger = 'Stranger',
 }
 
 export enum PeopleRelationship {
-  Love = 'Love',
-  Trust = 'Trust',
-  Friendliness = 'Friendliness',
-  Neutrality = 'Neutrality',
-  Strictness = 'Strictness',
-  Conflict = 'Conflict',
-  Hostility = 'Hostility',
-  Indifference = 'Indifference',
+  Love,
+  Friendliness,
+  Neutrality,
+  Coldness,
+  Hostility,
 }
 
 export const peopleRelationshipColors = {
-  [PeopleRelationship.Love]: '#FF5573',
-  [PeopleRelationship.Trust]: '#64DC96',
-  [PeopleRelationship.Friendliness]: '#FFD264',
-  [PeopleRelationship.Neutrality]: '#B4B4B4',
-  [PeopleRelationship.Strictness]: '#4682B4',
-  [PeopleRelationship.Conflict]: '#FF8C00',
-  [PeopleRelationship.Hostility]: '#DC143C',
-  [PeopleRelationship.Indifference]: '#82B4FF',
+  [PeopleRelationship.Love]: '#F56C42',
+  [PeopleRelationship.Friendliness]: '#64B5F6',
+  [PeopleRelationship.Neutrality]: '#BDBDBD',
+  [PeopleRelationship.Coldness]: '#D32F2F',
+  [PeopleRelationship.Hostility]: '#9E9E9E',
+};
+
+export const peopleRelationshipMap: {[key in PeopleRelationship]: number} = {
+  [PeopleRelationship.Love]: 100,
+  [PeopleRelationship.Friendliness]: 85,
+  [PeopleRelationship.Neutrality]: 65,
+  [PeopleRelationship.Coldness]: 45,
+  [PeopleRelationship.Hostility]: 25,
+};
+
+const parentsRelationshipLabels = {
+  [PeopleRelationship.Love]: 'Care',
+  [PeopleRelationship.Friendliness]: 'Support',
+  [PeopleRelationship.Neutrality]: 'Expectation',
+  [PeopleRelationship.Coldness]: 'Coldness',
+  [PeopleRelationship.Hostility]: 'Indifference',
+};
+
+const spouseRelationshipLabels = {
+  [PeopleRelationship.Love]: 'Love',
+  [PeopleRelationship.Friendliness]: 'Attachment',
+  [PeopleRelationship.Neutrality]: 'Understanding',
+  [PeopleRelationship.Coldness]: 'Misunderstanding',
+  [PeopleRelationship.Hostility]: 'Alienation',
+};
+
+const siblingsRelationshipLabels = {
+  [PeopleRelationship.Love]: 'Devotion',
+  [PeopleRelationship.Friendliness]: 'Support',
+  [PeopleRelationship.Neutrality]: 'Apathy',
+  [PeopleRelationship.Coldness]: 'Coldness',
+  [PeopleRelationship.Hostility]: 'Conflict',
+};
+
+const familiarRelationshipLabels = {
+  [PeopleRelationship.Love]: 'Friendliness',
+  [PeopleRelationship.Friendliness]: 'Politeness',
+  [PeopleRelationship.Neutrality]: 'Neutrality',
+  [PeopleRelationship.Coldness]: 'Coldness',
+  [PeopleRelationship.Hostility]: 'Hostility',
+};
+
+export const peopleRelationshipLabels: Omit<
+  {[role in PeopleRole]: {[relationship in PeopleRelationship]: string}},
+  'Stranger'
+> = {
+  [PeopleRole.Mother]: parentsRelationshipLabels,
+  [PeopleRole.Father]: parentsRelationshipLabels,
+  [PeopleRole.Brother]: siblingsRelationshipLabels,
+  [PeopleRole.Sister]: siblingsRelationshipLabels,
+  [PeopleRole.Spouse]: spouseRelationshipLabels,
+  [PeopleRole.Friend]: siblingsRelationshipLabels,
+  [PeopleRole.Familiar]: familiarRelationshipLabels,
+};
+
+export enum PeopleSituation {
+  Trust = 'Trust',
+  Admiration = 'Admiration',
+  Disappointment = 'Disappointment',
+  Resentment = 'Resentment',
+  Conflict = 'Conflict',
+}
+
+export const peopleSituationColors = {
+  [PeopleSituation.Trust]: '#4CAF50',
+  [PeopleSituation.Admiration]: '#FFEB3B',
+  [PeopleSituation.Disappointment]: '#9C27B0',
+  [PeopleSituation.Resentment]: '#FF5722',
+  [PeopleSituation.Conflict]: '#F44336',
 };

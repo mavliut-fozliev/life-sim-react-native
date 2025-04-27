@@ -33,7 +33,7 @@ export const getRandomValue = (array: {value: any; chance: number}[]) => {
   return found?.value || sorted[0].value;
 };
 
-export function findMatchingKeyByMaxNumber<T extends string>(
+export function findMatchingKeyByMaxNumber<T extends string | number>(
   valueMap: {[key in T]: number},
   value: number,
 ): T | undefined {

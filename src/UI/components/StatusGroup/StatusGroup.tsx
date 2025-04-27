@@ -1,32 +1,57 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {PeopleRelationship, peopleRelationshipColors} from '../../../consts/character/characterProps';
+import {
+  PeopleRelationship,
+  peopleRelationshipColors,
+  peopleRelationshipLabels,
+  peopleRelationshipMap,
+  PeopleRole,
+  PeopleSituation,
+  peopleSituationColors,
+} from '../../../consts/character/characterProps';
 import {fontSizes} from '../../../consts/styles';
 import {useLocalizeText} from '../../../locales/useLocalizeText';
+import {findMatchingKeyByMaxNumber} from '../../../utils/common';
 
 type StatusGroupProps = {
-  relationship: PeopleRelationship[];
+  role: PeopleRole;
+  relationship: number;
+  situation?: PeopleSituation;
 };
 
-function StatusGroup({relationship}: StatusGroupProps) {
+function StatusGroup({role, relationship, situation}: StatusGroupProps) {
   const {getText} = useLocalizeText();
+
+  const relationshipValue =
+    findMatchingKeyByMaxNumber(peopleRelationshipMap, relationship) || PeopleRelationship.Neutrality;
+
+  const relationshipLabel =
+    role !== PeopleRole.Stranger
+      ? peopleRelationshipLabels[role][relationshipValue]
+      : peopleRelationshipLabels[PeopleRole.Familiar][PeopleRelationship.Neutrality];
+
+  const relationshipColor = peopleRelationshipColors[relationshipValue];
 
   return (
     <View style={styles.relationships}>
-      {relationship.map((r, i) => (
-        <View key={i.toString()} style={[styles.status, {borderColor: peopleRelationshipColors[r]}]}>
-          <Text style={[styles.statusText, {color: peopleRelationshipColors[r]}]}>
-            {getText(['character', 'relationships', r])}
+      <View style={[styles.status, {borderColor: relationshipColor}]}>
+        <Text style={[styles.statusText, {color: relationshipColor}]}>
+          {getText(['character', 'relationships', relationshipLabel])}
+        </Text>
+      </View>
+      {situation && (
+        <View style={[styles.status, {borderColor: peopleSituationColors[situation]}]}>
+          <Text style={[styles.statusText, {color: peopleSituationColors[situation]}]}>
+            {getText(['character', 'situation', situation])}
           </Text>
         </View>
-      ))}
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   relationships: {
-    width: 300,
     overflow: 'hidden',
     top: 2,
     flexDirection: 'row',
