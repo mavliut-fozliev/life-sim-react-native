@@ -22,15 +22,15 @@ type StatusGroupProps = {
 function StatusGroup({role, relationship, situation}: StatusGroupProps) {
   const {getText} = useLocalizeText();
 
-  const relationshipValue =
+  const relationshipStage =
     findMatchingKeyByMaxNumber(peopleRelationshipMap, relationship) || PeopleRelationship.Neutrality;
 
   const relationshipLabel =
     role !== PeopleRole.Stranger
-      ? peopleRelationshipLabels[role][relationshipValue]
+      ? peopleRelationshipLabels[role][relationshipStage]
       : peopleRelationshipLabels[PeopleRole.Familiar][PeopleRelationship.Neutrality];
 
-  const relationshipColor = peopleRelationshipColors[relationshipValue];
+  const relationshipColor = peopleRelationshipColors[relationshipStage];
 
   return (
     <View style={styles.relationships}>

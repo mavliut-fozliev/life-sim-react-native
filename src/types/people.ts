@@ -1,8 +1,14 @@
-import {PeopleRole, PeopleSituation, PlacePeopleType, SpriteEras} from '../consts/character/characterProps';
+import {
+  PeopleRelationship,
+  PeopleRole,
+  PeopleSituation,
+  PlacePeopleType,
+  SpriteEras,
+} from '../consts/character/characterProps';
 import {Cities} from '../consts/cities';
 import {Countries} from '../consts/countries';
 import {Gender} from '../consts/gender';
-import {ObjectRecord} from './common';
+import {Chances, ObjectRecord} from './common';
 
 export type CommonSpriteVariants = {
   legs: 'light';
@@ -45,3 +51,14 @@ export type FamilyPerson = {
 } & Person;
 
 export type PlacePeople = ObjectRecord<ObjectRecord<string[]>>;
+
+export type PeopleInteraction = {
+  label: string;
+  conditions: PeopleRelationship[];
+  oneTimeImpact: Chances<number>;
+  situationImpact: Chances<PeopleSituation | undefined>;
+};
+
+export type PeopleInteractions = {
+  [role in PeopleRole]: PeopleInteraction[];
+};

@@ -132,6 +132,9 @@ export function useCreateCharacters() {
   const people: ObjectRecord<Person> = {}; // people contains all characters
   const addToPeople = (person: Person) => (people[person.id] = person);
 
+  addToPeople(getMother());
+  addToPeople(getFather());
+
   const placePeople: PlacePeople = {};
   const districts = places[country]?.[city] || {};
 
@@ -151,8 +154,6 @@ export function useCreateCharacters() {
 
   return () => {
     playerStore.$sprite.set(playerSprite);
-    characterStore.$mother.set(getMother());
-    characterStore.$father.set(getFather());
     characterStore.$people.set(people);
     characterStore.$placePeople.set(placePeople);
   };

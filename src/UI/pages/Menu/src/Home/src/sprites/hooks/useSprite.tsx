@@ -8,6 +8,8 @@ import TestCar from '../transport/TestCar/TestCar';
 import {Person} from '../../../../../../../../types/people';
 import TestAircraft from '../aircraft/TestAircraft/TestAircraft';
 import {useGetSpriteByAge} from './useGetSpriteByAge';
+import {PeopleRole} from '../../../../../../../../consts/character/characterProps';
+import {findByRole} from '../../../../../../../../utils/common';
 
 export enum SpriteName {
   player = 'player',
@@ -26,6 +28,9 @@ export function useSprite() {
   const playerStore = usePlayerStore();
   const characterStore = useCharacterStore();
 
+  const motherPerson = findByRole(characterStore.people, PeopleRole.Mother);
+  const fatherPerson = findByRole(characterStore.people, PeopleRole.Father);
+
   const getSpriteByAge = useGetSpriteByAge();
 
   const getSpriteNode = (size: DimensionValue, style?: ViewStyle): Sprites => ({
@@ -42,28 +47,32 @@ export function useSprite() {
       },
       style,
     ),
-    [SpriteName.mother]: (
+    [SpriteName.mother]: motherPerson ? (
       <Adult
         size={size}
-        legs={characterStore.mother.sprite.legs}
-        body={characterStore.mother.sprite.body}
-        head={characterStore.mother.sprite.head}
-        eyes={characterStore.mother.sprite.eyes}
-        mouth={characterStore.mother.sprite.mouth}
+        legs={motherPerson.sprite.legs}
+        body={motherPerson.sprite.body}
+        head={motherPerson.sprite.head}
+        eyes={motherPerson.sprite.eyes}
+        mouth={motherPerson.sprite.mouth}
         style={style}
       />
+    ) : (
+      <></>
     ),
-    [SpriteName.father]: (
+    [SpriteName.father]: fatherPerson ? (
       <Adult
         size={size}
-        legs={characterStore.father.sprite.legs}
-        body={characterStore.father.sprite.body}
-        head={characterStore.father.sprite.head}
-        eyes={characterStore.father.sprite.eyes}
-        mouth={characterStore.father.sprite.mouth}
-        hair={characterStore.father.sprite.hair}
+        legs={fatherPerson.sprite.legs}
+        body={fatherPerson.sprite.body}
+        head={fatherPerson.sprite.head}
+        eyes={fatherPerson.sprite.eyes}
+        mouth={fatherPerson.sprite.mouth}
+        hair={fatherPerson.sprite.hair}
         style={style}
       />
+    ) : (
+      <></>
     ),
     [SpriteName.home]: <TestHome size={size} style={style} />,
     [SpriteName.car]: <TestCar size={size} style={style} />,

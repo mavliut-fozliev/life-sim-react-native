@@ -25,11 +25,11 @@ export enum PeopleRole {
 }
 
 export enum PeopleRelationship {
-  Love,
-  Friendliness,
-  Neutrality,
-  Coldness,
-  Hostility,
+  Love = 'Love',
+  Friendliness = 'Friendliness',
+  Neutrality = 'Neutrality',
+  Coldness = 'Coldness',
+  Hostility = 'Hostility',
 }
 
 export const peopleRelationshipColors = {
@@ -97,6 +97,7 @@ export enum PeopleSituation {
   Trust = 'Trust',
   Admiration = 'Admiration',
   Disappointment = 'Disappointment',
+  Respect = 'Respect',
   Resentment = 'Resentment',
   Conflict = 'Conflict',
 }
@@ -105,6 +106,16 @@ export const peopleSituationColors = {
   [PeopleSituation.Trust]: '#4CAF50',
   [PeopleSituation.Admiration]: '#FFEB3B',
   [PeopleSituation.Disappointment]: '#9C27B0',
+  [PeopleSituation.Respect]: '#3F51B5',
   [PeopleSituation.Resentment]: '#FF5722',
   [PeopleSituation.Conflict]: '#F44336',
+};
+
+export const peopleSituationImpact = {
+  [PeopleSituation.Trust]: +5,
+  [PeopleSituation.Admiration]: +3,
+  [PeopleSituation.Respect]: +1,
+  [PeopleSituation.Disappointment]: -2,
+  [PeopleSituation.Resentment]: -3,
+  [PeopleSituation.Conflict]: -5,
 };

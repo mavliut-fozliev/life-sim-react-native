@@ -86,6 +86,16 @@ export const getInitializer = <T>(mmkvKey: string, fields: StoreFields, limits?:
           return {[key]: value};
         });
       },
+      updateByKeys: (parameters: {itemKeys: string[]; value: any}[]) => {
+        set((state: any) => {
+          const newState = state[key];
+          parameters.forEach(({itemKeys, value}) => {
+            setValue(newState, itemKeys, value);
+          });
+          obj.save(getMMKVKey(key), newState);
+          return {[key]: newState};
+        });
+      },
     },
   });
 
@@ -104,3 +114,14 @@ export const getInitializer = <T>(mmkvKey: string, fields: StoreFields, limits?:
     }, {}) as T;
   };
 };
+
+function setValue(object: any, keys: string[], value: any) {
+  let current = object;
+  keys.slice(0, -1).forEach(key => {
+    if (!(key in current) || typeof current[key] !== 'object') {
+      current[key] = {};
+    }
+    current = current[key];
+  });
+  current[keys[keys.length - 1]] = value;
+}

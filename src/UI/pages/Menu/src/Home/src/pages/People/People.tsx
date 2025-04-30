@@ -9,6 +9,8 @@ import useCharacterStore from '../../../../store/characterStore';
 import {SpriteName, useSprite} from '../../sprites/hooks/useSprite';
 import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
 import StatusGroup from '../../../../../../../components/StatusGroup/StatusGroup';
+import {PeopleRole} from '../../../../../../../../consts/character/characterProps';
+import {findByRole} from '../../../../../../../../utils/common';
 
 type PeopleProps = {
   navigation: Navigation;
@@ -21,41 +23,48 @@ function People({navigation}: PeopleProps) {
   const {getSprite} = useSprite();
   const {getText} = useLocalizeText();
 
-  const mother = getSprite(SpriteName.mother, 60);
   const father = getSprite(SpriteName.father, 60);
+  const mother = getSprite(SpriteName.mother, 60);
+
+  const fatherPerson = findByRole(characterStore.people, PeopleRole.Father);
+  const motherPerson = findByRole(characterStore.people, PeopleRole.Mother);
 
   return (
     <ScrollView style={styles.box}>
-      <SectionButton
-        label={`${characterStore.father.name} ${characterStore.father.surname}`}
-        description={getText(['character', 'roles', characterStore.father.role])}
-        height={100}
-        extraLine={
-          <StatusGroup
-            role={characterStore.father.role}
-            relationship={characterStore.father.relationship}
-            situation={characterStore.father.situation}
-          />
-        }
-        mainIcon={father}
-        icon={<></>}
-        onPress={() => navigate.stepForward(PageNames.Intercations, {person: characterStore.father})}
-      />
-      <SectionButton
-        label={`${characterStore.mother.name} ${characterStore.mother.surname}`}
-        description={getText(['character', 'roles', characterStore.mother.role])}
-        height={100}
-        extraLine={
-          <StatusGroup
-            role={characterStore.mother.role}
-            relationship={characterStore.mother.relationship}
-            situation={characterStore.mother.situation}
-          />
-        }
-        mainIcon={mother}
-        icon={<></>}
-        onPress={() => navigate.stepForward(PageNames.Intercations, {person: characterStore.mother})}
-      />
+      {fatherPerson && (
+        <SectionButton
+          label={`${fatherPerson.name} ${fatherPerson.surname}`}
+          description={getText(['character', 'roles', PeopleRole.Father])}
+          height={100}
+          extraLine={
+            <StatusGroup
+              role={fatherPerson.role}
+              relationship={fatherPerson.relationship}
+              situation={fatherPerson.situation}
+            />
+          }
+          mainIcon={father}
+          icon={<></>}
+          onPress={() => navigate.stepForward(PageNames.Intercations, {person: fatherPerson})}
+        />
+      )}
+      {motherPerson && (
+        <SectionButton
+          label={`${motherPerson.name} ${motherPerson.surname}`}
+          description={getText(['character', 'roles', PeopleRole.Mother])}
+          height={100}
+          extraLine={
+            <StatusGroup
+              role={motherPerson.role}
+              relationship={motherPerson.relationship}
+              situation={motherPerson.situation}
+            />
+          }
+          mainIcon={mother}
+          icon={<></>}
+          onPress={() => navigate.stepForward(PageNames.Intercations, {person: motherPerson})}
+        />
+      )}
     </ScrollView>
   );
 }

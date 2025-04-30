@@ -1,3 +1,7 @@
+import {PeopleRole} from '../consts/character/characterProps';
+import {Chances, ObjectRecord} from '../types/common';
+import {Person} from '../types/people';
+
 export const getRandomArrayItem = <T>(array: T[]): T | undefined => {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
@@ -18,7 +22,7 @@ export function getRandomInRange(from: number, to: number, bias: number = 0) {
   return Math.floor(skewed * range) + from;
 }
 
-export const getRandomValue = (array: {value: any; chance: number}[]) => {
+export const getRandomValue = <T>(array: Chances<T>) => {
   const random = Math.random() * 100;
 
   const sorted = array.sort((a, b) => b.chance - a.chance);
@@ -48,4 +52,8 @@ export function findMatchingKeyByMaxNumber<T extends string | number>(
   }
 
   return undefined;
+}
+
+export function findByRole(people: ObjectRecord<Person>, role: PeopleRole) {
+  return Object.values(people).find(p => p.role === role);
 }
