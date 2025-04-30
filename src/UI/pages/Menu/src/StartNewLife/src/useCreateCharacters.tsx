@@ -132,27 +132,31 @@ export function useCreateCharacters() {
   const people: ObjectRecord<Person> = {}; // people contains all characters
   const addToPeople = (person: Person) => (people[person.id] = person);
 
-  addToPeople(getMother());
-  addToPeople(getFather());
-
   const placePeople: PlacePeople = {};
-  const districts = places[country]?.[city] || {};
 
-  Object.entries(districts).forEach(([districtName, districtPlaces]) => {
-    placePeople[districtName] = {};
+  function createPlacePeople() {
+    const districts = places[country]?.[city] || {};
 
-    Object.entries(districtPlaces).forEach(([placeName, placeProps]) => {
-      const currentPlacePeople = characterMap[placeProps.type][placeProps.level];
+    Object.entries(districts).forEach(([districtName, districtPlaces]) => {
+      placePeople[districtName] = {};
 
-      placePeople[districtName][placeName] = currentPlacePeople.map(placePeopleType => {
-        const person = getPerson(placePeopleType);
-        addToPeople(person);
-        return person.id;
+      Object.entries(districtPlaces).forEach(([placeName, placeProps]) => {
+        const currentPlacePeople = characterMap[placeProps.type][placeProps.level];
+
+        placePeople[districtName][placeName] = currentPlacePeople.map(placePeopleType => {
+          const person = getPerson(placePeopleType);
+          addToPeople(person);
+          return person.id;
+        });
       });
     });
-  });
+  }
 
   return () => {
+    addToPeople(getMother());
+    addToPeople(getFather());
+    createPlacePeople();
+
     playerStore.$sprite.set(playerSprite);
     characterStore.$people.set(people);
     characterStore.$placePeople.set(placePeople);
