@@ -39,10 +39,12 @@ export type ObjectField<T extends string, V extends object> = {
 } & {
   [K in `$${T}`]: {
     set: (value: V) => void;
-    updateByKeys: (parameters: {itemKeys: string[]; value: any; min?: number; max?: number}[]) => void;
+    updateByKeys: (parameters: UpdateByKeysParams) => void;
   };
 };
 
 export type StoreFields = ObjectRecord<'str' | 'num' | 'bool' | 'obj'>;
 
 export type FieldLimits = {min: ObjectRecord<number>; max: ObjectRecord<number>};
+
+export type UpdateByKeysParams = {itemKeys: string[]; value: any; min?: number; max?: number}[];
