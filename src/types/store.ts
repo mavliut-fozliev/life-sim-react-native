@@ -39,7 +39,7 @@ export type ObjectField<T extends string, V extends object> = {
 } & {
   [K in `$${T}`]: {
     set: (value: V) => void;
-    updateByKeys: (parameters: {itemKeys: string[]; value: any}[]) => void;
+    updateByKeys: (parameters: {itemKeys: string[]; value: any; min?: number; max?: number}[]) => void;
   };
 };
 

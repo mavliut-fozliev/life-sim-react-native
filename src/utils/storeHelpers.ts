@@ -86,10 +86,16 @@ export const getInitializer = <T>(mmkvKey: string, fields: StoreFields, limits?:
           return {[key]: value};
         });
       },
-      updateByKeys: (parameters: {itemKeys: string[]; value: any}[]) => {
+      updateByKeys: (parameters: {itemKeys: string[]; value: any; min?: number; max?: number}[]) => {
         set((state: any) => {
           const newState = state[key];
-          parameters.forEach(({itemKeys, value}) => {
+          parameters.forEach(({itemKeys, value, min, max}) => {
+            if (max !== undefined && value > max) {
+              value = max;
+            }
+            if (min !== undefined && value < min) {
+              value = min;
+            }
             setValue(newState, itemKeys, value);
           });
           obj.save(getMMKVKey(key), newState);

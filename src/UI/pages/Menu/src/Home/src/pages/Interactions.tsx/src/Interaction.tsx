@@ -23,7 +23,7 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
     const situationImpact = getRandomValue(interaction.situationImpact);
 
     const params = [
-      {itemKeys: [person.id, 'relationship'], value: person.relationship + oneTimeImpact},
+      {itemKeys: [person.id, 'relationship'], value: person.relationship + oneTimeImpact, min: 0, max: 100},
       {itemKeys: [person.id, 'situation'], value: situationImpact},
     ];
 
