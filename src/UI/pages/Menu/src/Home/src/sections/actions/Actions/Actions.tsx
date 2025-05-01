@@ -5,8 +5,7 @@ import usePlayerStore from '../../../../../store/playerStore';
 import {Navigation} from '../../../../../../../../../types/navigation';
 import {PageNames} from '../../../../../../../../../consts/pages';
 import {useNavigate} from '../../../../../../../../../hooks/useNavigate';
-import useCharacterStore from '../../../../../store/characterStore';
-import {peopleSituationImpact} from '../../../../../../../../../consts/character/characterProps';
+import {useGrowUp} from '../src/hooks/useGrowUp';
 
 type ActionsProps = {
   navigation: Navigation;
@@ -14,25 +13,9 @@ type ActionsProps = {
 
 function Actions({navigation}: ActionsProps) {
   const playerStore = usePlayerStore();
-  const characterStore = useCharacterStore();
   const navigate = useNavigate(navigation);
 
-  const growUp = () => {
-    playerStore.$age.increase(1);
-    playerStore.$energy.set(20);
-
-    Object.values(characterStore.people).forEach(person => {
-      if (!person.situation) {
-        return;
-      }
-
-      const situationImpact = peopleSituationImpact[person.situation];
-
-      characterStore.$people.updateByKeys([
-        {itemKeys: [person.id, 'relationship'], value: person.relationship + situationImpact, min: 0, max: 100},
-      ]);
-    });
-  };
+  const growUp = useGrowUp();
 
   return (
     <View style={styles.box}>

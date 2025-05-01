@@ -36,7 +36,9 @@ export type Person = {
   age: number;
   role: PeopleRole;
   relationship: number;
+  performedActions: number | undefined;
   situation?: PeopleSituation;
+  situationDuration?: number;
   sprite: CommonSpriteVariants;
   placePeopleType?: PlacePeopleType;
 };

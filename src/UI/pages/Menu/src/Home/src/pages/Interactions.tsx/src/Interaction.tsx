@@ -23,16 +23,28 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
   const handlePress = () => {
     const oneTimeImpact = getRandomValue(interaction.oneTimeImpact);
 
-    const params: UpdateByKeysParams = [
-      {itemKeys: [person.id, 'relationship'], value: person.relationship + oneTimeImpact, min: 0, max: 100},
-    ];
+    const relationshipUpdateParams = {
+      itemKeys: [person.id, 'relationship'],
+      value: person.relationship + oneTimeImpact,
+      min: 0,
+      max: 100,
+    };
+
+    const performedActionsUpdateParams = {
+      itemKeys: [person.id, 'performedActions'],
+      value: (person.performedActions || 0) + 1,
+    };
+
+    let params: UpdateByKeysParams = [relationshipUpdateParams, performedActionsUpdateParams];
 
     const oldSituationImpact = person.situation ? peopleSituationImpact[person.situation] : 0;
     const newSituation = getRandomValue(interaction.situationImpact);
     const newSituationImpact = newSituation ? peopleSituationImpact[newSituation] : 0;
 
     if (Math.abs(newSituationImpact) > Math.abs(oldSituationImpact)) {
-      params.push({itemKeys: [person.id, 'situation'], value: newSituation});
+      const situationUpdateParams = {itemKeys: [person.id, 'situation'], value: newSituation};
+      const situationDurationUpdateParams = {itemKeys: [person.id, 'situationDuration'], value: 3};
+      params = [...params, situationUpdateParams, situationDurationUpdateParams];
     }
 
     characterStore.$people.updateByKeys(params);
@@ -40,7 +52,17 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
     navigate.backToHome();
   };
 
-  return <SectionButton label={interaction.label} onPress={handlePress} disabled={playerStore.energy < 1} />;
+  const isDisabled = () => {
+    if (playerStore.energy < 1) {
+      return true;
+    }
+    if (person.performedActions && person.performedActions > 2) {
+      return true;
+    }
+    return false;
+  };
+
+  return <SectionButton label={interaction.label} onPress={handlePress} disabled={isDisabled()} />;
 }
 
 export default Interaction;

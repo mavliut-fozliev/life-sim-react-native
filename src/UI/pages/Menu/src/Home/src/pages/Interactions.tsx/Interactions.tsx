@@ -16,6 +16,8 @@ type InteractionsProps = {
 function Intercations({navigation, route}: InteractionsProps) {
   const person = route.params.person;
 
+  console.log(person);
+
   const relationshipStage = findMatchingKeyByMaxNumber(peopleRelationshipMap, person.relationship);
 
   const availableInteractions = relationshipStage

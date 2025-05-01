@@ -59,6 +59,7 @@ export function useCreateCharacters() {
       role: PeopleRole.Mother,
       relationship: 90,
       situation: PeopleSituation.Admiration,
+      situationDuration: 5,
       params: {
         money: 10000,
         health: 80,
@@ -85,6 +86,7 @@ export function useCreateCharacters() {
       role: PeopleRole.Father,
       relationship: 90,
       situation: PeopleSituation.Admiration,
+      situationDuration: 5,
       params: {
         money: 10000,
         health: 80,
