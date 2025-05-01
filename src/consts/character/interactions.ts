@@ -4,12 +4,7 @@ import {PeopleRelationship, PeopleRole, PeopleSituation} from './characterProps'
 const parentsInteractions: PeopleInteraction[] = [
   {
     label: 'Spend Time Together',
-    conditions: [
-      PeopleRelationship.Love,
-      PeopleRelationship.Friendliness,
-      PeopleRelationship.Neutrality,
-      PeopleRelationship.Coldness,
-    ],
+    conditions: [PeopleRelationship.Love, PeopleRelationship.Friendliness, PeopleRelationship.Neutrality],
     oneTimeImpact: [
       {value: 3, chance: 70},
       {value: 5, chance: 30},
@@ -35,6 +30,23 @@ const parentsInteractions: PeopleInteraction[] = [
       {value: PeopleSituation.Admiration, chance: 50},
       {value: PeopleSituation.Respect, chance: 30},
       {value: undefined, chance: 20},
+    ],
+  },
+  {
+    label: 'Talk on the Phone',
+    conditions: [
+      PeopleRelationship.Love,
+      PeopleRelationship.Friendliness,
+      PeopleRelationship.Neutrality,
+      PeopleRelationship.Coldness,
+    ],
+    oneTimeImpact: [
+      {value: 3, chance: 50},
+      {value: 4, chance: 50},
+    ],
+    situationImpact: [
+      {value: PeopleSituation.Admiration, chance: 50},
+      {value: undefined, chance: 50},
     ],
   },
   {

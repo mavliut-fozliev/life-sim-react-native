@@ -6,4 +6,5 @@ export default {
   'Steal Money': 'Украсть деньги',
   'Ask About Health': 'Спросить о здоровье',
   'Give Praise': 'Похвалить',
+  'Talk on the Phone': 'Поговорить по телефону',
 };
