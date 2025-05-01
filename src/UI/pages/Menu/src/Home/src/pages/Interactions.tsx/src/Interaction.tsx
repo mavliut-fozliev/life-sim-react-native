@@ -43,7 +43,16 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
 
     if (Math.abs(newSituationImpact) > Math.abs(oldSituationImpact)) {
       const situationUpdateParams = {itemKeys: [person.id, 'situation'], value: newSituation};
-      const situationDurationUpdateParams = {itemKeys: [person.id, 'situationDuration'], value: 3};
+
+      const situationDuration = getRandomValue([
+        {value: 2, chance: 50},
+        {value: 3, chance: 30},
+        {value: 4, chance: 20},
+      ]);
+      const situationDurationUpdateParams = {
+        itemKeys: [person.id, 'situationDuration'],
+        value: situationDuration,
+      };
       params = [...params, situationUpdateParams, situationDurationUpdateParams];
     }
 
