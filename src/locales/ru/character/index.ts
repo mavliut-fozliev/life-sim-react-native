@@ -4,6 +4,7 @@ import roles from './roles';
 import relationships from './relationships';
 import situation from './situation';
 import statuses from './statuses';
+import interactions from './interactions';
 
 export default {
   names,
@@ -12,4 +13,5 @@ export default {
   relationships,
   situation,
   statuses,
+  interactions,
 };

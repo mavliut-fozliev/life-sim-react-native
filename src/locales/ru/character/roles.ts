@@ -2,7 +2,9 @@ export default {
   'Mother': 'Мать',
   'Father': 'Отец',
   'Brother': 'Брат',
+  'Sister': 'Сестра',
+  'Spouse': 'Супруг',
   'Friend': 'Друг',
-  'Neighbour': 'Сосед',
+  'Familiar': 'Знакомый',
   'Stranger': 'Незнакомец',
 };

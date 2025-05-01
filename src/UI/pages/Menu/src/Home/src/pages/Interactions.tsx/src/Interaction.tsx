@@ -8,6 +8,7 @@ import {useNavigate} from '../../../../../../../../../hooks/useNavigate';
 import {Navigation} from '../../../../../../../../../types/navigation';
 import {peopleSituationImpact} from '../../../../../../../../../consts/character/characterProps';
 import {UpdateByKeysParams} from '../../../../../../../../../types/store';
+import {useLocalizeText} from '../../../../../../../../../locales/useLocalizeText';
 
 type InteractionProps = {
   interaction: PeopleInteraction;
@@ -19,6 +20,7 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
   const characterStore = useCharacterStore();
   const playerStore = usePlayerStore();
   const navigate = useNavigate(navigation);
+  const {getText} = useLocalizeText();
 
   const handlePress = () => {
     const oneTimeImpact = getRandomValue(interaction.oneTimeImpact);
@@ -71,7 +73,14 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
     return false;
   };
 
-  return <SectionButton label={interaction.label} onPress={handlePress} disabled={isDisabled()} />;
+  return (
+    <SectionButton
+      label={getText(['character', 'interactions', interaction.label])}
+      onPress={handlePress}
+      disabled={isDisabled()}
+      icon={<></>}
+    />
+  );
 }
 
 export default Interaction;
