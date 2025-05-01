@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, Modal, TouchableOpacity, ScrollView} from 'react-native';
 import {colors, fontSizes} from '../../../consts/styles';
-import Radio from '../../../icons/Radio';
 import {useLocalizeText} from '../../../locales/useLocalizeText';
+import {useIcon} from '../../../icons/useIcon';
+import {Icon} from '../../../types/icons';
 
 export type SelectItem<T extends string = string> = {
   label: string;
@@ -19,6 +20,10 @@ type SelectProps<T extends string = string> = {
   label: string;
   placeholder?: string;
 };
+
+function RadioIcon({selected}: {selected: boolean}) {
+  return useIcon(Icon.Radio, {size: 30, selected});
+}
 
 function Select<T extends string = string>({value, items, onSelectItem, label, placeholder = ''}: SelectProps<T>) {
   const {getText} = useLocalizeText();
@@ -74,7 +79,7 @@ function Select<T extends string = string>({value, items, onSelectItem, label, p
                     <Text numberOfLines={1} ellipsizeMode="tail" style={{...styles.item, color: item.color}}>
                       {item.label}
                     </Text>
-                    <Radio size={30} selected={item.value === value} />
+                    <RadioIcon selected={item.value === value} />
                   </View>
                 </TouchableOpacity>
               ))}

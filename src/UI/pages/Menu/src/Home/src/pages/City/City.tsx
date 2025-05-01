@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {colors} from '../../../../../../../../consts/styles';
 import usePlayerStore from '../../../../store/playerStore';
@@ -10,20 +10,12 @@ import SectionButton from '../../../../../../../components/SectionButton/Section
 import {PageNames} from '../../../../../../../../consts/pages';
 import {PlaceLevel, PlaceProps, PlaceType} from '../../../../../../../../types/places';
 import Divider from '../../../../../../../components/Divider/Divider';
-import Strength from '../../../../../../../../icons/Strength';
-import Heart from '../../../../../../../../icons/Heart';
-import ArrowRight from '../../../../../../../../icons/ArrowRight';
-import Star from '../../../../../../../../icons/Star';
 import useCharacterStore from '../../../../store/characterStore';
+import {Icon} from '../../../../../../../../types/icons';
+import {useIcon} from '../../../../../../../../icons/useIcon';
 
 type CityProps = {
   navigation: Navigation;
-};
-
-const icons: {[type in PlaceType]: ReactNode} = {
-  [PlaceType.Gym]: <Strength size={26} />,
-  [PlaceType.Hospital]: <Heart size={26} />,
-  [PlaceType.Nightclub]: <Heart size={26} borderColor="black" filling="black" />,
 };
 
 const numberLevel = {
@@ -32,7 +24,19 @@ const numberLevel = {
   [PlaceLevel.Three]: 3,
 };
 
+function StarIcon() {
+  return useIcon(Icon.Star, {size: 16});
+}
+
 function City({navigation}: CityProps) {
+  const icons: {[type in PlaceType]: React.JSX.Element} = {
+    [PlaceType.Gym]: useIcon(Icon.Strength, {size: 26}),
+    [PlaceType.Hospital]: useIcon(Icon.Heart, {size: 26}),
+    [PlaceType.Nightclub]: useIcon(Icon.Heart, {size: 26, borderColor: 'black', filling: 'black'}),
+  };
+
+  const arrowRight = useIcon(Icon.ArrowRight, {size: 14});
+
   const playerStore = usePlayerStore();
   const characterStore = useCharacterStore();
 
@@ -70,10 +74,10 @@ function City({navigation}: CityProps) {
                 <View style={styles.icons}>
                   <View style={styles.stars}>
                     {Array.from({length: numberLevel[placeProps.level]}).map((l, i) => (
-                      <Star size={16} key={i.toString()} />
+                      <StarIcon key={i.toString()} />
                     ))}
                   </View>
-                  <ArrowRight size={14} />
+                  {arrowRight}
                 </View>
               }
             />

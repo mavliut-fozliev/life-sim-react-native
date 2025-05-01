@@ -115,7 +115,7 @@ export const peopleSituationImpact = {
   [PeopleSituation.Trust]: +5,
   [PeopleSituation.Admiration]: +3,
   [PeopleSituation.Respect]: +1,
-  [PeopleSituation.Disappointment]: -2,
-  [PeopleSituation.Resentment]: -3,
+  [PeopleSituation.Resentment]: -2,
+  [PeopleSituation.Disappointment]: -3,
   [PeopleSituation.Conflict]: -5,
 };

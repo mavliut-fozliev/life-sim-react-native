@@ -2,7 +2,7 @@ import * as React from 'react';
 import Svg, {Circle, G, Path} from 'react-native-svg';
 import {SvgProps} from './types';
 
-type RadioProps = SvgProps & {selected: boolean};
+type RadioProps = SvgProps & {selected?: boolean};
 
 const Radio = (props: RadioProps) => (
   <Svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width={props.size} height={props.size}>

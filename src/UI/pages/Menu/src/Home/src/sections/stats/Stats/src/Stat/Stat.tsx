@@ -1,19 +1,11 @@
 import React from 'react';
-import Heart from '../../../../../../../../../../../icons/Heart';
-import Strength from '../../../../../../../../../../../icons/Strength';
-import Charm from '../../../../../../../../../../../icons/Charm';
 import StatTemplate from '../../../../../../../../../../components/StatTemplate/StatTemplate';
+import {useIcon} from '../../../../../../../../../../../icons/useIcon';
+import {Icon} from '../../../../../../../../../../../types/icons';
 
 type VariantType = 'health' | 'power' | 'age' | 'charm';
 
 type StatProps = {name: VariantType; value: number};
-
-const icons: {[K in VariantType]: React.JSX.Element} = {
-  health: <Heart size={26} borderColor="#000" filling="#FF0909" />,
-  power: <Strength size={26} />,
-  age: <Heart size={26} borderColor="#000" filling="#1B1B9C" />,
-  charm: <Charm size={26} />,
-};
 
 const variantStyles: {[K in VariantType]: string} = {
   health: '#FF3D3D',
@@ -23,6 +15,13 @@ const variantStyles: {[K in VariantType]: string} = {
 };
 
 function Stat({name, value}: StatProps) {
+  const icons: {[K in VariantType]: React.JSX.Element} = {
+    health: useIcon(Icon.Heart, {size: 26, borderColor: '#000', filling: '#FF0909'}),
+    power: useIcon(Icon.Strength, {size: 26}),
+    age: useIcon(Icon.Heart, {size: 26, borderColor: '#000', filling: '#1B1B9C'}),
+    charm: useIcon(Icon.Charm, {size: 26}),
+  };
+
   return <StatTemplate color={variantStyles[name]} value={value} icon={icons[name]} />;
 }
 

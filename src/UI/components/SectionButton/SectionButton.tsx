@@ -1,7 +1,8 @@
 import React, {ReactNode} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {colors, fontSizes} from '../../../consts/styles';
-import ArrowRight from '../../../icons/ArrowRight';
+import {useIcon} from '../../../icons/useIcon';
+import {Icon} from '../../../types/icons';
 
 type SectionButtonProps = {
   label: string;
@@ -27,6 +28,7 @@ function SectionButton({
   extraLine,
 }: SectionButtonProps) {
   const buttonStyles = [styles.button, disabled ? styles.disabled : {}, height ? {height} : {}];
+  const arrowRight = useIcon(Icon.ArrowRight, {size: 14});
 
   return (
     <TouchableOpacity onPress={onPress} disabled={disabled} style={buttonStyles}>
@@ -43,7 +45,7 @@ function SectionButton({
         </View>
         <View style={styles.icon}>
           <Text style={styles.iconText}>{iconText}</Text>
-          {icon ?? <ArrowRight size={14} />}
+          {icon ?? arrowRight}
         </View>
       </View>
     </TouchableOpacity>

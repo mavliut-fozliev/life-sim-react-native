@@ -3,9 +3,9 @@ import SectionButton from '../../../../../../../../../components/SectionButton/S
 import {Navigation} from '../../../../../../../../../../types/navigation';
 import usePlayerStore from '../../../../../../store/playerStore';
 import {ResourceVariant} from '../../../../../../../../../../types/resources';
-import Bills from '../../../../../../../../../../icons/Bills';
-import Energy from '../../../../../../../../../../icons/Energy';
 import {useNavigate} from '../../../../../../../../../../hooks/useNavigate';
+import {useIcon} from '../../../../../../../../../../icons/useIcon';
+import {Icon} from '../../../../../../../../../../types/icons';
 
 type ActivityProps = {
   label: string;
@@ -31,12 +31,12 @@ function Activity({label, navigation, price, resource, action}: ActivityProps) {
     [ResourceVariant.money]: {
       state: playerStore.money,
       decrease: playerStore.$money.decrease,
-      icon: <Bills size={20} />,
+      icon: useIcon(Icon.Bills, {size: 20}),
     },
     [ResourceVariant.energy]: {
       state: playerStore.energy,
       decrease: playerStore.$energy.decrease,
-      icon: <Energy size={20} />,
+      icon: useIcon(Icon.Energy, {size: 20}),
     },
   };
 

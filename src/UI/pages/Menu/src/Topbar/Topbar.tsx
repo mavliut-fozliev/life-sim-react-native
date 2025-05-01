@@ -4,15 +4,15 @@ import Resource from '../../../../components/Resource/Resource';
 import usePlayerStore from '../store/playerStore';
 import {colors, fontSizes} from '../../../../../consts/styles';
 import IconButton from '../../../../components/IconButton/IconButton';
-import MenuIcon from '../../../../../icons/MenuIcon';
 import {useNavigation} from '@react-navigation/native';
 import {useNavigate} from '../../../../../hooks/useNavigate';
 import useGlobalStore from '../../../../../storage/store';
 import {PageNames} from '../../../../../consts/pages';
 import {ObjectRecord} from '../../../../../types/common';
-import ArrowLeft from '../../../../../icons/ArrowLeft';
 import {useLocalizeText} from '../../../../../locales/useLocalizeText';
 import {ResourceVariant} from '../../../../../types/resources';
+import {Icon} from '../../../../../types/icons';
+import {useIcon} from '../../../../../icons/useIcon';
 
 function Topbar() {
   const playerStore = usePlayerStore();
@@ -25,9 +25,12 @@ function Topbar() {
     navigate.stepBack();
   }
 
+  const menuIcon = useIcon(Icon.MenuIcon, {size: 30});
+  const arrowLeft = useIcon(Icon.ArrowLeft, {size: 30});
+
   const buttons: ObjectRecord<React.JSX.Element> = {
     [PageNames.Menu]: <></>,
-    [PageNames.Home]: <IconButton icon={<MenuIcon size={30} />} onPress={handlePress} />,
+    [PageNames.Home]: <IconButton icon={menuIcon} onPress={handlePress} />,
   };
 
   const titles: ObjectRecord<string> = {
@@ -42,7 +45,7 @@ function Topbar() {
     <View style={styles.box}>
       <View style={styles.content}>
         <View style={styles.button}>
-          {buttons[currentPage] || <IconButton icon={<ArrowLeft size={30} />} onPress={handlePress} />}
+          {buttons[currentPage] || <IconButton icon={arrowLeft} onPress={handlePress} />}
         </View>
         {haveTitle ? (
           <View style={styles.title}>
