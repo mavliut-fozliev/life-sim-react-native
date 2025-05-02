@@ -7,4 +7,5 @@ export default {
   'Ask About Health': 'Спросить о здоровье',
   'Give Praise': 'Похвалить',
   'Talk on the Phone': 'Поговорить по телефону',
+  'Become Acquainted': 'Познакомиться',
 };

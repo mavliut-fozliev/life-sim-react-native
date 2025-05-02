@@ -1,14 +1,15 @@
 import React from 'react';
-import SectionButton from '../../../../../../../../components/SectionButton/SectionButton';
-import {PeopleInteraction, Person} from '../../../../../../../../../types/people';
-import {getRandomValue} from '../../../../../../../../../utils/common';
-import useCharacterStore from '../../../../../store/characterStore';
-import usePlayerStore from '../../../../../store/playerStore';
-import {useNavigate} from '../../../../../../../../../hooks/useNavigate';
-import {Navigation} from '../../../../../../../../../types/navigation';
-import {peopleSituationImpact} from '../../../../../../../../../consts/character/characterProps';
-import {UpdateByKeysParams} from '../../../../../../../../../types/store';
-import {useLocalizeText} from '../../../../../../../../../locales/useLocalizeText';
+import SectionButton from '../../../../../../../../../components/SectionButton/SectionButton';
+import {PeopleInteraction, Person} from '../../../../../../../../../../types/people';
+import {getRandomValue} from '../../../../../../../../../../utils/common';
+import useCharacterStore from '../../../../../../store/characterStore';
+import usePlayerStore from '../../../../../../store/playerStore';
+import {useNavigate} from '../../../../../../../../../../hooks/useNavigate';
+import {Navigation} from '../../../../../../../../../../types/navigation';
+import {peopleSituationImpact} from '../../../../../../../../../../consts/character/characterProps';
+import {UpdateByKeysParams} from '../../../../../../../../../../types/store';
+import {useLocalizeText} from '../../../../../../../../../../locales/useLocalizeText';
+import {useSpecialEffects} from './src/useSpecialEffects';
 
 type InteractionProps = {
   interaction: PeopleInteraction;
@@ -19,10 +20,15 @@ type InteractionProps = {
 function Interaction({interaction, person, navigation}: InteractionProps) {
   const characterStore = useCharacterStore();
   const playerStore = usePlayerStore();
+
   const navigate = useNavigate(navigation);
   const {getText} = useLocalizeText();
 
+  let params: UpdateByKeysParams = [];
+  const specialEffects = useSpecialEffects(interaction, params, person);
+
   const handlePress = () => {
+    //oneTimeImpact
     const oneTimeImpact = getRandomValue(interaction.oneTimeImpact);
 
     const relationshipUpdateParams = {
@@ -37,8 +43,12 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
       value: (person.performedActions || 0) + 1,
     };
 
-    let params: UpdateByKeysParams = [relationshipUpdateParams, performedActionsUpdateParams];
+    params = [...params, relationshipUpdateParams, performedActionsUpdateParams];
 
+    //specialEffect
+    specialEffects();
+
+    //situationImpact
     const oldSituationImpact = person.situation ? peopleSituationImpact[person.situation] : 0;
     const newSituation = getRandomValue(interaction.situationImpact);
     const newSituationImpact = newSituation ? peopleSituationImpact[newSituation] : 0;

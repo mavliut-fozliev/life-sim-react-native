@@ -1,5 +1,5 @@
 import React from 'react';
-import Interaction from './src/Interaction';
+import Interaction from './src/Interaction/Interaction';
 import {ScrollView, StyleSheet} from 'react-native';
 import {colors} from '../../../../../../../../consts/styles';
 import {Navigation, Route} from '../../../../../../../../types/navigation';

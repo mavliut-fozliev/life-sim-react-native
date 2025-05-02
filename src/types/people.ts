@@ -36,7 +36,7 @@ export type Person = {
   age: number;
   role: PeopleRole;
   relationship: number;
-  performedActions: number | undefined;
+  performedActions?: number;
   situation?: PeopleSituation;
   situationDuration?: number;
   sprite: CommonSpriteVariants;
@@ -54,11 +54,18 @@ export type FamilyPerson = {
 
 export type PlacePeople = ObjectRecord<ObjectRecord<string[]>>;
 
+export enum SpecialEffect {
+  GetMoney,
+  MakeFamiliar,
+  ShowHealth,
+}
+
 export type PeopleInteraction = {
   label: string;
   conditions: PeopleRelationship[];
   oneTimeImpact: Chances<number>;
   situationImpact: Chances<PeopleSituation | undefined>;
+  specialEffects?: SpecialEffect[];
 };
 
 export type PeopleInteractions = {

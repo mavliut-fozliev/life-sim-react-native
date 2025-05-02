@@ -1,4 +1,4 @@
-import {PeopleInteraction, PeopleInteractions} from '../../types/people';
+import {PeopleInteraction, PeopleInteractions, SpecialEffect} from '../../types/people';
 import {PeopleRelationship, PeopleRole, PeopleSituation} from './characterProps';
 
 const parentsInteractions: PeopleInteraction[] = [
@@ -72,6 +72,7 @@ const parentsInteractions: PeopleInteraction[] = [
       {value: undefined, chance: 70},
       {value: PeopleSituation.Respect, chance: 30},
     ],
+    specialEffects: [SpecialEffect.ShowHealth],
   },
   {
     label: 'Ask for Money', //нужно реализовать давание денег с какой-то вероятностью
@@ -81,12 +82,14 @@ const parentsInteractions: PeopleInteraction[] = [
       {value: -5, chance: 40},
     ],
     situationImpact: [{value: undefined, chance: 100}],
+    specialEffects: [SpecialEffect.GetMoney],
   },
   {
     label: 'Ask for Money', //нужно реализовать давание денег с какой-то вероятностью
     conditions: [PeopleRelationship.Neutrality],
     oneTimeImpact: [{value: -5, chance: 100}],
     situationImpact: [{value: undefined, chance: 100}],
+    specialEffects: [SpecialEffect.GetMoney],
   },
   {
     label: 'Argue',
@@ -135,5 +138,13 @@ export const interactions: PeopleInteractions = {
   [PeopleRole.Spouse]: [],
   [PeopleRole.Friend]: [],
   [PeopleRole.Familiar]: [],
-  [PeopleRole.Stranger]: [],
+  [PeopleRole.Stranger]: [
+    {
+      label: 'Become Acquainted', //нужно реализовать изменение роли на знакомого
+      conditions: [PeopleRelationship.Neutrality],
+      oneTimeImpact: [{value: 0, chance: 100}],
+      situationImpact: [{value: undefined, chance: 100}],
+      specialEffects: [SpecialEffect.MakeFamiliar],
+    },
+  ],
 };
