@@ -12,6 +12,7 @@ import {
 import {fontSizes} from '../../../consts/styles';
 import {useLocalizeText} from '../../../locales/useLocalizeText';
 import {findMatchingKeyByMaxNumber} from '../../../utils/common';
+import RelationProgress from '../RelationProgress/RelationProgress';
 
 type StatusGroupProps = {
   role: PeopleRole;
@@ -34,6 +35,7 @@ function StatusGroup({role, relationship, situation}: StatusGroupProps) {
 
   return (
     <View style={styles.relationships}>
+      <RelationProgress value={relationshipStage} />
       <View style={[styles.status, {borderColor: relationshipColor}]}>
         <Text style={[styles.statusText, {color: relationshipColor}]}>
           {getText(['character', 'relationships', relationshipLabel])}
