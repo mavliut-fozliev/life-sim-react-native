@@ -10,6 +10,7 @@ import {peopleSituationImpact} from '../../../../../../../../../../consts/charac
 import {UpdateByKeysParams} from '../../../../../../../../../../types/store';
 import {useLocalizeText} from '../../../../../../../../../../locales/useLocalizeText';
 import {useSpecialEffects} from './src/useSpecialEffects';
+import useGameStore from '../../../../../../store/gameStore';
 
 type InteractionProps = {
   interaction: PeopleInteraction;
@@ -20,6 +21,7 @@ type InteractionProps = {
 function Interaction({interaction, person, navigation}: InteractionProps) {
   const characterStore = useCharacterStore();
   const playerStore = usePlayerStore();
+  const gameStore = useGameStore();
 
   const navigate = useNavigate(navigation);
   const {getText} = useLocalizeText();
@@ -28,6 +30,8 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
   const specialEffects = useSpecialEffects(interaction, params, person);
 
   const handlePress = () => {
+    gameStore.$showFullScreenAnimation.set(true);
+
     //oneTimeImpact
     const oneTimeImpact = getRandomValue(interaction.oneTimeImpact);
 
