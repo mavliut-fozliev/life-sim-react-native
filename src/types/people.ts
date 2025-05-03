@@ -9,6 +9,7 @@ import {Cities} from '../consts/cities';
 import {Countries} from '../consts/countries';
 import {Gender} from '../consts/gender';
 import {Chances, ObjectRecord} from './common';
+import {Icon} from './icons';
 
 export type CommonSpriteVariants = {
   legs: 'light';
@@ -61,6 +62,7 @@ export enum SpecialEffect {
 }
 
 export type PeopleInteraction = {
+  icon: Icon;
   label: string;
   conditions: PeopleRelationship[];
   oneTimeImpact: Chances<number>;

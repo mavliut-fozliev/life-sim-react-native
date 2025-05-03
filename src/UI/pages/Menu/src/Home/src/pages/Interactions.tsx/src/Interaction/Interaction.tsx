@@ -12,6 +12,7 @@ import {useLocalizeText} from '../../../../../../../../../../locales/useLocalize
 import {useSpecialEffects} from './src/useSpecialEffects';
 import useGameStore from '../../../../../../store/gameStore';
 import {Icon} from '../../../../../../../../../../types/icons';
+import {useIcon} from '../../../../../../../../../../icons/useIcon';
 
 type InteractionProps = {
   interaction: PeopleInteraction;
@@ -88,11 +89,14 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
     return false;
   };
 
+  const icon = useIcon(Icon.Bills, {size: 30});
+
   return (
     <SectionButton
       label={getText(['character', 'interactions', interaction.label])}
       onPress={handlePress}
       disabled={isDisabled()}
+      mainIcon={icon}
       icon={<></>}
     />
   );

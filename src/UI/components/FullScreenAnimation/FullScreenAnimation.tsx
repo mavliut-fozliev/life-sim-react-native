@@ -20,7 +20,7 @@ function FullScreenAnimation() {
       setTimeout(() => {
         gameStore.$fullScreenAnimationIcon.set(0);
         setIconValue(0);
-      }, 2000);
+      }, 1000);
     }
   }, [gameStore.$fullScreenAnimationIcon, gameStore.fullScreenAnimationIcon]);
 
@@ -35,22 +35,22 @@ function FullScreenAnimation() {
       Animated.sequence([
         Animated.timing(opacity, {
           toValue: 0.8,
-          duration: 500,
+          duration: 250,
           useNativeDriver: true,
         }),
         Animated.timing(opacity, {
           toValue: 0.3,
-          duration: 500,
+          duration: 250,
           useNativeDriver: true,
         }),
         Animated.timing(opacity, {
           toValue: 0.8,
-          duration: 500,
+          duration: 250,
           useNativeDriver: true,
         }),
         Animated.timing(opacity, {
           toValue: 0,
-          duration: 500,
+          duration: 250,
           useNativeDriver: true,
         }),
       ]),

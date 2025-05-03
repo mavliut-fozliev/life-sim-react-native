@@ -1,8 +1,10 @@
+import {Icon} from '../../types/icons';
 import {PeopleInteraction, PeopleInteractions, SpecialEffect} from '../../types/people';
 import {PeopleRelationship, PeopleRole, PeopleSituation} from './characterProps';
 
 const parentsInteractions: PeopleInteraction[] = [
   {
+    icon: Icon.Bills,
     label: 'Spend Time Together',
     conditions: [PeopleRelationship.Love, PeopleRelationship.Friendliness, PeopleRelationship.Neutrality],
     oneTimeImpact: [
@@ -15,6 +17,7 @@ const parentsInteractions: PeopleInteraction[] = [
     ],
   },
   {
+    icon: Icon.Bills,
     label: 'Give Praise',
     conditions: [
       PeopleRelationship.Love,
@@ -33,6 +36,7 @@ const parentsInteractions: PeopleInteraction[] = [
     ],
   },
   {
+    icon: Icon.Bills,
     label: 'Talk on the Phone',
     conditions: [
       PeopleRelationship.Love,
@@ -50,6 +54,7 @@ const parentsInteractions: PeopleInteraction[] = [
     ],
   },
   {
+    icon: Icon.Bills,
     label: 'Try to Make Peace',
     conditions: [PeopleRelationship.Hostility],
     oneTimeImpact: [
@@ -62,6 +67,7 @@ const parentsInteractions: PeopleInteraction[] = [
     ],
   },
   {
+    icon: Icon.Bills,
     label: 'Ask About Health', //нужно реализовать показывание инфы о здоровье персонажа
     conditions: [PeopleRelationship.Love, PeopleRelationship.Friendliness, PeopleRelationship.Neutrality],
     oneTimeImpact: [
@@ -75,6 +81,7 @@ const parentsInteractions: PeopleInteraction[] = [
     specialEffects: [SpecialEffect.ShowHealth],
   },
   {
+    icon: Icon.Bills,
     label: 'Ask for Money', //нужно реализовать давание денег с какой-то вероятностью
     conditions: [PeopleRelationship.Love, PeopleRelationship.Friendliness],
     oneTimeImpact: [
@@ -85,6 +92,7 @@ const parentsInteractions: PeopleInteraction[] = [
     specialEffects: [SpecialEffect.GetMoney],
   },
   {
+    icon: Icon.Bills,
     label: 'Ask for Money', //нужно реализовать давание денег с какой-то вероятностью
     conditions: [PeopleRelationship.Neutrality],
     oneTimeImpact: [{value: -5, chance: 100}],
@@ -92,6 +100,7 @@ const parentsInteractions: PeopleInteraction[] = [
     specialEffects: [SpecialEffect.GetMoney],
   },
   {
+    icon: Icon.Bills,
     label: 'Argue',
     conditions: [
       PeopleRelationship.Love,
@@ -110,6 +119,7 @@ const parentsInteractions: PeopleInteraction[] = [
     ],
   },
   {
+    icon: Icon.Bills,
     label: 'Steal Money',
     conditions: [
       PeopleRelationship.Love,
@@ -140,6 +150,7 @@ export const interactions: PeopleInteractions = {
   [PeopleRole.Familiar]: [],
   [PeopleRole.Stranger]: [
     {
+      icon: Icon.Bills,
       label: 'Become Acquainted', //нужно реализовать изменение роли на знакомого
       conditions: [PeopleRelationship.Neutrality],
       oneTimeImpact: [{value: 0, chance: 100}],
