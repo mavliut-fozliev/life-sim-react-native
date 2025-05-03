@@ -1,5 +1,5 @@
 export enum Icon {
-  Bills,
+  Bills = 1,
   Energy,
   ArrowRight,
   ArrowLeft,

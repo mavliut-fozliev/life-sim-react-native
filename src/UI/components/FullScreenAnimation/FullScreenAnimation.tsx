@@ -1,37 +1,83 @@
-import React, {useEffect, useState} from 'react';
-import {Modal, StyleSheet, View} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Animated, StyleSheet} from 'react-native';
 import useGameStore from '../../pages/Menu/src/store/gameStore';
 import {Icon} from '../../../types/icons';
 import {useIcon} from '../../../icons/useIcon';
 
+function IconComponent({icon}: {icon: Icon}) {
+  return useIcon(icon, {size: '50%'});
+}
+
 function FullScreenAnimation() {
   const gameStore = useGameStore();
 
-  const [visible, setVisible] = useState(false);
+  const [iconValue, setIconValue] = useState<number>();
 
   useEffect(() => {
-    if (gameStore.showFullScreenAnimation) {
-      setVisible(true);
+    if (gameStore.fullScreenAnimationIcon) {
+      setIconValue(gameStore.fullScreenAnimationIcon);
 
       setTimeout(() => {
-        gameStore.$showFullScreenAnimation.set(false);
-        setVisible(false);
-      }, 1000);
+        gameStore.$fullScreenAnimationIcon.set(0);
+        setIconValue(0);
+      }, 2000);
     }
-  }, [gameStore.showFullScreenAnimation, gameStore.$showFullScreenAnimation]);
+  }, [gameStore.$fullScreenAnimationIcon, gameStore.fullScreenAnimationIcon]);
 
-  const icon = useIcon(Icon.Bills, {size: '70%'});
+  const opacity = useRef(new Animated.Value(0)).current;
 
-  return (
-    <Modal animationType={'fade'} transparent={true} visible={visible}>
-      <View style={styles.box}>{icon}</View>
-    </Modal>
+  useEffect(() => {
+    if (!iconValue) {
+      return;
+    }
+
+    const fadeInOut = Animated.loop(
+      Animated.sequence([
+        Animated.timing(opacity, {
+          toValue: 0.8,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacity, {
+          toValue: 0.3,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacity, {
+          toValue: 0.8,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacity, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+
+    fadeInOut.start();
+
+    return () => {
+      fadeInOut.stop();
+      opacity.setValue(0);
+    };
+  }, [iconValue, opacity]);
+
+  return iconValue ? (
+    <Animated.View style={[styles.box, {opacity}]}>
+      <IconComponent icon={iconValue} />
+    </Animated.View>
+  ) : (
+    <></>
   );
 }
 
 const styles = StyleSheet.create({
   box: {
-    flex: 1,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },

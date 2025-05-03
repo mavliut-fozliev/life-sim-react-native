@@ -1,11 +1,11 @@
 import {create} from 'zustand';
-import {BooleanField, StoreFields} from '../../../../../types/store';
+import {NumberField, StoreFields} from '../../../../../types/store';
 import {getInitializer} from '../../../../../utils/storeHelpers';
 
-type StoreState = BooleanField<'showFullScreenAnimation'>;
+type StoreState = NumberField<'fullScreenAnimationIcon'>;
 
 const fields: StoreFields = {
-  showFullScreenAnimation: 'bool',
+  fullScreenAnimationIcon: 'num',
 };
 
 const initializer = getInitializer<StoreState>('game', fields);

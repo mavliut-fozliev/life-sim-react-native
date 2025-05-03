@@ -11,6 +11,7 @@ import {UpdateByKeysParams} from '../../../../../../../../../../types/store';
 import {useLocalizeText} from '../../../../../../../../../../locales/useLocalizeText';
 import {useSpecialEffects} from './src/useSpecialEffects';
 import useGameStore from '../../../../../../store/gameStore';
+import {Icon} from '../../../../../../../../../../types/icons';
 
 type InteractionProps = {
   interaction: PeopleInteraction;
@@ -30,7 +31,7 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
   const specialEffects = useSpecialEffects(interaction, params, person);
 
   const handlePress = () => {
-    gameStore.$showFullScreenAnimation.set(true);
+    gameStore.$fullScreenAnimationIcon.set(Icon.Bills);
 
     //oneTimeImpact
     const oneTimeImpact = getRandomValue(interaction.oneTimeImpact);
