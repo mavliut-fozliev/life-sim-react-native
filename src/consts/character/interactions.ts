@@ -73,7 +73,7 @@ const parentsInteractions: PeopleInteraction[] = [
   },
   {
     icon: Icon.Heart,
-    label: 'Ask About Health', //нужно реализовать показывание инфы о здоровье персонажа
+    label: 'Ask About Health',
     conditions: [PeopleRelationship.Love, PeopleRelationship.Friendliness, PeopleRelationship.Neutrality],
     oneTimeImpact: [
       {value: 3, chance: 70},
@@ -88,7 +88,7 @@ const parentsInteractions: PeopleInteraction[] = [
   },
   {
     icon: Icon.Bills,
-    label: 'Ask for Money', //нужно реализовать давание денег с какой-то вероятностью
+    label: 'Ask for Money',
     conditions: [PeopleRelationship.Love, PeopleRelationship.Friendliness],
     oneTimeImpact: [
       {value: -3, chance: 60},
@@ -100,7 +100,7 @@ const parentsInteractions: PeopleInteraction[] = [
   },
   {
     icon: Icon.Bills,
-    label: 'Ask for Money', //нужно реализовать давание денег с какой-то вероятностью
+    label: 'Ask for Money',
     conditions: [PeopleRelationship.Neutrality],
     oneTimeImpact: [{value: -5, chance: 100}],
     situationImpact: [{value: undefined, chance: 100}],
@@ -161,7 +161,7 @@ export const interactions: PeopleInteractions = {
   [PeopleRole.Stranger]: [
     {
       icon: Icon.Bills,
-      label: 'Become Acquainted', //нужно реализовать изменение роли на знакомого
+      label: 'Become Acquainted',
       conditions: [PeopleRelationship.Neutrality],
       oneTimeImpact: [{value: 0, chance: 100}],
       situationImpact: [{value: undefined, chance: 100}],
