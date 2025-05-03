@@ -61,7 +61,6 @@ export function useCreateCharacters() {
       situation: PeopleSituation.Admiration,
       situationDuration: 5,
       params: {
-        money: 10000,
         health: 80,
       },
       sprite: {
@@ -88,7 +87,6 @@ export function useCreateCharacters() {
       situation: PeopleSituation.Admiration,
       situationDuration: 5,
       params: {
-        money: 10000,
         health: 80,
       },
       sprite: {
@@ -119,6 +117,9 @@ export function useCreateCharacters() {
       age: getRandomInRange(18, 60),
       role: PeopleRole.Stranger,
       relationship: 50,
+      params: {
+        health: 80,
+      },
       sprite: {
         legs: 'light',
         body: 'light',

@@ -40,6 +40,9 @@ export type Person = {
   performedActions?: number;
   situation?: PeopleSituation;
   situationDuration?: number;
+  params: {
+    health: number;
+  };
   sprite: CommonSpriteVariants;
   placePeopleType?: PlacePeopleType;
 };
@@ -47,10 +50,6 @@ export type Person = {
 export type FamilyPerson = {
   country: Countries;
   city: Cities;
-  params: {
-    money: number;
-    health: number;
-  };
 } & Person;
 
 export type PlacePeople = ObjectRecord<ObjectRecord<string[]>>;

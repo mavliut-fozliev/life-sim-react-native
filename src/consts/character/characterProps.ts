@@ -119,3 +119,19 @@ export const peopleSituationImpact = {
   [PeopleSituation.Disappointment]: -3,
   [PeopleSituation.Conflict]: -5,
 };
+
+export enum PeopleHealth {
+  Excellent = 'Excellent',
+  Good = 'Good',
+  Average = 'Average',
+  Bad = 'Bad',
+  Critical = 'Critical',
+}
+
+export const peopleHealthMap: {[key in PeopleHealth]: number} = {
+  [PeopleHealth.Excellent]: 100,
+  [PeopleHealth.Good]: 80,
+  [PeopleHealth.Average]: 60,
+  [PeopleHealth.Bad]: 40,
+  [PeopleHealth.Critical]: 20,
+};
