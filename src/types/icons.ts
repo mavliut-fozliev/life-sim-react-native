@@ -9,4 +9,5 @@ export enum Icon {
   Star,
   Charm,
   MenuIcon,
+  People,
 }

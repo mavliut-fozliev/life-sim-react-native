@@ -1,10 +1,11 @@
 import {Icon} from '../../types/icons';
 import {PeopleInteraction, PeopleInteractions, SpecialEffect} from '../../types/people';
+import {ContentRef} from '../general';
 import {PeopleRelationship, PeopleRole, PeopleSituation} from './characterProps';
 
 const parentsInteractions: PeopleInteraction[] = [
   {
-    icon: Icon.Bills,
+    icon: Icon.People,
     label: 'Spend Time Together',
     conditions: [PeopleRelationship.Love, PeopleRelationship.Friendliness, PeopleRelationship.Neutrality],
     oneTimeImpact: [
@@ -15,9 +16,10 @@ const parentsInteractions: PeopleInteraction[] = [
       {value: undefined, chance: 70},
       {value: PeopleSituation.Trust, chance: 30},
     ],
+    contentRef: ContentRef.SpendTimeTogether,
   },
   {
-    icon: Icon.Bills,
+    icon: Icon.Charm,
     label: 'Give Praise',
     conditions: [
       PeopleRelationship.Love,
@@ -34,9 +36,10 @@ const parentsInteractions: PeopleInteraction[] = [
       {value: PeopleSituation.Respect, chance: 30},
       {value: undefined, chance: 20},
     ],
+    contentRef: ContentRef.GivePraise,
   },
   {
-    icon: Icon.Bills,
+    icon: Icon.People,
     label: 'Talk on the Phone',
     conditions: [
       PeopleRelationship.Love,
@@ -52,9 +55,10 @@ const parentsInteractions: PeopleInteraction[] = [
       {value: PeopleSituation.Admiration, chance: 50},
       {value: undefined, chance: 50},
     ],
+    contentRef: ContentRef.TalkOnThePhone,
   },
   {
-    icon: Icon.Bills,
+    icon: Icon.People,
     label: 'Try to Make Peace',
     conditions: [PeopleRelationship.Hostility],
     oneTimeImpact: [
@@ -65,9 +69,10 @@ const parentsInteractions: PeopleInteraction[] = [
       {value: PeopleSituation.Respect, chance: 80},
       {value: undefined, chance: 20},
     ],
+    contentRef: ContentRef.TryToMakePeace,
   },
   {
-    icon: Icon.Bills,
+    icon: Icon.Heart,
     label: 'Ask About Health', //нужно реализовать показывание инфы о здоровье персонажа
     conditions: [PeopleRelationship.Love, PeopleRelationship.Friendliness, PeopleRelationship.Neutrality],
     oneTimeImpact: [
@@ -79,6 +84,7 @@ const parentsInteractions: PeopleInteraction[] = [
       {value: PeopleSituation.Respect, chance: 30},
     ],
     specialEffects: [SpecialEffect.ShowHealth],
+    contentRef: ContentRef.AskAboutHealth,
   },
   {
     icon: Icon.Bills,
@@ -90,6 +96,7 @@ const parentsInteractions: PeopleInteraction[] = [
     ],
     situationImpact: [{value: undefined, chance: 100}],
     specialEffects: [SpecialEffect.GetMoney],
+    contentRef: ContentRef.AskForMoney,
   },
   {
     icon: Icon.Bills,
@@ -98,9 +105,10 @@ const parentsInteractions: PeopleInteraction[] = [
     oneTimeImpact: [{value: -5, chance: 100}],
     situationImpact: [{value: undefined, chance: 100}],
     specialEffects: [SpecialEffect.GetMoney],
+    contentRef: ContentRef.AskForMoney,
   },
   {
-    icon: Icon.Bills,
+    icon: Icon.Strength,
     label: 'Argue',
     conditions: [
       PeopleRelationship.Love,
@@ -117,6 +125,7 @@ const parentsInteractions: PeopleInteraction[] = [
       {value: PeopleSituation.Resentment, chance: 40},
       {value: undefined, chance: 10},
     ],
+    contentRef: ContentRef.Argue,
   },
   {
     icon: Icon.Bills,
@@ -137,6 +146,7 @@ const parentsInteractions: PeopleInteraction[] = [
       {value: PeopleSituation.Disappointment, chance: 20},
       {value: undefined, chance: 10},
     ],
+    contentRef: ContentRef.StealMoney,
   },
 ];
 
@@ -156,6 +166,7 @@ export const interactions: PeopleInteractions = {
       oneTimeImpact: [{value: 0, chance: 100}],
       situationImpact: [{value: undefined, chance: 100}],
       specialEffects: [SpecialEffect.MakeFamiliar],
+      contentRef: ContentRef.BecomeAcquainted,
     },
   ],
 };

@@ -1,4 +1,4 @@
-import {peopleSituationImpact} from '../../../../../../../../../../consts/character/characterProps';
+import {PeopleRole, peopleSituationImpact} from '../../../../../../../../../../consts/character/characterProps';
 import {UpdateByKeysParams} from '../../../../../../../../../../types/store';
 import useCharacterStore from '../../../../../../store/characterStore';
 import usePlayerStore from '../../../../../../store/playerStore';
@@ -9,6 +9,10 @@ export function useGrowUp() {
 
   function peopleManipulations() {
     Object.values(characterStore.people).forEach(person => {
+      if (person.role === PeopleRole.Stranger) {
+        return;
+      }
+
       const initialImpact = -2;
       const newRelationship = person.relationship + initialImpact;
 

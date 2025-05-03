@@ -6,6 +6,7 @@ import Charm from './Charm';
 import Energy from './Energy';
 import Heart from './Heart';
 import MenuIcon from './MenuIcon';
+import People from './People';
 import Radio from './Radio';
 import Star from './Star';
 import Strength from './Strength';
@@ -32,6 +33,8 @@ export function useIcon<P = any>(sprite: Icon, props?: P): React.JSX.Element {
       return <Charm {...props} />;
     case Icon.MenuIcon:
       return <MenuIcon {...props} />;
+    case Icon.People:
+      return <People {...props} />;
     default:
       return <></>;
   }

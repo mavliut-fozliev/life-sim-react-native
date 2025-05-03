@@ -27,9 +27,9 @@ function StatusGroup({role, relationship, situation}: StatusGroupProps) {
     findMatchingKeyByMaxNumber(peopleRelationshipMap, relationship) || PeopleRelationship.Neutrality;
 
   const relationshipLabel =
-    role !== PeopleRole.Stranger
-      ? peopleRelationshipLabels[role][relationshipStage]
-      : peopleRelationshipLabels[PeopleRole.Familiar][PeopleRelationship.Neutrality];
+    role === PeopleRole.Stranger
+      ? peopleRelationshipLabels[PeopleRole.Familiar][PeopleRelationship.Neutrality]
+      : peopleRelationshipLabels[role][relationshipStage];
 
   const relationshipColor = peopleRelationshipColors[relationshipStage];
 

@@ -14,6 +14,7 @@ import People from './src/UI/pages/Menu/src/Home/src/pages/People/People';
 import Intercations from './src/UI/pages/Menu/src/Home/src/pages/Interactions.tsx/Interactions';
 import City from './src/UI/pages/Menu/src/Home/src/pages/City/City';
 import FullScreenAnimation from './src/UI/components/FullScreenAnimation/FullScreenAnimation';
+import PopUpWindow from './src/UI/widgets/PopUpWindow/PopUpWindow';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,7 @@ function App(): React.JSX.Element {
           <Stack.Screen name={PageNames.Settings} component={Settings} />
         </Stack.Navigator>
         <FullScreenAnimation />
+        <PopUpWindow />
       </SafeAreaView>
     </NavigationContainer>
   );

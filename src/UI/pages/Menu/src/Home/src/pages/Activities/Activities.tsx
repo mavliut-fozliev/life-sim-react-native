@@ -12,6 +12,7 @@ import Divider from '../../../../../../../components/Divider/Divider';
 import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
 import {useSprite} from '../../sprites/hooks/useSprite';
 import StatusGroup from '../../../../../../../components/StatusGroup/StatusGroup';
+import {PeopleRole} from '../../../../../../../../consts/character/characterProps';
 
 type ActivitiesProps = {
   navigation: Navigation;
@@ -40,7 +41,11 @@ function Activities({navigation, route}: ActivitiesProps) {
           label={`${p.name} ${p.surname}`}
           description={p.placePeopleType && getText(['places', 'peopleType', p.placePeopleType])}
           height={100}
-          extraLine={<StatusGroup role={p.role} relationship={p.relationship} situation={p.situation} />}
+          extraLine={
+            p.role === PeopleRole.Stranger ? undefined : (
+              <StatusGroup role={p.role} relationship={p.relationship} situation={p.situation} />
+            )
+          }
           mainIcon={getPersonSprite(p, 60)}
           icon={<></>}
           onPress={() => navigate.stepForward(PageNames.Intercations, {person: p})}

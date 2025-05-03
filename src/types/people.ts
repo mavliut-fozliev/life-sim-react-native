@@ -67,6 +67,7 @@ export type PeopleInteraction = {
   conditions: PeopleRelationship[];
   oneTimeImpact: Chances<number>;
   situationImpact: Chances<PeopleSituation | undefined>;
+  contentRef: number;
   specialEffects?: SpecialEffect[];
 };
 

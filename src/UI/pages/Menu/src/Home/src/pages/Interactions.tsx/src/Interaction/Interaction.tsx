@@ -29,11 +29,9 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
   const {getText} = useLocalizeText();
 
   let params: UpdateByKeysParams = [];
-  const specialEffects = useSpecialEffects(interaction, params, person);
+  const specialEffects = useSpecialEffects(interaction, person);
 
   const handlePress = () => {
-    gameStore.$fullScreenAnimationIcon.set(Icon.Bills);
-
     //oneTimeImpact
     const oneTimeImpact = getRandomValue(interaction.oneTimeImpact);
 
@@ -52,7 +50,10 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
     params = [...params, relationshipUpdateParams, performedActionsUpdateParams];
 
     //specialEffect
-    specialEffects();
+    const specialEffectsResult = specialEffects();
+    if (specialEffectsResult?.params) {
+      params = [...params, ...specialEffectsResult.params];
+    }
 
     //situationImpact
     const oldSituationImpact = person.situation ? peopleSituationImpact[person.situation] : 0;
@@ -74,6 +75,15 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
       params = [...params, situationUpdateParams, situationDurationUpdateParams];
     }
 
+    // set popup content params
+    gameStore.$popUpContent.set({
+      contentRef: interaction.contentRef,
+      oneTimeImpact,
+      person,
+    });
+
+    console.log(params);
+
     characterStore.$people.updateByKeys(params);
     playerStore.$energy.decrease(1);
     navigate.backToHome();
@@ -89,7 +99,8 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
     return false;
   };
 
-  const icon = useIcon(Icon.Bills, {size: 30});
+  const icon = useIcon(interaction.icon, {size: 26});
+  const energyIcon = useIcon(Icon.Energy, {size: 24});
 
   return (
     <SectionButton
@@ -97,7 +108,7 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
       onPress={handlePress}
       disabled={isDisabled()}
       mainIcon={icon}
-      icon={<></>}
+      icon={energyIcon}
     />
   );
 }
