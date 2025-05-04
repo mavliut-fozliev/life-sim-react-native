@@ -11,7 +11,11 @@ const interaction: PeopleInteraction = {
   situationImpact: [{value: undefined, chance: 100}],
   specialEffects: [SpecialEffect.GetMoney],
   getDescriptions: () => {
-    const contents = [''];
+    const contents = [
+      'Told my mom things were tight — she didn’t love hearing it, but she came through.',
+      'My mom gave me a small lecture before helping — classic.',
+      'Told my mom I was short on cash — she gave me that “again?” look, but still helped.',
+    ];
     return getRandomArrayItem(contents) || contents[0];
   },
 };

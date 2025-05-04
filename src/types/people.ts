@@ -62,6 +62,7 @@ export enum SpecialEffect {
 
 type DescriptionParams = {
   health?: number;
+  name?: string;
 };
 
 export type PeopleInteraction = {

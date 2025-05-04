@@ -15,6 +15,7 @@ import usePlayerStore from '../store/playerStore';
 import {useNavigate} from '../../../../../hooks/useNavigate';
 import {useLocalizeText} from '../../../../../locales/useLocalizeText';
 import {useCreateCharacters} from './src/useCreateCharacters';
+import useGameStore from '../store/gameStore';
 
 type StartNewLifeProps = {
   navigation: Navigation;
@@ -38,6 +39,7 @@ function StartNewLife({navigation}: StartNewLifeProps) {
 
   const playerStore = usePlayerStore();
   const {$gameInProgress} = useGlobalStore();
+  const gameStore = useGameStore();
 
   const {getText} = useLocalizeText();
   const navigate = useNavigate(navigation);
@@ -71,6 +73,10 @@ function StartNewLife({navigation}: StartNewLifeProps) {
     $surnameIsModified.set(false);
   }
 
+  function resetGameStore() {
+    gameStore.$history.set({});
+  }
+
   function startGame() {
     $gameInProgress.set(true);
     navigate.stepForward(PageNames.Menu);
@@ -81,6 +87,7 @@ function StartNewLife({navigation}: StartNewLifeProps) {
     setInitialValues();
     createCharacters();
     resetNewLifeStore();
+    resetGameStore();
     startGame();
   }
 

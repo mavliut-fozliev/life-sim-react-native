@@ -78,7 +78,10 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
     }
 
     // set popup content and history
-    const content = interaction.getDescriptions({health: person.params.health});
+    const content = interaction.getDescriptions({
+      health: person.params.health,
+      name: person.name,
+    });
     gameStore.$popUpContent.set({
       content,
     });
