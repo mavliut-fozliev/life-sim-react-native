@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 import {EnumField, FieldLimits, NumberField, ObjectField, StoreFields, StringField} from '../../../../../types/store';
-import {getInitializer} from '../../../../../utils/storeHelpers';
+import {getInitializer} from '../../../../../utils/storeInitializer';
 import {Countries} from '../../../../../consts/countries';
 import {Cities} from '../../../../../consts/cities';
 import {Gender} from '../../../../../consts/gender';

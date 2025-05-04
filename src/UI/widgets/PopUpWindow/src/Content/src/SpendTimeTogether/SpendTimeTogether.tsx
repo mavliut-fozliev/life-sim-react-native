@@ -3,11 +3,13 @@ import TextCover from '../TextCover/TextCover';
 import useGameStore from '../../../../../../pages/Menu/src/store/gameStore';
 import {PeopleRole} from '../../../../../../../consts/character/characterProps';
 import {getRandomArrayItem} from '../../../../../../../utils/common';
+import {useStoreHooks} from '../../../../../../pages/Menu/src/store/storeHooks';
 
 type ContentMap = {[key in PeopleRole]?: string[]};
 
 function SpendTimeTogether() {
   const gameStore = useGameStore();
+  const storeHooks = useStoreHooks();
 
   const contentMap: ContentMap = {
     [PeopleRole.Mother]: [
@@ -33,10 +35,10 @@ function SpendTimeTogether() {
   };
 
   const role = gameStore.popUpContent.person?.role;
-
   const contents = role ? contentMap[role] || [''] : [''];
-
   const content = getRandomArrayItem(contents);
+
+  // storeHooks.addToHistory(content);
 
   return <TextCover>{content}</TextCover>;
 }

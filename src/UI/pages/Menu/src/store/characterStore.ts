@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 import {ObjectField, StoreFields} from '../../../../../types/store';
-import {getInitializer} from '../../../../../utils/storeHelpers';
+import {getInitializer} from '../../../../../utils/storeInitializer';
 import {Person, PlacePeople} from '../../../../../types/people';
 import {ObjectRecord} from '../../../../../types/common';
 

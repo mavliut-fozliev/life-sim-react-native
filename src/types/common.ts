@@ -10,3 +10,7 @@ export type PopUpContent = {
   oneTimeImpact?: number;
   person?: Person;
 };
+
+export type History = {
+  [age: string]: string[];
+};

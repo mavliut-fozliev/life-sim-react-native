@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {getInitializer} from '../../../../../../utils/storeHelpers';
+import {getInitializer} from '../../../../../../utils/storeInitializer';
 import {BooleanField, EnumField, StoreFields, StringField} from '../../../../../../types/store';
 import {Countries} from '../../../../../../consts/countries';
 import {Cities} from '../../../../../../consts/cities';

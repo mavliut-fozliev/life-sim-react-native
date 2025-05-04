@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 import {BooleanField, EnumField, StoreFields, StringField} from '../types/store';
-import {getInitializer} from '../utils/storeHelpers';
+import {getInitializer} from '../utils/storeInitializer';
 import {Language} from '../types/language';
 
 type StoreState = StringField<'language' | 'currentPage'> &
