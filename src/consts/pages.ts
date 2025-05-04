@@ -5,6 +5,7 @@ export enum PageNames {
   Activities = 'Activities',
   People = 'People',
   Intercations = 'Intercations',
+  History = 'History',
   StartNewLife = 'StartNewLife',
   Settings = 'Settings',
 }

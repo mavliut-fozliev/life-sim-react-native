@@ -22,6 +22,7 @@ function Actions({navigation}: ActionsProps) {
       <View style={styles.column}>
         <Button label="grow up" onPress={growUp} />
         <Button label="City" onPress={() => navigate.stepForward(PageNames.City)} disabled={playerStore.age < 0} />
+        <Button label="History" onPress={() => navigate.stepForward(PageNames.History)} />
       </View>
       <View style={styles.column}>
         <Button label="People" onPress={() => navigate.stepForward(PageNames.People)} />

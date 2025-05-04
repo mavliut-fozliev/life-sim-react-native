@@ -1,18 +1,22 @@
+import {View} from 'react-native';
 import {ContentRef} from '../../../../../consts/general';
 import useGameStore from '../../../../pages/Menu/src/store/gameStore';
 import AskAboutHealth from './src/AskAboutHealth/AskAboutHealth';
+import GivePraise from './src/GivePraise/GivePraise';
 import SpendTimeTogether from './src/SpendTimeTogether/SpendTimeTogether';
+import TalkOnThePhone from './src/TalkOnThePhone/TalkOnThePhone';
+import TryToMakePeace from './src/TryToMakePeace/TryToMakePeace';
 
 const content: {[key in ContentRef]: React.JSX.Element} = {
   [ContentRef.SpendTimeTogether]: <SpendTimeTogether />,
-  [ContentRef.GivePraise]: <SpendTimeTogether />,
-  [ContentRef.TalkOnThePhone]: <SpendTimeTogether />,
-  [ContentRef.TryToMakePeace]: <SpendTimeTogether />,
+  [ContentRef.GivePraise]: <GivePraise />,
+  [ContentRef.TalkOnThePhone]: <TalkOnThePhone />,
+  [ContentRef.TryToMakePeace]: <TryToMakePeace />,
   [ContentRef.AskAboutHealth]: <AskAboutHealth />,
-  [ContentRef.AskForMoney]: <SpendTimeTogether />,
-  [ContentRef.Argue]: <SpendTimeTogether />,
-  [ContentRef.StealMoney]: <SpendTimeTogether />,
-  [ContentRef.BecomeAcquainted]: <SpendTimeTogether />,
+  [ContentRef.AskForMoney]: <View />,
+  [ContentRef.Argue]: <View />,
+  [ContentRef.StealMoney]: <View />,
+  [ContentRef.BecomeAcquainted]: <View />,
 };
 
 function Content() {

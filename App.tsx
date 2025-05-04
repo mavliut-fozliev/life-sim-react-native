@@ -15,6 +15,7 @@ import Intercations from './src/UI/pages/Menu/src/Home/src/pages/Interactions.ts
 import City from './src/UI/pages/Menu/src/Home/src/pages/City/City';
 import FullScreenAnimation from './src/UI/components/FullScreenAnimation/FullScreenAnimation';
 import PopUpWindow from './src/UI/widgets/PopUpWindow/PopUpWindow';
+import History from './src/UI/pages/Menu/src/Home/src/pages/History/History';
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +43,7 @@ function App(): React.JSX.Element {
           <Stack.Screen name={PageNames.Activities} component={Activities as any} />
           <Stack.Screen name={PageNames.People} component={People} />
           <Stack.Screen name={PageNames.Intercations} component={Intercations as any} />
+          <Stack.Screen name={PageNames.History} component={History} />
           <Stack.Screen name={PageNames.StartNewLife} component={StartNewLife} />
           <Stack.Screen name={PageNames.Settings} component={Settings} />
         </Stack.Navigator>
