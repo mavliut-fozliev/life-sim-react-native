@@ -13,6 +13,7 @@ import {useSpecialEffects} from './src/useSpecialEffects';
 import useGameStore from '../../../../../../store/gameStore';
 import {Icon} from '../../../../../../../../../../types/icons';
 import {useIcon} from '../../../../../../../../../../icons/useIcon';
+import {useStoreHooks} from '../../../../../../store/storeHooks';
 
 type InteractionProps = {
   interaction: PeopleInteraction;
@@ -24,6 +25,7 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
   const characterStore = useCharacterStore();
   const playerStore = usePlayerStore();
   const gameStore = useGameStore();
+  const {addToHistory} = useStoreHooks();
 
   const navigate = useNavigate(navigation);
   const {getText} = useLocalizeText();
@@ -75,14 +77,12 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
       params = [...params, situationUpdateParams, situationDurationUpdateParams];
     }
 
-    // set popup content params
+    // set popup content and history
+    const content = interaction.getDescriptions({health: person.params.health});
     gameStore.$popUpContent.set({
-      contentRef: interaction.contentRef,
-      oneTimeImpact,
-      person,
+      content,
     });
-
-    console.log(params);
+    addToHistory(content);
 
     characterStore.$people.updateByKeys(params);
     playerStore.$energy.decrease(1);

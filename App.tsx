@@ -23,7 +23,6 @@ function App(): React.JSX.Element {
   const setInitialStoreValues = useInitialStoreValues();
   setInitialStoreValues();
 
-  // disable back button
   useEffect(() => {
     const subscription = BackHandler.addEventListener('hardwareBackPress', () => true);
     return () => subscription.remove();

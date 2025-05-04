@@ -60,16 +60,22 @@ export enum SpecialEffect {
   ShowHealth,
 }
 
+type DescriptionParams = {
+  health?: number;
+};
+
 export type PeopleInteraction = {
   icon: Icon;
   label: string;
   conditions: PeopleRelationship[];
   oneTimeImpact: Chances<number>;
   situationImpact: Chances<PeopleSituation | undefined>;
-  contentRef: number;
   specialEffects?: SpecialEffect[];
+  getDescriptions: (params: DescriptionParams) => string;
 };
 
 export type PeopleInteractions = {
-  [role in PeopleRole]: PeopleInteraction[];
+  [gender in Gender]: {
+    [role in PeopleRole]?: PeopleInteraction[];
+  };
 };

@@ -4,9 +4,9 @@ import {ScrollView, StyleSheet} from 'react-native';
 import {colors} from '../../../../../../../../consts/styles';
 import {Navigation, Route} from '../../../../../../../../types/navigation';
 import {Person} from '../../../../../../../../types/people';
-import {interactions} from '../../../../../../../../consts/character/interactions';
 import {findMatchingKeyByMaxNumber} from '../../../../../../../../utils/common';
 import {peopleRelationshipMap} from '../../../../../../../../consts/character/characterProps';
+import {interactions} from '../../../../../../../../consts/character/interactions/interactions';
 
 type InteractionsProps = {
   navigation: Navigation;
@@ -20,8 +20,10 @@ function Intercations({navigation, route}: InteractionsProps) {
 
   const relationshipStage = findMatchingKeyByMaxNumber(peopleRelationshipMap, person.relationship);
 
+  const allInteractions = interactions[person.gender][person.role] || [];
+
   const availableInteractions = relationshipStage
-    ? interactions[person.role].filter(i => i.conditions.includes(relationshipStage))
+    ? allInteractions.filter(i => i.conditions.includes(relationshipStage))
     : [];
 
   return (

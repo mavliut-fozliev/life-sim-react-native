@@ -10,11 +10,11 @@ function History({}: HistoryProps) {
 
   return (
     <ScrollView style={styles.box}>
-      {Object.entries(gameStore.history).map(([age, historyArr]) => (
-        <View>
+      {Object.entries(gameStore.history).map(([age, historyArr], i) => (
+        <View key={i.toString()}>
           <Text>{age}</Text>
-          {historyArr.map(historyItem => (
-            <Text>{historyItem}</Text>
+          {historyArr.map((historyItem, ii) => (
+            <Text key={ii.toString()}>{historyItem}</Text>
           ))}
         </View>
       ))}

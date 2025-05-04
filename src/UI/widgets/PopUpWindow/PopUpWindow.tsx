@@ -7,12 +7,11 @@ import Content from './src/Content/Content';
 
 function PopUpWindow() {
   const gameStore = useGameStore();
-  const contentRef = gameStore.popUpContent.contentRef;
   const {getText} = useLocalizeText();
 
   return (
-    <Modal visible={!!contentRef} animationType="fade" transparent={true}>
-      <TouchableOpacity activeOpacity={1} onPress={() => gameStore.$popUpContent.set({contentRef: undefined})}>
+    <Modal visible={!!gameStore.popUpContent.content} animationType="fade" transparent={true}>
+      <TouchableOpacity activeOpacity={1} onPress={() => gameStore.$popUpContent.set({content: ''})}>
         <View style={styles.container}>
           <View style={styles.box}>
             <Content />
