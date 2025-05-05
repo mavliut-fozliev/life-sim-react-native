@@ -6,7 +6,7 @@ import {PeopleRelationship, PeopleSituation} from '../../../characterProps';
 const interaction: PeopleInteraction = {
   icon: Icon.People,
   label: 'Try to Make Peace',
-  conditions: [PeopleRelationship.Hostility],
+  conditions: [PeopleRelationship.Indifference],
   oneTimeImpact: [
     {value: 5, chance: 80},
     {value: 30, chance: 20},

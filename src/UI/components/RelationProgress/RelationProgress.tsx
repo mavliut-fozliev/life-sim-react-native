@@ -11,7 +11,7 @@ export const peopleRelationshipLevels = {
   [PeopleRelationship.Friendliness]: 3,
   [PeopleRelationship.Neutrality]: 2,
   [PeopleRelationship.Coldness]: 1,
-  [PeopleRelationship.Hostility]: 0,
+  [PeopleRelationship.Indifference]: 0,
 };
 
 function RelationProgress({value}: RelationProgressProps) {

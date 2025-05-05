@@ -11,7 +11,7 @@ const interaction: PeopleInteraction = {
     PeopleRelationship.Friendliness,
     PeopleRelationship.Neutrality,
     PeopleRelationship.Coldness,
-    PeopleRelationship.Hostility,
+    PeopleRelationship.Indifference,
   ],
   oneTimeImpact: [
     {value: -30, chance: 50},

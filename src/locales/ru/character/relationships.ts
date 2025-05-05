@@ -13,6 +13,6 @@ export default {
   'Friendliness': 'Дружелюбие',
   'Politeness': 'Вежливость',
   'Neutrality': 'Нейтральность',
-  'Hostility': 'Враждебность',
+  'Indifference': 'Враждебность',
   'Indifference': 'Безразличие',
 };

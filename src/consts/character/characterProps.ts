@@ -29,7 +29,7 @@ export enum PeopleRelationship {
   Friendliness = 'Friendliness',
   Neutrality = 'Neutrality',
   Coldness = 'Coldness',
-  Hostility = 'Hostility',
+  Indifference = 'Indifference',
 }
 
 export const peopleRelationshipColors = {
@@ -37,7 +37,7 @@ export const peopleRelationshipColors = {
   [PeopleRelationship.Friendliness]: '#64B5F6',
   [PeopleRelationship.Neutrality]: '#BDBDBD',
   [PeopleRelationship.Coldness]: '#D32F2F',
-  [PeopleRelationship.Hostility]: '#9E9E9E',
+  [PeopleRelationship.Indifference]: '#9E9E9E',
 };
 
 export const peopleRelationshipMap: {[key in PeopleRelationship]: number} = {
@@ -45,7 +45,7 @@ export const peopleRelationshipMap: {[key in PeopleRelationship]: number} = {
   [PeopleRelationship.Friendliness]: 85,
   [PeopleRelationship.Neutrality]: 65,
   [PeopleRelationship.Coldness]: 45,
-  [PeopleRelationship.Hostility]: 25,
+  [PeopleRelationship.Indifference]: 25,
 };
 
 const parentsRelationshipLabels = {
@@ -53,7 +53,7 @@ const parentsRelationshipLabels = {
   [PeopleRelationship.Friendliness]: 'Support',
   [PeopleRelationship.Neutrality]: 'Expectation',
   [PeopleRelationship.Coldness]: 'Coldness',
-  [PeopleRelationship.Hostility]: 'Indifference',
+  [PeopleRelationship.Indifference]: 'Indifference',
 };
 
 const spouseRelationshipLabels = {
@@ -61,7 +61,7 @@ const spouseRelationshipLabels = {
   [PeopleRelationship.Friendliness]: 'Attachment',
   [PeopleRelationship.Neutrality]: 'Understanding',
   [PeopleRelationship.Coldness]: 'Misunderstanding',
-  [PeopleRelationship.Hostility]: 'Alienation',
+  [PeopleRelationship.Indifference]: 'Alienation',
 };
 
 const siblingsRelationshipLabels = {
@@ -69,7 +69,7 @@ const siblingsRelationshipLabels = {
   [PeopleRelationship.Friendliness]: 'Support',
   [PeopleRelationship.Neutrality]: 'Apathy',
   [PeopleRelationship.Coldness]: 'Coldness',
-  [PeopleRelationship.Hostility]: 'Conflict',
+  [PeopleRelationship.Indifference]: 'Indifference',
 };
 
 const familiarRelationshipLabels = {
@@ -77,7 +77,7 @@ const familiarRelationshipLabels = {
   [PeopleRelationship.Friendliness]: 'Politeness',
   [PeopleRelationship.Neutrality]: 'Neutrality',
   [PeopleRelationship.Coldness]: 'Coldness',
-  [PeopleRelationship.Hostility]: 'Hostility',
+  [PeopleRelationship.Indifference]: 'Indifference',
 };
 
 export const peopleRelationshipLabels: Omit<
