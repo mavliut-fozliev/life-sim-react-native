@@ -12,7 +12,7 @@ function Visualization() {
   const car = getSprite(SpriteName.car, 180, {top: 5});
   const aircraft = getSprite(SpriteName.aircraft, 160, {bottom: 0, right: 10});
 
-  const back = require('../../../../../../../../../assets/images/background/sun2.jpg');
+  const back = require('../../../../../../../../../assets/images/background/sun.jpg');
 
   return (
     <View style={styles.box}>

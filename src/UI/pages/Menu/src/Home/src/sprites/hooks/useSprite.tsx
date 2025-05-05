@@ -38,9 +38,7 @@ export function useSprite() {
       playerStore.age,
       size,
       {
-        legs: playerStore.sprite.legs,
         body: playerStore.sprite.body,
-        head: playerStore.sprite.head,
         eyes: playerStore.sprite.eyes,
         mouth: playerStore.sprite.mouth,
         hair: playerStore.sprite.hair,
@@ -50,9 +48,7 @@ export function useSprite() {
     [SpriteName.mother]: motherPerson ? (
       <Adult
         size={size}
-        legs={motherPerson.sprite.legs}
         body={motherPerson.sprite.body}
-        head={motherPerson.sprite.head}
         eyes={motherPerson.sprite.eyes}
         mouth={motherPerson.sprite.mouth}
         style={style}
@@ -63,9 +59,7 @@ export function useSprite() {
     [SpriteName.father]: fatherPerson ? (
       <Adult
         size={size}
-        legs={fatherPerson.sprite.legs}
         body={fatherPerson.sprite.body}
-        head={fatherPerson.sprite.head}
         eyes={fatherPerson.sprite.eyes}
         mouth={fatherPerson.sprite.mouth}
         hair={fatherPerson.sprite.hair}

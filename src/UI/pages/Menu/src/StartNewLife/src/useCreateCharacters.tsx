@@ -21,9 +21,7 @@ export function useCreateCharacters() {
   const {getText} = useLocalizeText();
 
   const playerSprite = {
-    legs: 'light',
     body: 'light',
-    head: 'light',
     eyes: 'black',
     mouth: 'smile',
   } as const;
@@ -64,9 +62,7 @@ export function useCreateCharacters() {
         health: 80,
       },
       sprite: {
-        legs: 'light',
         body: 'light',
-        head: 'light',
         eyes: 'black',
         mouth: 'smile',
       },
@@ -90,9 +86,7 @@ export function useCreateCharacters() {
         health: 80,
       },
       sprite: {
-        legs: 'light',
         body: 'light',
-        head: 'light',
         eyes: 'black',
         mouth: 'smile',
         hair: 'average',
@@ -121,9 +115,7 @@ export function useCreateCharacters() {
         health: 80,
       },
       sprite: {
-        legs: 'light',
         body: 'light',
-        head: 'light',
         eyes: 'black',
         mouth: 'smile',
         hair: 'average',

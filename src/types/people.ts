@@ -12,9 +12,7 @@ import {Chances, ObjectRecord} from './common';
 import {Icon} from './icons';
 
 export type CommonSpriteVariants = {
-  legs: 'light';
   body: 'light' | 'dark';
-  head: 'light' | 'dark';
   eyes: 'black';
   mouth: 'smile';
   hair?: 'average';

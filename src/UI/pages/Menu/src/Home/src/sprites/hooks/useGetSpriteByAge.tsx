@@ -23,9 +23,7 @@ export function useGetSpriteByAge() {
       [SpriteEras.infant]: (
         <Infant
           size={size}
-          legs={spriteVariants.legs}
           body={spriteVariants.body}
-          head={spriteVariants.head}
           eyes={spriteVariants.eyes}
           mouth={spriteVariants.mouth}
           style={style}
@@ -34,9 +32,7 @@ export function useGetSpriteByAge() {
       [SpriteEras.child]: (
         <Adult
           size={size}
-          legs={spriteVariants.legs}
           body={spriteVariants.body}
-          head={spriteVariants.head}
           eyes={spriteVariants.eyes}
           mouth={spriteVariants.mouth}
           hair={spriteVariants.hair}
@@ -46,9 +42,7 @@ export function useGetSpriteByAge() {
       [SpriteEras.preTeen]: (
         <Adult
           size={size}
-          legs={spriteVariants.legs}
           body={spriteVariants.body}
-          head={spriteVariants.head}
           eyes={spriteVariants.eyes}
           mouth={spriteVariants.mouth}
           hair={spriteVariants.hair}
@@ -58,9 +52,7 @@ export function useGetSpriteByAge() {
       [SpriteEras.teenager]: (
         <Adult
           size={size}
-          legs={spriteVariants.legs}
           body={spriteVariants.body}
-          head={spriteVariants.head}
           eyes={spriteVariants.eyes}
           mouth={spriteVariants.mouth}
           hair={spriteVariants.hair}
@@ -70,9 +62,7 @@ export function useGetSpriteByAge() {
       [SpriteEras.adult]: (
         <Adult
           size={size}
-          legs={spriteVariants.legs}
           body={spriteVariants.body}
-          head={spriteVariants.head}
           eyes={spriteVariants.eyes}
           mouth={spriteVariants.mouth}
           hair={spriteVariants.hair}
@@ -82,9 +72,7 @@ export function useGetSpriteByAge() {
       [SpriteEras.elder]: (
         <Adult
           size={size}
-          legs={spriteVariants.legs}
           body={spriteVariants.body}
-          head={spriteVariants.head}
           eyes={spriteVariants.eyes}
           mouth={spriteVariants.mouth}
           hair={spriteVariants.hair}

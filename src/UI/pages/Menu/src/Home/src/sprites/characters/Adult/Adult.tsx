@@ -10,7 +10,7 @@ type AdultProps = {
 
 const assetPath = '../../../../../../../../../assets/images/character/adult/';
 
-function Adult({size, legs, body, head, eyes, mouth, hair, style}: AdultProps) {
+function Adult({size, body, eyes, mouth, hair, style}: AdultProps) {
   const dynamicStyles = useMemo(
     () =>
       StyleSheet.create({
@@ -23,22 +23,15 @@ function Adult({size, legs, body, head, eyes, mouth, hair, style}: AdultProps) {
     [size, style],
   );
 
-  const legsVariants = {
-    light: require(assetPath + 'legs/legs.png'),
-  };
   const bodyVariants = {
     light: require(assetPath + 'body/body_1.png'),
-    dark: require(assetPath + 'body/body_2.png'),
-  };
-  const headVariants = {
-    light: require(assetPath + 'head/head_1.png'),
-    dark: require(assetPath + 'head/head_2.png'),
+    dark: require(assetPath + 'body/body_1.png'),
   };
   const eyesVariants = {
-    black: require(assetPath + 'eyes/eyes.png'),
+    black: require(assetPath + 'eyes/eyes_1.png'),
   };
   const mouthVariants = {
-    smile: require(assetPath + 'mouth/mouth.png'),
+    smile: require(assetPath + 'mouth/mouth_1.png'),
   };
   const hairVariants = {
     average: require(assetPath + 'hair/hair_1.png'),
@@ -46,9 +39,7 @@ function Adult({size, legs, body, head, eyes, mouth, hair, style}: AdultProps) {
 
   return (
     <View style={dynamicStyles.box}>
-      {legs && <Image source={legsVariants[legs]} style={styles.image} />}
-      {body && <Image source={bodyVariants[body]} style={styles.image} />}
-      <Image source={headVariants[head]} style={styles.image} />
+      <Image source={bodyVariants[body]} style={styles.image} />
       <Image source={eyesVariants[eyes]} style={styles.image} />
       <Image source={mouthVariants[mouth]} style={styles.image} />
       {hair && <Image source={hairVariants[hair]} style={styles.image} />}
