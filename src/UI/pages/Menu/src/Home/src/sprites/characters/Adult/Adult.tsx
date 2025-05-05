@@ -24,8 +24,8 @@ function Adult({size, body, eyes, mouth, hair, style}: AdultProps) {
   );
 
   const bodyVariants = {
-    light: require(assetPath + 'body/body_1.png'),
-    dark: require(assetPath + 'body/body_1.png'),
+    light: require(assetPath + 'body/normal/body_1.png'),
+    dark: require(assetPath + 'body/normal/body_1.png'),
   };
   const eyesVariants = {
     black: require(assetPath + 'eyes/eyes_1.png'),
