@@ -1,15 +1,28 @@
-import React from 'react';
+import React, {useCallback, useRef} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {colors} from '../../../../../../../../consts/styles';
 import useGameStore from '../../../../store/gameStore';
+import {useFocusEffect} from '@react-navigation/native';
 
 type HistoryProps = {};
 
 function History({}: HistoryProps) {
   const gameStore = useGameStore();
 
+  const scrollRef = useRef<ScrollView>(null);
+
+  useFocusEffect(
+    useCallback(() => {
+      const timeout = setTimeout(() => {
+        scrollRef.current?.scrollToEnd({animated: false});
+      }, 100);
+
+      return () => clearTimeout(timeout);
+    }, []),
+  );
+
   return (
-    <ScrollView style={styles.box}>
+    <ScrollView style={styles.box} ref={scrollRef}>
       <View style={styles.boxContent}>
         {Object.entries(gameStore.history).map(([age, historyArr], i) => (
           <View key={i.toString()}>
