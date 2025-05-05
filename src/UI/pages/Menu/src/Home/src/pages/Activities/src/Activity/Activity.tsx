@@ -6,6 +6,9 @@ import {ResourceVariant} from '../../../../../../../../../../types/resources';
 import {useNavigate} from '../../../../../../../../../../hooks/useNavigate';
 import {useIcon} from '../../../../../../../../../../icons/useIcon';
 import {Icon} from '../../../../../../../../../../types/icons';
+import {useStoreHooks} from '../../../../../../store/storeHooks';
+import {getRandomArrayItem} from '../../../../../../../../../../utils/common';
+import useGameStore from '../../../../../../store/gameStore';
 
 type ActivityProps = {
   label: string;
@@ -13,6 +16,7 @@ type ActivityProps = {
   price: number;
   resource: ResourceVariant;
   action: () => void;
+  descriptions: string[];
 };
 
 type ResourceMap = {
@@ -23,9 +27,11 @@ type ResourceMap = {
   };
 };
 
-function Activity({label, navigation, price, resource, action}: ActivityProps) {
+function Activity({label, navigation, price, resource, action, descriptions}: ActivityProps) {
   const playerStore = usePlayerStore();
+  const gameStore = useGameStore();
   const navigate = useNavigate(navigation);
+  const {addToHistory} = useStoreHooks();
 
   const resourceMap: ResourceMap = {
     [ResourceVariant.money]: {
@@ -42,17 +48,28 @@ function Activity({label, navigation, price, resource, action}: ActivityProps) {
 
   const resourceObj = resourceMap[resource];
 
+  const handlePress = () => {
+    if (resourceObj.state < price) {
+      return;
+    }
+
+    action();
+    resourceObj.decrease(price);
+
+    // set popup content and history
+    const content = getRandomArrayItem(descriptions) || descriptions[0];
+    gameStore.$popUpContent.set({
+      content,
+    });
+    addToHistory(content);
+
+    navigate.backToHome();
+  };
+
   return (
     <SectionButton
       label={label}
-      onPress={() => {
-        if (resourceObj.state < price) {
-          return;
-        }
-        action();
-        resourceObj.decrease(price);
-        navigate.backToHome();
-      }}
+      onPress={handlePress}
       disabled={resourceObj.state < price}
       icon={resourceObj.icon}
       iconText={price.toString()}

@@ -11,6 +11,7 @@ function Content() {
 const styles = StyleSheet.create({
   content: {
     fontSize: fontSizes.small,
+    textAlign: 'center',
   },
 });
 

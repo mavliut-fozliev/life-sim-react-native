@@ -2,10 +2,12 @@ import {PeopleRole, peopleSituationImpact} from '../../../../../../../../../../c
 import {UpdateByKeysParams} from '../../../../../../../../../../types/store';
 import useCharacterStore from '../../../../../../store/characterStore';
 import usePlayerStore from '../../../../../../store/playerStore';
+import {useStoreHooks} from '../../../../../../store/storeHooks';
 
 export function useGrowUp() {
   const playerStore = usePlayerStore();
   const characterStore = useCharacterStore();
+  const {addAge} = useStoreHooks();
 
   function peopleManipulations() {
     Object.values(characterStore.people).forEach(person => {
@@ -53,6 +55,7 @@ export function useGrowUp() {
   }
 
   return () => {
+    addAge();
     playerStore.$age.increase(1);
     playerStore.$energy.set(20);
     peopleManipulations();
