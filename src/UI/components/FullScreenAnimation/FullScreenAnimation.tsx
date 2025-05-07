@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Animated, StyleSheet} from 'react-native';
 import useGameStore from '../../pages/Menu/src/store/gameStore';
-import {Icon} from '../../../types/icons';
+import {Icon} from '../../../consts/icons';
 import {useIcon} from '../../../icons/useIcon';
 
 function IconComponent({icon}: {icon: Icon}) {

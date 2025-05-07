@@ -2,7 +2,7 @@ import {characterNames} from '../../../../../../consts/character/characterNames'
 import {PeopleRole, PeopleSituation, PlacePeopleType} from '../../../../../../consts/character/characterProps';
 import {characterSurnames} from '../../../../../../consts/character/characterSurnames';
 import {Gender} from '../../../../../../consts/gender';
-import {places} from '../../../../../../consts/places';
+import {places} from '../../../../../../consts/places/places';
 import {useLocalizeText} from '../../../../../../locales/useLocalizeText';
 import {ObjectRecord} from '../../../../../../types/common';
 import {FamilyPerson, Person, PlacePeople} from '../../../../../../types/people';

@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, Modal, TouchableOpacity, ScrollView} from 'react
 import {colors, fontSizes} from '../../../consts/styles';
 import {useLocalizeText} from '../../../locales/useLocalizeText';
 import {useIcon} from '../../../icons/useIcon';
-import {Icon} from '../../../types/icons';
+import {Icon} from '../../../consts/icons';
 
 export type SelectItem<T extends string = string> = {
   label: string;

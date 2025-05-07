@@ -1,10 +1,10 @@
 import {create} from 'zustand';
 import {EnumField, FieldLimits, NumberField, ObjectField, StoreFields, StringField} from '../../../../../types/store';
-import {getInitializer} from '../../../../../utils/storeInitializer';
 import {Countries} from '../../../../../consts/countries';
 import {Cities} from '../../../../../consts/cities';
 import {Gender} from '../../../../../consts/gender';
 import {CommonSpriteVariants} from '../../../../../types/people';
+import {getInitializer} from '../../../../../utils/store/storeInitializer';
 
 type StoreState = StringField<'name' | 'surname'> &
   NumberField<'age' | 'money' | 'energy' | 'health' | 'power' | 'charm' | 'status'> &

@@ -1,4 +1,4 @@
-import {Icon} from '../types/icons';
+import {Icon} from '../consts/icons';
 import ArrowLeft from './ArrowLeft';
 import ArrowRight from './ArrowRight';
 import Bills from './Bills';

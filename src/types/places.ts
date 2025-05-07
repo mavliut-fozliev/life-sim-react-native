@@ -1,23 +1,7 @@
 import {Cities} from '../consts/cities';
 import {Countries} from '../consts/countries';
-import {ResourceVariant} from './resources';
-
-export enum PlaceType {
-  Gym = 'Gym',
-  Hospital = 'Hospital',
-  Nightclub = 'Nightclub',
-}
-
-export enum PlaceLevel {
-  One = 'One',
-  Two = 'Two',
-  Three = 'Three',
-}
-
-export enum RestrictionProp {
-  age = 'age',
-  gender = 'gender',
-}
+import {PlaceLevel, PlaceType, RestrictionProp} from '../consts/places/common';
+import {ResourceVariant} from '../consts/resources';
 
 export type PlaceProps = {
   type: PlaceType;

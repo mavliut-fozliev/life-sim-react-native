@@ -11,7 +11,7 @@ import {UpdateByKeysParams} from '../../../../../../../../../../types/store';
 import {useLocalizeText} from '../../../../../../../../../../locales/useLocalizeText';
 import {useSpecialEffects} from './src/useSpecialEffects';
 import useGameStore from '../../../../../../store/gameStore';
-import {Icon} from '../../../../../../../../../../types/icons';
+import {Icon} from '../../../../../../../../../../consts/icons';
 import {useIcon} from '../../../../../../../../../../icons/useIcon';
 import {useStoreHooks} from '../../../../../../store/storeHooks';
 

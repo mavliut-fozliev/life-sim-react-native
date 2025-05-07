@@ -10,8 +10,8 @@ import useGlobalStore from '../../../../../storage/store';
 import {PageNames} from '../../../../../consts/pages';
 import {ObjectRecord} from '../../../../../types/common';
 import {useLocalizeText} from '../../../../../locales/useLocalizeText';
-import {ResourceVariant} from '../../../../../types/resources';
-import {Icon} from '../../../../../types/icons';
+import {ResourceVariant} from '../../../../../consts/resources';
+import {Icon} from '../../../../../consts/icons';
 import {useIcon} from '../../../../../icons/useIcon';
 
 function Topbar() {

@@ -1,7 +1,7 @@
 import {create} from 'zustand';
 import {NumberField, ObjectField, StoreFields} from '../../../../../types/store';
-import {getInitializer} from '../../../../../utils/storeInitializer';
 import {History, PopUpContent} from '../../../../../types/common';
+import {getInitializer} from '../../../../../utils/store/storeInitializer';
 
 type StoreState = NumberField<'fullScreenAnimationIcon'> &
   ObjectField<'popUpContent', PopUpContent> &

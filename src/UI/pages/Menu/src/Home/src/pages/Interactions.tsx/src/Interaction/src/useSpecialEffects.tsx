@@ -1,5 +1,6 @@
 import {PeopleRole} from '../../../../../../../../../../../consts/character/characterProps';
-import {PeopleInteraction, Person, SpecialEffect} from '../../../../../../../../../../../types/people';
+import {SpecialEffect} from '../../../../../../../../../../../consts/character/interactions/common';
+import {PeopleInteraction, Person} from '../../../../../../../../../../../types/people';
 import {UpdateByKeysParams} from '../../../../../../../../../../../types/store';
 import {getRandomValue} from '../../../../../../../../../../../utils/common';
 import usePlayerStore from '../../../../../../../store/playerStore';

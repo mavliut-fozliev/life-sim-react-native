@@ -1,7 +1,7 @@
 import React from 'react';
 import StatTemplate from '../../../../../../../../../../components/StatTemplate/StatTemplate';
 import {useIcon} from '../../../../../../../../../../../icons/useIcon';
-import {Icon} from '../../../../../../../../../../../types/icons';
+import {Icon} from '../../../../../../../../../../../consts/icons';
 
 type VariantType = 'health' | 'power' | 'age' | 'charm';
 

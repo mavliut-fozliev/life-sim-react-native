@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {colors, fontSizes} from '../../../consts/styles';
 import {useIcon} from '../../../icons/useIcon';
-import {Icon} from '../../../types/icons';
+import {Icon} from '../../../consts/icons';
 
 type SectionButtonProps = {
   label: string;

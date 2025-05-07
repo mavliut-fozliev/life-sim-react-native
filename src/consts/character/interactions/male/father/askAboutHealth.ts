@@ -1,7 +1,8 @@
-import {Icon} from '../../../../../types/icons';
-import {PeopleInteraction, SpecialEffect} from '../../../../../types/people';
+import {Icon} from '../../../../icons';
+import {PeopleInteraction} from '../../../../../types/people';
 import {findMatchingKeyByMaxNumber, getRandomArrayItem} from '../../../../../utils/common';
 import {PeopleHealth, peopleHealthMap, PeopleRelationship, PeopleSituation} from '../../../characterProps';
+import {SpecialEffect} from '../../common';
 
 const interaction: PeopleInteraction = {
   icon: Icon.Heart,

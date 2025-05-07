@@ -1,9 +1,9 @@
 import {create} from 'zustand';
-import {getInitializer} from '../../../../../../utils/storeInitializer';
 import {BooleanField, EnumField, StoreFields, StringField} from '../../../../../../types/store';
 import {Countries} from '../../../../../../consts/countries';
 import {Cities} from '../../../../../../consts/cities';
 import {Gender} from '../../../../../../consts/gender';
+import {getInitializer} from '../../../../../../utils/store/storeInitializer';
 
 type StoreState = StringField<'name' | 'surname'> &
   EnumField<'country', Countries> &

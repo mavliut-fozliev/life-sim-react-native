@@ -1,7 +1,7 @@
+import {PlaceLevel, PlaceType} from '../../../../../../../../../consts/places/common';
 import {useLocalizeText} from '../../../../../../../../../locales/useLocalizeText';
 import {Navigation} from '../../../../../../../../../types/navigation';
-import {PlaceLevel, PlaceType} from '../../../../../../../../../types/places';
-import {ResourceVariant} from '../../../../../../../../../types/resources';
+import {ResourceVariant} from '../../../../../../../../../consts/resources';
 import {getRandomValue} from '../../../../../../../../../utils/common';
 import Divider from '../../../../../../../../components/Divider/Divider';
 import SectionButton from '../../../../../../../../components/SectionButton/SectionButton';

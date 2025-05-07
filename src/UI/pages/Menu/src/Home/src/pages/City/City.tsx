@@ -5,14 +5,15 @@ import usePlayerStore from '../../../../store/playerStore';
 import {useNavigate} from '../../../../../../../../hooks/useNavigate';
 import {Navigation} from '../../../../../../../../types/navigation';
 import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
-import {places} from '../../../../../../../../consts/places';
+import {places} from '../../../../../../../../consts/places/places';
 import SectionButton from '../../../../../../../components/SectionButton/SectionButton';
 import {PageNames} from '../../../../../../../../consts/pages';
-import {PlaceLevel, PlaceProps, PlaceType} from '../../../../../../../../types/places';
 import Divider from '../../../../../../../components/Divider/Divider';
 import useCharacterStore from '../../../../store/characterStore';
-import {Icon} from '../../../../../../../../types/icons';
+import {Icon} from '../../../../../../../../consts/icons';
 import {useIcon} from '../../../../../../../../icons/useIcon';
+import {PlaceLevel, PlaceType} from '../../../../../../../../consts/places/common';
+import {PlaceProps} from '../../../../../../../../types/places';
 
 type CityProps = {
   navigation: Navigation;

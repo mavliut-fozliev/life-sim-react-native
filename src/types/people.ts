@@ -9,7 +9,8 @@ import {Cities} from '../consts/cities';
 import {Countries} from '../consts/countries';
 import {Gender} from '../consts/gender';
 import {Chances, ObjectRecord} from './common';
-import {Icon} from './icons';
+import {Icon} from '../consts/icons';
+import {SpecialEffect} from '../consts/character/interactions/common';
 
 export type CommonSpriteVariants = {
   body: 'light' | 'dark';
@@ -51,12 +52,6 @@ export type FamilyPerson = {
 } & Person;
 
 export type PlacePeople = ObjectRecord<ObjectRecord<string[]>>;
-
-export enum SpecialEffect {
-  GetMoney,
-  MakeFamiliar,
-  ShowHealth,
-}
 
 type DescriptionParams = {
   health?: number;

@@ -1,6 +1,7 @@
-import {PlaceLevel, Places, PlaceType, RestrictionProp} from '../types/places';
-import {Cities} from './cities';
-import {Countries} from './countries';
+import {Places} from '../../types/places';
+import {Cities} from '../cities';
+import {Countries} from '../countries';
+import {PlaceLevel, PlaceType, RestrictionProp} from './common';
 
 export const places: Places = {
   [Countries.ALB]: {

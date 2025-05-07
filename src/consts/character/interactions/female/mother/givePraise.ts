@@ -1,4 +1,4 @@
-import {Icon} from '../../../../../types/icons';
+import {Icon} from '../../../../icons';
 import {PeopleInteraction} from '../../../../../types/people';
 import {getRandomArrayItem} from '../../../../../utils/common';
 import {PeopleRelationship, PeopleSituation} from '../../../characterProps';

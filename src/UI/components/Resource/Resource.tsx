@@ -1,8 +1,8 @@
 import React from 'react';
 import StatTemplate from '../StatTemplate/StatTemplate';
-import {ResourceVariant} from '../../../types/resources';
+import {ResourceVariant} from '../../../consts/resources';
 import {useIcon} from '../../../icons/useIcon';
-import {Icon} from '../../../types/icons';
+import {Icon} from '../../../consts/icons';
 
 type ResourceProps = {name: ResourceVariant; value: number};
 

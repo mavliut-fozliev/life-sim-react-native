@@ -1,5 +1,5 @@
-import {bool, num, obj, str} from '../storage/MMKV';
-import {FieldLimits, StoreFields} from '../types/store';
+import {FieldLimits, StoreFields} from '../../types/store';
+import {bool, num, obj, str} from './MMKV';
 
 export const mmkvKeyMethod = (mmkvKey: string) => (key: string) => mmkvKey + key;
 export const getMethodsKey = (key: string) => '$' + key;
