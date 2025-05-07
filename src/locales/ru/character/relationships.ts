@@ -13,6 +13,5 @@ export default {
   'Friendliness': 'Дружелюбие',
   'Politeness': 'Вежливость',
   'Neutrality': 'Нейтральность',
-  'Indifference': 'Враждебность',
   'Indifference': 'Безразличие',
 };

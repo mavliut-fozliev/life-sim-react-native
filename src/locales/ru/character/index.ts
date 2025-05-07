@@ -5,6 +5,7 @@ import relationships from './relationships';
 import situation from './situation';
 import statuses from './statuses';
 import interactions from './interactions';
+import common from './common';
 
 export default {
   names,
@@ -14,4 +15,5 @@ export default {
   situation,
   statuses,
   interactions,
+  common,
 };
