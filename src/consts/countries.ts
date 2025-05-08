@@ -1,6 +1,6 @@
 export enum Countries {
-  ALB = 'ALB',
-  RUS = 'RUS',
-  TUR = 'TUR',
-  USA = 'USA',
+  Albania = 'Albania',
+  Russia = 'Russia',
+  Turkey = 'Turkey',
+  UnitedStatesOfAmerica = 'United States of America',
 }

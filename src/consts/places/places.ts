@@ -4,7 +4,7 @@ import {Countries} from '../countries';
 import {PlaceLevel, PlaceType, RestrictionProp} from './common';
 
 export const places: Places = {
-  [Countries.ALB]: {
+  [Countries.Albania]: {
     [Cities.Tirana]: {
       'Center': {
         'Fitness Palace': {
@@ -18,7 +18,7 @@ export const places: Places = {
       },
     },
   },
-  [Countries.RUS]: {
+  [Countries.Russia]: {
     [Cities.Moscow]: {
       'Center': {
         'Fit Lab': {
@@ -57,14 +57,14 @@ export const places: Places = {
       },
     },
   },
-  [Countries.TUR]: {
+  [Countries.Turkey]: {
     [Cities.Istanbul]: {},
     [Cities.Ankara]: {},
     [Cities.Izmir]: {},
     [Cities.Bursa]: {},
     [Cities.Antalya]: {},
   },
-  [Countries.USA]: {
+  [Countries.UnitedStatesOfAmerica]: {
     [Cities.NewYork]: {},
   },
 };

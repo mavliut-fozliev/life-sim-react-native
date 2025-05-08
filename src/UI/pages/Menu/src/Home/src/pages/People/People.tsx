@@ -1,108 +1,122 @@
 import React from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
-import {colors} from '../../../../../../../../consts/styles';
-import SectionButton from '../../../../../../../components/SectionButton/SectionButton';
+import {Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {colors, fontSizes} from '../../../../../../../../consts/styles';
 import {Navigation} from '../../../../../../../../types/navigation';
 import {useNavigate} from '../../../../../../../../hooks/useNavigate';
 import {PageNames} from '../../../../../../../../consts/pages';
 import useCharacterStore from '../../../../store/characterStore';
-import {SpriteName, useSprite} from '../../sprites/hooks/useSprite';
+import {useSprite} from '../../sprites/hooks/useSprite';
 import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
 import StatusGroup from '../../../../../../../components/StatusGroup/StatusGroup';
 import {PeopleRole} from '../../../../../../../../consts/character/characterProps';
 import {findByRole} from '../../../../../../../../utils/common';
 import Divider from '../../../../../../../components/Divider/Divider';
+import {Person} from '../../../../../../../../types/people';
 
 type PeopleProps = {
   navigation: Navigation;
 };
 
+enum Headers {
+  Family = 'Family',
+  CloseCircle = 'Close Circle',
+  Acquaintances = 'Acquaintances',
+}
+
+type PeopleData = Record<string, Person[]>;
+
+const {width} = Dimensions.get('window');
+
 function People({navigation}: PeopleProps) {
   const characterStore = useCharacterStore();
 
   const navigate = useNavigate(navigation);
-  const {getSprite, getPersonSprite} = useSprite();
+  const {getPersonSprite} = useSprite();
   const {getText} = useLocalizeText();
 
-  const father = getSprite(SpriteName.father, 60);
-  const mother = getSprite(SpriteName.mother, 60);
+  const peopleData: PeopleData = {
+    [Headers.Family]: [],
+  };
 
   const fatherPerson = findByRole(characterStore.people, PeopleRole.Father);
+  if (fatherPerson) {
+    peopleData[Headers.Family].push(fatherPerson);
+  }
   const motherPerson = findByRole(characterStore.people, PeopleRole.Mother);
+  if (motherPerson) {
+    peopleData[Headers.Family].push(motherPerson);
+  }
 
   const closeCircle = Object.values(characterStore.people).filter(p => p.role === PeopleRole.Friend);
+  peopleData[Headers.CloseCircle] = closeCircle;
+
   const acquaintances = Object.values(characterStore.people).filter(p => p.role === PeopleRole.Familiar);
+  peopleData[Headers.Acquaintances] = acquaintances;
 
   return (
-    <ScrollView style={styles.box}>
-      <Divider label={getText(['character', 'common', 'Family'])} />
-      {fatherPerson && (
-        <SectionButton
-          label={`${fatherPerson.name} ${fatherPerson.surname}`}
-          description={getText(['character', 'roles', PeopleRole.Father])}
-          height={100}
-          extraLine={
-            <StatusGroup
-              role={fatherPerson.role}
-              relationship={fatherPerson.relationship}
-              situation={fatherPerson.situation}
-            />
-          }
-          mainIcon={father}
-          icon={<></>}
-          onPress={() => navigate.stepForward(PageNames.Intercations, {person: fatherPerson})}
-        />
-      )}
-      {motherPerson && (
-        <SectionButton
-          label={`${motherPerson.name} ${motherPerson.surname}`}
-          description={getText(['character', 'roles', PeopleRole.Mother])}
-          height={100}
-          extraLine={
-            <StatusGroup
-              role={motherPerson.role}
-              relationship={motherPerson.relationship}
-              situation={motherPerson.situation}
-            />
-          }
-          mainIcon={mother}
-          icon={<></>}
-          onPress={() => navigate.stepForward(PageNames.Intercations, {person: motherPerson})}
-        />
-      )}
-      {closeCircle.length ? <Divider label={getText(['character', 'common', 'Close Circle'])} /> : <></>}
-      {closeCircle.map(person => (
-        <SectionButton
-          key={person.id}
-          label={`${person.name} ${person.surname}`}
-          description={getText(['character', 'roles', person.role])}
-          height={100}
-          extraLine={<StatusGroup role={person.role} relationship={person.relationship} situation={person.situation} />}
-          mainIcon={getPersonSprite(person, 60)}
-          icon={<></>}
-          onPress={() => navigate.stepForward(PageNames.Intercations, {person})}
-        />
-      ))}
-      {acquaintances.length ? <Divider label={getText(['character', 'common', 'Acquaintances'])} /> : <></>}
-      {acquaintances.map(person => (
-        <SectionButton
-          key={person.id}
-          label={`${person.name} ${person.surname}`}
-          description={getText(['character', 'roles', person.role])}
-          height={100}
-          extraLine={<StatusGroup role={person.role} relationship={person.relationship} situation={person.situation} />}
-          mainIcon={getPersonSprite(person, 60)}
-          icon={<></>}
-          onPress={() => navigate.stepForward(PageNames.Intercations, {person})}
-        />
+    <ScrollView style={styles.container}>
+      {Object.entries(peopleData).map(([title, people]) => (
+        <View key={title} style={styles.group}>
+          {people.length ? <Divider label={getText(['character', 'common', title])} /> : <></>}
+          <View style={styles.grid}>
+            {people.map(person => (
+              <TouchableOpacity
+                key={person.id}
+                style={styles.card}
+                onPress={() => navigate.stepForward(PageNames.Intercations, {person})}>
+                {getPersonSprite(person, 100)}
+                <Text style={styles.name}>
+                  {person.name} {person.surname}
+                </Text>
+                <Text style={styles.info}>
+                  {person.age}, {getText(['character', 'roles', person.role])}
+                </Text>
+                <Text style={styles.info}>
+                  {getText(['menu', 'cities', person.city])}, {getText(['menu', 'countries', person.country])}
+                </Text>
+                <StatusGroup role={person.role} relationship={person.relationship} situation={person.situation} />
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
       ))}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  box: {
+  container: {
     backgroundColor: colors.background.secondary,
+  },
+  group: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  card: {
+    margin: 10,
+    borderRadius: 10,
+    padding: 10,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 5,
+    width: (width - 40) / 2,
+    backgroundColor: 'white',
+  },
+  name: {
+    marginTop: 10,
+    fontWeight: 'bold',
+    fontSize: fontSizes.medium,
+  },
+  info: {
+    fontSize: fontSizes.small,
+    color: 'gray',
   },
 });
 

@@ -30,6 +30,8 @@ export type SpriteVariants = {
 
 export type Person = {
   id: string;
+  country: Countries;
+  city: Cities;
   gender: Gender;
   name: string;
   surname: string;
@@ -45,11 +47,6 @@ export type Person = {
   sprite: CommonSpriteVariants;
   placePeopleType?: PlacePeopleType;
 };
-
-export type FamilyPerson = {
-  country: Countries;
-  city: Cities;
-} & Person;
 
 export type PlacePeople = ObjectRecord<ObjectRecord<string[]>>;
 

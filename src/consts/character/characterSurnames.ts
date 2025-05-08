@@ -1,11 +1,11 @@
 import {Countries} from '../countries';
 
 export const characterSurnames = {
-  [Countries.ALB]: {
+  [Countries.Albania]: {
     Male: ['Berisha', 'Hoxha', 'Krasniqi', 'Shehu', 'Hasani', 'Leka', 'Dervishi', 'Shala', 'Gashi', 'Islami'],
     Female: ['Berisha', 'Hoxha', 'Krasniqi', 'Shehu', 'Hasani', 'Leka', 'Dervishi', 'Shala', 'Gashi', 'Islami'],
   },
-  [Countries.RUS]: {
+  [Countries.Russia]: {
     Male: [
       'Ivanov',
       'Smirnov',
@@ -31,6 +31,6 @@ export const characterSurnames = {
       'Fedorova',
     ],
   },
-  [Countries.TUR]: {Male: ['Erion'], Female: ['Erion']},
-  [Countries.USA]: {Male: ['Erion'], Female: ['Erion']},
+  [Countries.Turkey]: {Male: ['Erion'], Female: ['Erion']},
+  [Countries.UnitedStatesOfAmerica]: {Male: ['Erion'], Female: ['Erion']},
 };

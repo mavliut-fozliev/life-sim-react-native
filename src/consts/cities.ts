@@ -19,21 +19,21 @@ type CountryCities = {
 };
 
 export const countryCities: CountryCities = {
-  [Countries.ALB]: {
+  [Countries.Albania]: {
     [Cities.Tirana]: {},
   },
-  [Countries.RUS]: {
+  [Countries.Russia]: {
     [Cities.Moscow]: {},
     [Cities.RostovOnDon]: {},
   },
-  [Countries.TUR]: {
+  [Countries.Turkey]: {
     [Cities.Istanbul]: {},
     [Cities.Ankara]: {},
     [Cities.Izmir]: {},
     [Cities.Bursa]: {},
     [Cities.Antalya]: {},
   },
-  [Countries.USA]: {
+  [Countries.UnitedStatesOfAmerica]: {
     [Cities.NewYork]: {},
   },
 };

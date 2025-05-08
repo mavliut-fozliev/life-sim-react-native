@@ -5,7 +5,7 @@ import {Gender} from '../../../../../../consts/gender';
 import {places} from '../../../../../../consts/places/places';
 import {useLocalizeText} from '../../../../../../locales/useLocalizeText';
 import {ObjectRecord} from '../../../../../../types/common';
-import {FamilyPerson, Person, PlacePeople} from '../../../../../../types/people';
+import {Person, PlacePeople} from '../../../../../../types/people';
 import {getRandomArrayItem, getRandomInRange} from '../../../../../../utils/common';
 import useCharacterStore from '../../store/characterStore';
 import usePlayerStore from '../../store/playerStore';
@@ -45,7 +45,7 @@ export function useCreateCharacters() {
     return localizedName;
   };
 
-  const getMother = (): FamilyPerson => {
+  const getMother = (): Person => {
     return {
       id: uuidv4(),
       country: country,
@@ -69,7 +69,7 @@ export function useCreateCharacters() {
     };
   };
 
-  const getFather = (): FamilyPerson => {
+  const getFather = (): Person => {
     return {
       id: uuidv4(),
       country: country,
@@ -105,6 +105,8 @@ export function useCreateCharacters() {
 
     return {
       id: uuidv4(),
+      country: country,
+      city: city,
       gender: Gender.Male,
       name: localizedName,
       surname: localizedSurname,
