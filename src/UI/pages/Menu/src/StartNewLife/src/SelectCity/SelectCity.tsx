@@ -6,7 +6,7 @@ import {useCityItems} from './src/useCityItems';
 
 function SelectCity() {
   const {city, $city} = useStore();
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   const cityItems = useCityItems();
 
@@ -19,8 +19,8 @@ function SelectCity() {
       value={city}
       onSelectItem={handleSelect}
       items={cityItems}
-      placeholder={getText(['menu', 'input', 'Select Сity'])}
-      label={getText(['menu', 'newLifeInputs', 'City'])}
+      placeholder={translate('Select Сity')}
+      label={translate('City')}
     />
   );
 }

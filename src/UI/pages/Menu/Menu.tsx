@@ -14,8 +14,7 @@ type MenuProps = {
 
 function Menu({navigation}: MenuProps) {
   const {gameInProgress} = useGlobalStore();
-  const {getText} = useLocalizeText();
-  const options = ['menu', 'options'];
+  const {translate} = useLocalizeText();
 
   const navigate = useNavigate(navigation);
 
@@ -28,16 +27,10 @@ function Menu({navigation}: MenuProps) {
   return (
     <View style={styles.box}>
       {gameInProgress && (
-        <SectionButton label={getText([...options, 'Resume'])} onPress={() => navigate.stepForward(PageNames.Home)} />
+        <SectionButton label={translate('Resume')} onPress={() => navigate.stepForward(PageNames.Home)} />
       )}
-      <SectionButton
-        label={getText([...options, 'Start New Life'])}
-        onPress={() => navigate.stepForward(PageNames.StartNewLife)}
-      />
-      <SectionButton
-        label={getText([...options, 'Settings'])}
-        onPress={() => navigate.stepForward(PageNames.Settings)}
-      />
+      <SectionButton label={translate('Start New Life')} onPress={() => navigate.stepForward(PageNames.StartNewLife)} />
+      <SectionButton label={translate('Settings')} onPress={() => navigate.stepForward(PageNames.Settings)} />
     </View>
   );
 }

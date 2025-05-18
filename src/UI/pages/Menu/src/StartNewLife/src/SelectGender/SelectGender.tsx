@@ -7,7 +7,7 @@ import {useGenderItems} from './src/useGenderItems';
 
 function SelectGender() {
   const {gender, $gender} = useStore();
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   const genderItems = useGenderItems();
 
@@ -24,14 +24,7 @@ function SelectGender() {
     $gender.set(value);
   }
 
-  return (
-    <Select
-      value={gender}
-      onSelectItem={handleSelectItem}
-      items={genderItems}
-      label={getText(['menu', 'newLifeInputs', 'Gender'])}
-    />
-  );
+  return <Select value={gender} onSelectItem={handleSelectItem} items={genderItems} label={translate('Gender')} />;
 }
 
 export default SelectGender;

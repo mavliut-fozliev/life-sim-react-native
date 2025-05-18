@@ -8,12 +8,12 @@ import interactions from './interactions';
 import common from './common';
 
 export default {
-  names,
-  surnames,
-  roles,
-  relationships,
-  situation,
-  statuses,
-  interactions,
-  common,
+  ...names,
+  ...surnames,
+  ...roles,
+  ...relationships,
+  ...situation,
+  ...statuses,
+  ...interactions,
+  ...common,
 };

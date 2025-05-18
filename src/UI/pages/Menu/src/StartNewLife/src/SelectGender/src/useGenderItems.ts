@@ -3,16 +3,16 @@ import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
 import {SelectItem} from '../../../../../../../components/Select/Select';
 
 export function useGenderItems() {
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   const genderItems: SelectItem[] = [
     {
-      label: getText(['menu', 'genders', 'Male']),
+      label: translate('Male'),
       value: Gender.Male,
     },
 
     {
-      label: getText(['menu', 'genders', 'Female']),
+      label: translate('Female'),
       value: Gender.Female,
     },
   ];

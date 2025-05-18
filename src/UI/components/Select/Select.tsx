@@ -26,8 +26,8 @@ function RadioIcon({selected}: {selected: boolean}) {
 }
 
 function Select<T extends string = string>({value, items, onSelectItem, label, placeholder = ''}: SelectProps<T>) {
-  const {getText} = useLocalizeText();
-  const text = getText(['common', 'Nothing here yet']);
+  const {translate} = useLocalizeText();
+  const text = translate('Nothing here yet');
 
   const [modalVisible, setModalVisible] = useState(false);
 

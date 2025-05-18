@@ -8,12 +8,12 @@ import options from './options';
 import settings from './settings';
 
 export default {
-  button,
-  cities,
-  countries,
-  genders,
-  input,
-  newLifeInputs,
-  options,
-  settings,
+  ...button,
+  ...cities,
+  ...countries,
+  ...genders,
+  ...input,
+  ...newLifeInputs,
+  ...options,
+  ...settings,
 };

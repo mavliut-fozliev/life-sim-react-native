@@ -41,7 +41,7 @@ function StartNewLife({navigation}: StartNewLifeProps) {
   const {$gameInProgress} = useGlobalStore();
   const gameStore = useGameStore();
 
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
   const navigate = useNavigate(navigation);
   const createCharacters = useCreateCharacters();
 
@@ -101,7 +101,7 @@ function StartNewLife({navigation}: StartNewLifeProps) {
         <SelectGender />
         <NameInput />
         <SurnameInput />
-        <Button label={getText(['menu', 'button', 'Start!'])} onPress={handleStart} disabled={haveEmptyField} />
+        <Button label={translate('Start!')} onPress={handleStart} disabled={haveEmptyField} />
       </ScrollView>
     </View>
   );

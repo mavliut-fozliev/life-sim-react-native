@@ -16,20 +16,13 @@ const languages: SelectItem[] = [
 
 function SelectLanguage() {
   const {language, $language} = useGlobalStore();
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   function handleSelect(v: string) {
     $language.set(v);
   }
 
-  return (
-    <Select
-      value={language}
-      items={languages}
-      onSelectItem={handleSelect}
-      label={getText(['menu', 'settings', 'Language'])}
-    />
-  );
+  return <Select value={language} items={languages} onSelectItem={handleSelect} label={translate('Language')} />;
 }
 
 export default SelectLanguage;

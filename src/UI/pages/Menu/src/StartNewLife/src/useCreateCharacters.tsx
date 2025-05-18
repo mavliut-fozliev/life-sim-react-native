@@ -18,7 +18,7 @@ export function useCreateCharacters() {
   const {country, city, surname, gender} = useStore();
   const characterStore = useCharacterStore();
   const playerStore = usePlayerStore();
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   const playerSprite = {
     body: 'light',
@@ -37,9 +37,9 @@ export function useCreateCharacters() {
       randomName = getRandomArrayItem(names) || 'Surname';
     }
 
-    let localizedName = getText(['character', 'names', randomName]);
+    let localizedName = translate(randomName);
     if (type === 'surname') {
-      localizedName = getText(['character', 'surnames', randomName]);
+      localizedName = translate(randomName);
     }
 
     return localizedName;
@@ -97,11 +97,11 @@ export function useCreateCharacters() {
   const getPerson = (placePeopleType: PlacePeopleType): Person => {
     const names = characterNames[country][Gender.Male];
     const randomName = getRandomArrayItem(names) || 'PersonName';
-    const localizedName = getText(['character', 'names', randomName]);
+    const localizedName = translate(randomName);
 
     const surnames = characterSurnames[country][Gender.Male];
     const randomSurname = getRandomArrayItem(surnames) || 'PersonSurname';
-    const localizedSurname = getText(['character', 'surnames', randomSurname]);
+    const localizedSurname = translate(randomSurname);
 
     return {
       id: uuidv4(),

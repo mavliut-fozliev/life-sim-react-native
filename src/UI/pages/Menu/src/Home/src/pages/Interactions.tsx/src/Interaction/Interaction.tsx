@@ -28,7 +28,7 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
   const {addToHistory} = useStoreHooks();
 
   const navigate = useNavigate(navigation);
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   let params: UpdateByKeysParams = [];
   const specialEffects = useSpecialEffects(interaction, person);
@@ -107,7 +107,7 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
 
   return (
     <SectionButton
-      label={getText(['character', 'interactions', interaction.label])}
+      label={translate(interaction.label)}
       onPress={handlePress}
       disabled={isDisabled()}
       mainIcon={icon}

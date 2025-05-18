@@ -7,7 +7,7 @@ import Content from './src/Content/Content';
 
 function PopUpWindow() {
   const gameStore = useGameStore();
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   return (
     <Modal visible={!!gameStore.popUpContent.content} animationType="fade" transparent={true}>
@@ -15,7 +15,7 @@ function PopUpWindow() {
         <View style={styles.container}>
           <View style={styles.box}>
             <Content />
-            <Text style={styles.content}>{getText(['common', 'button', 'Click anywhere to continue'])}</Text>
+            <Text style={styles.content}>{translate('Click anywhere to continue')}</Text>
           </View>
         </View>
       </TouchableOpacity>

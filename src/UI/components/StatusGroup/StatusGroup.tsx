@@ -11,16 +11,14 @@ type StatusGroupProps = {
 };
 
 function StatusGroup({relationship, situation}: StatusGroupProps) {
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   return (
     <View style={styles.relationships}>
       <RelationProgress relationship={relationship} />
       {situation && (
         <View style={[styles.status, {borderColor: peopleSituationColors[situation]}]}>
-          <Text style={[styles.statusText, {color: peopleSituationColors[situation]}]}>
-            {getText(['character', 'situation', situation])}
-          </Text>
+          <Text style={[styles.statusText, {color: peopleSituationColors[situation]}]}>{translate(situation)}</Text>
         </View>
       )}
     </View>

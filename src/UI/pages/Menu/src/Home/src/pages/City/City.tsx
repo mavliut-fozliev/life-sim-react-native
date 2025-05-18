@@ -42,7 +42,7 @@ function City({navigation}: CityProps) {
   const characterStore = useCharacterStore();
 
   const navigate = useNavigate(navigation);
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   const districts = places[playerStore.country][playerStore.city] || {};
 
@@ -63,13 +63,13 @@ function City({navigation}: CityProps) {
     <ScrollView style={styles.box}>
       {Object.entries(districts).map(([districtName, districtProps]) => (
         <View key={districtName}>
-          <Divider label={getText(['places', 'districts', districtName])} />
+          <Divider label={translate(districtName)} />
           {Object.entries(districtProps).map(([placeName, placeProps]) => (
             <SectionButton
               key={placeName}
-              label={getText(['places', 'names', placeName])}
+              label={translate(placeName)}
               mainIcon={icons[placeProps.type]}
-              description={getText(['places', 'types', placeProps.type])}
+              description={translate(placeProps.type)}
               onPress={() => handlePress(districtName, placeName, placeProps)}
               icon={
                 <View style={styles.icons}>

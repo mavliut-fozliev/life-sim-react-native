@@ -5,14 +5,14 @@ import useStore from '../../store';
 
 export function useCityItems() {
   const {country} = useStore();
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   if (!country || !countryCities[country]) {
     return [];
   }
 
   const cityItems: SelectItem[] = Object.keys(countryCities[country]).map(city => ({
-    label: getText(['menu', 'cities', city]),
+    label: translate(city),
     value: city,
   }));
 

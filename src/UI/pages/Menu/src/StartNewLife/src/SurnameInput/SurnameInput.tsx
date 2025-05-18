@@ -7,7 +7,7 @@ import {characterSurnames} from '../../../../../../../consts/character/character
 
 function SurnameInput() {
   const {surname, $surname, country, gender, surnameIsModified, $surnameIsModified} = useStore();
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   function handleSave(v: string) {
     $surnameIsModified.set(true);
@@ -25,13 +25,13 @@ function SurnameInput() {
       return;
     }
 
-    const localizedSurname = getText(['character', 'surnames', randomSurname]);
+    const localizedSurname = translate(randomSurname);
 
     $surnameIsModified.set(false);
     $surname.set(localizedSurname);
-  }, [country, gender, getText, $surname, $surnameIsModified, surnameIsModified]);
+  }, [country, gender, translate, $surname, $surnameIsModified, surnameIsModified]);
 
-  return <ModalTextInput value={surname} onSave={handleSave} label={getText(['menu', 'newLifeInputs', 'Surname'])} />;
+  return <ModalTextInput value={surname} onSave={handleSave} label={translate('Surname')} />;
 }
 
 export default SurnameInput;

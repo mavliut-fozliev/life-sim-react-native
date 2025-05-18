@@ -12,7 +12,7 @@ type ModalTextInputProps = {
 };
 
 const ModalTextInput = ({value, onSave, label, placeholder}: ModalTextInputProps) => {
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [inputText, setInputText] = useState('');
@@ -51,7 +51,7 @@ const ModalTextInput = ({value, onSave, label, placeholder}: ModalTextInputProps
             </Text>
           ) : (
             <Text numberOfLines={1} style={styles.placeholder}>
-              {placeholder || getText(['common', 'Type', 'something'])}
+              {placeholder || translate('something')}
             </Text>
           )}
         </View>
@@ -71,7 +71,7 @@ const ModalTextInput = ({value, onSave, label, placeholder}: ModalTextInputProps
                 autoFocus={true}
               />
               <View style={styles.button}>
-                <Button label={getText(['common', 'button', 'Save'])} onPress={handleSave} />
+                <Button label={translate('Save')} onPress={handleSave} />
               </View>
             </TouchableOpacity>
           </KeyboardAvoidingView>

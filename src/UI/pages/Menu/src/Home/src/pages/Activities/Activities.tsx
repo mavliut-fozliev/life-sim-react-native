@@ -22,7 +22,7 @@ type ActivitiesProps = {
 function Activities({navigation, route}: ActivitiesProps) {
   const {activityMap} = useActivities(navigation);
   const navigate = useNavigate(navigation);
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
   const {getPersonSprite} = useSprite();
 
   const type = route.params.placeProps.type;
@@ -34,16 +34,16 @@ function Activities({navigation, route}: ActivitiesProps) {
   return (
     <ScrollView style={styles.box}>
       {activities}
-      <Divider label={getText(['places', 'categories', 'People'])} />
+      <Divider label={translate('People')} />
       {placePeople.map((p, i) => (
         <SectionButton
           key={i.toString()}
           label={`${p.name} ${p.surname}`}
-          description={p.placePeopleType && getText(['places', 'peopleType', p.placePeopleType])}
+          description={p.placePeopleType && translate(p.placePeopleType)}
           height={100}
           extraLine={
             p.role === PeopleRole.Stranger ? undefined : (
-              <StatusGroup role={p.role} relationship={p.relationship} situation={p.situation} />
+              <StatusGroup relationship={p.relationship} situation={p.situation} />
             )
           }
           mainIcon={getPersonSprite(p, 60)}

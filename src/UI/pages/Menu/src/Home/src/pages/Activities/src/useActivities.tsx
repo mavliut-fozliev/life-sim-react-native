@@ -10,9 +10,9 @@ import Activity from './Activity/Activity';
 
 export function useActivities(navigation: Navigation) {
   const playerStore = usePlayerStore();
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
-  const actionDivider = <Divider label={getText(['places', 'categories', 'Actions'])} />;
+  const actionDivider = <Divider label={translate('Actions')} />;
 
   const activityMap: Record<PlaceType, Record<PlaceLevel, React.JSX.Element>> = {
     [PlaceType.Gym]: {
@@ -21,7 +21,7 @@ export function useActivities(navigation: Navigation) {
         <>
           {actionDivider}
           <Activity
-            label={getText(['places', 'activities', 'Run on a treadmill'])}
+            label={translate('Run on a treadmill')}
             navigation={navigation}
             price={3}
             resource={ResourceVariant.energy}
@@ -53,7 +53,7 @@ export function useActivities(navigation: Navigation) {
         <>
           {actionDivider}
           <Activity
-            label={getText(['places', 'activities', 'Yoga'])}
+            label={translate('Yoga')}
             navigation={navigation}
             price={2}
             resource={ResourceVariant.energy}
@@ -93,7 +93,7 @@ export function useActivities(navigation: Navigation) {
         <>
           {actionDivider}
           <Activity
-            label={getText(['places', 'activities', 'Take a check-up'])}
+            label={translate('Take a check-up')}
             navigation={navigation}
             price={500}
             resource={ResourceVariant.money}
@@ -111,7 +111,7 @@ export function useActivities(navigation: Navigation) {
         <>
           {actionDivider}
           <Activity
-            label={getText(['places', 'activities', 'Just dance'])}
+            label={translate('Just dance')}
             navigation={navigation}
             price={1}
             resource={ResourceVariant.energy}
@@ -137,7 +137,7 @@ export function useActivities(navigation: Navigation) {
             ]}
           />
           <SectionButton
-            label={getText(['places', 'activities', "Go to the club's secret section"])}
+            label={translate("Go to the club's secret section")}
             onPress={() => {
               console.log('Secret section');
             }}

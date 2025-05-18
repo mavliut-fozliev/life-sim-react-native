@@ -9,7 +9,7 @@ function SelectCountry() {
   const {country, $country, $city} = useStore();
 
   const countryItems = useCountryItems();
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   useEffect(() => {
     if (!country) {
@@ -30,14 +30,7 @@ function SelectCountry() {
     $city.set('');
   }
 
-  return (
-    <Select
-      value={country}
-      onSelectItem={handleSelectItem}
-      items={countryItems}
-      label={getText(['menu', 'newLifeInputs', 'Country'])}
-    />
-  );
+  return <Select value={country} onSelectItem={handleSelectItem} items={countryItems} label={translate('Country')} />;
 }
 
 export default SelectCountry;

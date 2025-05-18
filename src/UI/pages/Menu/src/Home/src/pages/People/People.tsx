@@ -32,7 +32,7 @@ function People({navigation}: PeopleProps) {
 
   const navigate = useNavigate(navigation);
   const {getPersonSprite} = useSprite();
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   const peopleData: PeopleData = {
     [Headers.Family]: [],
@@ -57,7 +57,7 @@ function People({navigation}: PeopleProps) {
     <ScrollView style={styles.container}>
       {Object.entries(peopleData).map(([title, people]) => (
         <View key={title} style={styles.group}>
-          {people.length ? <Divider label={getText(['character', 'common', title])} /> : <></>}
+          {people.length ? <Divider label={translate(title)} /> : <></>}
           <View style={styles.grid}>
             {people.map(person => (
               <TouchableOpacity
@@ -69,11 +69,10 @@ function People({navigation}: PeopleProps) {
                   {person.name} {person.surname}
                 </Text>
                 <Text style={styles.info}>
-                  {getText(['character', 'common', 'Role'])}: {getText(['character', 'roles', person.role])}
+                  {translate('Role')}: {translate(person.role)}
                 </Text>
                 <Text style={styles.info}>
-                  {getText(['character', 'common', 'Location'])}: {getText(['menu', 'cities', person.city])},{' '}
-                  {getText(['menu', 'countries', person.country])}
+                  {translate('Location')}: {translate(person.city)}, {translate(person.country)}
                 </Text>
                 <View style={styles.status}>
                   <StatusGroup relationship={person.relationship} situation={person.situation} />

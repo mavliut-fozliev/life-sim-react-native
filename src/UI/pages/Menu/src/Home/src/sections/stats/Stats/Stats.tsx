@@ -8,7 +8,7 @@ import {useLocalizeText} from '../../../../../../../../../locales/useLocalizeTex
 
 function Stats() {
   const playerStore = usePlayerStore();
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   const status = findMatchingKeyByMaxNumber(playerStatusMap, playerStore.status) || PlayerStatus.Neutral;
 
@@ -23,7 +23,7 @@ function Stats() {
         <Stat name="charm" value={playerStore.charm} />
       </View>
       <View>
-        <Text>Состояние: {getText(['character', 'statuses', status])}</Text>
+        <Text>Состояние: {translate(status)}</Text>
       </View>
     </View>
   );

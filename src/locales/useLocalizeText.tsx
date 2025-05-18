@@ -8,43 +8,32 @@ const localizedTexts: {[key in Language]: object | undefined} = {
   ru,
 };
 
-function getValueByPath(obj: Record<string, any>, parts: string[]): any {
-  return parts.reduce((acc, key) => {
-    if (acc && typeof acc === 'object') {
-      return acc[key];
-    }
-    return undefined;
-  }, obj);
-}
-
 export function useLocalizeText() {
   const {language} = useGlobalStore();
 
-  const localizedText = localizedTexts[language];
+  const localizedText = localizedTexts[language] as any;
 
-  const getText = useCallback(
-    (parts: string[]): string => {
-      const defaultText = parts[parts.length - 1];
-
+  const translate = useCallback(
+    (initialText: string): string => {
       if (!localizedText) {
-        return defaultText;
+        return initialText;
       }
 
-      const text = getValueByPath(localizedText, parts);
+      const translatedText = localizedText[initialText];
 
-      if (!text) {
-        return 'NOT-FOUND!'; // should return defaultText in production
-        // return defaultText;
+      if (!translatedText) {
+        return 'NOT-FOUND!'; // should return initialText in production
+        // return initialText;
       }
 
-      if (typeof text !== 'string') {
-        return 'NOT-STRING!';
+      if (typeof translatedText !== 'string') {
+        return 'NOT-STRING ERROR!';
       }
 
-      return text;
+      return translatedText;
     },
     [localizedText],
   );
 
-  return {getText};
+  return {translate};
 }

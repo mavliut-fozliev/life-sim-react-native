@@ -6,7 +6,7 @@ import {characterNames} from '../../../../../../../consts/character/characterNam
 import {useLocalizeText} from '../../../../../../../locales/useLocalizeText';
 
 function NameInput() {
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
   const {name, $name, country, gender, nameIsModified, $nameIsModified} = useStore();
 
   function handleSave(v: string) {
@@ -25,13 +25,13 @@ function NameInput() {
       return;
     }
 
-    const localizedName = getText(['character', 'names', randomName]);
+    const localizedName = translate(randomName);
 
     $nameIsModified.set(false);
     $name.set(localizedName);
-  }, [country, gender, getText, $name, $nameIsModified, nameIsModified]);
+  }, [country, gender, translate, $name, $nameIsModified, nameIsModified]);
 
-  return <ModalTextInput value={name} onSave={handleSave} label={getText(['menu', 'newLifeInputs', 'Name'])} />;
+  return <ModalTextInput value={name} onSave={handleSave} label={translate('Name')} />;
 }
 
 export default NameInput;

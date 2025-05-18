@@ -19,7 +19,7 @@ function Topbar() {
   const {currentPage} = useGlobalStore();
 
   const navigate = useNavigate(useNavigation());
-  const {getText} = useLocalizeText();
+  const {translate} = useLocalizeText();
 
   function handlePress() {
     navigate.stepBack();
@@ -34,9 +34,9 @@ function Topbar() {
   };
 
   const titles: ObjectRecord<string> = {
-    [PageNames.Menu]: getText(['menu', 'options', 'Menu']),
-    [PageNames.StartNewLife]: getText(['menu', 'options', 'Start New Life']),
-    [PageNames.Settings]: getText(['menu', 'options', 'Settings']),
+    [PageNames.Menu]: translate('Menu'),
+    [PageNames.StartNewLife]: translate('Start New Life'),
+    [PageNames.Settings]: translate('Settings'),
   };
   const title = titles[currentPage];
   const haveTitle = title !== undefined;

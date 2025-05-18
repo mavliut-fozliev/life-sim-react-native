@@ -6,10 +6,10 @@ import categories from './categories';
 import peopleType from './peopleType';
 
 export default {
-  activities,
-  names,
-  types,
-  districts,
-  categories,
-  peopleType,
+  ...activities,
+  ...names,
+  ...types,
+  ...districts,
+  ...categories,
+  ...peopleType,
 };
