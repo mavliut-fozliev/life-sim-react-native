@@ -1,14 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {
-  PeopleRelationship,
-  peopleRelationshipMap,
-  PeopleSituation,
-  peopleSituationColors,
-} from '../../../consts/character/characterProps';
+import {PeopleSituation, peopleSituationColors} from '../../../consts/character/characterProps';
 import {fontSizes} from '../../../consts/styles';
 import {useLocalizeText} from '../../../locales/useLocalizeText';
-import {findMatchingKeyByMaxNumber} from '../../../utils/common';
 import RelationProgress from '../RelationProgress/RelationProgress';
 
 type StatusGroupProps = {
@@ -19,12 +13,9 @@ type StatusGroupProps = {
 function StatusGroup({relationship, situation}: StatusGroupProps) {
   const {getText} = useLocalizeText();
 
-  const relationshipStage =
-    findMatchingKeyByMaxNumber(peopleRelationshipMap, relationship) || PeopleRelationship.Neutrality;
-
   return (
     <View style={styles.relationships}>
-      <RelationProgress value={relationshipStage} />
+      <RelationProgress relationship={relationship} />
       {situation && (
         <View style={[styles.status, {borderColor: peopleSituationColors[situation]}]}>
           <Text style={[styles.statusText, {color: peopleSituationColors[situation]}]}>

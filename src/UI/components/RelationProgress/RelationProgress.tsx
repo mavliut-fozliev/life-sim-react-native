@@ -1,9 +1,14 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {PeopleRelationship, peopleRelationshipColors} from '../../../consts/character/characterProps';
+import {View, StyleSheet, ViewStyle} from 'react-native';
+import {
+  PeopleRelationship,
+  peopleRelationshipColors,
+  peopleRelationshipMap,
+} from '../../../consts/character/characterProps';
+import {findMatchingKeyByMaxNumber} from '../../../utils/common';
 
 type RelationProgressProps = {
-  value: PeopleRelationship;
+  relationship: number;
 };
 
 export const peopleRelationshipLevels = {
@@ -14,16 +19,36 @@ export const peopleRelationshipLevels = {
   [PeopleRelationship.Indifference]: 0,
 };
 
-function RelationProgress({value}: RelationProgressProps) {
-  const stageCount = 4;
-  const activeStage = peopleRelationshipLevels[value];
+function RelationProgress({relationship}: RelationProgressProps) {
+  const relationshipStage =
+    findMatchingKeyByMaxNumber(peopleRelationshipMap, relationship) || PeopleRelationship.Neutrality;
 
-  const getBackgroundColor = (i: number) => (i < activeStage ? peopleRelationshipColors[value] : undefined);
+  const activeStage = peopleRelationshipLevels[relationshipStage];
+
+  const prevStage =
+    findMatchingKeyByMaxNumber(peopleRelationshipLevels, activeStage - 1) || PeopleRelationship.Neutrality;
+
+  const maxValue = peopleRelationshipMap[relationshipStage];
+  const minValue = peopleRelationshipMap[prevStage];
+
+  const progress = Math.round(((relationship - minValue) / (maxValue - minValue)) * 100);
+
+  const getBackgroundColor = (i: number) => (i < activeStage ? peopleRelationshipColors[relationshipStage] : undefined);
+
+  const getStageProgressStyle = (i: number) =>
+    ({
+      backgroundColor: getBackgroundColor(i),
+      width: i < activeStage - 1 ? '100%' : `${progress}%`,
+    } as ViewStyle);
+
+  const stageCount = 4;
 
   return (
     <View style={styles.container}>
       {[...Array(stageCount)].map((_, i) => (
-        <View key={i.toString()} style={[styles.segment, {backgroundColor: getBackgroundColor(i)}]} />
+        <View key={i.toString()} style={[styles.segment]}>
+          <View style={[styles.segmentProgress, getStageProgressStyle(i)]} />
+        </View>
       ))}
     </View>
   );
@@ -38,6 +63,9 @@ const styles = StyleSheet.create({
     width: 10,
     height: 16,
     borderWidth: 1,
+  },
+  segmentProgress: {
+    height: '100%',
   },
 });
 
