@@ -48,51 +48,6 @@ export const peopleRelationshipMap: {[key in PeopleRelationship]: number} = {
   [PeopleRelationship.Indifference]: 25,
 };
 
-const parentsRelationshipLabels = {
-  [PeopleRelationship.Love]: 'Care',
-  [PeopleRelationship.Friendliness]: 'Support',
-  [PeopleRelationship.Neutrality]: 'Expectation',
-  [PeopleRelationship.Coldness]: 'Coldness',
-  [PeopleRelationship.Indifference]: 'Indifference',
-};
-
-const spouseRelationshipLabels = {
-  [PeopleRelationship.Love]: 'Love',
-  [PeopleRelationship.Friendliness]: 'Attachment',
-  [PeopleRelationship.Neutrality]: 'Understanding',
-  [PeopleRelationship.Coldness]: 'Misunderstanding',
-  [PeopleRelationship.Indifference]: 'Alienation',
-};
-
-const siblingsRelationshipLabels = {
-  [PeopleRelationship.Love]: 'Devotion',
-  [PeopleRelationship.Friendliness]: 'Support',
-  [PeopleRelationship.Neutrality]: 'Apathy',
-  [PeopleRelationship.Coldness]: 'Coldness',
-  [PeopleRelationship.Indifference]: 'Indifference',
-};
-
-const familiarRelationshipLabels = {
-  [PeopleRelationship.Love]: 'Friendliness',
-  [PeopleRelationship.Friendliness]: 'Politeness',
-  [PeopleRelationship.Neutrality]: 'Neutrality',
-  [PeopleRelationship.Coldness]: 'Coldness',
-  [PeopleRelationship.Indifference]: 'Indifference',
-};
-
-export const peopleRelationshipLabels: Omit<
-  {[role in PeopleRole]: {[relationship in PeopleRelationship]: string}},
-  'Stranger'
-> = {
-  [PeopleRole.Mother]: parentsRelationshipLabels,
-  [PeopleRole.Father]: parentsRelationshipLabels,
-  [PeopleRole.Brother]: siblingsRelationshipLabels,
-  [PeopleRole.Sister]: siblingsRelationshipLabels,
-  [PeopleRole.Spouse]: spouseRelationshipLabels,
-  [PeopleRole.Friend]: siblingsRelationshipLabels,
-  [PeopleRole.Familiar]: familiarRelationshipLabels,
-};
-
 export enum PeopleSituation {
   Trust = 'Trust',
   Admiration = 'Admiration',

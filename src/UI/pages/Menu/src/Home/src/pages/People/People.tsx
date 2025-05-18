@@ -69,12 +69,15 @@ function People({navigation}: PeopleProps) {
                   {person.name} {person.surname}
                 </Text>
                 <Text style={styles.info}>
-                  {person.age}, {getText(['character', 'roles', person.role])}
+                  {getText(['character', 'common', 'Role'])}: {getText(['character', 'roles', person.role])}
                 </Text>
                 <Text style={styles.info}>
-                  {getText(['menu', 'cities', person.city])}, {getText(['menu', 'countries', person.country])}
+                  {getText(['character', 'common', 'Location'])}: {getText(['menu', 'cities', person.city])},{' '}
+                  {getText(['menu', 'countries', person.country])}
                 </Text>
-                <StatusGroup role={person.role} relationship={person.relationship} situation={person.situation} />
+                <View style={styles.status}>
+                  <StatusGroup relationship={person.relationship} situation={person.situation} />
+                </View>
               </TouchableOpacity>
             ))}
           </View>
@@ -117,6 +120,11 @@ const styles = StyleSheet.create({
   info: {
     fontSize: fontSizes.small,
     color: 'gray',
+  },
+  status: {
+    alignSelf: 'flex-start',
+    padding: 5,
+    paddingBottom: 0,
   },
 });
 

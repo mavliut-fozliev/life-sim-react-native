@@ -1,17 +1,7 @@
 export default {
-  'Care': 'Забота',
-  'Support': 'Поддержка',
-  'Expectation': 'Ожидание',
-  'Coldness': 'Холодность',
   'Love': 'Любовь',
-  'Attachment': 'Вложение',
-  'Understanding': 'Понимание',
-  'Misunderstanding': 'Недоразумение',
-  'Devotion': 'Преданность',
-  'Apathy': 'Апатия',
-  'Conflict': 'Конфликт',
   'Friendliness': 'Дружелюбие',
-  'Politeness': 'Вежливость',
   'Neutrality': 'Нейтральность',
+  'Coldness': 'Холодность',
   'Indifference': 'Безразличие',
 };
