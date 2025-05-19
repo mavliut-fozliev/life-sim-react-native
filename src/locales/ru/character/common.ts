@@ -4,4 +4,5 @@ export default {
   'Acquaintances': 'Знакомства',
   'Role': 'Роль',
   'Location': 'Местоположение',
+  'Age': 'Возраст',
 };

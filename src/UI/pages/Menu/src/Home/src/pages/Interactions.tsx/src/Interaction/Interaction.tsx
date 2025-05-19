@@ -25,7 +25,7 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
   const characterStore = useCharacterStore();
   const playerStore = usePlayerStore();
   const gameStore = useGameStore();
-  const {addToHistory} = useStoreHooks();
+  const {addItemToHistory} = useStoreHooks();
 
   const navigate = useNavigate(navigation);
   const {translate} = useLocalizeText();
@@ -85,7 +85,7 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
     gameStore.$popUpContent.set({
       content,
     });
-    addToHistory(content);
+    addItemToHistory(content);
 
     characterStore.$people.updateByKeys(params);
     playerStore.$energy.decrease(1);

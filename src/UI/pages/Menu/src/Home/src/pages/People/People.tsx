@@ -68,11 +68,9 @@ function People({navigation}: PeopleProps) {
                 <Text style={styles.name}>
                   {person.name} {person.surname}
                 </Text>
+                <Text style={styles.info}>{translate(person.role)}</Text>
                 <Text style={styles.info}>
-                  {translate('Role')}: {translate(person.role)}
-                </Text>
-                <Text style={styles.info}>
-                  {translate('Location')}: {translate(person.city)}, {translate(person.country)}
+                  {translate(person.city)}, {translate(person.country)}
                 </Text>
                 <View style={styles.status}>
                   <StatusGroup relationship={person.relationship} situation={person.situation} />

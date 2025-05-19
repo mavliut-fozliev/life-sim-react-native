@@ -31,7 +31,7 @@ function Activity({label, navigation, price, resource, action, descriptions}: Ac
   const playerStore = usePlayerStore();
   const gameStore = useGameStore();
   const navigate = useNavigate(navigation);
-  const {addToHistory} = useStoreHooks();
+  const {addItemToHistory} = useStoreHooks();
 
   const resourceMap: ResourceMap = {
     [ResourceVariant.money]: {
@@ -61,7 +61,7 @@ function Activity({label, navigation, price, resource, action, descriptions}: Ac
     gameStore.$popUpContent.set({
       content,
     });
-    addToHistory(content);
+    addItemToHistory(content);
 
     navigate.backToHome();
   };
