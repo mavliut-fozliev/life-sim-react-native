@@ -10,54 +10,61 @@ export function useGrowUp() {
   const characterStore = useCharacterStore();
   const {addAgeToHistory} = useStoreHooks();
 
-  function peopleManipulation(person: Person) {
-    if (person.role === PeopleRole.Stranger) {
-      return;
-    }
+  const peopleManipulation = (person: Person) => {
+    let params: UpdateByKeysParams = [];
 
-    const initialImpact = -2;
-    const newRelationship = person.relationship + initialImpact;
-
-    const relationshipUpdateParams = {
-      itemKeys: [person.id, 'relationship'],
-      value: newRelationship,
-      min: 0,
-      max: 100,
+    const ageUpdateParams = {
+      itemKeys: [person.id, 'age'],
+      value: person.age + 1,
     };
 
-    const performedActionsUpdateParams = {
-      itemKeys: [person.id, 'performedActions'],
-      value: 0,
-    };
+    params = [ageUpdateParams];
 
-    let params: UpdateByKeysParams = [relationshipUpdateParams, performedActionsUpdateParams];
+    if (person.role !== PeopleRole.Stranger) {
+      const initialImpact = -2;
+      const newRelationship = person.relationship + initialImpact;
 
-    if (person.situation && person.situationDuration) {
-      relationshipUpdateParams.value = newRelationship + peopleSituationImpact[person.situation];
-
-      const situationDurationUpdateParams = {
-        itemKeys: [person.id, 'situationDuration'],
-        value: person.situationDuration - 1,
+      const relationshipUpdateParams = {
+        itemKeys: [person.id, 'relationship'],
+        value: newRelationship,
+        min: 0,
+        max: 100,
       };
-      params = [...params, situationDurationUpdateParams];
 
-      if (person.situationDuration === 1) {
-        const situationUpdateParams = {
-          itemKeys: [person.id, 'situation'],
-          value: undefined,
+      const performedActionsUpdateParams = {
+        itemKeys: [person.id, 'performedActions'],
+        value: 0,
+      };
+
+      params = [...params, relationshipUpdateParams, performedActionsUpdateParams];
+
+      if (person.situation && person.situationDuration) {
+        relationshipUpdateParams.value = newRelationship + peopleSituationImpact[person.situation];
+
+        const situationDurationUpdateParams = {
+          itemKeys: [person.id, 'situationDuration'],
+          value: person.situationDuration - 1,
         };
-        params = [...params, situationUpdateParams];
+        params = [...params, situationDurationUpdateParams];
+
+        if (person.situationDuration === 1) {
+          const situationUpdateParams = {
+            itemKeys: [person.id, 'situation'],
+            value: undefined,
+          };
+          params = [...params, situationUpdateParams];
+        }
       }
     }
 
     characterStore.$people.updateByKeys(params);
-  }
+  };
 
-  function peopleManipulations() {
+  const peopleManipulations = () => {
     Object.values(characterStore.people).forEach(person => {
       peopleManipulation(person);
     });
-  }
+  };
 
   return () => {
     addAgeToHistory();
