@@ -11,6 +11,7 @@ import {Gender} from '../consts/gender';
 import {Chances, ObjectRecord} from './common';
 import {Icon} from '../consts/icons';
 import {SpecialEffect} from '../consts/character/interactions/common';
+import {ImmuneSystem} from '../consts/character/genetics';
 
 export type CommonSpriteVariants = {
   body: 'light' | 'dark';
@@ -43,6 +44,10 @@ export type Person = {
   situationDuration?: number;
   params: {
     health: number;
+  };
+  genetics: {
+    immuneSystem: ImmuneSystem;
+    longevity?: boolean;
   };
   sprite: CommonSpriteVariants;
   placePeopleType?: PlacePeopleType;

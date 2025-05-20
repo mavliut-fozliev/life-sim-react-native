@@ -1,12 +1,13 @@
 import {characterNames} from '../../../../../../consts/character/characterNames';
 import {PeopleRole, PeopleSituation, PlacePeopleType} from '../../../../../../consts/character/characterProps';
 import {characterSurnames} from '../../../../../../consts/character/characterSurnames';
+import {ImmuneSystem} from '../../../../../../consts/character/genetics';
 import {Gender} from '../../../../../../consts/gender';
 import {places} from '../../../../../../consts/places/places';
 import {useLocalizeText} from '../../../../../../locales/useLocalizeText';
 import {ObjectRecord} from '../../../../../../types/common';
 import {Person, PlacePeople} from '../../../../../../types/people';
-import {getRandomArrayItem, getRandomInRange} from '../../../../../../utils/common';
+import {getRandomArrayItem, getRandomInRange, getRandomValue} from '../../../../../../utils/common';
 import useCharacterStore from '../../store/characterStore';
 import usePlayerStore from '../../store/playerStore';
 import {characterMap} from './consts';
@@ -61,6 +62,9 @@ export function useCreateCharacters() {
       params: {
         health: 80,
       },
+      genetics: {
+        immuneSystem: ImmuneSystem.Normal,
+      },
       sprite: {
         body: 'light',
         eyes: 'black',
@@ -85,6 +89,9 @@ export function useCreateCharacters() {
       params: {
         health: 80,
       },
+      genetics: {
+        immuneSystem: ImmuneSystem.Normal,
+      },
       sprite: {
         body: 'light',
         eyes: 'black',
@@ -103,6 +110,17 @@ export function useCreateCharacters() {
     const randomSurname = getRandomArrayItem(surnames) || 'PersonSurname';
     const localizedSurname = translate(randomSurname);
 
+    const immuneSystem = getRandomValue([
+      {value: ImmuneSystem.Normal, chance: 60},
+      {value: ImmuneSystem.Weak, chance: 20},
+      {value: ImmuneSystem.Strong, chance: 20},
+    ]);
+
+    const longevity = getRandomValue([
+      {value: false, chance: 80},
+      {value: true, chance: 20},
+    ]);
+
     return {
       id: uuidv4(),
       country: country,
@@ -115,6 +133,10 @@ export function useCreateCharacters() {
       relationship: 50,
       params: {
         health: 80,
+      },
+      genetics: {
+        immuneSystem,
+        longevity,
       },
       sprite: {
         body: 'light',
