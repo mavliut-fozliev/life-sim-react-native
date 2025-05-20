@@ -62,7 +62,7 @@ function People({navigation}: PeopleProps) {
             {people.map(person => (
               <TouchableOpacity
                 key={person.id}
-                style={styles.card}
+                style={[styles.card, person.dead ? styles.cardDead : undefined]}
                 onPress={() => navigate.stepForward(PageNames.Intercations, {person})}>
                 {getPersonSprite(person, 100)}
                 <Text style={styles.name}>
@@ -108,6 +108,9 @@ const styles = StyleSheet.create({
     elevation: 5,
     width: (width - 40) / 2,
     backgroundColor: 'white',
+  },
+  cardDead: {
+    backgroundColor: 'lightgray',
   },
   name: {
     marginTop: 10,
