@@ -42,6 +42,7 @@ export type Person = {
   performedActions?: number;
   situation?: PeopleSituation;
   situationDuration?: number;
+  dead?: boolean;
   params: {
     health: number;
   };

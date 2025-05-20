@@ -42,15 +42,28 @@ export function findMatchingKeyByMaxNumber<T extends string | number>(
   value: number,
 ): T | undefined {
   const sortedEntries = Object.entries(valueMap) as [T, number][];
-
   sortedEntries.sort(([, maxA], [, maxB]) => maxA - maxB);
 
-  for (const [status, max] of sortedEntries) {
+  for (const [key, max] of sortedEntries) {
     if (value <= max) {
-      return status;
+      return key;
     }
   }
+  return undefined;
+}
 
+export function findMatchingValueByMaxKey<T extends string | number>(
+  valueMap: {[key in number]: T},
+  value: number,
+): T | undefined {
+  const sortedEntries = Object.entries(valueMap);
+  sortedEntries.sort(([maxA], [maxB]) => Number(maxA) - Number(maxB));
+
+  for (const [key, val] of sortedEntries) {
+    if (value <= Number(key)) {
+      return val;
+    }
+  }
   return undefined;
 }
 

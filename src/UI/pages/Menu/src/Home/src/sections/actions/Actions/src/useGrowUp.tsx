@@ -2,7 +2,7 @@ import {PeopleRole, peopleSituationImpact} from '../../../../../../../../../../c
 import {ImmuneSystem} from '../../../../../../../../../../consts/character/genetics';
 import {Person} from '../../../../../../../../../../types/people';
 import {UpdateByKeysParams} from '../../../../../../../../../../types/store';
-import {findMatchingKeyByMaxNumber, getRandomValue} from '../../../../../../../../../../utils/common';
+import {findMatchingValueByMaxKey, getRandomInRange, getRandomValue} from '../../../../../../../../../../utils/common';
 import useCharacterStore from '../../../../../../store/characterStore';
 import usePlayerStore from '../../../../../../store/playerStore';
 import {useStoreHooks} from '../../../../../../store/storeHooks';
@@ -69,13 +69,13 @@ export function useGrowUp() {
       const initialImpact = 0;
 
       const impactMap = {
-        0: 30,
-        1: 50,
-        2: 60,
-        3: 80,
+        30: 0,
+        50: -1,
+        60: -2,
+        80: -3,
       };
 
-      const ageImpact = (findMatchingKeyByMaxNumber(impactMap, person.age) || 5) * -1;
+      const ageImpact = findMatchingValueByMaxKey(impactMap, person.age) || -5;
 
       const immuneSystemMap = {
         [ImmuneSystem.Weak]: [
@@ -96,7 +96,6 @@ export function useGrowUp() {
       };
 
       const immuneSystemChances = immuneSystemMap[person.genetics.immuneSystem];
-
       const immuneSystemImpact = getRandomValue(immuneSystemChances);
 
       const longevityImpact = person.genetics.longevity ? 1 : 0;
@@ -110,15 +109,44 @@ export function useGrowUp() {
       params = [...params, healthUpdateParams];
     };
 
+    const kill = () => {
+      const healthMap = {
+        0: 100,
+        4: getRandomInRange(50, 90),
+        14: getRandomInRange(15, 50),
+        29: getRandomInRange(5, 15),
+        49: getRandomInRange(1, 5),
+        69: getRandomInRange(0.1, 0.5),
+      };
+
+      // if health >= 70, then kill chance is 0
+      const killChance = findMatchingValueByMaxKey(healthMap, person.params.health) || 0;
+
+      const shouldDead = getRandomValue([
+        {value: false, chance: 100 - killChance},
+        {value: true, chance: killChance},
+      ]);
+
+      const deadUpdateParams = {
+        itemKeys: [person.id, 'dead'],
+        value: shouldDead,
+      };
+      params = [...params, deadUpdateParams];
+    };
+
     increaseAge();
     updateRelationship();
     updateHealth();
+    kill();
 
     characterStore.$people.updateByKeys(params);
   };
 
   const peopleManipulations = () => {
     Object.values(characterStore.people).forEach(person => {
+      if (person.dead) {
+        return;
+      }
       peopleManipulation(person);
     });
   };
