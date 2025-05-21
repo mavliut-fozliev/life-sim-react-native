@@ -21,6 +21,7 @@ enum Headers {
   Family = 'Family',
   CloseCircle = 'Close Circle',
   Acquaintances = 'Acquaintances',
+  Deceased = 'Deceased',
 }
 
 type PeopleData = Record<string, Person[]>;
@@ -36,22 +37,33 @@ function People({navigation}: PeopleProps) {
 
   const peopleData: PeopleData = {
     [Headers.Family]: [],
+    [Headers.CloseCircle]: [],
+    [Headers.Acquaintances]: [],
+    [Headers.Deceased]: [],
   };
 
   const fatherPerson = findByRole(characterStore.people, PeopleRole.Father);
   if (fatherPerson) {
-    peopleData[Headers.Family].push(fatherPerson);
+    const header = fatherPerson.dead ? Headers.Deceased : Headers.Family;
+    peopleData[header].push(fatherPerson);
   }
   const motherPerson = findByRole(characterStore.people, PeopleRole.Mother);
   if (motherPerson) {
-    peopleData[Headers.Family].push(motherPerson);
+    const header = motherPerson.dead ? Headers.Deceased : Headers.Family;
+    peopleData[header].push(motherPerson);
   }
 
   const closeCircle = Object.values(characterStore.people).filter(p => p.role === PeopleRole.Friend);
-  peopleData[Headers.CloseCircle] = closeCircle;
+  closeCircle.forEach(person => {
+    const header = person.dead ? Headers.Deceased : Headers.CloseCircle;
+    peopleData[header].push(person);
+  });
 
   const acquaintances = Object.values(characterStore.people).filter(p => p.role === PeopleRole.Familiar);
-  peopleData[Headers.Acquaintances] = acquaintances;
+  acquaintances.forEach(person => {
+    const header = person.dead ? Headers.Deceased : Headers.Acquaintances;
+    peopleData[header].push(person);
+  });
 
   return (
     <ScrollView style={styles.container}>
@@ -110,7 +122,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   cardDead: {
-    backgroundColor: 'lightgray',
+    backgroundColor: '#E9E9E9',
   },
   name: {
     marginTop: 10,

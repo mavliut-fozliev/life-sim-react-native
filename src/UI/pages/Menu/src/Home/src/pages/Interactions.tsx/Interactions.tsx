@@ -27,9 +27,12 @@ function Intercations({navigation, route}: InteractionsProps) {
 
   const allInteractions = interactions[person.gender][person.role] || [];
 
-  const availableInteractions = relationshipStage
-    ? allInteractions.filter(i => i.conditions.includes(relationshipStage))
-    : [];
+  const getAvailableInteractions = () => {
+    if (person.dead || !relationshipStage) {
+      return [];
+    }
+    return allInteractions.filter(i => i.conditions.includes(relationshipStage));
+  };
 
   return (
     <ScrollView style={styles.box}>
@@ -53,7 +56,7 @@ function Intercations({navigation, route}: InteractionsProps) {
           </View>
         </View>
       </View>
-      {availableInteractions.map((interaction, i) => (
+      {getAvailableInteractions().map((interaction, i) => (
         <Interaction key={i.toString()} interaction={interaction} person={person} navigation={navigation} />
       ))}
     </ScrollView>
