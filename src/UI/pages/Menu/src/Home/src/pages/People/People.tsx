@@ -85,7 +85,9 @@ function People({navigation}: PeopleProps) {
                   {translate(person.city)}, {translate(person.country)}
                 </Text>
                 <View style={styles.status}>
-                  <StatusGroup relationship={person.relationship} situation={person.situation} />
+                  {person.dead ? undefined : (
+                    <StatusGroup relationship={person.relationship} situation={person.situation} />
+                  )}
                 </View>
               </TouchableOpacity>
             ))}

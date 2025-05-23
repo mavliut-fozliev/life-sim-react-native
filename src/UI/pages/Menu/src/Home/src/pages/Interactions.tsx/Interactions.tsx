@@ -52,7 +52,7 @@ function Intercations({navigation, route}: InteractionsProps) {
             {translate('Location')}: {translate(person.city)}, {translate(person.country)}
           </Text>
           <View>
-            {person.role === PeopleRole.Stranger ? undefined : (
+            {person.dead || person.role === PeopleRole.Stranger ? undefined : (
               <StatusGroup relationship={person.relationship} situation={person.situation} />
             )}
           </View>
