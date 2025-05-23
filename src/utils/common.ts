@@ -34,7 +34,7 @@ export const getRandomValue = <T>(array: Chances<T>) => {
     return random < totalChance;
   });
 
-  return found?.value || sorted[0].value;
+  return found?.value ?? sorted[0].value;
 };
 
 export function findMatchingKeyByMaxNumber<T extends string | number>(

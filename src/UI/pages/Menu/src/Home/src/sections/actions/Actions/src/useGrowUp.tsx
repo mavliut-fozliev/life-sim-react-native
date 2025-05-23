@@ -75,7 +75,7 @@ export function useGrowUp() {
         80: -3,
       };
 
-      const ageImpact = findMatchingValueByMaxKey(impactMap, person.age) || -5;
+      const ageImpact = findMatchingValueByMaxKey(impactMap, person.age) ?? -5;
 
       const immuneSystemMap = {
         [ImmuneSystem.Weak]: [
@@ -120,7 +120,7 @@ export function useGrowUp() {
       };
 
       // if health >= 70, then kill chance is 0
-      const killChance = findMatchingValueByMaxKey(healthMap, person.params.health) || 0;
+      const killChance = findMatchingValueByMaxKey(healthMap, person.params.health) ?? 0;
 
       const shouldDead = getRandomValue([
         {value: false, chance: 100 - killChance},

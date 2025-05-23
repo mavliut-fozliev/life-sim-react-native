@@ -17,7 +17,7 @@ export function useGetSpriteByAge() {
   };
 
   return (age: number, size: DimensionValue, spriteVariants: CommonSpriteVariants, style?: ViewStyle) => {
-    const spriteAge = findMatchingKeyByMaxNumber(spriteAges, age) || SpriteEras.elder;
+    const spriteAge = findMatchingKeyByMaxNumber(spriteAges, age) ?? SpriteEras.elder;
 
     const characterSprites: {[key in SpriteEras]: ReactNode} = {
       [SpriteEras.infant]: (

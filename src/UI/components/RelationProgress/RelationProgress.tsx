@@ -12,11 +12,11 @@ type RelationProgressProps = {
 };
 
 export const peopleRelationshipLevels = {
-  [PeopleRelationship.Love]: 4,
-  [PeopleRelationship.Friendliness]: 3,
-  [PeopleRelationship.Neutrality]: 2,
-  [PeopleRelationship.Coldness]: 1,
-  [PeopleRelationship.Indifference]: 0,
+  [PeopleRelationship.Love]: 5,
+  [PeopleRelationship.Friendliness]: 4,
+  [PeopleRelationship.Neutrality]: 3,
+  [PeopleRelationship.Coldness]: 2,
+  [PeopleRelationship.Indifference]: 1,
 };
 
 function RelationProgress({relationship}: RelationProgressProps) {
@@ -26,10 +26,10 @@ function RelationProgress({relationship}: RelationProgressProps) {
   const activeStage = peopleRelationshipLevels[relationshipStage];
 
   const prevStage =
-    findMatchingKeyByMaxNumber(peopleRelationshipLevels, activeStage - 1) || PeopleRelationship.Neutrality;
+    findMatchingKeyByMaxNumber(peopleRelationshipLevels, activeStage - 1) ?? PeopleRelationship.Neutrality;
 
   const maxValue = peopleRelationshipMap[relationshipStage];
-  const minValue = peopleRelationshipMap[prevStage];
+  const minValue = prevStage === PeopleRelationship.Indifference ? 0 : peopleRelationshipMap[prevStage];
 
   const progress = Math.round(((relationship - minValue) / (maxValue - minValue)) * 100);
 
@@ -41,7 +41,7 @@ function RelationProgress({relationship}: RelationProgressProps) {
       width: i < activeStage - 1 ? '100%' : `${progress}%`,
     } as ViewStyle);
 
-  const stageCount = 4;
+  const stageCount = 5;
 
   return (
     <View style={styles.container}>

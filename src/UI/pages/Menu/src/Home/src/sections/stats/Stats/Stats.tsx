@@ -10,7 +10,7 @@ function Stats() {
   const playerStore = usePlayerStore();
   const {translate} = useLocalizeText();
 
-  const status = findMatchingKeyByMaxNumber(playerStatusMap, playerStore.status) || PlayerStatus.Neutral;
+  const status = findMatchingKeyByMaxNumber(playerStatusMap, playerStore.status) ?? PlayerStatus.Neutral;
 
   return (
     <View style={styles.box}>
