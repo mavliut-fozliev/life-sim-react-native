@@ -65,6 +65,7 @@ export function useCreateCharacters() {
       genetics: {
         immuneSystem: ImmuneSystem.Normal,
       },
+      effects: [],
       sprite: {
         body: 'light',
         eyes: 'black',
@@ -92,6 +93,7 @@ export function useCreateCharacters() {
       genetics: {
         immuneSystem: ImmuneSystem.Normal,
       },
+      effects: [],
       sprite: {
         body: 'light',
         eyes: 'black',
@@ -138,6 +140,7 @@ export function useCreateCharacters() {
         immuneSystem,
         longevity,
       },
+      effects: [],
       sprite: {
         body: 'light',
         eyes: 'black',

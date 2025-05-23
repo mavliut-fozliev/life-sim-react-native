@@ -1,4 +1,5 @@
 import {
+  PeopleEffect,
   PeopleRelationship,
   PeopleRole,
   PeopleSituation,
@@ -29,6 +30,8 @@ export type SpriteVariants = {
   [SpriteEras.elder]: {} & CommonSpriteVariants;
 };
 
+export type PeopleEffectObj = {effect: PeopleEffect; duration: number};
+
 export type Person = {
   id: string;
   country: Countries;
@@ -50,6 +53,7 @@ export type Person = {
     immuneSystem: ImmuneSystem;
     longevity?: boolean;
   };
+  effects: Array<PeopleEffectObj>;
   sprite: CommonSpriteVariants;
   placePeopleType?: PlacePeopleType;
 };

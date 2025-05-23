@@ -1,6 +1,11 @@
-import {PeopleRole, peopleSituationImpact} from '../../../../../../../../../../consts/character/characterProps';
+import {
+  PeopleEffect,
+  peopleEffectDuration,
+  PeopleRole,
+  peopleSituationImpact,
+} from '../../../../../../../../../../consts/character/characterProps';
 import {ImmuneSystem} from '../../../../../../../../../../consts/character/genetics';
-import {Person} from '../../../../../../../../../../types/people';
+import {PeopleEffectObj, Person} from '../../../../../../../../../../types/people';
 import {UpdateByKeysParams} from '../../../../../../../../../../types/store';
 import {findMatchingValueByMaxKey, getRandomInRange, getRandomValue} from '../../../../../../../../../../utils/common';
 import useCharacterStore from '../../../../../../store/characterStore';
@@ -100,13 +105,62 @@ export function useGrowUp() {
 
       const longevityImpact = person.genetics.longevity ? 1 : 0;
 
-      const totalImpact = initialImpact + ageImpact + immuneSystemImpact + longevityImpact;
+      const effectMap = {
+        [PeopleEffect.Cold]: -1,
+        [PeopleEffect.Diarrhea]: -2,
+      };
+
+      let effectImpact = 0;
+
+      Object.entries(effectMap).forEach(([effect, impact]) => {
+        const hadEffect = person.effects.some(e => e.effect === effect);
+        if (hadEffect) {
+          effectImpact += impact;
+        }
+      });
+
+      const totalImpact = initialImpact + ageImpact + immuneSystemImpact + longevityImpact + effectImpact;
 
       const healthUpdateParams = {
         itemKeys: [person.id, 'params', 'health'],
         value: person.params.health + totalImpact,
       };
       params = [...params, healthUpdateParams];
+    };
+
+    const imposingEffects = () => {
+      let effects = person.effects.map(e => ({
+        ...e,
+        duration: e.duration - 1,
+      }));
+
+      effects = effects.filter(e => e.duration !== 0);
+
+      const effectChance = {
+        [PeopleEffect.Cold]: 10,
+        [PeopleEffect.Diarrhea]: 5,
+      };
+
+      Object.entries(effectChance).forEach(([effect, chance]) => {
+        const shouldImpose = getRandomValue([
+          {value: false, chance: 100 - chance},
+          {value: true, chance: chance},
+        ]);
+
+        if (shouldImpose) {
+          const effectObj: PeopleEffectObj = {
+            effect: effect as PeopleEffect,
+            duration: peopleEffectDuration[effect as PeopleEffect],
+          };
+          effects = [...effects, effectObj];
+        }
+      });
+
+      const effectsUpdateParams = {
+        itemKeys: [person.id, 'effects'],
+        value: effects,
+      };
+      params = [...params, effectsUpdateParams];
     };
 
     const kill = () => {
@@ -137,6 +191,7 @@ export function useGrowUp() {
     increaseAge();
     updateRelationship();
     updateHealth();
+    imposingEffects();
     kill();
 
     characterStore.$people.updateByKeys(params);
