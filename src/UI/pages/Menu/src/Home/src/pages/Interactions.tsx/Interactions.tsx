@@ -5,7 +5,7 @@ import {colors, fontSizes} from '../../../../../../../../consts/styles';
 import {Navigation, Route} from '../../../../../../../../types/navigation';
 import {Person} from '../../../../../../../../types/people';
 import {findMatchingKeyByMaxNumber} from '../../../../../../../../utils/common';
-import {peopleRelationshipMap} from '../../../../../../../../consts/character/characterProps';
+import {peopleRelationshipMap, PeopleRole} from '../../../../../../../../consts/character/characterProps';
 import {interactions} from '../../../../../../../../consts/character/interactions/interactions';
 import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
 import {useSprite} from '../../sprites/hooks/useSprite';
@@ -52,7 +52,9 @@ function Intercations({navigation, route}: InteractionsProps) {
             {translate('Location')}: {translate(person.city)}, {translate(person.country)}
           </Text>
           <View>
-            <StatusGroup relationship={person.relationship} situation={person.situation} />
+            {person.role === PeopleRole.Stranger ? undefined : (
+              <StatusGroup relationship={person.relationship} situation={person.situation} />
+            )}
           </View>
         </View>
       </View>
