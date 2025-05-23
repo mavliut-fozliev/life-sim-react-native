@@ -71,8 +71,6 @@ export function useGrowUp() {
     };
 
     const updateHealth = () => {
-      const initialImpact = 0;
-
       const impactMap = {
         30: 0,
         50: -1,
@@ -119,7 +117,7 @@ export function useGrowUp() {
         }
       });
 
-      const totalImpact = initialImpact + ageImpact + immuneSystemImpact + longevityImpact + effectImpact;
+      const totalImpact = ageImpact + immuneSystemImpact + longevityImpact + effectImpact;
 
       const healthUpdateParams = {
         itemKeys: [person.id, 'params', 'health'],
