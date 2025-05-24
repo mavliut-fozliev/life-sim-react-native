@@ -1,4 +1,4 @@
-import {PeopleEffect, peopleEffectDuration} from '../../../../../../../../../../../../consts/character/characterProps';
+import {PeopleEffect} from '../../../../../../../../../../../../consts/character/characterProps';
 import {PeopleEffectObj, Person} from '../../../../../../../../../../../../types/people';
 import {getRandomValue} from '../../../../../../../../../../../../utils/common';
 
@@ -13,6 +13,11 @@ export function imposingEffects(person: Person) {
   const effectChance = {
     [PeopleEffect.Cold]: 10,
     [PeopleEffect.Diarrhea]: 5,
+  };
+
+  const peopleEffectDuration: {[key in PeopleEffect]: number} = {
+    [PeopleEffect.Cold]: 1,
+    [PeopleEffect.Diarrhea]: 2,
   };
 
   Object.entries(effectChance).forEach(([effect, chance]) => {

@@ -95,8 +95,3 @@ export enum PeopleEffect {
   Cold = 'Cold',
   Diarrhea = 'Diarrhea',
 }
-
-export const peopleEffectDuration: {[key in PeopleEffect]: number} = {
-  [PeopleEffect.Cold]: 1,
-  [PeopleEffect.Diarrhea]: 2,
-};
