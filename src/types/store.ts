@@ -47,4 +47,4 @@ export type StoreFields = ObjectRecord<'str' | 'num' | 'bool' | 'obj'>;
 
 export type FieldLimits = {min: ObjectRecord<number>; max: ObjectRecord<number>};
 
-export type UpdateByKeysParams = {itemKeys: string[]; value: any; min?: number; max?: number}[];
+export type UpdateByKeysParams = Array<{itemKeys: string[]; value: any; min?: number; max?: number}>;

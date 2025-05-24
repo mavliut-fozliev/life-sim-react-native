@@ -5,7 +5,7 @@ import usePlayerStore from '../../../../../store/playerStore';
 import {Navigation} from '../../../../../../../../../types/navigation';
 import {PageNames} from '../../../../../../../../../consts/pages';
 import {useNavigate} from '../../../../../../../../../hooks/useNavigate';
-import {useGrowUp} from './src/useGrowUp';
+import {useGrowUp} from './src/growUp/useGrowUp';
 
 type ActionsProps = {
   navigation: Navigation;
