@@ -40,22 +40,26 @@ export type Person = {
   name: string;
   surname: string;
   age: number;
+  money: number;
+  energy: number;
+  health: number;
+  power: number;
+  charm: number;
+  mood: number;
+  sprite: CommonSpriteVariants;
+  // special
   role: PeopleRole;
   relationship: number;
   performedActions?: number;
   situation?: PeopleSituation;
   situationDuration?: number;
   dead?: boolean;
-  params: {
-    health: number;
-  };
   genetics: {
     immuneSystem: ImmuneSystem;
     longevity?: boolean;
-  };
-  effects: Array<PeopleEffectObj>;
-  sprite: CommonSpriteVariants;
-  placePeopleType?: PlacePeopleType;
+  }; // beta
+  effects: Array<PeopleEffectObj>; // beta
+  placePeopleType?: PlacePeopleType; // use job instead
 };
 
 export type PlacePeople = ObjectRecord<ObjectRecord<string[]>>;

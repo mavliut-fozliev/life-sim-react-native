@@ -16,7 +16,7 @@ export function kill(person: Person) {
   };
 
   // if health >= 70, then kill chance is 0
-  const killChance = findMatchingValueByMaxKey(healthMap, person.params.health) ?? 0;
+  const killChance = findMatchingValueByMaxKey(healthMap, person.health) ?? 0;
 
   const shouldDead = getRandomValue([
     {value: false, chance: 100 - killChance},

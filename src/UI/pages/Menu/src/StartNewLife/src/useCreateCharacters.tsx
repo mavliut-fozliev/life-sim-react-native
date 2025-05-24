@@ -55,22 +55,25 @@ export function useCreateCharacters() {
       name: getName('name', Gender.Female),
       surname: gender === Gender.Female ? surname : getName('surname', Gender.Female),
       age: getRandomInRange(18, 40, 0.2),
-      role: PeopleRole.Mother,
-      relationship: 90,
-      situation: PeopleSituation.Admiration,
-      situationDuration: 5,
-      params: {
-        health: 80,
-      },
-      genetics: {
-        immuneSystem: ImmuneSystem.Normal,
-      },
-      effects: [],
+      money: 100,
+      energy: 20,
+      health: 80,
+      power: 10,
+      charm: 10,
+      mood: 60,
       sprite: {
         body: 'light',
         eyes: 'black',
         mouth: 'smile',
       },
+      role: PeopleRole.Mother,
+      relationship: 90,
+      situation: PeopleSituation.Admiration,
+      situationDuration: 5,
+      genetics: {
+        immuneSystem: ImmuneSystem.Normal,
+      },
+      effects: [],
     };
   };
 
@@ -83,23 +86,26 @@ export function useCreateCharacters() {
       name: getName('name', Gender.Male),
       surname: gender === Gender.Male ? surname : getName('surname', Gender.Male),
       age: getRandomInRange(18, 40, 0.1),
-      role: PeopleRole.Father,
-      relationship: 90,
-      situation: PeopleSituation.Admiration,
-      situationDuration: 5,
-      params: {
-        health: 80,
-      },
-      genetics: {
-        immuneSystem: ImmuneSystem.Normal,
-      },
-      effects: [],
+      money: 100,
+      energy: 20,
+      health: 80,
+      power: 10,
+      charm: 10,
+      mood: 60,
       sprite: {
         body: 'light',
         eyes: 'black',
         mouth: 'smile',
         hair: 'average',
       },
+      role: PeopleRole.Father,
+      relationship: 90,
+      situation: PeopleSituation.Admiration,
+      situationDuration: 5,
+      genetics: {
+        immuneSystem: ImmuneSystem.Normal,
+      },
+      effects: [],
     };
   };
 
@@ -131,22 +137,26 @@ export function useCreateCharacters() {
       name: localizedName,
       surname: localizedSurname,
       age: getRandomInRange(18, 60),
-      role: PeopleRole.Stranger,
-      relationship: 50,
-      params: {
-        health: 80,
-      },
-      genetics: {
-        immuneSystem,
-        longevity,
-      },
-      effects: [],
+      money: 100,
+      energy: 20,
+      health: 80,
+      power: 10,
+      charm: 10,
+      mood: 60,
       sprite: {
         body: 'light',
         eyes: 'black',
         mouth: 'smile',
         hair: 'average',
       },
+      role: PeopleRole.Stranger,
+      relationship: 50,
+      genetics: {
+        immuneSystem,
+        longevity,
+      },
+      effects: [],
+
       placePeopleType,
     };
   };

@@ -54,6 +54,6 @@ export function updateHealth(person: Person) {
 
   return {
     itemKeys: [person.id, 'params', 'health'],
-    value: person.params.health + totalImpact,
+    value: person.health + totalImpact,
   };
 }
