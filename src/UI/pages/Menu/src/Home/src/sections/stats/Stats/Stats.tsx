@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Stat from './src/Stat/Stat';
 import usePlayerStore from '../../../../../store/playerStore';
-import {PlayerStatus, playerStatusMap} from '../../../../../../../../../consts/character/player';
+import {PlayerMood, playerMoodMap} from '../../../../../../../../../consts/character/player';
 import {findMatchingKeyByMaxNumber} from '../../../../../../../../../utils/common';
 import {useLocalizeText} from '../../../../../../../../../locales/useLocalizeText';
 
@@ -10,7 +10,7 @@ function Stats() {
   const playerStore = usePlayerStore();
   const {translate} = useLocalizeText();
 
-  const status = findMatchingKeyByMaxNumber(playerStatusMap, playerStore.status) ?? PlayerStatus.Neutral;
+  const mood = findMatchingKeyByMaxNumber(playerMoodMap, playerStore.mood) ?? PlayerMood.Neutral;
 
   return (
     <View style={styles.box}>
@@ -23,7 +23,7 @@ function Stats() {
         <Stat name="charm" value={playerStore.charm} />
       </View>
       <View>
-        <Text>Состояние: {translate(status)}</Text>
+        <Text>Состояние: {translate(mood)}</Text>
       </View>
     </View>
   );

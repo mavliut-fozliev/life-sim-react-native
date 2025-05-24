@@ -7,7 +7,7 @@ import {CommonSpriteVariants} from '../../../../../types/people';
 import {getInitializer} from '../../../../../utils/store/storeInitializer';
 
 type StoreState = StringField<'name' | 'surname'> &
-  NumberField<'age' | 'money' | 'energy' | 'health' | 'power' | 'charm' | 'status'> &
+  NumberField<'age' | 'money' | 'energy' | 'health' | 'power' | 'charm' | 'mood'> &
   EnumField<'country', Countries> &
   EnumField<'city', Cities> &
   EnumField<'gender', Gender> &
@@ -25,7 +25,7 @@ const fields: StoreFields = {
   health: 'num',
   power: 'num',
   charm: 'num',
-  status: 'num',
+  mood: 'num',
   sprite: 'obj',
 };
 
@@ -37,14 +37,14 @@ const limits: FieldLimits = {
     health: 0,
     power: 0,
     charm: 0,
-    status: 0,
+    mood: 0,
   },
   max: {
     money: 10e12 - 1,
     health: 100,
     power: 100,
     charm: 100,
-    status: 100,
+    mood: 100,
   },
 };
 

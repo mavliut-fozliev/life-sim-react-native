@@ -60,7 +60,7 @@ function StartNewLife({navigation}: StartNewLifeProps) {
     playerStore.$power.set(10);
     playerStore.$charm.set(20);
 
-    playerStore.$status.set(60);
+    playerStore.$mood.set(60);
   }
 
   function resetNewLifeStore() {

@@ -1,4 +1,4 @@
-export enum PlayerStatus {
+export enum PlayerMood {
   Euphoria = 'Euphoria',
   Happy = 'Happy',
   Neutral = 'Neutral',
@@ -7,20 +7,20 @@ export enum PlayerStatus {
   Apathetic = 'Apathetic',
 }
 
-export const playerStatusColors = {
-  [PlayerStatus.Euphoria]: '#FFE600',
-  [PlayerStatus.Happy]: '#7CFC00',
-  [PlayerStatus.Neutral]: '#C0C0C0',
-  [PlayerStatus.Sad]: '#5DADE2',
-  [PlayerStatus.Depressive]: '#1A5276',
-  [PlayerStatus.Apathetic]: '#2C2C2C',
+export const playerMoodColors = {
+  [PlayerMood.Euphoria]: '#FFE600',
+  [PlayerMood.Happy]: '#7CFC00',
+  [PlayerMood.Neutral]: '#C0C0C0',
+  [PlayerMood.Sad]: '#5DADE2',
+  [PlayerMood.Depressive]: '#1A5276',
+  [PlayerMood.Apathetic]: '#2C2C2C',
 };
 
-export const playerStatusMap: {[key in PlayerStatus]: number} = {
-  [PlayerStatus.Euphoria]: 100,
-  [PlayerStatus.Happy]: 89,
-  [PlayerStatus.Neutral]: 69,
-  [PlayerStatus.Sad]: 49,
-  [PlayerStatus.Depressive]: 29,
-  [PlayerStatus.Apathetic]: 9,
+export const playerMoodMap: {[key in PlayerMood]: number} = {
+  [PlayerMood.Euphoria]: 100,
+  [PlayerMood.Happy]: 89,
+  [PlayerMood.Neutral]: 69,
+  [PlayerMood.Sad]: 49,
+  [PlayerMood.Depressive]: 29,
+  [PlayerMood.Apathetic]: 9,
 };
