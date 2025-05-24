@@ -25,6 +25,10 @@ export const places: Places = {
           type: PlaceType.Gym,
           level: PlaceLevel.Three,
         },
+        'State Polyclinic': {
+          type: PlaceType.Hospital,
+          level: PlaceLevel.Two,
+        },
       },
       'West of the Capital': {
         'StrengthHouse': {
@@ -48,10 +52,6 @@ export const places: Places = {
       'Center': {
         'Iron City': {
           type: PlaceType.Gym,
-          level: PlaceLevel.Two,
-        },
-        'State Polyclinic': {
-          type: PlaceType.Hospital,
           level: PlaceLevel.Two,
         },
       },

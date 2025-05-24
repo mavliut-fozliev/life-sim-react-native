@@ -20,9 +20,9 @@ export function useGrowUp() {
     };
 
     const relationshipUpdates = updateRelationship(person);
-    const healthUpdateParams = updateHealth(person);
-    const effectsUpdateParams = imposingEffects(person);
-    const deadUpdateParams = kill(person);
+    const healthUpdateParams = updateHealth(person); // review
+    const effectsUpdateParams = imposingEffects(person); // review
+    const deadUpdateParams = kill(person); // review
 
     const params: UpdateByKeysParams = [
       ageUpdateParams,
