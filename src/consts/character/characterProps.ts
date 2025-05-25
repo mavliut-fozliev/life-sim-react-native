@@ -14,14 +14,19 @@ export enum PlacePeopleType {
 }
 
 export enum PeopleRole {
-  Mother = 'Mother',
-  Father = 'Father',
-  Brother = 'Brother',
-  Sister = 'Sister',
+  ParentChild = 'ParentChild',
+  Sibling = 'Sibling',
   Spouse = 'Spouse',
   Friend = 'Friend',
   Familiar = 'Familiar',
   Stranger = 'Stranger',
+}
+
+export enum PeopleExactRole {
+  Mother = 'Mother',
+  Father = 'Father',
+  Son = 'Son',
+  Daughter = 'Daughter',
 }
 
 export enum PeopleRelationship {

@@ -30,6 +30,16 @@ export type SpriteVariants = {
   [SpriteEras.elder]: {} & CommonSpriteVariants;
 };
 
+export type PeopleConnection = {
+  idA: string;
+  idB: string;
+  role: PeopleRole;
+  performedActions?: number;
+  relationship: number;
+  situation?: PeopleSituation;
+  situationDuration?: number;
+};
+
 export type PeopleEffectObj = {effect: PeopleEffect; duration: number};
 
 export type Person = {
@@ -47,12 +57,7 @@ export type Person = {
   charm: number;
   mood: number;
   sprite: CommonSpriteVariants;
-  // special
-  role: PeopleRole;
-  relationship: number;
-  performedActions?: number;
-  situation?: PeopleSituation;
-  situationDuration?: number;
+  // special (should be added to player)
   dead?: boolean;
   genetics: {
     immuneSystem: ImmuneSystem;

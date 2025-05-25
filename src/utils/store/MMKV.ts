@@ -87,3 +87,26 @@ export namespace obj {
     }
   };
 }
+
+export namespace arr {
+  export const save = <T extends object>(key: string, value: T) => {
+    try {
+      const stirngValue = JSON.stringify(value);
+      storage.set(key, stirngValue);
+    } catch (error) {
+      console.error(`Error while saving ${key}`, error);
+    }
+  };
+
+  export const load = <T extends object>(key: string): Partial<T> => {
+    let data = [];
+    try {
+      const loaded = storage.getString(key) ?? '[]';
+      data = JSON.parse(loaded);
+    } catch (error) {
+      console.error(`Error while loading ${key}`, error);
+    } finally {
+      return data;
+    }
+  };
+}

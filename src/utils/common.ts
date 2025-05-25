@@ -1,6 +1,4 @@
-import {PeopleRole} from '../consts/character/characterProps';
-import {Chances, ObjectRecord} from '../types/common';
-import {Person} from '../types/people';
+import {Chances} from '../types/common';
 
 export const getRandomArrayItem = <T>(array: T[]): T | undefined => {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -65,8 +63,4 @@ export function findMatchingValueByMaxKey<T extends string | number>(
     }
   }
   return undefined;
-}
-
-export function findByRole(people: ObjectRecord<Person>, role: PeopleRole) {
-  return Object.values(people).find(p => p.role === role);
 }

@@ -2,11 +2,12 @@ import {characterNames} from '../../../../../../consts/character/characterNames'
 import {PeopleRole, PeopleSituation, PlacePeopleType} from '../../../../../../consts/character/characterProps';
 import {characterSurnames} from '../../../../../../consts/character/characterSurnames';
 import {ImmuneSystem} from '../../../../../../consts/character/genetics';
+import {playerId} from '../../../../../../consts/character/player';
 import {Gender} from '../../../../../../consts/gender';
 import {places} from '../../../../../../consts/places/places';
 import {useLocalizeText} from '../../../../../../locales/useLocalizeText';
 import {ObjectRecord} from '../../../../../../types/common';
-import {Person, PlacePeople} from '../../../../../../types/people';
+import {PeopleConnection, Person, PlacePeople} from '../../../../../../types/people';
 import {getRandomArrayItem, getRandomInRange, getRandomValue} from '../../../../../../utils/common';
 import useCharacterStore from '../../store/characterStore';
 import usePlayerStore from '../../store/playerStore';
@@ -66,10 +67,6 @@ export function useCreateCharacters() {
         eyes: 'black',
         mouth: 'smile',
       },
-      role: PeopleRole.Mother,
-      relationship: 90,
-      situation: PeopleSituation.Admiration,
-      situationDuration: 5,
       genetics: {
         immuneSystem: ImmuneSystem.Normal,
       },
@@ -98,10 +95,6 @@ export function useCreateCharacters() {
         mouth: 'smile',
         hair: 'average',
       },
-      role: PeopleRole.Father,
-      relationship: 90,
-      situation: PeopleSituation.Admiration,
-      situationDuration: 5,
       genetics: {
         immuneSystem: ImmuneSystem.Normal,
       },
@@ -149,8 +142,6 @@ export function useCreateCharacters() {
         mouth: 'smile',
         hair: 'average',
       },
-      role: PeopleRole.Stranger,
-      relationship: 50,
       genetics: {
         immuneSystem,
         longevity,
@@ -185,12 +176,43 @@ export function useCreateCharacters() {
   }
 
   return () => {
-    addToPeople(getMother());
-    addToPeople(getFather());
+    const mother = getMother();
+    const father = getFather();
+
+    const peopleConnections: Array<PeopleConnection> = [
+      {
+        idA: mother.id,
+        idB: playerId,
+        role: PeopleRole.ParentChild,
+        relationship: 90,
+        situation: PeopleSituation.Admiration,
+        situationDuration: 5,
+      },
+      {
+        idA: father.id,
+        idB: playerId,
+        role: PeopleRole.ParentChild,
+        relationship: 90,
+        situation: PeopleSituation.Admiration,
+        situationDuration: 5,
+      },
+      {
+        idA: mother.id,
+        idB: father.id,
+        role: PeopleRole.Spouse,
+        relationship: 80,
+      },
+    ];
+
+    addToPeople(mother);
+    addToPeople(father);
+
     createPlacePeople();
 
     playerStore.$sprite.set(playerSprite);
+
     characterStore.$people.set(people);
+    characterStore.$peopleConnections.set(peopleConnections);
     characterStore.$placePeople.set(placePeople);
   };
 }

@@ -1,19 +1,20 @@
 import {PeopleRole} from '../../../../../../../../../../../consts/character/characterProps';
 import {SpecialEffect} from '../../../../../../../../../../../consts/character/interactions/common';
-import {PeopleInteraction, Person} from '../../../../../../../../../../../types/people';
-import {UpdateByKeysParams} from '../../../../../../../../../../../types/store';
+import {PeopleConnection, PeopleInteraction} from '../../../../../../../../../../../types/people';
 import {getRandomValue} from '../../../../../../../../../../../utils/common';
 import usePlayerStore from '../../../../../../../store/playerStore';
 
-export function useSpecialEffects(interaction: PeopleInteraction, person: Person) {
+type ConnectionUpdate = {key: keyof PeopleConnection; value: string | number};
+
+export function useSpecialEffects(interaction: PeopleInteraction) {
   const playerStore = usePlayerStore();
 
-  return (): {params: UpdateByKeysParams} | undefined => {
+  return (): {connectionUpdates: ConnectionUpdate[]} | undefined => {
     if (!interaction.specialEffects) {
       return;
     }
 
-    let params: UpdateByKeysParams = [];
+    let connectionUpdates: ConnectionUpdate[] = [];
 
     interaction.specialEffects.forEach(effect => {
       switch (effect) {
@@ -28,15 +29,11 @@ export function useSpecialEffects(interaction: PeopleInteraction, person: Person
           break;
 
         case SpecialEffect.MakeFamiliar:
-          const roleUpdateParams = {
-            itemKeys: [person.id, 'role'],
-            value: PeopleRole.Familiar,
-          };
-          params = [...params, roleUpdateParams];
+          connectionUpdates = [...connectionUpdates, {key: 'role', value: PeopleRole.Familiar}];
           break;
       }
     });
 
-    return {params};
+    return {connectionUpdates};
   };
 }

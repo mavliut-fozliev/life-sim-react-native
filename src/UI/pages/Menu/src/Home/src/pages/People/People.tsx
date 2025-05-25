@@ -4,14 +4,15 @@ import {colors, fontSizes} from '../../../../../../../../consts/styles';
 import {Navigation} from '../../../../../../../../types/navigation';
 import {useNavigate} from '../../../../../../../../hooks/useNavigate';
 import {PageNames} from '../../../../../../../../consts/pages';
-import useCharacterStore from '../../../../store/characterStore';
 import {useSprite} from '../../sprites/hooks/useSprite';
 import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
 import StatusGroup from '../../../../../../../components/StatusGroup/StatusGroup';
-import {PeopleRole} from '../../../../../../../../consts/character/characterProps';
-import {findByRole} from '../../../../../../../../utils/common';
+import {PeopleExactRole, PeopleRole} from '../../../../../../../../consts/character/characterProps';
 import Divider from '../../../../../../../components/Divider/Divider';
-import {Person} from '../../../../../../../../types/people';
+import {PeopleConnection, Person} from '../../../../../../../../types/people';
+import {playerId} from '../../../../../../../../consts/character/player';
+import {usePeopleConnections} from '../../../../../../../../hooks/usePeopleConnections';
+import {ObjectRecord} from '../../../../../../../../types/common';
 
 type PeopleProps = {
   navigation: Navigation;
@@ -24,12 +25,12 @@ enum Headers {
   Deceased = 'Deceased',
 }
 
-type PeopleData = Record<string, Person[]>;
+type PeopleData = ObjectRecord<Array<{person: Person; connection: PeopleConnection; exactRole?: PeopleExactRole}>>;
 
 const {width} = Dimensions.get('window');
 
 function People({navigation}: PeopleProps) {
-  const characterStore = useCharacterStore();
+  const {findExactRoles, findPersonConnectionsByRole} = usePeopleConnections();
 
   const navigate = useNavigate(navigation);
   const {getPersonSprite} = useSprite();
@@ -42,27 +43,31 @@ function People({navigation}: PeopleProps) {
     [Headers.Deceased]: [],
   };
 
-  const fatherPerson = findByRole(characterStore.people, PeopleRole.Father);
-  if (fatherPerson) {
-    const header = fatherPerson.dead ? Headers.Deceased : Headers.Family;
-    peopleData[header].push(fatherPerson);
+  const exactRoles = findExactRoles();
+  const fatherData = exactRoles.Father;
+  const motherData = exactRoles.Mother;
+
+  console.log(motherData);
+
+  if (fatherData) {
+    const header = fatherData.person.dead ? Headers.Deceased : Headers.Family;
+    peopleData[header].push({...fatherData, exactRole: PeopleExactRole.Father});
   }
-  const motherPerson = findByRole(characterStore.people, PeopleRole.Mother);
-  if (motherPerson) {
-    const header = motherPerson.dead ? Headers.Deceased : Headers.Family;
-    peopleData[header].push(motherPerson);
+  if (motherData) {
+    const header = motherData.person.dead ? Headers.Deceased : Headers.Family;
+    peopleData[header].push({...motherData, exactRole: PeopleExactRole.Mother});
   }
 
-  const closeCircle = Object.values(characterStore.people).filter(p => p.role === PeopleRole.Friend);
-  closeCircle.forEach(person => {
-    const header = person.dead ? Headers.Deceased : Headers.CloseCircle;
-    peopleData[header].push(person);
+  const closeCircle = findPersonConnectionsByRole(playerId, PeopleRole.Friend);
+  closeCircle.forEach(data => {
+    const header = data.person.dead ? Headers.Deceased : Headers.CloseCircle;
+    peopleData[header].push(data);
   });
 
-  const acquaintances = Object.values(characterStore.people).filter(p => p.role === PeopleRole.Familiar);
-  acquaintances.forEach(person => {
-    const header = person.dead ? Headers.Deceased : Headers.Acquaintances;
-    peopleData[header].push(person);
+  const acquaintances = findPersonConnectionsByRole(playerId, PeopleRole.Familiar);
+  acquaintances.forEach(data => {
+    const header = data.person.dead ? Headers.Deceased : Headers.Acquaintances;
+    peopleData[header].push(data);
   });
 
   return (
@@ -71,22 +76,22 @@ function People({navigation}: PeopleProps) {
         <View key={title} style={styles.group}>
           {people.length ? <Divider label={translate(title)} /> : <></>}
           <View style={styles.grid}>
-            {people.map(person => (
+            {people.map(data => (
               <TouchableOpacity
-                key={person.id}
-                style={[styles.card, person.dead ? styles.cardDead : undefined]}
-                onPress={() => navigate.stepForward(PageNames.Intercations, {person})}>
-                {getPersonSprite(person, 100)}
+                key={data.person.id}
+                style={[styles.card, data.person.dead ? styles.cardDead : undefined]}
+                onPress={() => navigate.stepForward(PageNames.Intercations, {person: data.person})}>
+                {getPersonSprite(data.person, 100)}
                 <Text style={styles.name}>
-                  {person.name} {person.surname}
+                  {data.person.name} {data.person.surname}
                 </Text>
-                <Text style={styles.info}>{translate(person.role)}</Text>
+                <Text style={styles.info}>{translate(data.exactRole || data.connection.role)}</Text>
                 <Text style={styles.info}>
-                  {translate(person.city)}, {translate(person.country)}
+                  {translate(data.person.city)}, {translate(data.person.country)}
                 </Text>
                 <View style={styles.status}>
-                  {person.dead ? undefined : (
-                    <StatusGroup relationship={person.relationship} situation={person.situation} />
+                  {data.person.dead ? undefined : (
+                    <StatusGroup relationship={data.connection.relationship} situation={data.connection.situation} />
                   )}
                 </View>
               </TouchableOpacity>

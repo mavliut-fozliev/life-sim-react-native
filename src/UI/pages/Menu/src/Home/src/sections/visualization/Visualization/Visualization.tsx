@@ -1,20 +1,20 @@
 import React from 'react';
 import {ImageBackground, StyleSheet, View, ViewStyle} from 'react-native';
 import {SpriteName, useSprite} from '../../../sprites/hooks/useSprite';
-import useCharacterStore from '../../../../../store/characterStore';
-import {findByRole} from '../../../../../../../../../utils/common';
-import {PeopleRole} from '../../../../../../../../../consts/character/characterProps';
+import {usePeopleConnections} from '../../../../../../../../../hooks/usePeopleConnections';
 
 function Visualization() {
-  const characterStore = useCharacterStore();
   const {getSprite, getPersonSprite} = useSprite();
+  const {findExactRoles} = usePeopleConnections();
 
-  const fatherPerson = findByRole(characterStore.people, PeopleRole.Father);
-  const motherPerson = findByRole(characterStore.people, PeopleRole.Mother);
+  const exactRoles = findExactRoles();
+
+  const fatherData = exactRoles.Father;
+  const motherData = exactRoles.Mother;
 
   const player = getSprite(SpriteName.player, 150);
-  const father = fatherPerson ? getPersonSprite(fatherPerson, 90, {position: 'absolute', top: 20, left: 40}) : <></>;
-  const mother = motherPerson ? getPersonSprite(motherPerson, 90, {position: 'absolute', top: 20}) : <></>;
+  const father = fatherData ? getPersonSprite(fatherData.person, 90, {position: 'absolute', top: 20, left: 40}) : <></>;
+  const mother = motherData ? getPersonSprite(motherData.person, 90, {position: 'absolute', top: 20}) : <></>;
   const home = getSprite(SpriteName.home, 200, {bottom: 10});
   const car = getSprite(SpriteName.car, 180, {top: 5});
   const aircraft = getSprite(SpriteName.aircraft, 160, {bottom: 0, right: 10});

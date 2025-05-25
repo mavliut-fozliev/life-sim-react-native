@@ -1,5 +1,5 @@
 import {FieldLimits, StoreFields} from '../../types/store';
-import {bool, num, obj, str} from './MMKV';
+import {arr, bool, num, obj, str} from './MMKV';
 
 export const mmkvKeyMethod = (mmkvKey: string) => (key: string) => mmkvKey + key;
 export const getMethodsKey = (key: string) => '$' + key;
@@ -105,6 +105,53 @@ export const getInitializer = <T>(mmkvKey: string, fields: StoreFields, limits?:
     },
   });
 
+  const addArr = (key: string, set: any) => ({
+    [key]: arr.load(getMMKVKey(key)),
+    [getMethodsKey(key)]: {
+      set: (value: object) => {
+        set(() => {
+          arr.save(getMMKVKey(key), value);
+          return {[key]: value};
+        });
+      },
+      delete: (comparisonObject: Record<string, any>) => {
+        set((state: any) => {
+          const newState = state[key].filter((item: any) => {
+            return !Object.keys(comparisonObject).every(prop => {
+              return item[prop] === comparisonObject[prop];
+            });
+          });
+          arr.save(getMMKVKey(key), newState);
+          return {[key]: newState};
+        });
+      },
+      add: (item: Record<string, any>) => {
+        set((state: any) => {
+          const newState = [...state[key], item];
+          arr.save(getMMKVKey(key), newState);
+          return {[key]: newState};
+        });
+      },
+      update: (
+        comparisonObject: Record<string, any> | Record<string, any>[],
+        newObject: Record<string, any>,
+        shouldReplace?: boolean,
+      ) => {
+        set((state: any) => {
+          const newState = state[key].map((item: any) => {
+            const comparisonObjects = Array.isArray(comparisonObject) ? comparisonObject : [comparisonObject];
+            const shouldUpdate = comparisonObjects.some(compObj =>
+              Object.keys(compObj).every(prop => item[prop] === compObj[prop]),
+            );
+            return shouldUpdate ? (shouldReplace ? newObject : {...item, ...newObject}) : item;
+          });
+          arr.save(getMMKVKey(key), newState);
+          return {[key]: newState};
+        });
+      },
+    },
+  });
+
   return (set: any) => {
     return Object.entries(fields).reduce((acc, [key, type]) => {
       switch (type) {
@@ -116,6 +163,8 @@ export const getInitializer = <T>(mmkvKey: string, fields: StoreFields, limits?:
           return Object.assign(acc, addBool(key, set));
         case 'obj':
           return Object.assign(acc, addObj(key, set));
+        case 'arr':
+          return Object.assign(acc, addArr(key, set));
       }
     }, {}) as T;
   };

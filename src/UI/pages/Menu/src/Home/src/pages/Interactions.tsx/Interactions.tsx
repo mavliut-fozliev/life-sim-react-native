@@ -5,11 +5,17 @@ import {colors, fontSizes} from '../../../../../../../../consts/styles';
 import {Navigation, Route} from '../../../../../../../../types/navigation';
 import {Person} from '../../../../../../../../types/people';
 import {findMatchingKeyByMaxNumber} from '../../../../../../../../utils/common';
-import {peopleRelationshipMap, PeopleRole} from '../../../../../../../../consts/character/characterProps';
+import {
+  PeopleExactRole,
+  peopleRelationshipMap,
+  PeopleRole,
+} from '../../../../../../../../consts/character/characterProps';
 import {interactions} from '../../../../../../../../consts/character/interactions/interactions';
 import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
 import {useSprite} from '../../sprites/hooks/useSprite';
 import StatusGroup from '../../../../../../../components/StatusGroup/StatusGroup';
+import {playerId} from '../../../../../../../../consts/character/player';
+import {usePeopleConnections} from '../../../../../../../../hooks/usePeopleConnections';
 
 type InteractionsProps = {
   navigation: Navigation;
@@ -19,13 +25,34 @@ type InteractionsProps = {
 function Intercations({navigation, route}: InteractionsProps) {
   const {translate} = useLocalizeText();
   const {getPersonSprite} = useSprite();
+  const {findPersonConnection, findExactRoles} = usePeopleConnections();
+
   const person = route.params.person;
+  const connectionToPlayer = findPersonConnection(person.id, playerId);
 
-  console.log(person);
+  const getExactRole = () => {
+    if (connectionToPlayer.role === PeopleRole.ParentChild) {
+      const exactRoles = findExactRoles();
 
-  const relationshipStage = findMatchingKeyByMaxNumber(peopleRelationshipMap, person.relationship);
+      const peopleExactRoles = [
+        PeopleExactRole.Father,
+        PeopleExactRole.Mother,
+        PeopleExactRole.Son,
+        PeopleExactRole.Daughter,
+      ];
 
-  const allInteractions = interactions[person.gender][person.role] || [];
+      const exactRole = peopleExactRoles.find(role => exactRoles[role]?.person.id === person.id);
+      if (exactRole) {
+        return exactRole;
+      }
+    }
+
+    return connectionToPlayer.role;
+  };
+
+  const relationshipStage = findMatchingKeyByMaxNumber(peopleRelationshipMap, connectionToPlayer.relationship);
+
+  const allInteractions = interactions[person.gender][connectionToPlayer.role] || [];
 
   const getAvailableInteractions = () => {
     if (person.dead || !relationshipStage) {
@@ -43,7 +70,7 @@ function Intercations({navigation, route}: InteractionsProps) {
             {person.name} {person.surname}
           </Text>
           <Text style={styles.infoText}>
-            {translate('Role')}: {translate(person.role)}
+            {translate('Role')}: {translate(getExactRole())}
           </Text>
           <Text style={styles.infoText}>
             {translate('Age')}: {person.age}
@@ -52,8 +79,8 @@ function Intercations({navigation, route}: InteractionsProps) {
             {translate('Location')}: {translate(person.city)}, {translate(person.country)}
           </Text>
           <View>
-            {person.dead || person.role === PeopleRole.Stranger ? undefined : (
-              <StatusGroup relationship={person.relationship} situation={person.situation} />
+            {person.dead || connectionToPlayer.role === PeopleRole.Stranger ? undefined : (
+              <StatusGroup relationship={connectionToPlayer.relationship} situation={connectionToPlayer.situation} />
             )}
           </View>
         </View>

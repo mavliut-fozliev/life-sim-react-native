@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Stat from './src/Stat/Stat';
 import usePlayerStore from '../../../../../store/playerStore';
-import {PlayerMood, playerMoodMap} from '../../../../../../../../../consts/character/player';
+import {PlayerMood, playerMoodMap} from '../../../../../../../../../consts/character/mood';
 import {findMatchingKeyByMaxNumber} from '../../../../../../../../../utils/common';
 import {useLocalizeText} from '../../../../../../../../../locales/useLocalizeText';
 

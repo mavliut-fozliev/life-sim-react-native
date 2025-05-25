@@ -28,7 +28,7 @@ import {Gender} from '../../gender';
 
 export const interactions: PeopleInteractions = {
   [Gender.Female]: {
-    [PeopleRole.Mother]: [
+    [PeopleRole.ParentChild]: [
       femaleMotherSpendTimeTogether,
       femaleMotherGivePraise,
       femaleMotherTalkOnThePhone,
@@ -39,14 +39,14 @@ export const interactions: PeopleInteractions = {
       femaleMotherArgue,
       femaleMotherStealMoney,
     ],
-    [PeopleRole.Sister]: [],
+    [PeopleRole.Sibling]: [],
     [PeopleRole.Spouse]: [],
     [PeopleRole.Friend]: [],
     [PeopleRole.Familiar]: [],
     [PeopleRole.Stranger]: [femaleStrangerBecomeAcquainted],
   },
   [Gender.Male]: {
-    [PeopleRole.Father]: [
+    [PeopleRole.ParentChild]: [
       maleFatherSpendTimeTogether,
       maleFatherGivePraise,
       maleFatherTalkOnThePhone,
@@ -57,7 +57,7 @@ export const interactions: PeopleInteractions = {
       maleFatherArgue,
       maleFatherStealMoney,
     ],
-    [PeopleRole.Brother]: [],
+    [PeopleRole.Sibling]: [],
     [PeopleRole.Spouse]: [],
     [PeopleRole.Friend]: [],
     [PeopleRole.Familiar]: [],

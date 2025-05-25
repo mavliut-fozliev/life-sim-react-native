@@ -2,18 +2,18 @@ import React from 'react';
 import SectionButton from '../../../../../../../../../components/SectionButton/SectionButton';
 import {PeopleInteraction, Person} from '../../../../../../../../../../types/people';
 import {getRandomValue} from '../../../../../../../../../../utils/common';
-import useCharacterStore from '../../../../../../store/characterStore';
 import usePlayerStore from '../../../../../../store/playerStore';
 import {useNavigate} from '../../../../../../../../../../hooks/useNavigate';
 import {Navigation} from '../../../../../../../../../../types/navigation';
 import {peopleSituationImpact} from '../../../../../../../../../../consts/character/characterProps';
-import {UpdateByKeysParams} from '../../../../../../../../../../types/store';
 import {useLocalizeText} from '../../../../../../../../../../locales/useLocalizeText';
 import {useSpecialEffects} from './src/useSpecialEffects';
 import useGameStore from '../../../../../../store/gameStore';
 import {Icon} from '../../../../../../../../../../consts/icons';
 import {useIcon} from '../../../../../../../../../../icons/useIcon';
 import {useStoreHooks} from '../../../../../../store/storeHooks';
+import {usePeopleConnections} from '../../../../../../../../../../hooks/usePeopleConnections';
+import {playerId} from '../../../../../../../../../../consts/character/player';
 
 type InteractionProps = {
   interaction: PeopleInteraction;
@@ -22,59 +22,46 @@ type InteractionProps = {
 };
 
 function Interaction({interaction, person, navigation}: InteractionProps) {
-  const characterStore = useCharacterStore();
   const playerStore = usePlayerStore();
   const gameStore = useGameStore();
   const {addItemToHistory} = useStoreHooks();
 
   const navigate = useNavigate(navigation);
   const {translate} = useLocalizeText();
+  const {findPersonConnection, updateConnection} = usePeopleConnections();
+  const specialEffects = useSpecialEffects(interaction);
 
-  let params: UpdateByKeysParams = [];
-  const specialEffects = useSpecialEffects(interaction, person);
+  const connection = findPersonConnection(playerId, person.id);
 
   const handlePress = () => {
     //oneTimeImpact
     const oneTimeImpact = getRandomValue(interaction.oneTimeImpact);
 
-    const relationshipUpdateParams = {
-      itemKeys: [person.id, 'relationship'],
-      value: person.relationship + oneTimeImpact,
-      min: 0,
-      max: 100,
-    };
-
-    const performedActionsUpdateParams = {
-      itemKeys: [person.id, 'performedActions'],
-      value: (person.performedActions || 0) + 1,
-    };
-
-    params = [...params, relationshipUpdateParams, performedActionsUpdateParams];
+    connection.relationship = connection.relationship + oneTimeImpact;
+    connection.performedActions = (connection.performedActions || 0) + 1;
 
     //specialEffect
     const specialEffectsResult = specialEffects();
-    if (specialEffectsResult?.params) {
-      params = [...params, ...specialEffectsResult.params];
+    if (specialEffectsResult?.connectionUpdates) {
+      specialEffectsResult.connectionUpdates.forEach(connectionUpdate => {
+        (connection as any)[connectionUpdate.key] = connectionUpdate.value;
+      });
     }
 
     //situationImpact
-    const oldSituationImpact = person.situation ? peopleSituationImpact[person.situation] : 0;
+    const oldSituationImpact = connection.situation ? peopleSituationImpact[connection.situation] : 0;
     const newSituation = getRandomValue(interaction.situationImpact);
     const newSituationImpact = newSituation ? peopleSituationImpact[newSituation] : 0;
 
     if (Math.abs(newSituationImpact) > Math.abs(oldSituationImpact)) {
-      const situationUpdateParams = {itemKeys: [person.id, 'situation'], value: newSituation};
+      connection.situation = newSituation;
 
       const situationDuration = getRandomValue([
         {value: 2, chance: 50},
         {value: 3, chance: 30},
         {value: 4, chance: 20},
       ]);
-      const situationDurationUpdateParams = {
-        itemKeys: [person.id, 'situationDuration'],
-        value: situationDuration,
-      };
-      params = [...params, situationUpdateParams, situationDurationUpdateParams];
+      connection.situationDuration = situationDuration;
     }
 
     // set popup content and history
@@ -87,7 +74,8 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
     });
     addItemToHistory(content);
 
-    characterStore.$people.updateByKeys(params);
+    updateConnection(playerId, person.id, connection);
+
     playerStore.$energy.decrease(1);
     navigate.backToHome();
   };
@@ -96,7 +84,7 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
     if (playerStore.energy < 1) {
       return true;
     }
-    if (person.performedActions && person.performedActions > 2) {
+    if (connection.performedActions && connection.performedActions > 2) {
       return true;
     }
     return false;

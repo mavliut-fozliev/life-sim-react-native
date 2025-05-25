@@ -1,46 +1,23 @@
 import {PeopleRole, peopleSituationImpact} from '../../../../../../../../../../../../consts/character/characterProps';
-import {Person} from '../../../../../../../../../../../../types/people';
-import {UpdateByKeysParams} from '../../../../../../../../../../../../types/store';
+import {PeopleConnection} from '../../../../../../../../../../../../types/people';
 
-export function updateRelationship(person: Person): UpdateByKeysParams {
-  if (person.role === PeopleRole.Stranger) {
-    return [];
+export function updateRelationship(connection: PeopleConnection): PeopleConnection | undefined {
+  if (connection.role === PeopleRole.Stranger) {
+    return;
   }
 
   const initialImpact = -2;
-  const newRelationship = person.relationship + initialImpact;
+  connection.relationship = connection.relationship + initialImpact;
+  connection.performedActions = 0;
 
-  const relationshipUpdateParams = {
-    itemKeys: [person.id, 'relationship'],
-    value: newRelationship,
-    min: 0,
-    max: 100,
-  };
+  if (connection.situation && connection.situationDuration) {
+    connection.relationship = connection.relationship + peopleSituationImpact[connection.situation];
+    connection.situationDuration = connection.situationDuration - 1;
 
-  const performedActionsUpdateParams = {
-    itemKeys: [person.id, 'performedActions'],
-    value: 0,
-  };
-
-  let params: UpdateByKeysParams = [relationshipUpdateParams, performedActionsUpdateParams];
-
-  if (person.situation && person.situationDuration) {
-    relationshipUpdateParams.value = newRelationship + peopleSituationImpact[person.situation];
-
-    const situationDurationUpdateParams = {
-      itemKeys: [person.id, 'situationDuration'],
-      value: person.situationDuration - 1,
-    };
-    params = [...params, situationDurationUpdateParams];
-
-    if (person.situationDuration === 1) {
-      const situationUpdateParams = {
-        itemKeys: [person.id, 'situation'],
-        value: undefined,
-      };
-      params = [...params, situationUpdateParams];
+    if (connection.situationDuration === 1) {
+      connection.situation = undefined;
     }
   }
 
-  return params;
+  return connection;
 }

@@ -13,6 +13,8 @@ import {useLocalizeText} from '../../../../../../../../locales/useLocalizeText';
 import {useSprite} from '../../sprites/hooks/useSprite';
 import StatusGroup from '../../../../../../../components/StatusGroup/StatusGroup';
 import {PeopleRole} from '../../../../../../../../consts/character/characterProps';
+import {usePeopleConnections} from '../../../../../../../../hooks/usePeopleConnections';
+import {playerId} from '../../../../../../../../consts/character/player';
 
 type ActivitiesProps = {
   navigation: Navigation;
@@ -24,6 +26,7 @@ function Activities({navigation, route}: ActivitiesProps) {
   const navigate = useNavigate(navigation);
   const {translate} = useLocalizeText();
   const {getPersonSprite} = useSprite();
+  const {findPersonConnection} = usePeopleConnections();
 
   const type = route.params.placeProps.type;
   const level = route.params.placeProps.level;
@@ -35,22 +38,26 @@ function Activities({navigation, route}: ActivitiesProps) {
     <ScrollView style={styles.box}>
       {activities}
       <Divider label={translate('People')} />
-      {placePeople.map((p, i) => (
-        <SectionButton
-          key={i.toString()}
-          label={`${p.name} ${p.surname}`}
-          description={p.placePeopleType && translate(p.placePeopleType)}
-          height={100}
-          extraLine={
-            p.role === PeopleRole.Stranger ? undefined : (
-              <StatusGroup relationship={p.relationship} situation={p.situation} />
-            )
-          }
-          mainIcon={getPersonSprite(p, 60)}
-          icon={<></>}
-          onPress={() => navigate.stepForward(PageNames.Intercations, {person: p})}
-        />
-      ))}
+      {placePeople.map((p, i) => {
+        const connection = findPersonConnection(playerId, p.id);
+
+        return (
+          <SectionButton
+            key={i.toString()}
+            label={`${p.name} ${p.surname}`}
+            description={p.placePeopleType && translate(p.placePeopleType)}
+            height={100}
+            extraLine={
+              connection.role === PeopleRole.Stranger ? undefined : (
+                <StatusGroup relationship={connection.relationship} situation={connection.situation} />
+              )
+            }
+            mainIcon={getPersonSprite(p, 60)}
+            icon={<></>}
+            onPress={() => navigate.stepForward(PageNames.Intercations, {person: p})}
+          />
+        );
+      })}
     </ScrollView>
   );
 }

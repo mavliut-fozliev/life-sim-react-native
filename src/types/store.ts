@@ -43,7 +43,18 @@ export type ObjectField<T extends string, V extends object> = {
   };
 };
 
-export type StoreFields = ObjectRecord<'str' | 'num' | 'bool' | 'obj'>;
+export type ArrayField<T extends string, V extends object> = {
+  [K in T]: Array<V>;
+} & {
+  [K in `$${T}`]: {
+    set: (value: V) => void;
+    delete: (comparisonObject: Partial<V>) => void;
+    add: (item: V) => void;
+    update: (comparisonObject: Partial<V> | Array<Partial<V>>, newObject: V, shouldReplace?: boolean) => void;
+  };
+};
+
+export type StoreFields = ObjectRecord<'str' | 'num' | 'bool' | 'obj' | 'arr'>;
 
 export type FieldLimits = {min: ObjectRecord<number>; max: ObjectRecord<number>};
 
