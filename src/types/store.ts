@@ -47,7 +47,7 @@ export type ArrayField<T extends string, V extends object> = {
   [K in T]: Array<V>;
 } & {
   [K in `$${T}`]: {
-    set: (value: V) => void;
+    set: (value: Array<V>) => void;
     delete: (comparisonObject: Partial<V>) => void;
     add: (item: V) => void;
     update: (comparisonObject: Partial<V> | Array<Partial<V>>, newObject: V, shouldReplace?: boolean) => boolean;

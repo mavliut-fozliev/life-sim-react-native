@@ -9,12 +9,12 @@ import {Icon} from '../../../../../../../../../../consts/icons';
 import {useStoreHooks} from '../../../../../../store/storeHooks';
 import {getRandomArrayItem} from '../../../../../../../../../../utils/common';
 import useGameStore from '../../../../../../store/gameStore';
+import {Text} from 'react-native';
 
 type ActivityProps = {
   label: string;
   navigation: Navigation;
-  price: number;
-  resource: ResourceVariant;
+  price: Array<{resource: ResourceVariant; amount: number}>;
   action: () => void;
   descriptions: string[];
 };
@@ -27,7 +27,7 @@ type ResourceMap = {
   };
 };
 
-function Activity({label, navigation, price, resource, action, descriptions}: ActivityProps) {
+function Activity({label, navigation, price, action, descriptions}: ActivityProps) {
   const playerStore = usePlayerStore();
   const gameStore = useGameStore();
   const navigate = useNavigate(navigation);
@@ -37,24 +37,27 @@ function Activity({label, navigation, price, resource, action, descriptions}: Ac
     [ResourceVariant.money]: {
       state: playerStore.money,
       decrease: playerStore.$money.decrease,
-      icon: useIcon(Icon.Bills, {size: 20}),
+      icon: useIcon(Icon.Bills, {size: 16}),
     },
     [ResourceVariant.energy]: {
       state: playerStore.energy,
       decrease: playerStore.$energy.decrease,
-      icon: useIcon(Icon.Energy, {size: 20}),
+      icon: useIcon(Icon.Energy, {size: 16}),
     },
   };
 
-  const resourceObj = resourceMap[resource];
+  const isNotEnough = price.some(p => resourceMap[p.resource].state < p.amount);
 
   const handlePress = () => {
-    if (resourceObj.state < price) {
+    if (isNotEnough) {
       return;
     }
 
     action();
-    resourceObj.decrease(price);
+    price.forEach(p => {
+      const resourceObj = resourceMap[p.resource];
+      resourceObj.decrease(p.amount);
+    });
 
     // set popup content and history
     const content = getRandomArrayItem(descriptions) || descriptions[0];
@@ -70,9 +73,17 @@ function Activity({label, navigation, price, resource, action, descriptions}: Ac
     <SectionButton
       label={label}
       onPress={handlePress}
-      disabled={resourceObj.state < price}
-      icon={resourceObj.icon}
-      iconText={price.toString()}
+      disabled={isNotEnough}
+      icon={
+        <>
+          {price.map(p => (
+            <React.Fragment key={p.resource}>
+              <Text>{p.amount.toString()}</Text>
+              {resourceMap[p.resource].icon}
+            </React.Fragment>
+          ))}
+        </>
+      }
     />
   );
 }

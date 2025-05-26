@@ -1,0 +1,41 @@
+type ActivityDescriptions = Record<string, string[]>;
+
+export const activityDescriptions: ActivityDescriptions = {
+  'Run on a treadmill': [
+    'Jumped on the treadmill and ran like I was late for something — felt kind of good.',
+    'Hit the treadmill with music blasting — tried to outrun my own thoughts.',
+    'Started running, legs complaining right away — kept going anyway.',
+    'Wasn’t in the mood, but forced myself onto the treadmill — a small win.',
+    'Ran on the treadmill until I forgot why I was even upset.',
+    'Let the belt carry me while I tried to pretend I was outdoors.',
+    'Got into a rhythm on the treadmill — almost felt like flying. Almost.',
+    'Every step on the treadmill felt heavier than the last, but I didn’t quit.',
+    'Chose the treadmill over doing nothing — not glamorous, but it counts.',
+    'Ran while staring at the wall — somehow still better than doing nothing.',
+  ],
+  'Yoga': [
+    'Did some yoga — my body creaked, but my mind thanked me.',
+    'Tried yoga today. Not sure if I looked graceful, but at least I tried.',
+    'Held a pose longer than I thought I could — small victory.',
+    'Unrolled the mat, stretched, breathed — yoga helped more than I expected.',
+    'Got into a flow with yoga — slow, focused, kind of peaceful.',
+    'Did yoga in silence — the stillness felt strange but nice.',
+    'Tried to clear my mind with yoga. Didn’t fully work, but better than nothing.',
+    'Followed a yoga video and nearly collapsed mid-pose. Still counts.',
+    'Started yoga stiff as a board — ended it slightly less so.',
+    'Did yoga mostly to slow down — mission accomplished.',
+  ],
+  'Take a check-up': [''],
+  'Just dance': [
+    'Hit the dance floor and just let go — music too loud to think, perfect.',
+    'Lost myself in the beat — dancing like nobody was watching (though they probably were).',
+    'Moved with the crowd, lights flashing — didn’t care how I looked, just danced.',
+    'Danced like I owned the floor — even if I tripped once or twice.',
+    'Body on autopilot, mind somewhere else — dancing fixed more than talking ever could.',
+    'Just danced — no phone, no thinking, just rhythm and sweat.',
+    'Let the bass carry me — every beat felt like freedom.',
+    'Didn’t plan to dance, but the music pulled me in — couldn’t help it.',
+    'The lights, the noise, the crowd — all disappeared once I started dancing.',
+    'Wasn’t the best dancer out there, but definitely had the most fun.',
+  ],
+};

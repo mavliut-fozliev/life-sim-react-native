@@ -59,11 +59,32 @@ export function useGrowUp() {
     });
   };
 
+  const characterActions = (person: Person) => {
+    // const doActivites = () => {
+    // }
+    // const doIntercations = () => {}
+  };
+
+  const charactersActions = () => {
+    Object.values(characterStore.people).forEach(person => {
+      if (person.dead) {
+        return;
+      }
+      characterActions(person);
+    });
+  };
+
   return () => {
     addAgeToHistory();
+
+    // player manipulations
     playerStore.$age.increase(1);
     playerStore.$energy.set(20);
+
     peopleManipulations();
+
     updateConnections();
+
+    charactersActions();
   };
 }
