@@ -1,4 +1,3 @@
-import {playerId} from '../../../../../../../../../../../consts/character/player';
 import {usePeopleConnections} from '../../../../../../../../../../../hooks/usePeopleConnections';
 import {Person} from '../../../../../../../../../../../types/people';
 import {UpdateByKeysParams} from '../../../../../../../../../../../types/store';
@@ -14,26 +13,30 @@ export function useGrowUp() {
   const playerStore = usePlayerStore();
   const characterStore = useCharacterStore();
   const {addAgeToHistory} = useStoreHooks();
-  const {findPersonConnection, updateConnection} = usePeopleConnections();
+  const {updateConnection} = usePeopleConnections();
 
   const peopleManipulation = (person: Person) => {
-    const connectionToPlayer = findPersonConnection(person.id, playerId);
-
     const ageUpdateParams = {
       itemKeys: [person.id, 'age'],
       value: person.age + 1,
     };
 
-    const newConnectionToPlayer = updateRelationship(connectionToPlayer);
-    if (newConnectionToPlayer) {
-      updateConnection(playerId, person.id, newConnectionToPlayer);
-    }
+    const energyUpdateParams = {
+      itemKeys: [person.id, 'energy'],
+      value: 20,
+    };
 
     const healthUpdateParams = updateHealth(person); // review (or also add to player)
     const effectsUpdateParams = imposingEffects(person); // review (or also add to player)
     const deadUpdateParams = kill(person); // review (or also add to player)
 
-    const params: UpdateByKeysParams = [ageUpdateParams, healthUpdateParams, effectsUpdateParams, deadUpdateParams];
+    const params: UpdateByKeysParams = [
+      ageUpdateParams,
+      energyUpdateParams,
+      healthUpdateParams,
+      effectsUpdateParams,
+      deadUpdateParams,
+    ];
 
     characterStore.$people.updateByKeys(params);
   };
@@ -47,10 +50,20 @@ export function useGrowUp() {
     });
   };
 
+  const updateConnections = () => {
+    characterStore.peopleConnections.forEach(connection => {
+      const newConnection = updateRelationship(connection);
+      if (newConnection) {
+        updateConnection(connection.idA, connection.idB, newConnection);
+      }
+    });
+  };
+
   return () => {
     addAgeToHistory();
     playerStore.$age.increase(1);
     playerStore.$energy.set(20);
     peopleManipulations();
+    updateConnections();
   };
 }
