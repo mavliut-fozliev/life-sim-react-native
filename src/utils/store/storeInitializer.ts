@@ -137,17 +137,22 @@ export const getInitializer = <T>(mmkvKey: string, fields: StoreFields, limits?:
         newObject: Record<string, any>,
         shouldReplace?: boolean,
       ) => {
+        let wasFound = false;
         set((state: any) => {
           const newState = state[key].map((item: any) => {
             const comparisonObjects = Array.isArray(comparisonObject) ? comparisonObject : [comparisonObject];
             const shouldUpdate = comparisonObjects.some(compObj =>
               Object.keys(compObj).every(prop => item[prop] === compObj[prop]),
             );
+            if (shouldUpdate) {
+              wasFound = true;
+            }
             return shouldUpdate ? (shouldReplace ? newObject : {...item, ...newObject}) : item;
           });
           arr.save(getMMKVKey(key), newState);
           return {[key]: newState};
         });
+        return wasFound;
       },
     },
   });

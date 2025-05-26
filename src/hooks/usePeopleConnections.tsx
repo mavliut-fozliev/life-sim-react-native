@@ -81,13 +81,21 @@ export function usePeopleConnections() {
   }
 
   function updateConnection(idA: string, idB: string, connection: PeopleConnection) {
-    characterStore.$peopleConnections.update(
+    const wasUpdated = characterStore.$peopleConnections.update(
       [
         {idA: idA, idB: idB},
         {idA: idB, idB: idA},
       ],
       connection,
     );
+
+    if (!wasUpdated) {
+      characterStore.$peopleConnections.add({
+        ...connection,
+        idA: idA,
+        idB: idB,
+      });
+    }
   }
 
   return {findPersonConnection, findPersonConnectionsByRole, findExactRoles, updateConnection};

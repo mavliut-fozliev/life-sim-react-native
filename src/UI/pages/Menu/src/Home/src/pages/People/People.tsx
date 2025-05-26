@@ -47,8 +47,6 @@ function People({navigation}: PeopleProps) {
   const fatherData = exactRoles.Father;
   const motherData = exactRoles.Mother;
 
-  console.log(motherData);
-
   if (fatherData) {
     const header = fatherData.person.dead ? Headers.Deceased : Headers.Family;
     peopleData[header].push({...fatherData, exactRole: PeopleExactRole.Father});
