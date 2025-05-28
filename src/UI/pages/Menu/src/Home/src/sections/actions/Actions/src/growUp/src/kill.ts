@@ -23,8 +23,5 @@ export function kill(person: Person) {
     {value: true, chance: killChance},
   ]);
 
-  return {
-    itemKeys: [person.id, 'dead'],
-    value: shouldDead,
-  };
+  return shouldDead;
 }

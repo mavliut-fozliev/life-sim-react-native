@@ -24,7 +24,7 @@ export function useActivities(navigation: Navigation) {
         price={activity.price}
         action={() => {
           activity.action.forEach(act => {
-            playerStore[`$${act.parameter}`].increase(getRandomValue(act.chances));
+            playerStore[`$${act.stat}`].increase(getRandomValue(act.chances));
           });
         }}
         descriptions={activityDescriptions[activity.label] || ['']}

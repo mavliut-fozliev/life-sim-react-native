@@ -1,4 +1,5 @@
 import {Chances} from '../types/common';
+import cloneDeep from 'lodash/cloneDeep';
 
 export const getRandomArrayItem = <T>(array: T[]): T | undefined => {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -64,3 +65,5 @@ export function findMatchingValueByMaxKey<T extends string | number>(
   }
   return undefined;
 }
+
+export const deepCopy = cloneDeep;

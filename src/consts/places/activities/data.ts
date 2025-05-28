@@ -1,5 +1,5 @@
 import {Chances} from '../../../types/common';
-import {ParameterVariant} from '../../parameters';
+import {StatVariant} from '../../parameters';
 import {ResourceVariant} from '../../resources';
 import {PlaceLevel, PlaceType} from '../common';
 
@@ -10,7 +10,7 @@ type ActivityData = Record<
     Array<{
       label: string;
       price: Array<{resource: ResourceVariant; amount: number}>;
-      action: Array<{parameter: ParameterVariant; chances: Chances<number>}>;
+      action: Array<{stat: StatVariant; chances: Chances<number>}>;
     }>
   >
 >;
@@ -24,7 +24,7 @@ export const activityData: ActivityData = {
         price: [{resource: ResourceVariant.energy, amount: 3}],
         action: [
           {
-            parameter: ParameterVariant.power,
+            stat: StatVariant.power,
             chances: [
               {value: 1, chance: 40},
               {value: 2, chance: 40},
@@ -40,14 +40,14 @@ export const activityData: ActivityData = {
         price: [{resource: ResourceVariant.energy, amount: 2}],
         action: [
           {
-            parameter: ParameterVariant.health,
+            stat: StatVariant.health,
             chances: [
               {value: 1, chance: 70},
               {value: 2, chance: 30},
             ],
           },
           {
-            parameter: ParameterVariant.power,
+            stat: StatVariant.power,
             chances: [
               {value: 1, chance: 70},
               {value: 2, chance: 30},
@@ -80,7 +80,7 @@ export const activityData: ActivityData = {
         price: [{resource: ResourceVariant.energy, amount: 1}],
         action: [
           {
-            parameter: ParameterVariant.charm,
+            stat: StatVariant.charm,
             chances: [
               {value: 1, chance: 80},
               {value: 2, chance: 20},

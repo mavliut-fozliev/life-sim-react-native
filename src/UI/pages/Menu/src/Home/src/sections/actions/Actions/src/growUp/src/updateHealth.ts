@@ -52,8 +52,5 @@ export function updateHealth(person: Person) {
 
   const totalImpact = ageImpact + immuneSystemImpact + longevityImpact + effectImpact;
 
-  return {
-    itemKeys: [person.id, 'params', 'health'],
-    value: person.health + totalImpact,
-  };
+  return person.health + totalImpact;
 }

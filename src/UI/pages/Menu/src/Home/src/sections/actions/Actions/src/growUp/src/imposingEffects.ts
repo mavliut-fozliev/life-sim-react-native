@@ -35,8 +35,5 @@ export function imposingEffects(person: Person) {
     }
   });
 
-  return {
-    itemKeys: [person.id, 'effects'],
-    value: effects,
-  };
+  return effects;
 }
