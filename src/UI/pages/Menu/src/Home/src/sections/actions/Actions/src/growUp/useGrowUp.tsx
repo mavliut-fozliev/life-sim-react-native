@@ -1,9 +1,11 @@
+import {peopleRelationshipMap} from '../../../../../../../../../../../consts/character/characterProps';
+import {interactions} from '../../../../../../../../../../../consts/character/interactions/interactions';
 import {activityData} from '../../../../../../../../../../../consts/places/activities/data';
 import {places} from '../../../../../../../../../../../consts/places/places';
 import {usePeopleConnections} from '../../../../../../../../../../../hooks/usePeopleConnections';
 import {Person} from '../../../../../../../../../../../types/people';
 import {UpdateByKeysParams} from '../../../../../../../../../../../types/store';
-import {deepCopy, getRandomValue} from '../../../../../../../../../../../utils/common';
+import {deepCopy, findMatchingKeyByMaxNumber, getRandomValue} from '../../../../../../../../../../../utils/common';
 import useCharacterStore from '../../../../../../../store/characterStore';
 import usePlayerStore from '../../../../../../../store/playerStore';
 import {useStoreHooks} from '../../../../../../../store/storeHooks';
@@ -17,6 +19,7 @@ export function useGrowUp() {
   const characterStore = useCharacterStore();
   const {addAgeToHistory} = useStoreHooks();
   const {updateConnection} = usePeopleConnections();
+  const {findPersonConnection} = usePeopleConnections();
 
   const updateConnections = () => {
     characterStore.peopleConnections.forEach(connection => {
@@ -25,6 +28,11 @@ export function useGrowUp() {
         updateConnection(connection.idA, connection.idB, newConnection);
       }
     });
+  };
+
+  const updatePlayerStats = () => {
+    playerStore.$age.increase(1);
+    playerStore.$energy.set(20);
   };
 
   const updateStats = (person: Person) => {
@@ -38,14 +46,19 @@ export function useGrowUp() {
   };
 
   const makeActions = (person: Person) => {
-    const districts = places[person.country][person.city] || {};
-    const availablePlaces = Object.values(districts)
-      .map(districtActivities => Object.values(districtActivities))
-      .flat();
+    const getActivities = () => {
+      const districts = places[person.country][person.city] || {};
+      const availablePlaces = Object.values(districts)
+        .map(districtActivities => Object.values(districtActivities))
+        .flat();
 
-    const activities = availablePlaces.flatMap(p => activityData[p.type][p.level]);
+      return availablePlaces.flatMap(p => activityData[p.type][p.level]);
+    };
 
-    //loop starts here
+    // activities
+    const activities = getActivities();
+
+    // loop starts here
     const selectedActivity = activities[0];
 
     const isEnough = selectedActivity.price.every(({resource, amount}) => person[resource] >= amount);
@@ -57,10 +70,30 @@ export function useGrowUp() {
     }
     // ends here
 
+    // interactions
+    const people = Object.values(characterStore.people);
+
+    // loop starts here
+    const selectedPerson = people[0]; // avoid to select the same person
+
+    const connection = findPersonConnection(person.id, selectedPerson.id);
+    const relationshipStage = findMatchingKeyByMaxNumber(peopleRelationshipMap, connection.relationship);
+    const allInteractions = interactions[person.gender][connection.role] || [];
+
+    const getAvailableInteractions = () => {
+      if (person.dead || !relationshipStage) {
+        return [];
+      }
+      return allInteractions.filter(i => i.conditions.includes(relationshipStage));
+    };
+
+    const availableInteractions = getAvailableInteractions();
+
+    const selectedInteraction = availableInteractions[0];
+
+    console.log(person, selectedPerson, selectedInteraction);
+
     return person;
-    // const doActivites = () => {
-    // }
-    // const doIntercations = () => {}
   };
 
   const savePersonUpdates = (person: Person) => {
@@ -92,12 +125,13 @@ export function useGrowUp() {
   return () => {
     addAgeToHistory();
 
+    // both manipulations
+    updateConnections();
+
     // player manipulations
-    playerStore.$age.increase(1);
-    playerStore.$energy.set(20);
+    updatePlayerStats();
 
     // character manipulations
-    updateConnections();
     peopleManipulations();
   };
 }
