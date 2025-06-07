@@ -1,6 +1,6 @@
-import {Chances} from '../../../types/common';
-import {StatVariant} from '../../parameters';
-import {ResourceVariant} from '../../resources';
+import {StatVariant} from '../../../shared/constants/parameters';
+import {ResourceVariant} from '../../../shared/constants/resources';
+import {Chances} from '../../../shared/types/common';
 import {PlaceLevel, PlaceType} from '../common';
 
 type ActivityData = Record<

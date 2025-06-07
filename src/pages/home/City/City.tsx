@@ -5,15 +5,15 @@ import usePlayerStore from '../../../shared/store/playerStore';
 import {useNavigate} from '../../../shared/hooks/useNavigate';
 import {Navigation} from '../../../shared/types/navigation';
 import {useLocalizeText} from '../../../shared/locales/useLocalizeText';
-import {places} from '../../../shared/constants/places/places';
 import {PageNames} from '../../../shared/constants/pages';
 import useCharacterStore from '../../../shared/store/characterStore';
 import {Icon} from '../../../shared/icons/icons';
-import {PlaceLevel, PlaceType} from '../../../shared/constants/places/common';
-import {PlaceProps} from '../../../shared/types/places';
+import {PlaceProps} from '../../../features/places/types';
 import {useIcon} from '../../../shared/icons/useIcon';
 import Divider from '../../../shared/ui/components/Divider/Divider';
 import SectionButton from '../../../shared/ui/components/SectionButton/SectionButton';
+import {PlaceLevel, PlaceType} from '../../../features/places/common';
+import {getDistricts} from '../../../features/places/helpers';
 
 type CityProps = {
   navigation: Navigation;
@@ -44,11 +44,9 @@ function City({navigation}: CityProps) {
   const navigate = useNavigate(navigation);
   const {translate} = useLocalizeText();
 
-  const districts = places[playerStore.country][playerStore.city] || {};
-
   function handlePress(districtName: string, placeName: string, placeProps: PlaceProps) {
     const minAge = placeProps.restrictions?.age?.min;
-    if (minAge && minAge > playerStore.age) {
+    if (minAge && minAge > playerStore.person.age) {
       console.log('restricted');
       return;
     }
@@ -58,6 +56,8 @@ function City({navigation}: CityProps) {
 
     navigate.stepForward(PageNames.Activities, {placeProps, placePeople});
   }
+
+  const districts = getDistricts(playerStore.person);
 
   return (
     <ScrollView style={styles.box}>

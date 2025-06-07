@@ -1,7 +1,5 @@
 import {peopleRelationshipMap} from '../../../../../../../../../shared/constants/character/characterProps';
 import {interactions} from '../../../../../../../../../shared/constants/character/interactions/interactions';
-import {activityData} from '../../../../../../../../../shared/constants/places/activities/data';
-import {places} from '../../../../../../../../../shared/constants/places/places';
 import {usePeopleConnections} from '../../../../../../../../../shared/hooks/usePeopleConnections';
 import {Person} from '../../../../../../../../../shared/types/people';
 import {UpdateByKeysParams} from '../../../../../../../../../shared/types/store';
@@ -13,6 +11,7 @@ import {imposingEffects} from './src/imposingEffects';
 import {kill} from './src/kill';
 import {updateHealth} from './src/updateHealth';
 import {updateRelationship} from './src/updateRelationship';
+import {getAvailableActivities} from '../../../../../../../../../features/places/helpers';
 
 export function useGrowUp() {
   const playerStore = usePlayerStore();
@@ -31,8 +30,10 @@ export function useGrowUp() {
   };
 
   const updatePlayerStats = () => {
-    playerStore.$age.increase(1);
-    playerStore.$energy.set(20);
+    playerStore.$person.updateByKeys([
+      {itemKeys: ['age'], value: playerStore.person.age + 1},
+      {itemKeys: ['energy'], value: 20},
+    ]);
   };
 
   const updateStats = (person: Person) => {
@@ -46,17 +47,8 @@ export function useGrowUp() {
   };
 
   const makeActions = (person: Person) => {
-    const getActivities = () => {
-      const districts = places[person.country][person.city] || {};
-      const availablePlaces = Object.values(districts)
-        .map(districtActivities => Object.values(districtActivities))
-        .flat();
-
-      return availablePlaces.flatMap(p => activityData[p.type][p.level]);
-    };
-
     // activities
-    const activities = getActivities();
+    const activities = getAvailableActivities(person);
 
     // loop starts here
     const selectedActivity = activities[0];

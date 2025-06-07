@@ -2,7 +2,7 @@ import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {colors} from '../../../shared/constants/styles';
 import {Navigation, Route} from '../../../shared/types/navigation';
-import {PlaceProps} from '../../../shared/types/places';
+import {PlaceProps} from '../../../features/places/types';
 import {useActivities} from './src/useActivities';
 import {Person} from '../../../shared/types/people';
 import {useNavigate} from '../../../shared/hooks/useNavigate';

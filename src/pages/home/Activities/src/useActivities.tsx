@@ -1,13 +1,14 @@
-import {PlaceLevel, PlaceType} from '../../../../shared/constants/places/common';
 import {useLocalizeText} from '../../../../shared/locales/useLocalizeText';
 import {Navigation} from '../../../../shared/types/navigation';
 import {getRandomValue} from '../../../../shared/utils/common';
 import usePlayerStore from '../../../../shared/store/playerStore';
 import Activity from './Activity/Activity';
-import {activityData} from '../../../../shared/constants/places/activities/data';
-import {activityDescriptions} from '../../../../shared/constants/places/activities/descriptions';
 import Divider from '../../../../shared/ui/components/Divider/Divider';
 import SectionButton from '../../../../shared/ui/components/SectionButton/SectionButton';
+import {PlaceLevel, PlaceType} from '../../../../features/places/common';
+import {activityData} from '../../../../features/places/activities/activityData';
+import {activityDescriptions} from '../../../../features/places/activities/descriptions';
+import {UpdateByKeysParams} from '../../../../shared/types/store';
 
 export function useActivities(navigation: Navigation) {
   const playerStore = usePlayerStore();
@@ -23,9 +24,11 @@ export function useActivities(navigation: Navigation) {
         navigation={navigation}
         price={activity.price}
         action={() => {
+          const params: UpdateByKeysParams = [];
           activity.action.forEach(act => {
-            playerStore[`$${act.stat}`].increase(getRandomValue(act.chances));
+            params.push({itemKeys: ['person', act.stat], value: getRandomValue(act.chances)});
           });
+          playerStore.$person.updateByKeys(params);
         }}
         descriptions={activityDescriptions[activity.label] || ['']}
       />

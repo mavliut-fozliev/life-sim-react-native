@@ -4,29 +4,21 @@ import {characterSurnames} from '../../../shared/constants/character/characterSu
 import {ImmuneSystem} from '../../../shared/constants/character/genetics';
 import {playerId} from '../../../shared/constants/character/player';
 import {Gender} from '../../../shared/constants/gender';
-import {places} from '../../../shared/constants/places/places';
 import {useLocalizeText} from '../../../shared/locales/useLocalizeText';
 import {ObjectRecord} from '../../../shared/types/common';
 import {PeopleConnection, Person, PlacePeople} from '../../../shared/types/people';
 import {getRandomArrayItem, getRandomInRange, getRandomValue} from '../../../shared/utils/common';
 import useCharacterStore from '../../../shared/store/characterStore';
-import usePlayerStore from '../../../shared/store/playerStore';
 import {characterMap} from './consts';
 import useStore from './store';
 import uuid from 'react-native-uuid';
+import {places} from '../../../features/places/places';
 const uuidv4 = uuid.v4;
 
 export function useCreateCharacters() {
   const {country, city, surname, gender} = useStore();
   const characterStore = useCharacterStore();
-  const playerStore = usePlayerStore();
   const {translate} = useLocalizeText();
-
-  const playerSprite = {
-    body: 'light',
-    eyes: 'black',
-    mouth: 'smile',
-  } as const;
 
   const getName = (type: 'name' | 'surname', characterGender: Gender) => {
     let names = characterNames[country][characterGender];
@@ -208,8 +200,6 @@ export function useCreateCharacters() {
     addToPeople(father);
 
     createPlacePeople();
-
-    playerStore.$sprite.set(playerSprite);
 
     characterStore.$people.set(people);
     characterStore.$peopleConnections.set(peopleConnections);

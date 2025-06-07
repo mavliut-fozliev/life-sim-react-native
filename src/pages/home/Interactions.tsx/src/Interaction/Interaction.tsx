@@ -76,12 +76,12 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
 
     updateConnection(playerId, person.id, connection);
 
-    playerStore.$energy.decrease(1);
+    playerStore.$person.updateByKeys([{itemKeys: ['energy'], value: playerStore.person.energy - 1}]);
     navigate.backToHome();
   };
 
   const isDisabled = () => {
-    if (playerStore.energy < 1) {
+    if (playerStore.person.energy < 1) {
       return true;
     }
     if (connection.performedActions && connection.performedActions > 2) {

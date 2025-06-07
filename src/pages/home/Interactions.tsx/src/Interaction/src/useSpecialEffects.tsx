@@ -25,7 +25,7 @@ export function useSpecialEffects(interaction: PeopleInteraction) {
             {value: 100, chance: 30},
             {value: 500, chance: 20},
           ]);
-          playerStore.$money.increase(money);
+          playerStore.$person.updateByKeys([{itemKeys: ['money'], value: playerStore.person.money + money}]);
           break;
 
         case SpecialEffect.MakeFamiliar:

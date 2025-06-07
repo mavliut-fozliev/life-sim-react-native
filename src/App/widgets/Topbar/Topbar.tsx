@@ -56,14 +56,14 @@ function Topbar() {
         ) : (
           <View style={styles.name}>
             <Text numberOfLines={1} style={styles.nameText}>
-              {playerStore.name} {playerStore.surname}
+              {playerStore.person.name} {playerStore.person.surname}
             </Text>
           </View>
         )}
         {!haveTitle && (
           <View style={styles.resources}>
-            <Resource name={ResourceVariant.energy} value={playerStore.energy} />
-            <Resource name={ResourceVariant.money} value={playerStore.money} />
+            <Resource name={ResourceVariant.energy} value={playerStore.person.energy} />
+            <Resource name={ResourceVariant.money} value={playerStore.person.money} />
           </View>
         )}
       </View>

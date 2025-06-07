@@ -21,8 +21,7 @@ type ActivityProps = {
 
 type ResourceMap = {
   [K in ResourceVariant]: {
-    state: number;
-    decrease: (value: number) => void;
+    resource: string;
     icon: ReactNode;
   };
 };
@@ -35,18 +34,19 @@ function Activity({label, navigation, price, action, descriptions}: ActivityProp
 
   const resourceMap: ResourceMap = {
     [ResourceVariant.money]: {
-      state: playerStore.money,
-      decrease: playerStore.$money.decrease,
+      resource: 'money',
       icon: useIcon(Icon.Bills, {size: 16}),
     },
     [ResourceVariant.energy]: {
-      state: playerStore.energy,
-      decrease: playerStore.$energy.decrease,
+      resource: 'energy',
       icon: useIcon(Icon.Energy, {size: 16}),
     },
   };
 
-  const isNotEnough = price.some(p => resourceMap[p.resource].state < p.amount);
+  const isNotEnough = price.some(p => {
+    const resource = resourceMap[p.resource].resource;
+    return playerStore.person[resource as ResourceVariant] < p.amount;
+  });
 
   const handlePress = () => {
     if (isNotEnough) {
@@ -56,7 +56,7 @@ function Activity({label, navigation, price, action, descriptions}: ActivityProp
     action();
     price.forEach(p => {
       const resourceObj = resourceMap[p.resource];
-      resourceObj.decrease(p.amount);
+      playerStore.$person.updateByKeys([{itemKeys: [resourceObj.resource], value: p.amount}]);
     });
 
     // set popup content and history

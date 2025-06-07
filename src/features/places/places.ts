@@ -1,7 +1,7 @@
-import {Places} from '../../types/places';
-import {Cities} from '../cities';
-import {Countries} from '../countries';
+import {Places} from './types';
 import {PlaceLevel, PlaceType, RestrictionProp} from './common';
+import {Countries} from '../../shared/constants/countries';
+import {Cities} from '../../shared/constants/cities';
 
 export const places: Places = {
   [Countries.Albania]: {

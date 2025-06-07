@@ -1,5 +1,5 @@
+import {PlaceLevel, PlaceType} from '../../../features/places/common';
 import {PlacePeopleType} from '../../../shared/constants/character/characterProps';
-import {PlaceLevel, PlaceType} from '../../../shared/constants/places/common';
 
 export const characterMap: Record<PlaceType, Record<PlaceLevel, PlacePeopleType[]>> = {
   [PlaceType.Gym]: {

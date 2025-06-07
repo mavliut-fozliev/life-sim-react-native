@@ -25,13 +25,13 @@ export function useSprite() {
 
   const getSpriteNode = (size: DimensionValue, style?: ViewStyle): Sprites => ({
     [SpriteName.player]: getSpriteByAge(
-      playerStore.age,
+      playerStore.person.age,
       size,
       {
-        body: playerStore.sprite.body,
-        eyes: playerStore.sprite.eyes,
-        mouth: playerStore.sprite.mouth,
-        hair: playerStore.sprite.hair,
+        body: playerStore.person.sprite.body,
+        eyes: playerStore.person.sprite.eyes,
+        mouth: playerStore.person.sprite.mouth,
+        hair: playerStore.person.sprite.hair,
       },
       style,
     ),

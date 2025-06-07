@@ -1,5 +1,4 @@
 import {PeopleExactRole, PeopleRole} from '../constants/character/characterProps';
-import {playerId} from '../constants/character/player';
 import {Gender} from '../constants/gender';
 import {PeopleConnection, Person} from '../types/people';
 import useCharacterStore from '../store/characterStore';
@@ -42,7 +41,7 @@ export function usePeopleConnections() {
   }
 
   function findExactRoles(current?: Person) {
-    const currentPerson = current || {id: playerId, age: playerStore.age};
+    const currentPerson = current || playerStore.person;
 
     const parentChildConnections = characterStore.peopleConnections.filter(
       c => c.role === PeopleRole.ParentChild && (c.idA === currentPerson.id || c.idB === currentPerson.id),

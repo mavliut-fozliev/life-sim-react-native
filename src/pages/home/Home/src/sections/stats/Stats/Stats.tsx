@@ -10,17 +10,17 @@ function Stats() {
   const playerStore = usePlayerStore();
   const {translate} = useLocalizeText();
 
-  const mood = findMatchingKeyByMaxNumber(playerMoodMap, playerStore.mood) ?? PlayerMood.Neutral;
+  const mood = findMatchingKeyByMaxNumber(playerMoodMap, playerStore.person.mood) ?? PlayerMood.Neutral;
 
   return (
     <View style={styles.box}>
       <View>
-        <Stat name="age" value={playerStore.age} />
+        <Stat name="age" value={playerStore.person.age} />
       </View>
       <View>
-        <Stat name="health" value={playerStore.health} />
-        <Stat name="power" value={playerStore.power} />
-        <Stat name="charm" value={playerStore.charm} />
+        <Stat name="health" value={playerStore.person.health} />
+        <Stat name="power" value={playerStore.person.power} />
+        <Stat name="charm" value={playerStore.person.charm} />
       </View>
       <View>
         <Text>Состояние: {translate(mood)}</Text>

@@ -6,7 +6,7 @@ export function useStoreHooks() {
   const playerStore = usePlayerStore();
 
   function addAgeToHistory() {
-    const age = String(playerStore.age + 1);
+    const age = String(playerStore.person.age + 1);
     gameStore.$history.updateByKeys([{itemKeys: [age], value: []}]);
   }
 
@@ -15,7 +15,7 @@ export function useStoreHooks() {
       return;
     }
 
-    const age = String(playerStore.age);
+    const age = String(playerStore.person.age);
     const prev = gameStore.history[age] || [];
 
     gameStore.$history.updateByKeys([{itemKeys: [age], value: [...prev, historyItem]}]);

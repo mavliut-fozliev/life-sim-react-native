@@ -15,6 +15,8 @@ import {useLocalizeText} from '../../shared/locales/useLocalizeText';
 import {useCreateCharacters} from './src/useCreateCharacters';
 import useGameStore from '../../shared/store/gameStore';
 import Button from '../../shared/ui/components/Button/Button';
+import {playerId} from '../../shared/constants/character/player';
+import {ImmuneSystem} from '../../shared/constants/character/genetics';
 
 type StartNewLifeProps = {
   navigation: Navigation;
@@ -45,21 +47,30 @@ function StartNewLife({navigation}: StartNewLifeProps) {
   const createCharacters = useCreateCharacters();
 
   function setInitialValues() {
-    playerStore.$country.set(country);
-    playerStore.$city.set(city);
-    playerStore.$gender.set(gender);
-    playerStore.$name.set(name);
-    playerStore.$surname.set(surname);
-
-    playerStore.$money.set(0);
-    playerStore.$energy.set(10);
-
-    playerStore.$age.set(0);
-    playerStore.$health.set(60);
-    playerStore.$power.set(10);
-    playerStore.$charm.set(20);
-
-    playerStore.$mood.set(60);
+    playerStore.$person.set({
+      id: playerId,
+      country,
+      city,
+      gender,
+      name,
+      surname,
+      money: 0,
+      energy: 10,
+      age: 0,
+      health: 60,
+      power: 10,
+      charm: 20,
+      mood: 60,
+      sprite: {
+        body: 'light',
+        eyes: 'black',
+        mouth: 'smile',
+      },
+      genetics: {
+        immuneSystem: ImmuneSystem.Normal,
+      },
+      effects: [],
+    });
   }
 
   function resetNewLifeStore() {
