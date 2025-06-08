@@ -1,9 +1,9 @@
 import {PeopleRole, peopleSituationImpact} from '../../../../../../../../../../features/character/characterProps';
 import {PeopleConnection} from '../../../../../../../../../../shared/types/people';
 
-export function updateRelationship(connection: PeopleConnection): PeopleConnection | undefined {
+export function updateRelationship(connection: PeopleConnection): boolean {
   if (connection.role === PeopleRole.Stranger) {
-    return;
+    return false;
   }
 
   const initialImpact = -2;
@@ -19,5 +19,5 @@ export function updateRelationship(connection: PeopleConnection): PeopleConnecti
     }
   }
 
-  return connection;
+  return true;
 }

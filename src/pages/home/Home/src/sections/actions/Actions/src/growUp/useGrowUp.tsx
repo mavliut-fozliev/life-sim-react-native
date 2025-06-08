@@ -1,41 +1,30 @@
 import {usePeopleConnections} from '../../../../../../../../../features/character/hooks/usePeopleConnections';
 import {Person} from '../../../../../../../../../shared/types/people';
-import {findMatchingKeyByMaxNumber} from '../../../../../../../../../shared/utils/common';
 import useCharacterStore from '../../../../../../../../../shared/store/characterStore';
 import {useStoreHooks} from '../../../../../../../../../shared/store/storeHooks';
 import {imposingEffects} from './src/imposingEffects';
 import {kill} from './src/kill';
 import {updateHealth} from './src/updateHealth';
-import {updateRelationship} from './src/updateRelationship';
 import {getAvailableActivities, updatePersonByActivity} from '../../../../../../../../../features/places/helpers';
 import {useUpdatePerson} from '../../../../../../../../../features/character/hooks/useUpdatePerson';
-import {peopleRelationshipMap} from '../../../../../../../../../features/character/characterProps';
-import {interactions} from '../../../../../../../../../features/character/interactions/interactions';
-import {usePlayer} from '../../../../../../../../../features/character/hooks/usePlayer';
+import {updateRelationship} from './src/updateRelationship';
 import {playerId} from '../../../../../../../../../features/character/player';
+import {useInteractions} from '../../../../../../../../../features/character/interactions/hooks/useInteractions';
 
 export function useGrowUp() {
-  const player = usePlayer();
   const characterStore = useCharacterStore();
   const {addAgeToHistory} = useStoreHooks();
   const {updateConnection} = usePeopleConnections();
-  const {findPersonConnection} = usePeopleConnections();
   const {savePerson} = useUpdatePerson();
+  const {getAvailableInteractions, updateConnectionByInteraction} = useInteractions();
 
   const updateConnections = () => {
     characterStore.peopleConnections.forEach(connection => {
-      const newConnection = updateRelationship(connection);
-      if (newConnection) {
-        updateConnection(connection.idA, connection.idB, newConnection);
+      const updated = updateRelationship(connection);
+      if (updated) {
+        updateConnection(connection.idA, connection.idB, connection);
       }
     });
-  };
-
-  const updatePlayerStats = () => {
-    characterStore.$people.updateByKeys([
-      {itemKeys: [playerId, 'age'], value: player.age + 1},
-      {itemKeys: [playerId, 'energy'], value: 20},
-    ]);
   };
 
   const updateStats = (person: Person) => {
@@ -60,34 +49,22 @@ export function useGrowUp() {
 
     // loop starts here
     const selectedPerson = people[0]; // avoid to select the same person
-
-    const connection = findPersonConnection(person.id, selectedPerson.id);
-    const relationshipStage = findMatchingKeyByMaxNumber(peopleRelationshipMap, connection.relationship);
-    const allInteractions = interactions[person.gender][connection.role] || [];
-
-    const getAvailableInteractions = () => {
-      if (person.dead || !relationshipStage) {
-        return [];
-      }
-      return allInteractions.filter(i => i.conditions.includes(relationshipStage));
-    };
-
-    const availableInteractions = getAvailableInteractions();
-
+    const availableInteractions = getAvailableInteractions(person, selectedPerson);
     const selectedInteraction = availableInteractions[0];
-
-    console.log(person, selectedPerson, selectedInteraction);
+    updateConnectionByInteraction(person, selectedPerson, selectedInteraction);
   };
 
   const peopleManipulations = () => {
-    return Object.values(characterStore.people).map(person => {
+    Object.values(characterStore.people).map(person => {
       if (person.dead) {
         return;
       }
-      // let updatedPerson = deepCopy(person);
 
       updateStats(person);
-      makeActions(person);
+
+      if (person.id !== playerId) {
+        makeActions(person);
+      }
 
       savePerson(person);
     });
@@ -98,9 +75,6 @@ export function useGrowUp() {
 
     // both manipulations
     updateConnections();
-
-    // player manipulations
-    updatePlayerStats();
 
     // character manipulations
     peopleManipulations();

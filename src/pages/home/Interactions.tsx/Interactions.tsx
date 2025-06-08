@@ -4,14 +4,14 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {colors, fontSizes} from '../../../shared/constants/styles';
 import {Navigation, Route} from '../../../shared/types/navigation';
 import {Person} from '../../../shared/types/people';
-import {findMatchingKeyByMaxNumber} from '../../../shared/utils/common';
 import {useLocalizeText} from '../../../shared/locales/useLocalizeText';
 import {usePeopleConnections} from '../../../features/character/hooks/usePeopleConnections';
 import {useSprite} from '../../../shared/sprites/hooks/useSprite';
 import StatusGroup from '../../../shared/ui/components/StatusGroup/StatusGroup';
-import {PeopleExactRole, peopleRelationshipMap, PeopleRole} from '../../../features/character/characterProps';
+import {PeopleExactRole, PeopleRole} from '../../../features/character/characterProps';
 import {playerId} from '../../../features/character/player';
-import {interactions} from '../../../features/character/interactions/interactions';
+import {useInteractions} from '../../../features/character/interactions/hooks/useInteractions';
+import {usePlayer} from '../../../features/character/hooks/usePlayer';
 
 type InteractionsProps = {
   navigation: Navigation;
@@ -19,9 +19,11 @@ type InteractionsProps = {
 };
 
 function Intercations({navigation, route}: InteractionsProps) {
+  const player = usePlayer();
   const {translate} = useLocalizeText();
   const {getPersonSprite} = useSprite();
   const {findPersonConnection, findExactRoles} = usePeopleConnections();
+  const {getAvailableInteractions} = useInteractions();
 
   const person = route.params.person;
   const connectionToPlayer = findPersonConnection(person.id, playerId);
@@ -46,16 +48,7 @@ function Intercations({navigation, route}: InteractionsProps) {
     return connectionToPlayer.role;
   };
 
-  const relationshipStage = findMatchingKeyByMaxNumber(peopleRelationshipMap, connectionToPlayer.relationship);
-
-  const allInteractions = interactions[person.gender][connectionToPlayer.role] || [];
-
-  const getAvailableInteractions = () => {
-    if (person.dead || !relationshipStage) {
-      return [];
-    }
-    return allInteractions.filter(i => i.conditions.includes(relationshipStage));
-  };
+  const availableInteractions = getAvailableInteractions(player, person);
 
   return (
     <ScrollView style={styles.box}>
@@ -81,7 +74,7 @@ function Intercations({navigation, route}: InteractionsProps) {
           </View>
         </View>
       </View>
-      {getAvailableInteractions().map((interaction, i) => (
+      {availableInteractions.map((interaction, i) => (
         <Interaction key={i.toString()} interaction={interaction} person={person} navigation={navigation} />
       ))}
     </ScrollView>
