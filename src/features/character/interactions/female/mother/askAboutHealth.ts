@@ -1,6 +1,6 @@
 import {Icon} from '../../../../../shared/icons/icons';
 import {PeopleInteraction} from '../../../../../shared/types/people';
-import {getRandomArrayItem} from '../../../../../shared/utils/common';
+import {findMatchingKeyByMaxNumber, getRandomArrayItem} from '../../../../../shared/utils/common';
 import {PeopleHealth, peopleHealthMap, PeopleRelationship, PeopleSituation} from '../../../characterProps';
 import {SpecialEffect} from '../../common';
 
