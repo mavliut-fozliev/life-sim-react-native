@@ -48,10 +48,14 @@ export function useGrowUp() {
     const people = Object.values(characterStore.people);
 
     // loop starts here
-    const selectedPerson = people[0]; // avoid to select the same person
+    const selectedPerson = people[0]; // avoid to select the same person or the player
     const availableInteractions = getAvailableInteractions(person, selectedPerson);
     const selectedInteraction = availableInteractions[0];
-    updateConnectionByInteraction(person, selectedPerson, selectedInteraction);
+
+    if (selectedInteraction) {
+      updateConnectionByInteraction(person, selectedPerson, selectedInteraction);
+    }
+    // ends here
   };
 
   const peopleManipulations = () => {
