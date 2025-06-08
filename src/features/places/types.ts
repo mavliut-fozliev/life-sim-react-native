@@ -1,6 +1,8 @@
 import {Cities} from '../../shared/constants/cities';
 import {Countries} from '../../shared/constants/countries';
+import {StatVariant} from '../../shared/constants/parameters';
 import {ResourceVariant} from '../../shared/constants/resources';
+import {Chances} from '../../shared/types/common';
 import {PlaceLevel, PlaceType, RestrictionProp} from './common';
 
 export type PlaceProps = {
@@ -23,3 +25,11 @@ export type Places = {
     };
   }>;
 };
+
+export type ActivityItem = {
+  label: string;
+  price: Array<{resource: ResourceVariant; amount: number}>;
+  action: Array<{stat: StatVariant; chances: Chances<number>}>;
+};
+
+export type ActivityData = Record<PlaceType, Record<PlaceLevel, Array<ActivityItem>>>;

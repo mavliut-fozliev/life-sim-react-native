@@ -1,19 +1,7 @@
 import {StatVariant} from '../../../shared/constants/parameters';
 import {ResourceVariant} from '../../../shared/constants/resources';
-import {Chances} from '../../../shared/types/common';
 import {PlaceLevel, PlaceType} from '../common';
-
-type ActivityData = Record<
-  PlaceType,
-  Record<
-    PlaceLevel,
-    Array<{
-      label: string;
-      price: Array<{resource: ResourceVariant; amount: number}>;
-      action: Array<{stat: StatVariant; chances: Chances<number>}>;
-    }>
-  >
->;
+import {ActivityData} from '../types';
 
 export const activityData: ActivityData = {
   [PlaceType.Gym]: {

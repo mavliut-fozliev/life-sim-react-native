@@ -5,14 +5,14 @@ import {Navigation} from '../../../shared/types/navigation';
 import {useNavigate} from '../../../shared/hooks/useNavigate';
 import {PageNames} from '../../../shared/constants/pages';
 import {useLocalizeText} from '../../../shared/locales/useLocalizeText';
-import {PeopleExactRole, PeopleRole} from '../../../shared/constants/character/characterProps';
 import {PeopleConnection, Person} from '../../../shared/types/people';
-import {playerId} from '../../../shared/constants/character/player';
-import {usePeopleConnections} from '../../../shared/hooks/usePeopleConnections';
+import {usePeopleConnections} from '../../../features/character/hooks/usePeopleConnections';
 import {ObjectRecord} from '../../../shared/types/common';
 import {useSprite} from '../../../shared/sprites/hooks/useSprite';
 import Divider from '../../../shared/ui/components/Divider/Divider';
 import StatusGroup from '../../../shared/ui/components/StatusGroup/StatusGroup';
+import {PeopleExactRole, PeopleRole} from '../../../features/character/characterProps';
+import {playerId} from '../../../features/character/player';
 
 type PeopleProps = {
   navigation: Navigation;

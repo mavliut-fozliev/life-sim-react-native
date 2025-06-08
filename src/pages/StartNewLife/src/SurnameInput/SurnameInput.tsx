@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import useStore from '../store';
 import {useLocalizeText} from '../../../../shared/locales/useLocalizeText';
 import {getRandomArrayItem} from '../../../../shared/utils/common';
-import {characterSurnames} from '../../../../shared/constants/character/characterSurnames';
 import ModalTextInput from '../../../../shared/ui/components/ModalTextInput/ModalTextInput';
+import {characterSurnames} from '../../../../features/character/characterSurnames';
 
 function SurnameInput() {
   const {surname, $surname, country, gender, surnameIsModified, $surnameIsModified} = useStore();

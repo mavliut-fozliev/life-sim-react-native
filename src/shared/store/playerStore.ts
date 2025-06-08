@@ -1,13 +1,13 @@
-import {create} from 'zustand';
-import {ObjectField, StoreFields} from '../types/store';
-import {Person} from '../types/people';
-import {getInitializer} from '../utils/store/storeInitializer';
+// import {create} from 'zustand';
+// import {ObjectField, StoreFields} from '../types/store';
+// import {Person} from '../types/people';
+// import {getInitializer} from '../utils/store/storeInitializer';
 
-type StoreState = ObjectField<'person', Person>;
+// type StoreState = ObjectField<'person', Person>;
 
-const fields: StoreFields = {
-  person: 'obj',
-};
+// const fields: StoreFields = {
+//   person: 'obj',
+// };
 
 // const limits: FieldLimits = {
 //   min: {
@@ -28,6 +28,6 @@ const fields: StoreFields = {
 //   },
 // };
 
-const initializer = getInitializer<StoreState>('player', fields);
-const usePlayerStore = create(initializer);
-export default usePlayerStore;
+// const initializer = getInitializer<StoreState>('player', fields);
+// const usePlayerStore = create(initializer);
+// export default usePlayerStore;

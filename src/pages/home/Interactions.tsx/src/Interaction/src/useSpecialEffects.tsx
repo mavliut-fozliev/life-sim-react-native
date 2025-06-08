@@ -1,13 +1,16 @@
-import {PeopleRole} from '../../../../../../shared/constants/character/characterProps';
-import {SpecialEffect} from '../../../../../../shared/constants/character/interactions/common';
 import {PeopleConnection, PeopleInteraction} from '../../../../../../shared/types/people';
 import {getRandomValue} from '../../../../../../shared/utils/common';
-import usePlayerStore from '../../../../../../shared/store/playerStore';
+import {SpecialEffect} from '../../../../../../features/character/interactions/common';
+import {PeopleRole} from '../../../../../../features/character/characterProps';
+import {usePlayer} from '../../../../../../features/character/hooks/usePlayer';
+import useCharacterStore from '../../../../../../shared/store/characterStore';
+import {playerId} from '../../../../../../features/character/player';
 
 type ConnectionUpdate = {key: keyof PeopleConnection; value: string | number};
 
 export function useSpecialEffects(interaction: PeopleInteraction) {
-  const playerStore = usePlayerStore();
+  const player = usePlayer();
+  const characterStore = useCharacterStore();
 
   return (): {connectionUpdates: ConnectionUpdate[]} | undefined => {
     if (!interaction.specialEffects) {
@@ -25,7 +28,7 @@ export function useSpecialEffects(interaction: PeopleInteraction) {
             {value: 100, chance: 30},
             {value: 500, chance: 20},
           ]);
-          playerStore.$person.updateByKeys([{itemKeys: ['money'], value: playerStore.person.money + money}]);
+          characterStore.$people.updateByKeys([{itemKeys: [playerId, 'money'], value: player.money + money}]);
           break;
 
         case SpecialEffect.MakeFamiliar:

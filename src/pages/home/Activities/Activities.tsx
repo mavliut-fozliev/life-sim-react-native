@@ -8,13 +8,13 @@ import {Person} from '../../../shared/types/people';
 import {useNavigate} from '../../../shared/hooks/useNavigate';
 import {PageNames} from '../../../shared/constants/pages';
 import {useLocalizeText} from '../../../shared/locales/useLocalizeText';
-import {PeopleRole} from '../../../shared/constants/character/characterProps';
-import {usePeopleConnections} from '../../../shared/hooks/usePeopleConnections';
-import {playerId} from '../../../shared/constants/character/player';
+import {usePeopleConnections} from '../../../features/character/hooks/usePeopleConnections';
 import {useSprite} from '../../../shared/sprites/hooks/useSprite';
 import Divider from '../../../shared/ui/components/Divider/Divider';
 import SectionButton from '../../../shared/ui/components/SectionButton/SectionButton';
 import StatusGroup from '../../../shared/ui/components/StatusGroup/StatusGroup';
+import {playerId} from '../../../features/character/player';
+import {PeopleRole} from '../../../features/character/characterProps';
 
 type ActivitiesProps = {
   navigation: Navigation;

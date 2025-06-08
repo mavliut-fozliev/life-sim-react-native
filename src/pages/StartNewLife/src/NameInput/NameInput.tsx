@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import useStore from '../store';
 import {getRandomArrayItem} from '../../../../shared/utils/common';
-import {characterNames} from '../../../../shared/constants/character/characterNames';
 import {useLocalizeText} from '../../../../shared/locales/useLocalizeText';
 import ModalTextInput from '../../../../shared/ui/components/ModalTextInput/ModalTextInput';
+import {characterNames} from '../../../../features/character/characterNames';
 
 function NameInput() {
   const {translate} = useLocalizeText();

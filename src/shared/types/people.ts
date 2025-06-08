@@ -1,3 +1,8 @@
+import {Cities} from '../constants/cities';
+import {Countries} from '../constants/countries';
+import {Gender} from '../constants/gender';
+import {Chances, ObjectRecord} from './common';
+import {Icon} from '../icons/icons';
 import {
   PeopleEffect,
   PeopleRelationship,
@@ -5,14 +10,9 @@ import {
   PeopleSituation,
   PlacePeopleType,
   SpriteEras,
-} from '../constants/character/characterProps';
-import {Cities} from '../constants/cities';
-import {Countries} from '../constants/countries';
-import {Gender} from '../constants/gender';
-import {Chances, ObjectRecord} from './common';
-import {Icon} from '../icons/icons';
-import {SpecialEffect} from '../constants/character/interactions/common';
-import {ImmuneSystem} from '../constants/character/genetics';
+} from '../../features/character/characterProps';
+import {ImmuneSystem} from '../../features/character/genetics';
+import {SpecialEffect} from '../../features/character/interactions/common';
 
 export type CommonSpriteVariants = {
   body: 'light' | 'dark';
@@ -57,7 +57,6 @@ export type Person = {
   charm: number;
   mood: number;
   sprite: CommonSpriteVariants;
-  // special (should be added to player)
   dead?: boolean;
   genetics: {
     immuneSystem: ImmuneSystem;

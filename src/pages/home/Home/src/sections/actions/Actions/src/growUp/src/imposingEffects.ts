@@ -1,4 +1,4 @@
-import {PeopleEffect} from '../../../../../../../../../../shared/constants/character/characterProps';
+import {PeopleEffect} from '../../../../../../../../../../features/character/characterProps';
 import {PeopleEffectObj, Person} from '../../../../../../../../../../shared/types/people';
 import {getRandomValue} from '../../../../../../../../../../shared/utils/common';
 

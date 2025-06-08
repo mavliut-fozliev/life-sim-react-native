@@ -1,5 +1,5 @@
-import {PeopleEffect} from '../../../../../../../../../../shared/constants/character/characterProps';
-import {ImmuneSystem} from '../../../../../../../../../../shared/constants/character/genetics';
+import {PeopleEffect} from '../../../../../../../../../../features/character/characterProps';
+import {ImmuneSystem} from '../../../../../../../../../../features/character/genetics';
 import {Person} from '../../../../../../../../../../shared/types/people';
 import {findMatchingValueByMaxKey, getRandomValue} from '../../../../../../../../../../shared/utils/common';
 

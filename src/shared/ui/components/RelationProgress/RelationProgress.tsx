@@ -5,7 +5,7 @@ import {
   PeopleRelationship,
   peopleRelationshipColors,
   peopleRelationshipMap,
-} from '../../../constants/character/characterProps';
+} from '../../../../features/character/characterProps';
 
 type RelationProgressProps = {
   relationship: number;

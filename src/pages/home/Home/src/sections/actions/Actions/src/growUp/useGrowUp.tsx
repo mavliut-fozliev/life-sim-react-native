@@ -1,24 +1,26 @@
-import {peopleRelationshipMap} from '../../../../../../../../../shared/constants/character/characterProps';
-import {interactions} from '../../../../../../../../../shared/constants/character/interactions/interactions';
-import {usePeopleConnections} from '../../../../../../../../../shared/hooks/usePeopleConnections';
+import {usePeopleConnections} from '../../../../../../../../../features/character/hooks/usePeopleConnections';
 import {Person} from '../../../../../../../../../shared/types/people';
-import {UpdateByKeysParams} from '../../../../../../../../../shared/types/store';
-import {deepCopy, findMatchingKeyByMaxNumber, getRandomValue} from '../../../../../../../../../shared/utils/common';
+import {findMatchingKeyByMaxNumber} from '../../../../../../../../../shared/utils/common';
 import useCharacterStore from '../../../../../../../../../shared/store/characterStore';
-import usePlayerStore from '../../../../../../../../../shared/store/playerStore';
 import {useStoreHooks} from '../../../../../../../../../shared/store/storeHooks';
 import {imposingEffects} from './src/imposingEffects';
 import {kill} from './src/kill';
 import {updateHealth} from './src/updateHealth';
 import {updateRelationship} from './src/updateRelationship';
-import {getAvailableActivities} from '../../../../../../../../../features/places/helpers';
+import {getAvailableActivities, updatePersonByActivity} from '../../../../../../../../../features/places/helpers';
+import {useUpdatePerson} from '../../../../../../../../../features/character/hooks/useUpdatePerson';
+import {peopleRelationshipMap} from '../../../../../../../../../features/character/characterProps';
+import {interactions} from '../../../../../../../../../features/character/interactions/interactions';
+import {usePlayer} from '../../../../../../../../../features/character/hooks/usePlayer';
+import {playerId} from '../../../../../../../../../features/character/player';
 
 export function useGrowUp() {
-  const playerStore = usePlayerStore();
+  const player = usePlayer();
   const characterStore = useCharacterStore();
   const {addAgeToHistory} = useStoreHooks();
   const {updateConnection} = usePeopleConnections();
   const {findPersonConnection} = usePeopleConnections();
+  const {savePerson} = useUpdatePerson();
 
   const updateConnections = () => {
     characterStore.peopleConnections.forEach(connection => {
@@ -30,9 +32,9 @@ export function useGrowUp() {
   };
 
   const updatePlayerStats = () => {
-    playerStore.$person.updateByKeys([
-      {itemKeys: ['age'], value: playerStore.person.age + 1},
-      {itemKeys: ['energy'], value: 20},
+    characterStore.$people.updateByKeys([
+      {itemKeys: [playerId, 'age'], value: player.age + 1},
+      {itemKeys: [playerId, 'energy'], value: 20},
     ]);
   };
 
@@ -42,8 +44,6 @@ export function useGrowUp() {
     person.health = updateHealth(person);
     person.effects = imposingEffects(person);
     person.dead = kill(person);
-
-    return person;
   };
 
   const makeActions = (person: Person) => {
@@ -52,14 +52,7 @@ export function useGrowUp() {
 
     // loop starts here
     const selectedActivity = activities[0];
-
-    const isEnough = selectedActivity.price.every(({resource, amount}) => person[resource] >= amount);
-
-    if (isEnough) {
-      selectedActivity.price.forEach(({resource, amount}) => (person[resource] = person[resource] - amount));
-
-      selectedActivity.action.forEach(({stat, chances}) => person[stat] + getRandomValue(chances));
-    }
+    updatePersonByActivity(selectedActivity, person);
     // ends here
 
     // interactions
@@ -84,20 +77,6 @@ export function useGrowUp() {
     const selectedInteraction = availableInteractions[0];
 
     console.log(person, selectedPerson, selectedInteraction);
-
-    return person;
-  };
-
-  const savePersonUpdates = (person: Person) => {
-    const getUpdateObj = (prop: keyof Person) => ({
-      itemKeys: [person.id, prop],
-      value: person[prop],
-    });
-
-    const propsToSave: Array<keyof Person> = ['age', 'energy', 'money', 'health', 'power', 'charm', 'effects', 'dead'];
-
-    const params: UpdateByKeysParams = propsToSave.map(prop => getUpdateObj(prop));
-    characterStore.$people.updateByKeys(params);
   };
 
   const peopleManipulations = () => {
@@ -105,12 +84,12 @@ export function useGrowUp() {
       if (person.dead) {
         return;
       }
-      let updatedPerson = deepCopy(person);
+      // let updatedPerson = deepCopy(person);
 
-      updatedPerson = updateStats(updatedPerson);
-      updatedPerson = makeActions(updatedPerson);
+      updateStats(person);
+      makeActions(person);
 
-      savePersonUpdates(updatedPerson);
+      savePerson(person);
     });
   };
 

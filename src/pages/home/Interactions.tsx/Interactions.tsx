@@ -5,13 +5,13 @@ import {colors, fontSizes} from '../../../shared/constants/styles';
 import {Navigation, Route} from '../../../shared/types/navigation';
 import {Person} from '../../../shared/types/people';
 import {findMatchingKeyByMaxNumber} from '../../../shared/utils/common';
-import {PeopleExactRole, peopleRelationshipMap, PeopleRole} from '../../../shared/constants/character/characterProps';
-import {interactions} from '../../../shared/constants/character/interactions/interactions';
 import {useLocalizeText} from '../../../shared/locales/useLocalizeText';
-import {playerId} from '../../../shared/constants/character/player';
-import {usePeopleConnections} from '../../../shared/hooks/usePeopleConnections';
+import {usePeopleConnections} from '../../../features/character/hooks/usePeopleConnections';
 import {useSprite} from '../../../shared/sprites/hooks/useSprite';
 import StatusGroup from '../../../shared/ui/components/StatusGroup/StatusGroup';
+import {PeopleExactRole, peopleRelationshipMap, PeopleRole} from '../../../features/character/characterProps';
+import {playerId} from '../../../features/character/player';
+import {interactions} from '../../../features/character/interactions/interactions';
 
 type InteractionsProps = {
   navigation: Navigation;

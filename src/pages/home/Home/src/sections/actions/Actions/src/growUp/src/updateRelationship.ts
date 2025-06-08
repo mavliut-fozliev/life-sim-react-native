@@ -1,7 +1,4 @@
-import {
-  PeopleRole,
-  peopleSituationImpact,
-} from '../../../../../../../../../../shared/constants/character/characterProps';
+import {PeopleRole, peopleSituationImpact} from '../../../../../../../../../../features/character/characterProps';
 import {PeopleConnection} from '../../../../../../../../../../shared/types/people';
 
 export function updateRelationship(connection: PeopleConnection): PeopleConnection | undefined {

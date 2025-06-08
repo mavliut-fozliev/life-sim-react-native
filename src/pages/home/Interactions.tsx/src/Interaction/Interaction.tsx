@@ -1,19 +1,20 @@
 import React from 'react';
 import {PeopleInteraction, Person} from '../../../../../shared/types/people';
 import {getRandomValue} from '../../../../../shared/utils/common';
-import usePlayerStore from '../../../../../shared/store/playerStore';
 import {useNavigate} from '../../../../../shared/hooks/useNavigate';
 import {Navigation} from '../../../../../shared/types/navigation';
-import {peopleSituationImpact} from '../../../../../shared/constants/character/characterProps';
 import {useLocalizeText} from '../../../../../shared/locales/useLocalizeText';
 import {useSpecialEffects} from './src/useSpecialEffects';
 import useGameStore from '../../../../../shared/store/gameStore';
 import {Icon} from '../../../../../shared/icons/icons';
 import {useStoreHooks} from '../../../../../shared/store/storeHooks';
-import {usePeopleConnections} from '../../../../../shared/hooks/usePeopleConnections';
-import {playerId} from '../../../../../shared/constants/character/player';
+import {usePeopleConnections} from '../../../../../features/character/hooks/usePeopleConnections';
 import {useIcon} from '../../../../../shared/icons/useIcon';
 import SectionButton from '../../../../../shared/ui/components/SectionButton/SectionButton';
+import {playerId} from '../../../../../features/character/player';
+import {peopleSituationImpact} from '../../../../../features/character/characterProps';
+import {usePlayer} from '../../../../../features/character/hooks/usePlayer';
+import useCharacterStore from '../../../../../shared/store/characterStore';
 
 type InteractionProps = {
   interaction: PeopleInteraction;
@@ -22,7 +23,8 @@ type InteractionProps = {
 };
 
 function Interaction({interaction, person, navigation}: InteractionProps) {
-  const playerStore = usePlayerStore();
+  const player = usePlayer();
+  const characterStore = useCharacterStore();
   const gameStore = useGameStore();
   const {addItemToHistory} = useStoreHooks();
 
@@ -76,12 +78,12 @@ function Interaction({interaction, person, navigation}: InteractionProps) {
 
     updateConnection(playerId, person.id, connection);
 
-    playerStore.$person.updateByKeys([{itemKeys: ['energy'], value: playerStore.person.energy - 1}]);
+    characterStore.$people.updateByKeys([{itemKeys: [playerId, 'energy'], value: player.energy - 1}]);
     navigate.backToHome();
   };
 
   const isDisabled = () => {
-    if (playerStore.person.energy < 1) {
+    if (player.energy < 1) {
       return true;
     }
     if (connection.performedActions && connection.performedActions > 2) {

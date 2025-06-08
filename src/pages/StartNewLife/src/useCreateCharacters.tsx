@@ -1,8 +1,3 @@
-import {characterNames} from '../../../shared/constants/character/characterNames';
-import {PeopleRole, PeopleSituation, PlacePeopleType} from '../../../shared/constants/character/characterProps';
-import {characterSurnames} from '../../../shared/constants/character/characterSurnames';
-import {ImmuneSystem} from '../../../shared/constants/character/genetics';
-import {playerId} from '../../../shared/constants/character/player';
 import {Gender} from '../../../shared/constants/gender';
 import {useLocalizeText} from '../../../shared/locales/useLocalizeText';
 import {ObjectRecord} from '../../../shared/types/common';
@@ -13,10 +8,15 @@ import {characterMap} from './consts';
 import useStore from './store';
 import uuid from 'react-native-uuid';
 import {places} from '../../../features/places/places';
+import {characterNames} from '../../../features/character/characterNames';
+import {characterSurnames} from '../../../features/character/characterSurnames';
+import {ImmuneSystem} from '../../../features/character/genetics';
+import {PeopleRole, PeopleSituation, PlacePeopleType} from '../../../features/character/characterProps';
+import {playerId} from '../../../features/character/player';
 const uuidv4 = uuid.v4;
 
 export function useCreateCharacters() {
-  const {country, city, surname, gender} = useStore();
+  const {country, city, name, surname, gender} = useStore();
   const characterStore = useCharacterStore();
   const {translate} = useLocalizeText();
 
@@ -37,6 +37,33 @@ export function useCreateCharacters() {
     }
 
     return localizedName;
+  };
+
+  const getPlayer = (): Person => {
+    return {
+      id: playerId,
+      country,
+      city,
+      gender,
+      name,
+      surname,
+      money: 0,
+      energy: 10,
+      age: 0,
+      health: 60,
+      power: 10,
+      charm: 20,
+      mood: 60,
+      sprite: {
+        body: 'light',
+        eyes: 'black',
+        mouth: 'smile',
+      },
+      genetics: {
+        immuneSystem: ImmuneSystem.Normal,
+      },
+      effects: [],
+    };
   };
 
   const getMother = (): Person => {
@@ -168,6 +195,7 @@ export function useCreateCharacters() {
   }
 
   return () => {
+    const player = getPlayer();
     const mother = getMother();
     const father = getFather();
 
@@ -196,6 +224,7 @@ export function useCreateCharacters() {
       },
     ];
 
+    addToPeople(player);
     addToPeople(mother);
     addToPeople(father);
 

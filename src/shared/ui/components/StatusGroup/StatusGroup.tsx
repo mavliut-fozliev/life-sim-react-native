@@ -2,8 +2,8 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {useLocalizeText} from '../../../locales/useLocalizeText';
 import RelationProgress from '../RelationProgress/RelationProgress';
-import {PeopleSituation, peopleSituationColors} from '../../../constants/character/characterProps';
 import {fontSizes} from '../../../constants/styles';
+import {PeopleSituation, peopleSituationColors} from '../../../../features/character/characterProps';
 
 type StatusGroupProps = {
   relationship: number;

@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {DimensionValue, Image, StyleSheet, View, ViewStyle} from 'react-native';
 import {SpriteVariants} from '../../../types/people';
-import {SpriteEras} from '../../../constants/character/characterProps';
+import {SpriteEras} from '../../../../features/character/characterProps';
 
 type AdultProps = {
   size: DimensionValue;

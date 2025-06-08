@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import usePlayerStore from '../../../shared/store/playerStore';
 import useGameStore from '../../../shared/store/gameStore';
 import {useNavigate} from '../../../shared/hooks/useNavigate';
 import {useLocalizeText} from '../../../shared/locales/useLocalizeText';
@@ -13,10 +12,11 @@ import IconButton from '../../../shared/ui/components/IconButton/IconButton';
 import Resource from '../../../shared/ui/components/Resource/Resource';
 import {ResourceVariant} from '../../../shared/constants/resources';
 import {colors, fontSizes} from '../../../shared/constants/styles';
+import {usePlayer} from '../../../features/character/hooks/usePlayer';
 
 function Topbar() {
-  const playerStore = usePlayerStore();
   const {currentPage} = useGameStore();
+  const player = usePlayer();
 
   const navigate = useNavigate(useNavigation());
   const {translate} = useLocalizeText();
@@ -56,14 +56,14 @@ function Topbar() {
         ) : (
           <View style={styles.name}>
             <Text numberOfLines={1} style={styles.nameText}>
-              {playerStore.person.name} {playerStore.person.surname}
+              {player.name} {player.surname}
             </Text>
           </View>
         )}
         {!haveTitle && (
           <View style={styles.resources}>
-            <Resource name={ResourceVariant.energy} value={playerStore.person.energy} />
-            <Resource name={ResourceVariant.money} value={playerStore.person.money} />
+            <Resource name={ResourceVariant.energy} value={player.energy} />
+            <Resource name={ResourceVariant.money} value={player.money} />
           </View>
         )}
       </View>

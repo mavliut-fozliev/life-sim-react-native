@@ -1,6 +1,6 @@
 import React from 'react';
 import {ImageBackground, StyleSheet, View, ViewStyle} from 'react-native';
-import {usePeopleConnections} from '../../../../../../../shared/hooks/usePeopleConnections';
+import {usePeopleConnections} from '../../../../../../../features/character/hooks/usePeopleConnections';
 import {SpriteName, useSprite} from '../../../../../../../shared/sprites/hooks/useSprite';
 
 function Visualization() {

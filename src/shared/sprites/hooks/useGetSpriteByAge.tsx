@@ -2,9 +2,9 @@ import {DimensionValue, ViewStyle} from 'react-native';
 import {ReactNode} from 'react';
 import Infant from '../characters/Infant/Infant';
 import Adult from '../characters/Adult/Adult';
-import {SpriteEras} from '../../constants/character/characterProps';
 import {CommonSpriteVariants} from '../../types/people';
 import {findMatchingKeyByMaxNumber} from '../../utils/common';
+import {SpriteEras} from '../../../features/character/characterProps';
 
 export function useGetSpriteByAge() {
   const spriteAges: {[key in SpriteEras]: number} = {

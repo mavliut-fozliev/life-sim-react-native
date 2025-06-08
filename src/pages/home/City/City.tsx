@@ -1,7 +1,6 @@
 import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {colors} from '../../../shared/constants/styles';
-import usePlayerStore from '../../../shared/store/playerStore';
 import {useNavigate} from '../../../shared/hooks/useNavigate';
 import {Navigation} from '../../../shared/types/navigation';
 import {useLocalizeText} from '../../../shared/locales/useLocalizeText';
@@ -14,6 +13,7 @@ import Divider from '../../../shared/ui/components/Divider/Divider';
 import SectionButton from '../../../shared/ui/components/SectionButton/SectionButton';
 import {PlaceLevel, PlaceType} from '../../../features/places/common';
 import {getDistricts} from '../../../features/places/helpers';
+import {usePlayer} from '../../../features/character/hooks/usePlayer';
 
 type CityProps = {
   navigation: Navigation;
@@ -38,7 +38,7 @@ function City({navigation}: CityProps) {
 
   const arrowRight = useIcon(Icon.ArrowRight, {size: 14});
 
-  const playerStore = usePlayerStore();
+  const player = usePlayer();
   const characterStore = useCharacterStore();
 
   const navigate = useNavigate(navigation);
@@ -46,7 +46,7 @@ function City({navigation}: CityProps) {
 
   function handlePress(districtName: string, placeName: string, placeProps: PlaceProps) {
     const minAge = placeProps.restrictions?.age?.min;
-    if (minAge && minAge > playerStore.person.age) {
+    if (minAge && minAge > player.age) {
       console.log('restricted');
       return;
     }
@@ -57,7 +57,7 @@ function City({navigation}: CityProps) {
     navigate.stepForward(PageNames.Activities, {placeProps, placePeople});
   }
 
-  const districts = getDistricts(playerStore.person);
+  const districts = getDistricts(player);
 
   return (
     <ScrollView style={styles.box}>

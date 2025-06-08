@@ -9,14 +9,11 @@ import {PageNames} from '../../shared/constants/pages';
 import {colors} from '../../shared/constants/styles';
 import {Navigation} from '../../shared/types/navigation';
 import useStore from './src/store';
-import usePlayerStore from '../../shared/store/playerStore';
 import {useNavigate} from '../../shared/hooks/useNavigate';
 import {useLocalizeText} from '../../shared/locales/useLocalizeText';
 import {useCreateCharacters} from './src/useCreateCharacters';
 import useGameStore from '../../shared/store/gameStore';
 import Button from '../../shared/ui/components/Button/Button';
-import {playerId} from '../../shared/constants/character/player';
-import {ImmuneSystem} from '../../shared/constants/character/genetics';
 
 type StartNewLifeProps = {
   navigation: Navigation;
@@ -38,40 +35,12 @@ function StartNewLife({navigation}: StartNewLifeProps) {
     $surnameIsModified,
   } = useStore();
 
-  const playerStore = usePlayerStore();
   const {$gameInProgress} = useGameStore();
   const gameStore = useGameStore();
 
   const {translate} = useLocalizeText();
   const navigate = useNavigate(navigation);
   const createCharacters = useCreateCharacters();
-
-  function setInitialValues() {
-    playerStore.$person.set({
-      id: playerId,
-      country,
-      city,
-      gender,
-      name,
-      surname,
-      money: 0,
-      energy: 10,
-      age: 0,
-      health: 60,
-      power: 10,
-      charm: 20,
-      mood: 60,
-      sprite: {
-        body: 'light',
-        eyes: 'black',
-        mouth: 'smile',
-      },
-      genetics: {
-        immuneSystem: ImmuneSystem.Normal,
-      },
-      effects: [],
-    });
-  }
 
   function resetNewLifeStore() {
     $country.set('');
@@ -94,7 +63,6 @@ function StartNewLife({navigation}: StartNewLifeProps) {
   }
 
   function handleStart() {
-    setInitialValues();
     createCharacters();
     resetNewLifeStore();
     resetGameStore();

@@ -1,6 +1,5 @@
 import React, {ReactNode} from 'react';
 import {Navigation} from '../../../../../shared/types/navigation';
-import usePlayerStore from '../../../../../shared/store/playerStore';
 import {ResourceVariant} from '../../../../../shared/constants/resources';
 import {useNavigate} from '../../../../../shared/hooks/useNavigate';
 import {Icon} from '../../../../../shared/icons/icons';
@@ -10,13 +9,16 @@ import useGameStore from '../../../../../shared/store/gameStore';
 import {Text} from 'react-native';
 import SectionButton from '../../../../../shared/ui/components/SectionButton/SectionButton';
 import {useIcon} from '../../../../../shared/icons/useIcon';
+import {ActivityItem} from '../../../../../features/places/types';
+import {useLocalizeText} from '../../../../../shared/locales/useLocalizeText';
+import {activityDescriptions} from '../../../../../features/places/activities/descriptions';
+import {isEnoughToDoActivity, updatePersonByActivity} from '../../../../../features/places/helpers';
+import {useUpdatePerson} from '../../../../../features/character/hooks/useUpdatePerson';
+import {usePlayer} from '../../../../../features/character/hooks/usePlayer';
 
 type ActivityProps = {
-  label: string;
   navigation: Navigation;
-  price: Array<{resource: ResourceVariant; amount: number}>;
-  action: () => void;
-  descriptions: string[];
+  activity: ActivityItem;
 };
 
 type ResourceMap = {
@@ -26,11 +28,13 @@ type ResourceMap = {
   };
 };
 
-function Activity({label, navigation, price, action, descriptions}: ActivityProps) {
-  const playerStore = usePlayerStore();
+function Activity({navigation, activity}: ActivityProps) {
+  const player = usePlayer();
   const gameStore = useGameStore();
   const navigate = useNavigate(navigation);
   const {addItemToHistory} = useStoreHooks();
+  const {translate} = useLocalizeText();
+  const {savePerson} = useUpdatePerson();
 
   const resourceMap: ResourceMap = {
     [ResourceVariant.money]: {
@@ -43,23 +47,14 @@ function Activity({label, navigation, price, action, descriptions}: ActivityProp
     },
   };
 
-  const isNotEnough = price.some(p => {
-    const resource = resourceMap[p.resource].resource;
-    return playerStore.person[resource as ResourceVariant] < p.amount;
-  });
+  const isEnough = isEnoughToDoActivity(activity, player);
 
   const handlePress = () => {
-    if (isNotEnough) {
-      return;
-    }
-
-    action();
-    price.forEach(p => {
-      const resourceObj = resourceMap[p.resource];
-      playerStore.$person.updateByKeys([{itemKeys: [resourceObj.resource], value: p.amount}]);
-    });
+    updatePersonByActivity(activity, player);
+    savePerson(player);
 
     // set popup content and history
+    const descriptions = activityDescriptions[activity.label] || [''];
     const content = getRandomArrayItem(descriptions) || descriptions[0];
     gameStore.$popUpContent.set({
       content,
@@ -71,12 +66,12 @@ function Activity({label, navigation, price, action, descriptions}: ActivityProp
 
   return (
     <SectionButton
-      label={label}
+      label={translate(activity.label)}
       onPress={handlePress}
-      disabled={isNotEnough}
+      disabled={!isEnough}
       icon={
         <>
-          {price.map(p => (
+          {activity.price.map(p => (
             <React.Fragment key={p.resource}>
               <Text>{p.amount.toString()}</Text>
               {resourceMap[p.resource].icon}

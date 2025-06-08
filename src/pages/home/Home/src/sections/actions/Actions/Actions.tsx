@@ -1,18 +1,18 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import usePlayerStore from '../../../../../../../shared/store/playerStore';
 import {Navigation} from '../../../../../../../shared/types/navigation';
 import {PageNames} from '../../../../../../../shared/constants/pages';
 import {useNavigate} from '../../../../../../../shared/hooks/useNavigate';
 import {useGrowUp} from './src/growUp/useGrowUp';
 import Button from '../../../../../../../shared/ui/components/Button/Button';
+import {usePlayer} from '../../../../../../../features/character/hooks/usePlayer';
 
 type ActionsProps = {
   navigation: Navigation;
 };
 
 function Actions({navigation}: ActionsProps) {
-  const playerStore = usePlayerStore();
+  const player = usePlayer();
   const navigate = useNavigate(navigation);
 
   const growUp = useGrowUp();
@@ -21,11 +21,7 @@ function Actions({navigation}: ActionsProps) {
     <View style={styles.box}>
       <View style={styles.column}>
         <Button label="grow up" onPress={growUp} />
-        <Button
-          label="City"
-          onPress={() => navigate.stepForward(PageNames.City)}
-          disabled={playerStore.person.age < 0}
-        />
+        <Button label="City" onPress={() => navigate.stepForward(PageNames.City)} disabled={player.age < 0} />
         <Button label="History" onPress={() => navigate.stepForward(PageNames.History)} />
       </View>
       <View style={styles.column}>

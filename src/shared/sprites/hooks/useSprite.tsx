@@ -4,8 +4,8 @@ import {DimensionValue, ViewStyle} from 'react-native';
 import TestCar from '../transport/TestCar/TestCar';
 import TestAircraft from '../aircraft/TestAircraft/TestAircraft';
 import {useGetSpriteByAge} from './useGetSpriteByAge';
-import usePlayerStore from '../../store/playerStore';
 import {Person} from '../../types/people';
+import {usePlayer} from '../../../features/character/hooks/usePlayer';
 
 export enum SpriteName {
   player = 'player',
@@ -19,19 +19,18 @@ type Sprites = {
 };
 
 export function useSprite() {
-  const playerStore = usePlayerStore();
-
+  const player = usePlayer();
   const getSpriteByAge = useGetSpriteByAge();
 
   const getSpriteNode = (size: DimensionValue, style?: ViewStyle): Sprites => ({
     [SpriteName.player]: getSpriteByAge(
-      playerStore.person.age,
+      player.age,
       size,
       {
-        body: playerStore.person.sprite.body,
-        eyes: playerStore.person.sprite.eyes,
-        mouth: playerStore.person.sprite.mouth,
-        hair: playerStore.person.sprite.hair,
+        body: player.sprite.body,
+        eyes: player.sprite.eyes,
+        mouth: player.sprite.mouth,
+        hair: player.sprite.hair,
       },
       style,
     ),
